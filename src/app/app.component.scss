@@ -1,0 +1,17 @@
+.navbar {
+    background: linear-gradient(rgb(47, 43, 59) 60%, transparent);
+    height: 5rem;
+}
+
+.background {
+    position: fixed;
+    top: 0;
+}
+
+#site-navbar {
+    color: white;
+}
+
+#site-navbar a:hover {
+    background-color: #d8835c;
+}
