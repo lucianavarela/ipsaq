@@ -1,3 +1,11 @@
 table {
-    width: 100%;
-  }
+  width: 100%;
+}
+
+.mat-cell, .mat-header-cell {
+  vertical-align: middle;
+}
+
+.mat-header-cell {
+  font-size: 14px;
+}
