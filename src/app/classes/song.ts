@@ -1,25 +1,27 @@
 export class Song {
-    public id: number;
-    public titulo: string;
-    public comienzo: string;
-    public indice: number;
-    public artista: string;
-    public link_original: string;
-    public link_ipsaq: string;
-    public letra: string;
-    public link_acordes: string;
+    public id?: number | null;
+    public title: string | null;
+    public beginning: string | null;
+    public index: number | null;
+    public artist: string | null;
+    public link_original: string | null;
+    public link_ipsaq: string | null;
+    public link_chords: string | null;
+    public lyrics: string | null;
+    public created_at: Date | null;
 
-    constructor(id: number, titulo: string, comienzo: string, indice: number,
-        artista: string, link_original: string, link_ipsaq: string, letra: string,
-        link_acordes: string) {
-        this.id = id;
-        this.titulo = titulo;
-        this.comienzo = comienzo;
-        this.indice = indice;
-        this.artista = artista;
-        this.link_original = link_original;
-        this.link_ipsaq = link_ipsaq;
-        this.letra = letra;
-        this.link_acordes = link_acordes;
+    constructor(obj?: {id: number, titulo: string, beginning: string, index: number,
+        artist: string, link_original: string, link_ipsaq: string, lyrics: string,
+        link_chords: string, created_at: Date}) {
+        this.id = obj?.id ?? null;
+        this.title = obj?.titulo ?? null;
+        this.beginning = obj?.beginning ?? null;
+        this.index = obj?.index ?? null;
+        this.artist = obj?.artist ?? null;
+        this.link_original = obj?.link_original ?? null;
+        this.link_ipsaq = obj?.link_ipsaq ?? null;
+        this.link_chords = obj?.link_chords ?? null;
+        this.lyrics = obj?.lyrics ?? null;
+        this.created_at = obj?.created_at ?? null;
     }
 }

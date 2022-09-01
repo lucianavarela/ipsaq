@@ -18,6 +18,7 @@ const AppRoutes: Routes = [
   { path: 'cultos/:id', component: SermonDetailComponent },
   { path: 'cultos/:id/editar', component: SermonEditComponent },
   { path: 'cancionero', component: SongsComponent },
+  { path: 'cancionero/agregar', component: SongDetailComponent },
   { path: 'cancionero/:id', component: SongDetailComponent },
   { path: 'cancionero/:id/editar', component: SongEditComponent },
   

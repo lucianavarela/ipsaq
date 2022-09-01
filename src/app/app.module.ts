@@ -15,8 +15,7 @@ import { SongEditComponent } from './pages/song-edit/song-edit.component';
 import { SermonsComponent } from './pages/sermons/sermons.component';
 import { SermonDetailComponent } from './pages/sermon-detail/sermon-detail.component';
 import { SermonEditComponent } from './pages/sermon-edit/sermon-edit.component';
-import { SermonSermon } from './services/sermons.service';
-import { SongsSermon } from './services/songs.service';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -37,6 +36,7 @@ import { SongsSermon } from './services/songs.service';
     BrowserModule,
     AppRoutingModule,
     MatTableModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
