@@ -1,11 +1,11 @@
 export class SermonSong {
-    public id: number;
-    public id_cancion: number;
-    public id_culto: number;
+    public id?: number | null;
+    public id_cancion: number | null;
+    public id_culto: number | null;
 
-    constructor(id: number, id_cancion: number, id_culto: number) {
-        this.id = id;
-        this.id_cancion = id_cancion;
-        this.id_culto = id_culto;
+    constructor(obj?: {id: number, id_cancion: number, id_culto: number}) {
+        this.id = obj?.id ?? null;
+        this.id_cancion = obj?.id_cancion ?? null;
+        this.id_culto = obj?.id_culto ?? null;
     }
 }

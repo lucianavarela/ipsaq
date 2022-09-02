@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Song } from 'src/app/classes/song';
 import { SongsService } from 'src/app/services/songs.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-song-detail',
@@ -11,34 +13,13 @@ export class SongDetailComponent implements OnInit {
   song!: Song;
   loading = false;
 
-  constructor(private sSongs: SongsService) { }
-
-  ngOnInit(): void {
-    this.song = new Song();
+  constructor(private sSongs: SongsService, private activatedRoute: ActivatedRoute, private _sanitizer: DomSanitizer) {
   }
-
-  async updateSong(song: Song) {
-    try {
-      this.loading = true;
-      await this.sSongs.updateSong(song)
-      alert('Canción actualizada!')
-    } catch (error: any) {
-      alert(error.error_description || error.message)
-    } finally {
-      this.loading = false;
-    }
+  ngOnInit() {
+    this.activatedRoute.data.subscribe(({ song }) => {
+      this.song = song.data;
+      if (this.song.link_ipsaq) this.song.link_ipsaq = this._sanitizer.bypassSecurityTrustResourceUrl(this.song.link_ipsaq?.toString());
+    })
   }
-
-  async addSong() {
-    try {
-      this.loading = true;
-      delete this.song.id;
-      await this.sSongs.createSong(this.song)
-      alert('Canción actualizada!')
-    } catch (error: any) {
-      alert(error.error_description || error.message)
-    } finally {
-      this.loading = false;
-    }
-  }
+  
 }

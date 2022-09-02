@@ -1,1 +1,126 @@
-<p>song-edit works!</p>
+<section class="hero is-primary">
+    <div class="hero-body has-text-centered">
+        <p class="title">{{ song.id ? song.title : 'Agregar Canción'}}</p>
+    </div>
+</section>
+
+<div class="container">
+    <section class="section">
+
+        <div class="field is-horizontal">
+            <div class="field-label">
+                <label class="label">Titulo</label>
+            </div>
+            <div class="field-body">
+                <div class="field is-expanded">
+                    <p class="control is-expanded">
+                        <input class="input" [(ngModel)]="song.title" placeholder="Titulo">
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="field is-horizontal">
+            <div class="field-label">
+                <label class="label">Comienzo</label>
+            </div>
+            <div class="field-body">
+                <div class="field is-expanded">
+                    <p class="control is-expanded">
+                        <input class="input" [(ngModel)]="song.beginning"
+                        placeholder="Comienzo/Primer oración">
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="field is-horizontal">
+            <div class="field-label">
+                <label class="label">Artista</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <p class="control is-expanded">
+                        <input class="input" [(ngModel)]="song.artist" type="text" placeholder="Artista">
+                    </p>
+                </div>
+                <div class="field has-addons">
+                    <p class="control" style="margin-right: 1rem">
+                        <label class="label">Indice</label>
+                    </p>
+                    <p class="control is-expanded">
+                        <input class="input" [(ngModel)]="song.index" type="number" placeholder="Indice">
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="field is-horizontal">
+            <div class="field-label">
+                <label class="label">Link de canción original</label>
+            </div>
+            <div class="field-body">
+                <div class="field is-expanded">
+                    <p class="control is-expanded">
+                        <input class="input" [(ngModel)]="song.link_original"
+                        type="text" placeholder="Link a Youtube de version original">
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="field is-horizontal">
+            <div class="field-label">
+                <label class="label">Link de nuestra versión</label>
+            </div>
+            <div class="field-body">
+                <div class="field is-expanded">
+                    <p class="control is-expanded">
+                        <input class="input" type="text" [(ngModel)]="song.link_ipsaq"
+                        placeholder="Link a Youtube de nuestra version">
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="field is-horizontal">
+            <div class="field-label">
+                <label class="label">Link de Acordes</label>
+            </div>
+            <div class="field-body">
+                <div class="field is-expanded">
+                    <p class="control is-expanded">
+                        <input class="input" type="text" [(ngModel)]="song.link_chords"
+                        placeholder="Link al archivo con acordes">
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="field is-horizontal">
+            <div class="field-label">
+                <label class="label">Letra</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <div class="control">
+                        <textarea class="textarea" [(ngModel)]="song.lyrics"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="field is-grouped">
+            <div class="field-label"></div>
+            <div class="field-body">
+                <div class="field">
+                    <div class="control">
+                        <button class="button is-primary" (click)="addSong()">
+                            Crear Cancion
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

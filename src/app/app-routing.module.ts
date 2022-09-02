@@ -9,6 +9,7 @@ import { SermonsComponent } from './pages/sermons/sermons.component';
 import { SongDetailComponent } from './pages/song-detail/song-detail.component';
 import { SongEditComponent } from './pages/song-edit/song-edit.component';
 import { SongsComponent } from './pages/songs/songs.component';
+import { SongsResolverService } from './services/songs-resolver.service';
 
 const AppRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -18,8 +19,14 @@ const AppRoutes: Routes = [
   { path: 'cultos/:id', component: SermonDetailComponent },
   { path: 'cultos/:id/editar', component: SermonEditComponent },
   { path: 'cancionero', component: SongsComponent },
-  { path: 'cancionero/agregar', component: SongDetailComponent },
-  { path: 'cancionero/:id', component: SongDetailComponent },
+  { path: 'agregar_cancion', component: SongEditComponent },
+  { 
+    path: 'cancionero/:id',
+    component: SongDetailComponent,
+    resolve: {
+      song: SongsResolverService
+    }
+  },
   { path: 'cancionero/:id/editar', component: SongEditComponent },
   
   // otherwise redirect to home

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core'
 import {
   AuthChangeEvent,
   createClient,
+  PostgrestResponse,
   Session,
   SupabaseClient,
 } from '@supabase/supabase-js'
@@ -22,8 +23,12 @@ export class SupabaseService {
     return this.supabase.auth.user()
   }
 
-  get(obj: any, table: string) {
-    return this.supabase.from(table).select('id', obj?.id).single()
+  get(table: string) {
+    return this.supabase.from(table).select('*');
+  }
+
+  getById(id: number, table: string) {
+    return this.supabase.from(table).select('*').eq('id', id).single()
   }
 
   add(obj: any, table: string) {
@@ -56,3 +61,43 @@ export class SupabaseService {
   }
 
 }
+
+
+/*
+
+FILTERING QUERIES INFO
+
+.eq('column', 'Equal to')
+.gt('column', 'Greater than')
+.lt('column', 'Less than')
+.gte('column', 'Greater than or equal to')
+.lte('column', 'Less than or equal to')
+.like('column', '%CaseSensitive%')
+.ilike('column', '%CaseInsensitive%')
+.is('column', null)
+.in('column', ['Array', 'Values'])
+.neq('column', 'Not equal to')
+
+// Arrays
+.cs('array_column', ['array', 'contains'])
+.cd('array_column', ['contained', 'by'])
+
+----
+
+READ FOREIGN TABLES
+let { data: songs, error } = await supabase
+  .from('songs')
+  .select(`
+    some_column,
+    other_table (
+      foreign_key
+    )
+  `)
+  
+WITH PAGINATION
+let { data: songs, error } = await supabase
+  .from('songs')
+  .select('*')
+  .range(0, 9)
+
+*/

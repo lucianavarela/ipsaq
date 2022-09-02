@@ -1,12 +1,14 @@
+import { SafeResourceUrl } from "@angular/platform-browser";
+
 export class Song {
     public id?: number | null;
     public title: string | null;
     public beginning: string | null;
     public index: number | null;
     public artist: string | null;
-    public link_original: string | null;
-    public link_ipsaq: string | null;
-    public link_chords: string | null;
+    public link_original: string | SafeResourceUrl | null;
+    public link_ipsaq: string | SafeResourceUrl | null;
+    public link_chords: string | SafeResourceUrl | null;
     public lyrics: string | null;
     public created_at: Date | null;
 
