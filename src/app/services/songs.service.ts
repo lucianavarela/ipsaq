@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { PostgrestResponse } from '@supabase/supabase-js';
 import { Song } from '../classes/song';
 import { SupabaseService } from './supabase.service';
 
@@ -8,6 +7,7 @@ import { SupabaseService } from './supabase.service';
 })
 export class SongsService {
   table = 'songs';
+  usage_view = 'songs_with_usage';
 
   constructor(public sSupabase: SupabaseService) { }
 
@@ -15,15 +15,25 @@ export class SongsService {
     return this.sSupabase.getById(id, this.table);
   }
 
-  getSongs() {
-    return this.sSupabase.get(this.table);
+  getSongs(with_usage?: boolean) {
+    return this.sSupabase.get(with_usage? this.usage_view: this.table);
   }
 
-  updateSong(song: Song) {
-    return this.sSupabase.update(song, this.table);
+  async updateSong(song: Song) {
+    return await this.sSupabase.update(song, this.table);
   }
 
   async createSong(song: Song) {
     return await this.sSupabase.add(song, this.table);
   }
 }
+
+
+/*
+
+READ FOREIGN TABLES
+let { data: songs, error } = await supabase
+  .from('songs')
+  .select('*,sermon_song (*)')
+  
+*/

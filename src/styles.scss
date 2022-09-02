@@ -1,6 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { 
+    margin: 0; 
+}
+
+* {
+    font-family: "Nunito", Roboto, "Helvetica Neue", sans-serif; 
+}
 
 @import "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css";
+
+$fa-font-path: "./webfonts";
+
+// importing core styling file
+
+@import "./assets/font-awesome/fontawesome.scss";
+@import "./assets/font-awesome/solid.scss";
+@import "./assets/font-awesome/regular.scss";
+@import "./assets/font-awesome/brands.scss";

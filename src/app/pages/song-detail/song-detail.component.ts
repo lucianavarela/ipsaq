@@ -17,8 +17,7 @@ export class SongDetailComponent implements OnInit {
   }
   ngOnInit() {
     this.activatedRoute.data.subscribe(({ song }) => {
-      this.song = song.data;
-      if (this.song.link_ipsaq) this.song.link_ipsaq = this._sanitizer.bypassSecurityTrustResourceUrl(this.song.link_ipsaq?.toString());
+      this.song = new Song(song.data);
     })
   }
   

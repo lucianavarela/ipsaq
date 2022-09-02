@@ -2,24 +2,36 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
-import { RegisterComponent } from './pages/register/register.component';
 import { SermonDetailComponent } from './pages/sermon-detail/sermon-detail.component';
 import { SermonEditComponent } from './pages/sermon-edit/sermon-edit.component';
 import { SermonsComponent } from './pages/sermons/sermons.component';
 import { SongDetailComponent } from './pages/song-detail/song-detail.component';
 import { SongEditComponent } from './pages/song-edit/song-edit.component';
 import { SongsComponent } from './pages/songs/songs.component';
+import { SermonsResolverService } from './services/sermons-resolver.service';
 import { SongsResolverService } from './services/songs-resolver.service';
 
 const AppRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
   { path: 'cultos', component: SermonsComponent },
-  { path: 'cultos/:id', component: SermonDetailComponent },
-  { path: 'cultos/:id/editar', component: SermonEditComponent },
+  {
+    path: 'cultos/:id',
+    component: SermonDetailComponent,
+    resolve: {
+      sermon: SermonsResolverService
+    }
+  },
+  {
+    path: 'cultos/:id/editar',
+    component: SermonEditComponent,
+    resolve: {
+      sermon: SermonsResolverService
+    }
+  },
+  { path: 'nuevo_culto', component: SermonEditComponent },
   { path: 'cancionero', component: SongsComponent },
-  { path: 'agregar_cancion', component: SongEditComponent },
+  { path: 'nueva_cancion', component: SongEditComponent },
   { 
     path: 'cancionero/:id',
     component: SongDetailComponent,
@@ -27,7 +39,13 @@ const AppRoutes: Routes = [
       song: SongsResolverService
     }
   },
-  { path: 'cancionero/:id/editar', component: SongEditComponent },
+  {
+    path: 'cancionero/:id/editar',
+    component: SongEditComponent,
+    resolve: {
+      song: SongsResolverService
+    }
+  },
   
   // otherwise redirect to home
   { path: '**', redirectTo: '' }

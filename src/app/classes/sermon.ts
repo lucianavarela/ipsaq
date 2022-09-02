@@ -1,20 +1,20 @@
 export class Sermon {
-    public id?: number | null;
-    public id_director: number | null;
-    public id_preacher: number | null;
-    public title: string | null;
-    public date: Date | null;
-    public link_youtube: string | null;
-    public bible_verse: string | null;
+    public id?: number;
+    public director?: number;
+    public preacher?: number;
+    public title?: string;
+    public date?: Date;
+    public link_youtube?: string;
+    public bible_verse?: string;
 
-    constructor(obj?: {id: number, id_director: number, id_preacher: number, title: string,
+    constructor(obj?: {id: number, director: number, preacher: number, title: string,
         date: Date, link_youtube: string, bible_verse: string}) {
-        this.id = obj?.id ?? null;
-        this.id_director = obj?.id_director ?? null;
-        this.id_preacher = obj?.id_preacher ?? null;
-        this.title = obj?.title ?? null;
-        this.date = obj?.date ?? null;
-        this.link_youtube = obj?.link_youtube ?? null;
-        this.bible_verse = obj?.bible_verse ?? null;
+        this.id = obj?.id;
+        this.director = obj?.director;
+        this.preacher = obj?.preacher;
+        this.title = obj?.title;
+        this.date = obj?.date;
+        this.link_youtube = obj?.link_youtube;
+        this.bible_verse = obj?.bible_verse;
     }
 }

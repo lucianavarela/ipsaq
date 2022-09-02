@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Song } from 'src/app/classes/song';
 import { SongsService } from 'src/app/services/songs.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-song-edit',
@@ -12,26 +13,26 @@ export class SongEditComponent implements OnInit {
   song!: Song;
   loading = false;
 
-  constructor(private sSongs: SongsService, private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(private sSongs: SongsService, private router: Router, private activatedRoute: ActivatedRoute,
+    private toastService: ToastService) { }
 
   ngOnInit() {
     this.activatedRoute.data.subscribe(({ song }) => {
       if (song) {
-        this.song = song;
+        this.song = new Song(song.data);
       } else {
         this.song = new Song();
       }
     })
   }
 
-  async updateSong(song: Song) {
+  async updateSong() {
     try {
       this.loading = true;
-      let { data: Song, error } = await this.sSongs.updateSong(song)
-
-      alert('Canción actualizada!')
+      this.sSongs.updateSong(this.song).then((res:any) => this.router.navigateByUrl('/cancionero/'+res.data[0]['id']));
+      this.toastService.showSuccessToast('Exito!', 'Canción actualizada.');
     } catch (error: any) {
-      alert(error.error_description || error.message)
+      this.toastService.showErrorToast('Error al guardar', error.error_description || error.message);
     } finally {
       this.loading = false;
     }
@@ -42,8 +43,9 @@ export class SongEditComponent implements OnInit {
       this.loading = true;
       delete this.song.id;
       this.sSongs.createSong(this.song).then((res:any) => this.router.navigateByUrl('/cancionero/'+res.data[0]['id']));
+      this.toastService.showSuccessToast('Exito!', 'Canción agregada.');
     } catch (error: any) {
-      alert(error.error_description || error.message)
+      this.toastService.showErrorToast('Error al guardar', error.error_description || error.message);
     } finally {
       this.loading = false;
     }

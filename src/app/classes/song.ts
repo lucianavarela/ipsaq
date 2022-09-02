@@ -1,29 +1,31 @@
-import { SafeResourceUrl } from "@angular/platform-browser";
-
 export class Song {
-    public id?: number | null;
-    public title: string | null;
-    public beginning: string | null;
-    public index: number | null;
-    public artist: string | null;
-    public link_original: string | SafeResourceUrl | null;
-    public link_ipsaq: string | SafeResourceUrl | null;
-    public link_chords: string | SafeResourceUrl | null;
-    public lyrics: string | null;
-    public created_at: Date | null;
+    public id?: number;
+    public title?: string;
+    public beginning?: string;
+    public index?: number;
+    public artist?: string;
+    public link_original?: string;
+    public link_ipsaq?: string;
+    public link_chords?: string;
+    public lyrics?: string;
+    public created_at?: Date;
+    public last_used?: Date;
+    public amount_used?: number;
 
-    constructor(obj?: {id: number, titulo: string, beginning: string, index: number,
+    constructor(obj?: {id: number, title: string, beginning: string, index: number,
         artist: string, link_original: string, link_ipsaq: string, lyrics: string,
-        link_chords: string, created_at: Date}) {
-        this.id = obj?.id ?? null;
-        this.title = obj?.titulo ?? null;
-        this.beginning = obj?.beginning ?? null;
-        this.index = obj?.index ?? null;
-        this.artist = obj?.artist ?? null;
-        this.link_original = obj?.link_original ?? null;
-        this.link_ipsaq = obj?.link_ipsaq ?? null;
-        this.link_chords = obj?.link_chords ?? null;
-        this.lyrics = obj?.lyrics ?? null;
-        this.created_at = obj?.created_at ?? null;
+        link_chords: string, created_at: Date, last_used: Date, amount_used: number}) {
+        this.id = obj?.id;
+        this.title = obj?.title;
+        this.beginning = obj?.beginning;
+        this.index = obj?.index;
+        this.artist = obj?.artist;
+        this.link_original = obj?.link_original;
+        this.link_ipsaq = obj?.link_ipsaq;
+        this.link_chords = obj?.link_chords;
+        this.lyrics = obj?.lyrics;
+        this.created_at = obj?.created_at;
+        this.last_used = obj?.last_used;
+        this.amount_used = obj?.amount_used;
     }
 }

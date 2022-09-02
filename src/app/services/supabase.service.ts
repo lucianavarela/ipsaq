@@ -23,8 +23,8 @@ export class SupabaseService {
     return this.supabase.auth.user()
   }
 
-  get(table: string) {
-    return this.supabase.from(table).select('*');
+  get(table: string, queryFields?: string) {
+    return this.supabase.from(table).select(`${queryFields ? queryFields : '*'}`);
   }
 
   getById(id: number, table: string) {

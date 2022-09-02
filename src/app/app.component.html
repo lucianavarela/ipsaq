@@ -1,42 +1,30 @@
 <nav class="navbar" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
-        <a class="navbar-item" href="/">
-            <img src="assets/logo.png">
-        </a>
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      <img src="assets/logo.png" />
+    </a>
+  </div>
 
-        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-        </a>
+  <div id="site-navbar" class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item" [routerLink]="['home']"> Inicio </a>
+      <a class="navbar-item" [routerLink]="['cancionero']"> Cancionero </a>
+      <a class="navbar-item" [routerLink]="['cultos']"> Cultos </a>
+      <a class="navbar-item" [routerLink]="['nueva_cancion']"> Nueva Canción </a>
     </div>
 
-    <div id="site-navbar" class="navbar-menu">
-        <div class="navbar-start">
-            <a class="navbar-item" [routerLink]="['home']">
-                Inicio
-            </a>
-
-            <a class="navbar-item" [routerLink]="['cancionero']">
-                Cancionero
-            </a>
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <a class="button is-light" [routerLink]="['login']"> Ingresar </a>
         </div>
-
-        <div class="navbar-end">
-            <div class="navbar-item">
-                <div class="buttons">
-                    <a class="button is-primary" [routerLink]="['register']">
-                        Registrarse
-                    </a>
-                    <a class="button is-light" [routerLink]="['login']">
-                        Ingresar
-                    </a>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
+  </div>
 </nav>
 
+<app-toaster></app-toaster>
+
 <div class="main-container">
-    <router-outlet></router-outlet>
+  <router-outlet></router-outlet>
 </div>

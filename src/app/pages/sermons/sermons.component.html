@@ -1,1 +1,58 @@
-<p>sermons works!</p>
+<section class="hero is-primary">
+  <div class="hero-body has-text-centered">
+    <p class="title">Listado de Cultos</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+      
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Titulo</th>
+        <td mat-cell *matCellDef="let sermon">{{ sermon.title }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="director">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Dirigido por</th>
+        <td mat-cell *matCellDef="let sermon">{{ sermon.director }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="preacher">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Predicador</th>
+        <td mat-cell *matCellDef="let sermon">{{ sermon.preacher }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</th>
+        <td mat-cell *matCellDef="let sermon">{{ sermon.date }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="bible_verse">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Lectura</th>
+        <td mat-cell *matCellDef="let sermon">{{ sermon.bible_verse }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="button_to_page">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let sermon">
+          <p class="control">
+            <a
+              class="button is-info is-small"
+              [routerLink]="['/cultos', sermon.id]"
+            >
+              Ver Culto
+            </a>
+          </p>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">Sin resultados :(</td>
+      </tr>
+    </table>
+  </div>
+</section>

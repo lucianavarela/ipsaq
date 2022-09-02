@@ -1,1 +1,34 @@
-<p>sermon-detail works!</p>
+<section class="hero is-primary">
+    <div class="hero-body">
+        <div class="columns">
+            <div class="column is-1">
+                <p class="control">
+                    <button class="button is-rounded is-primary" [routerLink]="['/cultos']">
+                        <span class="icon">
+                            <i class="fa-solid fa-2x fa-arrow-left"></i>
+                        </span>
+                    </button>
+                </p>
+            </div>
+            <div class="column has-text-centered">
+                <p class="title">{{ sermon.title }}</p>
+                <p class="subtitle">{{ sermon.date | date: 'dd MMMM yyyy' }}</p>
+            </div>
+            <div class="column is-1">
+                <p class="control">
+                    <button class="button is-rounded is-primary" [routerLink]="['editar']">
+                        <span class="icon">
+                            <i class="fa-solid fa-2x fa-pencil"></i>
+                        </span>
+                    </button>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <section class="section has-text-centered">
+        <iframe *ngIf="sermon.link_youtube" width="860" height="484" [src]="sermon.link_youtube | transformYoutube | safeUrl" frameborder="0" allowfullscreen></iframe>
+    </section>
+</div>

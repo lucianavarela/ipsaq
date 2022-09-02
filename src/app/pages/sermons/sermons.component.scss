@@ -1,0 +1,29 @@
+table {
+    width: 100%;
+  }
+  
+  .mat-cell, .mat-header-cell {
+    vertical-align: middle;
+    color: #212121;
+  }
+  
+  .mat-table {
+    background-color: #efefef;
+  }
+  
+  .mat-header-cell {
+    font-size: 14px;
+  }
+  
+  .mat-form-field {
+    width: 60%;
+  }
+  
+  mat-row, mat-header-row, mat-footer-row, th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
+    border-bottom-color: #bbbbbb !important;
+  }
+  
+  th.mat-sort-header-sorted {
+    color: black;
+  }
+  
