@@ -3,23 +3,29 @@
     <a class="navbar-item" href="/">
       <img src="assets/logo.png" />
     </a>
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
   </div>
 
   <div id="site-navbar" class="navbar-menu">
     <div class="navbar-start">
       <a class="navbar-item" [routerLink]="['home']"> Inicio </a>
-      <a class="navbar-item" [routerLink]="['cancionero']"> Cancionero </a>
-      <a class="navbar-item" [routerLink]="['cultos']"> Cultos </a>
+      <a class="navbar-item has-text-weight-bold" [routerLink]="['cancionero']"> Cancionero </a>
+      <a class="navbar-item has-text-weight-bold" [routerLink]="['cultos']"> Cultos </a>
       <a class="navbar-item" [routerLink]="['nueva_cancion']"> Nueva Canción </a>
+      <a class="navbar-item" [routerLink]="['nuevo_culto']"> Nuevo Culto </a>
     </div>
 
-    <div class="navbar-end">
+    <!--div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
           <a class="button is-light" [routerLink]="['login']"> Ingresar </a>
         </div>
       </div>
-    </div>
+    </div-->
   </div>
 </nav>
 

@@ -19,3 +19,7 @@ $fa-font-path: "./webfonts";
 @import "./assets/font-awesome/solid.scss";
 @import "./assets/font-awesome/regular.scss";
 @import "./assets/font-awesome/brands.scss";
+
+a {
+    text-decoration: none !important;
+}

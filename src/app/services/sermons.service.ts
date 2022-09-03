@@ -7,11 +7,17 @@ import { SupabaseService } from './supabase.service';
 })
 export class SermonsService {
   table = 'sermons';
+  tableLastSermon = 'last_sermon';
+  tableUpcomingSermon = 'upcoming_sermon';
 
   constructor(public sSupabase: SupabaseService) { }
 
   getSermon(id: number) {
     return this.sSupabase.getById(id, this.table);
+  }
+
+  getSpecificSermon(isLastSermon: boolean) {
+    return this.sSupabase.get(isLastSermon ? this.tableLastSermon : this.tableUpcomingSermon);
   }
 
   getSermons() {
