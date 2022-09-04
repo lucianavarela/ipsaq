@@ -14,6 +14,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.sSermon.getSpecificSermon(true).then((res:any) => this.lastSermon = new Sermon(res.data[0]))
-    //this.sSermon.getSpecificSermon(false).then(res => this.upcomingSermon = new Sermon(res.data))
+    this.sSermon.getSpecificSermon(false).then((res:any) => this.upcomingSermon = new Sermon(res.data[0]))
   }
 }

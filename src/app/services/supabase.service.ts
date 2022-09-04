@@ -27,8 +27,12 @@ export class SupabaseService {
     return this.supabase.from(table).select(`${queryFields ? queryFields : '*'}`);
   }
 
-  getById(id: number, table: string) {
-    return this.supabase.from(table).select('*').eq('id', id).single()
+  getById(id: number, table: string, queryFields?: string) {
+    return this.supabase.from(table).select(`${queryFields ? queryFields : '*'}`).eq('id', id).single()
+  }
+
+  getByEqCriteria(id: number, table: string, queryFields?: string, matchingField: string = 'id') {
+    return this.supabase.from(table).select(`${queryFields ? queryFields : '*'}`).eq(matchingField, id)
   }
 
   add(obj: any, table: string) {
@@ -39,6 +43,9 @@ export class SupabaseService {
     return this.supabase.from(table).update(obj);
   }
 
+  delete(id: number, table: string) {
+    return this.supabase.from(table).delete().eq('id', id)
+  }
 
   // LOGIN
 

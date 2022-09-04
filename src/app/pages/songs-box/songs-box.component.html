@@ -1,0 +1,23 @@
+<div class="box" *ngIf="sermonSong?.song">
+  <article class="media">
+    <div class="media-left">
+      <span class="icon">
+        <i class="fa-solid fa-lg fa-music"></i>
+      </span>
+    </div>
+    <div class="media-content">
+      <div class="content">
+        <p style="margin-bottom: 0"><strong style="padding-right:10px">{{sermonSong?.song?.index}}</strong>{{ sermonSong?.song?.beginning }}</p>
+        <small style="font-style: italic" *ngIf="sermonSong?.song?.beginning != sermonSong?.song?.title">{{ sermonSong?.song?.title }}</small>
+      </div>
+    </div>
+    <div class="media-right">
+        <a *ngIf="!editMode" [routerLink]="['/cancionero', sermonSong?.song?.id]" class="icon">
+            <i class="fa-solid  fa-lg fa-up-right-from-square"></i>
+        </a>
+        <span *ngIf="editMode" class="icon" style="cursor:pointer" (click)="deleteSong()">
+            <i class="fa-solid fa-lg fa-times has-text-danger"></i>
+        </span>
+    </div>
+  </article>
+</div>

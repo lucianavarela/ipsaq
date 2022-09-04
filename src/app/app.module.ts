@@ -22,6 +22,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSortModule } from '@angular/material/sort';
 import { ToasterComponent } from './utils/toaster/toaster.component';
 import { ToastComponent } from './utils/toast/toast.component';
+import { SongsBoxComponent } from './pages/songs-box/songs-box.component';
+import { MatSelectModule } from '@angular/material/select';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -39,6 +42,7 @@ import { ToastComponent } from './utils/toast/toast.component';
     TransformYoutubePipe,
     ToasterComponent,
     ToastComponent,
+    SongsBoxComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -48,7 +52,9 @@ import { ToastComponent } from './utils/toast/toast.component';
     MatFormFieldModule,
     FormsModule,
     MatInputModule,
-    MatSortModule
+    MatSortModule,
+    MatSelectModule,
+    NgSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -20,6 +20,9 @@ $fa-font-path: "./webfonts";
 @import "./assets/font-awesome/regular.scss";
 @import "./assets/font-awesome/brands.scss";
 
+@import "~@ng-select/ng-select/themes/default.theme.css";
+// ... or 
+
 a {
     text-decoration: none !important;
 }

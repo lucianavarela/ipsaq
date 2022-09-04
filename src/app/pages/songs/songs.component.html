@@ -20,7 +20,7 @@
     <table
       mat-table
       [dataSource]="dataSource"
-      class="mat-elevation-z8" matSort 
+      class="mat-elevation-z8" matSort matSortActive="index" matSortDirection="asc"
     >
       <ng-container matColumnDef="index">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Indice</th>
@@ -43,8 +43,8 @@
       </ng-container>
 
       <ng-container matColumnDef="last_used">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Ultima vez usado</th>
-        <td class="has-text-centered" mat-cell *matCellDef="let song">{{ song.last_used | date: 'dd-mm-yy' }}</td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Última vez usado</th>
+        <td class="has-text-centered" mat-cell *matCellDef="let song">{{ song.last_used | date: 'dd-MM-yy' }}</td>
       </ng-container>
 
       <ng-container matColumnDef="button_to_page">
