@@ -25,6 +25,7 @@ import { ToastComponent } from './utils/toast/toast.component';
 import { SongsBoxComponent } from './pages/songs-box/songs-box.component';
 import { MatSelectModule } from '@angular/material/select';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { ResetPwComponent } from './pages/reset-pw/reset-pw.component';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     ToasterComponent,
     ToastComponent,
     SongsBoxComponent,
+    ResetPwComponent,
   ],
   imports: [
     BrowserAnimationsModule,

@@ -9,10 +9,15 @@ import { SupabaseService } from './services/supabase.service';
 export class AppComponent implements OnInit {
   session = this.supabase.session
 
-  constructor(private readonly supabase: SupabaseService) {}
+  constructor(private readonly supabase: SupabaseService) {
+    this.supabase.setUser();
+  }
 
   ngOnInit() {
-    this.supabase.authChanges((_, session) => (this.session = session))
+  }
+
+  isLoggedIn() {
+    return this.supabase.isLoggedIn();
   }
 
 }

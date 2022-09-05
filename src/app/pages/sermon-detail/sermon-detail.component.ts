@@ -5,6 +5,7 @@ import { SermonsService } from 'src/app/services/sermons.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Song } from 'src/app/classes/song';
 import { SermonSong } from 'src/app/classes/sermon-song';
+import { SupabaseService } from 'src/app/services/supabase.service';
 
 @Component({
   selector: 'app-sermon-detail',
@@ -16,7 +17,8 @@ export class SermonDetailComponent implements OnInit {
   loading = false;
   songs: SermonSong[] = []
 
-  constructor(private sSermons: SermonsService, private activatedRoute: ActivatedRoute, private _sanitizer: DomSanitizer) {
+  constructor(private sSermons: SermonsService, private activatedRoute: ActivatedRoute, private _sanitizer: DomSanitizer,
+    private supabase: SupabaseService) {
   }
   ngOnInit() {
     this.activatedRoute.data.subscribe(({ sermon }) => {
@@ -27,4 +29,7 @@ export class SermonDetailComponent implements OnInit {
     })
   }
   
+  isLoggedIn() {
+    return this.supabase.isLoggedIn();
+  }
 }

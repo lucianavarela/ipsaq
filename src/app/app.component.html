@@ -15,17 +15,12 @@
       <a class="navbar-item" [routerLink]="['home']"> Inicio </a>
       <a class="navbar-item has-text-weight-bold" [routerLink]="['cancionero']"> Cancionero </a>
       <a class="navbar-item has-text-weight-bold" [routerLink]="['cultos']"> Cultos </a>
-      <a class="navbar-item" [routerLink]="['nueva_cancion']"> Nueva Canción </a>
-      <a class="navbar-item" [routerLink]="['nuevo_culto']"> Nuevo Culto </a>
+      <a *ngIf="isLoggedIn()" class="navbar-item" [routerLink]="['nueva_cancion']"> 
+        <span class="icon"><i class="fa-solid fa-sm fa-plus"></i></span>Nueva Canción </a>
+      <a *ngIf="isLoggedIn()" class="navbar-item" [routerLink]="['nuevo_culto']">
+        <span class="icon"><i class="fa-solid fa-sm fa-plus"></i></span>Nuevo Culto </a>
     </div>
 
-    <!--div class="navbar-end">
-      <div class="navbar-item">
-        <div class="buttons">
-          <a class="button is-light" [routerLink]="['login']"> Ingresar </a>
-        </div>
-      </div>
-    </div-->
   </div>
 </nav>
 

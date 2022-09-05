@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Song } from 'src/app/classes/song';
 import { SongsService } from 'src/app/services/songs.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { SupabaseService } from 'src/app/services/supabase.service';
 
 @Component({
   selector: 'app-song-detail',
@@ -13,7 +14,8 @@ export class SongDetailComponent implements OnInit {
   song!: Song;
   loading = false;
 
-  constructor(private sSongs: SongsService, private activatedRoute: ActivatedRoute, private _sanitizer: DomSanitizer) {
+  constructor(private sSongs: SongsService, private activatedRoute: ActivatedRoute, private _sanitizer: DomSanitizer,
+    private supabase: SupabaseService) {
   }
   ngOnInit() {
     this.activatedRoute.data.subscribe(({ song }) => {
@@ -21,4 +23,7 @@ export class SongDetailComponent implements OnInit {
     })
   }
   
+  isLoggedIn() {
+    return this.supabase.isLoggedIn();
+  }
 }

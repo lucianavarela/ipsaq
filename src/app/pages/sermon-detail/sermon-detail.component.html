@@ -18,7 +18,7 @@
         <p class="subtitle">{{ sermon.date | date: "dd MMMM yyyy" }}</p>
       </div>
       <div class="column is-1">
-        <p class="control">
+        <p class="control" *ngIf="isLoggedIn()">
           <button
             class="button is-rounded is-primary"
             [routerLink]="['editar']"

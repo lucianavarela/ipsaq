@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
 import {
   AuthChangeEvent,
+  AuthUser,
   createClient,
   PostgrestResponse,
   Session,
@@ -13,14 +14,11 @@ import { environment } from '../environments/environment'
 })
 
 export class SupabaseService {
-  private supabase: SupabaseClient
+  private supabase: SupabaseClient;
+  private user!: AuthUser;
 
   constructor() {
     this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey)
-  }
-
-  get user() {
-    return this.supabase.auth.user()
   }
 
   get(table: string, queryFields?: string) {
@@ -49,14 +47,31 @@ export class SupabaseService {
 
   // LOGIN
 
+  get getUser() {
+    return this.user;
+  }
+
+  setUser(user?: AuthUser) {
+    if (user) {
+      this.user = user;
+    } else {
+      let logged_user = this.supabase.auth.user();
+      if (logged_user) this.user = logged_user;
+    }
+  }
+
+  isLoggedIn() {
+    return this.user && this.user != null;
+  }
+
   authChanges(
     callback: (event: AuthChangeEvent, session: Session | null) => void
   ) {
     return this.supabase.auth.onAuthStateChange(callback)
   }
 
-  signIn(email: string) {
-    return this.supabase.auth.signIn({ email })
+  signIn(email: string, pw: string) {
+    return this.supabase.auth.signIn({ 'email': email, password: pw})
   }
 
   signOut() {
@@ -65,6 +80,14 @@ export class SupabaseService {
 
   get session() {
     return this.supabase.auth.session()
+  }
+
+  resetPW(access_token: string, new_pw: string) {
+    return this.supabase.auth.api.updateUser(access_token, { password: new_pw, })
+  }
+
+  requestReset(email: string) {
+    return this.supabase.auth.api.resetPasswordForEmail(email)
   }
 
 }

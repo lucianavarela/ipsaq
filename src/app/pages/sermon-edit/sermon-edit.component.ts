@@ -7,6 +7,8 @@ import { SermonsService } from "src/app/services/sermons.service";
 import { SongsService } from "src/app/services/songs.service";
 import { ToastService } from "src/app/services/toast.service";
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { Series } from "src/app/classes/series";
+import { SeriesService } from "src/app/services/series.service";
 
 @Component({
   selector: "app-sermon-edit",
@@ -16,7 +18,7 @@ import { NgSelectComponent } from '@ng-select/ng-select';
 export class SermonEditComponent implements OnInit {
   @ViewChild(NgSelectComponent) ngSelectComponent!: NgSelectComponent;
   sermon!: Sermon;
-  loading = false;
+  series: Series[] = [];
   songs: SermonSong[] = [];
   allSongs: Song[] = [];
   selectedSong!: Song;
@@ -26,6 +28,7 @@ export class SermonEditComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private toastService: ToastService,
+    private sSeries: SeriesService,
     private sSong: SongsService
   ) {}
 
@@ -36,7 +39,6 @@ export class SermonEditComponent implements OnInit {
         this.sSong.getSongs().then((res: any) => {
           this.allSongs = res.data
             ?.map((s: any) => new Song(s))
-            .sort((a: any, b: any) => a.index < b.index);
         });
         this.sSermons.getSongsOfSermon(sermon.data.id).then((res: any) => {
           this.songs = SermonSong.mapObjects(res.data, Number(sermon.data.id));
@@ -44,14 +46,38 @@ export class SermonEditComponent implements OnInit {
       } else {
         this.sermon = new Sermon();
       }
+      this.sSeries.getSeries().then((res: any) => {
+        this.series = res.data
+          ?.map((s: any) => new Series(s));
+      });
     });
+  }
+
+  addSeries() {
+    let series_name = prompt('Indique el nombre de la serie');
+    if(series_name) {
+      try {
+        this.sSeries.createSerie(series_name).then((res: any) => {
+          this.sermon.series = new Series(res.data[0])
+          this.series.push(new Series(res.data[0]))
+          this.toastService.showSuccessToast("Exito!", "Serie creada.");
+        });
+      } catch (error: any) {
+        this.toastService.showErrorToast(
+          "Error al guardar",
+          error.error_description || error.message
+        );
+      }
+    }
   }
 
   async updateSermon() {
     try {
-      this.loading = true;
+      let sermon:any = this.sermon;
+      sermon.related_series = this.sermon.series?.id;
+      delete sermon.series;
       this.sSermons
-        .updateSermon(this.sermon)
+        .updateSermon(sermon)
         .then((res: any) =>
           this.router.navigateByUrl("/cultos/" + res.data[0]["id"])
         );
@@ -61,14 +87,11 @@ export class SermonEditComponent implements OnInit {
         "Error al guardar",
         error.error_description || error.message
       );
-    } finally {
-      this.loading = false;
     }
   }
 
   async addSermon() {
     try {
-      this.loading = true;
       delete this.sermon.id;
       this.sSermons
         .createSermon(this.sermon)
@@ -81,8 +104,6 @@ export class SermonEditComponent implements OnInit {
         "Error al guardar",
         error.error_description || error.message
       );
-    } finally {
-      this.loading = false;
     }
   }
 
@@ -99,9 +120,7 @@ export class SermonEditComponent implements OnInit {
           "Error al agregar canción",
           error.error_description || error.message
           );
-        } finally {
-        this.loading = false;
-      }
+        }
     }
   }
 
@@ -116,8 +135,6 @@ export class SermonEditComponent implements OnInit {
         "Error al eliminar",
         error.error_description || error.message
       );
-    } finally {
-      this.loading = false;
     }
   }
 }

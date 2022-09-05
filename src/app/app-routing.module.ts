@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, UrlSegment } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
+import { ResetPwComponent } from './pages/reset-pw/reset-pw.component';
 import { SermonDetailComponent } from './pages/sermon-detail/sermon-detail.component';
 import { SermonEditComponent } from './pages/sermon-edit/sermon-edit.component';
 import { SermonsComponent } from './pages/sermons/sermons.component';
@@ -13,7 +14,8 @@ import { SongsResolverService } from './services/songs-resolver.service';
 
 const AppRoutes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
+  { path: 'entrar', component: LoginComponent },
+  { path: 'reset', component: ResetPwComponent },
   { path: 'cultos', component: SermonsComponent },
   {
     path: 'cultos/:id',

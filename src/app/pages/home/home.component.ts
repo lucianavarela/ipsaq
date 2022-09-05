@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Sermon } from 'src/app/classes/sermon';
 import { SermonsService } from 'src/app/services/sermons.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -10,9 +11,14 @@ import { SermonsService } from 'src/app/services/sermons.service';
 export class HomeComponent implements OnInit {
   lastSermon!: Sermon;
   upcomingSermon!: Sermon;
-  constructor(private sSermon: SermonsService) { }
+
+  constructor(private sSermon: SermonsService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
+    if (this.route.root.snapshot.fragment && this.route.root.snapshot.fragment.indexOf('type=recovery') > -1) {
+      let access_token = this.route.root.snapshot.fragment.match(/access_token\=([^&]+)/);
+      if (access_token) this.router.navigate(["/reset"], {queryParams: {'access_token': access_token[1]}})
+    }
     this.sSermon.getSpecificSermon(true).then((res:any) => this.lastSermon = new Sermon(res.data[0]))
     this.sSermon.getSpecificSermon(false).then((res:any) => this.upcomingSermon = new Sermon(res.data[0]))
   }
