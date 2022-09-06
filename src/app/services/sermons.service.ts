@@ -15,7 +15,7 @@ export class SermonsService {
   constructor(public sSupabase: SupabaseService) { }
 
   getSermon(id: number) {
-    return this.sSupabase.getById(id, this.table, '*, series!inner(*)');
+    return this.sSupabase.getById(id, this.table, '*, related_series');
   }
 
   getSpecificSermon(isLastSermon: boolean) {
