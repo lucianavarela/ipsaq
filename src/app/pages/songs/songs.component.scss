@@ -1,5 +1,11 @@
 table {
   width: 100%;
+  display:block;
+  overflow-x: scroll;
+}
+
+.table-cont {
+  width: 100%;
 }
 
 .mat-cell, .mat-header-cell {
@@ -13,6 +19,10 @@ table {
 
 .mat-header-cell {
   font-size: 14px;
+}
+
+.mat-cell {
+  font-size: 13px;
 }
 
 .mat-form-field {
@@ -58,4 +68,8 @@ th.mat-sort-header-sorted {
   .mat-input-element {
       color: #00d1b2;
   }
+}
+
+@media (max-width : 991px) {
+  .title-column {display:none;}
 }

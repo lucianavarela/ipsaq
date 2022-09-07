@@ -24,6 +24,10 @@ export class SupabaseService {
   get(table: string, queryFields?: string) {
     return this.supabase.from(table).select(`${queryFields ? queryFields : '*'}`);
   }
+  
+  getSortedWithLimit(table: string, sortedBy: string, asc: boolean = true, limitValue: number) {
+    return this.supabase.from(table).select('*').order(sortedBy, {ascending: asc}).limit(limitValue);
+  }
 
   getById(id: number, table: string, queryFields?: string) {
     return this.supabase.from(table).select(`${queryFields ? queryFields : '*'}`).eq('id', id).single()

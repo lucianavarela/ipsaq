@@ -5,22 +5,27 @@
 </section>
 
 <section class="section">
-  <div class="container">
-    <div class="has-text-centered" style="margin-bottom: 1rem;">
-    <mat-form-field appearance="standard">
-      <mat-label>Buscar por parte de la canción, por nombre o por índice...</mat-label>
-      <input
-        matInput
-        (keyup)="applyFilter($event)"
-        placeholder="Ex. ium"
-        #input
-      />
-    </mat-form-field>
-  </div>
+  <div class="container table-cont">
+    <div class="has-text-centered" style="margin-bottom: 1rem">
+      <mat-form-field appearance="standard">
+        <mat-label
+          >Buscar por parte de la canción, por nombre o por índice...</mat-label
+        >
+        <input
+          matInput
+          (keyup)="applyFilter($event)"
+          placeholder="Ex. ium"
+          #input
+        />
+      </mat-form-field>
+    </div>
     <table
       mat-table
       [dataSource]="dataSource"
-      class="mat-elevation-z8" matSort matSortActive="index" matSortDirection="asc"
+      class="mat-elevation-z8"
+      matSort
+      matSortActive="index"
+      matSortDirection="asc"
     >
       <ng-container matColumnDef="index">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Indice</th>
@@ -33,18 +38,24 @@
       </ng-container>
 
       <ng-container matColumnDef="title">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Título</th>
-        <td mat-cell *matCellDef="let song">{{ song.title }}</td>
+        <th mat-header-cell class="title-column" *matHeaderCellDef mat-sort-header>Título</th>
+        <td mat-cell class="title-column" *matCellDef="let song">{{ song.title }}</td>
       </ng-container>
 
       <ng-container matColumnDef="amount_used">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Cant. usada</th>
-        <td class="has-text-centered" mat-cell *matCellDef="let song">{{ song.amount_used }}</td>
+        <td class="has-text-centered" mat-cell *matCellDef="let song">
+          {{ song.amount_used }}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="last_used">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Última vez usado</th>
-        <td class="has-text-centered" mat-cell *matCellDef="let song">{{ song.last_used | date: 'dd-MM-yy' }}</td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Última vez usado
+        </th>
+        <td class="has-text-centered" mat-cell *matCellDef="let song">
+          {{ song.last_used | date: "dd-MM-yy" }}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="link_ipsaq">
@@ -55,24 +66,26 @@
           </span>
         </td>
       </ng-container>
-      
+
       <ng-container matColumnDef="button_to_page">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let song">
-          <p class="control" style="margin:inherit">
-            <a class="button is-info is-small" [routerLink]="['/cancionero', song.id]">
-              Ver Canción
+          <p class="control" style="margin: inherit">
+            <a
+              class="button is-info is-small"
+              [routerLink]="['/cancionero', song.id]"
+            >
+              Detalles
             </a>
           </p>
         </td>
       </ng-container>
-      
+
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 
       <tr class="mat-row" *matNoDataRow>
-        <td class="mat-cell" colspan="4">Sin resultados :(
-        </td>
+        <td class="mat-cell" colspan="4">Sin resultados :(</td>
       </tr>
     </table>
   </div>
