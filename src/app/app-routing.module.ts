@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes, UrlSegment } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ResetPwComponent } from './pages/reset-pw/reset-pw.component';
@@ -27,6 +28,7 @@ const AppRoutes: Routes = [
   {
     path: 'cultos/:id/editar',
     component: SermonEditComponent,
+    canActivate: [AuthGuard],
     resolve: {
       sermon: SermonsResolverService
     }
@@ -44,6 +46,7 @@ const AppRoutes: Routes = [
   {
     path: 'cancionero/:id/editar',
     component: SongEditComponent,
+    canActivate: [AuthGuard],
     resolve: {
       song: SongsResolverService
     }

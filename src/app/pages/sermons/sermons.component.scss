@@ -1,6 +1,6 @@
 table {
   width: 100%;
-  display: block;
+  display: list-item;
   overflow-x: scroll;
 }
 
@@ -24,10 +24,6 @@ table {
 
 .mat-cell {
   font-size: 13px;
-}
-
-.mat-form-field {
-  width: 60%;
 }
 
 mat-row,
