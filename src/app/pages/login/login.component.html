@@ -12,7 +12,7 @@
                 <div class="field">
                   <p class="control is-expanded has-icons-left">
                     <input
-                      class="input"
+                      class="input" (keyup.enter)="login()"
                       [(ngModel)]="email"
                       placeholder="Email"
                     />
@@ -33,7 +33,7 @@
                     <input
                       class="input"
                       type="password"
-                      [(ngModel)]="pw"
+                      [(ngModel)]="pw" (keyup.enter)="login()"
                       placeholder="Contraseña"
                     />
                     <span class="icon is-small is-left">

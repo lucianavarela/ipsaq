@@ -4,10 +4,11 @@ import { SupabaseService } from './services/supabase.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  host: {'window:beforeunload': 'toggleNavbar'}
 })
 export class AppComponent implements OnInit {
-  session = this.supabase.session
+  menuDisplayed = false;
 
   constructor(private readonly supabase: SupabaseService) {
     this.supabase.setUser();
@@ -20,4 +21,11 @@ export class AppComponent implements OnInit {
     return this.supabase.isLoggedIn();
   }
 
+  toggleNavbar() {
+    this.menuDisplayed = !this.menuDisplayed;
+  }
+
+  resetMenu() {
+    this.menuDisplayed = false;
+  }
 }

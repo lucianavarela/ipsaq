@@ -14,7 +14,7 @@
                   <p class="control is-expanded has-icons-left">
                     <input
                       class="input"
-                      [(ngModel)]="pw1"
+                      [(ngModel)]="pw1" (keyup.enter)="reset()"
                       type="password"
                       placeholder="Contraseña"
                     />
@@ -33,7 +33,7 @@
                 <div class="field">
                   <p class="control is-expanded has-icons-left">
                     <input
-                      class="input"
+                      class="input" (keyup.enter)="reset()"
                       type="password"
                       [(ngModel)]="pw2"
                       placeholder="Repita Contraseña"

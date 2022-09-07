@@ -91,6 +91,7 @@
   </section>
 
   <section class="section has-text-centered">
+    <div class="iframe-container">
     <iframe
       *ngIf="sermon.link_youtube"
       width="860"
@@ -99,6 +100,7 @@
       frameborder="0"
       allowfullscreen
     ></iframe>
+    </div>
   </section>
 
   <section *ngIf="songs && songs.length" class="section">

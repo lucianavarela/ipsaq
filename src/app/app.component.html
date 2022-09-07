@@ -1,31 +1,31 @@
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
+<nav class="navbar">
+  <div class="navbar-brand" (click)="toggleNavbar()">
     <a class="navbar-item" href="/">
       <img src="assets/logo.png" />
     </a>
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
+    <a class="navbar-burger burger" [class.is-active] = "menuDisplayed" data-target="navMenu">
+      <span></span>
+      <span></span>
+      <span></span>
     </a>
   </div>
-
-  <div id="site-navbar" class="navbar-menu">
+  <div class="navbar-menu" [class.is-active] = "menuDisplayed">
     <div class="navbar-start">
       <a class="navbar-item" [routerLink]="['home']"> Inicio </a>
       <a class="navbar-item has-text-weight-bold" [routerLink]="['cancionero']"> Cancionero </a>
       <a class="navbar-item has-text-weight-bold" [routerLink]="['cultos']"> Cultos </a>
-      <a *ngIf="isLoggedIn()" class="navbar-item" [routerLink]="['nueva_cancion']"> 
-        <span class="icon"><i class="fa-solid fa-sm fa-plus"></i></span>Nueva Canción </a>
-      <a *ngIf="isLoggedIn()" class="navbar-item" [routerLink]="['nuevo_culto']">
-        <span class="icon"><i class="fa-solid fa-sm fa-plus"></i></span>Nuevo Culto </a>
     </div>
-
+    <div class="navbar-end">
+      <a *ngIf="isLoggedIn()" class="navbar-item" [routerLink]="['nueva_cancion']"> 
+        <span class="icon has-text-success"><i class="fa-solid fa-sm fa-plus"></i></span>Nueva Canción </a>
+      <a *ngIf="isLoggedIn()" class="navbar-item" [routerLink]="['nuevo_culto']">
+        <span class="icon has-text-success"><i class="fa-solid fa-sm fa-plus"></i></span>Nuevo Culto </a>
+    </div>
   </div>
 </nav>
 
-<app-toaster></app-toaster>
+<!--app-toaster></app-toaster-->
 
 <div class="main-container">
-  <router-outlet></router-outlet>
+  <router-outlet (activate)="resetMenu()"></router-outlet>
 </div>
