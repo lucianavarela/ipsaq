@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SupabaseService } from './services/supabase.service';
+/// <reference path="<relevant path>/node_modules/@types/googlemaps/index.d.ts" />
+
 
 @Component({
   selector: 'app-root',

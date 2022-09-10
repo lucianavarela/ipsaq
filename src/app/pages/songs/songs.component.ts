@@ -2,6 +2,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { Song } from 'src/app/classes/song';
 import { SongsService } from 'src/app/services/songs.service';
 
@@ -17,14 +18,23 @@ export class SongsComponent implements OnInit {
   dataSource = new MatTableDataSource<Song>();
   @ViewChild(MatSort) sort!: MatSort;
   
-  constructor(private sSong: SongsService, private _liveAnnouncer: LiveAnnouncer) { }
+  constructor(private sSong: SongsService, private router: Router) { }
   
   ngOnInit(): void {
-    this.sSong.getSongs(true).then(res => {
-      if (res.data) this.songs = res.data.map(o => new Song(o))
-      this.dataSource = new MatTableDataSource(this.songs);
-      this.dataSource.sort = this.sort;
-    });
+    console.log(this.router.url)
+    if (this.router.url.indexOf('ultimas_canciones') > -1) {
+      this.sSong.getLatestSongs().then(res => {
+        if (res.data) this.songs = res.data.map(o => new Song(o))
+        this.dataSource = new MatTableDataSource(this.songs);
+        this.dataSource.sort = this.sort;
+      });
+    } else {
+      this.sSong.getSongs(true).then(res => {
+        if (res.data) this.songs = res.data.map(o => new Song(o))
+        this.dataSource = new MatTableDataSource(this.songs);
+        this.dataSource.sort = this.sort;
+      });
+    }
   }
 
   applyFilter(event: Event) {

@@ -39,7 +39,7 @@
 
       <ng-container matColumnDef="title">
         <th mat-header-cell class="title-column" *matHeaderCellDef mat-sort-header>Título</th>
-        <td mat-cell class="title-column" *matCellDef="let song">{{ song.title }}</td>
+        <td mat-cell class="title-column" *matCellDef="let song">{{ song.title!=song.beginning ? song.title : '' }}</td>
       </ng-container>
 
       <ng-container matColumnDef="amount_used">

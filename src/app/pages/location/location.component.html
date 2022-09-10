@@ -1,0 +1,55 @@
+<section class="hero is-primary">
+  <div class="hero-body has-text-centered">
+    <p class="title">¿Dónde estamos?</p>
+  </div>
+</section>
+
+<div class="container">
+  <section class="section">
+    <div class="tile is-ancestor">
+      <div class="tile is-parent is-vertical is-4">
+        <div class="tile is-child notification is-info">
+          <p class="subtitle is-6 has-icon-left">
+            <span class="icon"><i class="fa-solid fa-location-dot"></i></span> Alte. Brown 831 (1878), Quilmes
+          </p>
+          <p class="subtitle is-6 has-icon-left">
+            <span class="icon"><i class="fa-solid fa-phone"></i></span> Tel. 011 4253-4810
+          </p>
+          <p class="subtitle is-6 has-icon-left">
+            <span class="icon"><i class="fa-brands fa-whatsapp"></i></span> Wpp. 112 404 4835
+          </p>
+          <p class="subtitle is-6 has-icon-left">
+            <span class="icon"><i class="fa-solid fa-envelope"></i></span> ipsaquilmes@gmail.com
+          </p>
+          <p class="subtitle is-6 has-icon-left">
+            <span class="icon"><i class="fa-brands fa-instagram"></i></span> Instagram: @presbiquilmes
+          </p>
+        </div>
+        <div class="tile is-child notification is-link">
+          <p class="subtitle is-6 has-icon-left">
+            <span class="icon"><i class="fa-solid fa-church"></i></span> Cultos: 11h
+          </p>
+          <p class="subtitle is-6 has-icon-left">
+            <span class="icon"><i class="fa-solid fa-hands-praying"></i></span> Reunión de Oración: Miercoles 19hs
+          </p>
+          <p class="subtitle is-6 has-icon-left">
+            <span class="icon"><i class="fa-solid fa-book-bible"></i></span> Grupos de Estudio: Martes, Miercoles y Sabados
+          </p>
+        </div>
+      </div>
+      <div class="tile is-parent is-8">
+        <div class="tile is-child notification">
+          <google-map [center]="marker.position" [width]="'auto'">
+            <map-marker
+              [position]="marker.position"
+              [label]="marker.label"
+              [title]="marker.title"
+              [options]="marker.options"
+            >
+            </map-marker>
+          </google-map>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

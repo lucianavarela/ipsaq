@@ -20,7 +20,7 @@ export class SongsService {
   }
 
   getLatestSongs() {
-    return this.sSupabase.getSortedWithLimit(this.table, 'created_at', false, 10);
+    return this.sSupabase.getSortedWithLimit(this.usage_view, 'created_at', false, 10);
   }
 
   async updateSong(song: Song) {

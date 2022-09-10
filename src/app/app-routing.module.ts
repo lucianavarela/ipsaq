@@ -1,64 +1,76 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes, UrlSegment } from '@angular/router';
-import { AuthGuard } from './guards/auth.guard';
-import { HomeComponent } from './pages/home/home.component';
-import { LoginComponent } from './pages/login/login.component';
-import { ResetPwComponent } from './pages/reset-pw/reset-pw.component';
-import { SermonDetailComponent } from './pages/sermon-detail/sermon-detail.component';
-import { SermonEditComponent } from './pages/sermon-edit/sermon-edit.component';
-import { SermonsComponent } from './pages/sermons/sermons.component';
-import { SongDetailComponent } from './pages/song-detail/song-detail.component';
-import { SongEditComponent } from './pages/song-edit/song-edit.component';
-import { SongsComponent } from './pages/songs/songs.component';
-import { SermonsResolverService } from './services/sermons-resolver.service';
-import { SongsResolverService } from './services/songs-resolver.service';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes, UrlSegment } from "@angular/router";
+import { AuthGuard } from "./guards/auth.guard";
+import { ContactComponent } from "./pages/contact/contact.component";
+import { HomeComponent } from "./pages/home/home.component";
+import { LocationComponent } from "./pages/location/location.component";
+import { LoginComponent } from "./pages/login/login.component";
+import { ResetPwComponent } from "./pages/reset-pw/reset-pw.component";
+import { SermonDetailComponent } from "./pages/sermon-detail/sermon-detail.component";
+import { SermonEditComponent } from "./pages/sermon-edit/sermon-edit.component";
+import { SermonsComponent } from "./pages/sermons/sermons.component";
+import { SongDetailComponent } from "./pages/song-detail/song-detail.component";
+import { SongEditComponent } from "./pages/song-edit/song-edit.component";
+import { SongsComponent } from "./pages/songs/songs.component";
+import { SermonsResolverService } from "./services/sermons-resolver.service";
+import { SongsResolverService } from "./services/songs-resolver.service";
 
 const AppRoutes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'entrar', component: LoginComponent },
-  { path: 'reset', component: ResetPwComponent },
-  { path: 'cultos', component: SermonsComponent },
+  { path: "", component: HomeComponent },
+  { path: "entrar", component: LoginComponent },
+  { path: "reset", component: ResetPwComponent },
+  { path: "contacto", component: ContactComponent },
+  { path: "donde_estamos", component: LocationComponent },
+  { path: "cultos", component: SermonsComponent },
   {
-    path: 'cultos/:id',
+    path: "cultos/:id",
     component: SermonDetailComponent,
     resolve: {
-      sermon: SermonsResolverService
-    }
+      sermon: SermonsResolverService,
+    },
   },
   {
-    path: 'cultos/:id/editar',
+    path: "cultos/:id/editar",
     component: SermonEditComponent,
     canActivate: [AuthGuard],
     resolve: {
-      sermon: SermonsResolverService
-    }
-  },
-  { path: 'nuevo_culto', component: SermonEditComponent },
-  { path: 'cancionero', component: SongsComponent },
-  { path: 'nueva_cancion', component: SongEditComponent },
-  { 
-    path: 'cancionero/:id',
-    component: SongDetailComponent,
-    resolve: {
-      song: SongsResolverService
-    }
+      sermon: SermonsResolverService,
+    },
   },
   {
-    path: 'cancionero/:id/editar',
+    path: "nuevo_culto",
+    canActivate: [AuthGuard],
+    component: SermonEditComponent,
+  },
+  { path: "cancionero", component: SongsComponent },
+  { path: "ultimas_canciones", component: SongsComponent },
+  {
+    path: "nueva_cancion",
+    canActivate: [AuthGuard],
+    component: SongEditComponent,
+  },
+  {
+    path: "cancionero/:id",
+    component: SongDetailComponent,
+    resolve: {
+      song: SongsResolverService,
+    },
+  },
+  {
+    path: "cancionero/:id/editar",
     component: SongEditComponent,
     canActivate: [AuthGuard],
     resolve: {
-      song: SongsResolverService
-    }
+      song: SongsResolverService,
+    },
   },
-  
-  // otherwise redirect to home
-  { path: '**', redirectTo: '' }
 
+  // otherwise redirect to home
+  { path: "**", redirectTo: "" },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(AppRoutes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

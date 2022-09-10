@@ -26,6 +26,10 @@ import { SongsBoxComponent } from './pages/songs-box/songs-box.component';
 import { MatSelectModule } from '@angular/material/select';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ResetPwComponent } from './pages/reset-pw/reset-pw.component';
+import { ContactComponent } from './pages/contact/contact.component';
+import { LocationComponent } from './pages/location/location.component';
+import { GoogleMapsModule } from '@angular/google-maps';
+
 
 
 @NgModule({
@@ -45,6 +49,8 @@ import { ResetPwComponent } from './pages/reset-pw/reset-pw.component';
     ToastComponent,
     SongsBoxComponent,
     ResetPwComponent,
+    ContactComponent,
+    LocationComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -57,6 +63,7 @@ import { ResetPwComponent } from './pages/reset-pw/reset-pw.component';
     MatSortModule,
     MatSelectModule,
     NgSelectModule,
+    GoogleMapsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

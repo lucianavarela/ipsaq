@@ -24,23 +24,6 @@
   <section class="section">
     <div class="field is-horizontal">
       <div class="field-label">
-        <label class="label">Título</label>
-      </div>
-      <div class="field-body">
-        <div class="field is-expanded">
-          <p class="control is-expanded">
-            <input
-              class="input"
-              [(ngModel)]="song.title"
-              placeholder="Título"
-            />
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <div class="field is-horizontal">
-      <div class="field-label">
         <label class="label">Comienzo</label>
       </div>
       <div class="field-body">
@@ -50,6 +33,23 @@
               class="input"
               [(ngModel)]="song.beginning"
               placeholder="Comienzo/Primer oración"
+            />
+          </p>
+        </div>
+      </div>
+    </div>
+      
+    <div class="field is-horizontal">
+      <div class="field-label">
+        <label class="label">Título</label>
+      </div>
+      <div class="field-body">
+        <div class="field is-expanded">
+          <p class="control is-expanded">
+            <input
+              class="input"
+              [(ngModel)]="song.title"
+              placeholder="Título"
             />
           </p>
         </div>
