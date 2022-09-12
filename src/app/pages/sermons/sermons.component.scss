@@ -8,14 +8,14 @@ table {
   width: 100%;
 }
 
+.mat-table {
+  background-color: #efefef;
+}
+
 .mat-cell,
 .mat-header-cell {
   vertical-align: middle;
   color: #212121;
-}
-
-.mat-table {
-  background-color: #efefef;
 }
 
 .mat-header-cell {
