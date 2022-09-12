@@ -31,14 +31,42 @@
       </div>
     </div>
     <div class="navbar-end">
-      <a class="navbar-item is-tab" [routerLink]="['donde_estamos']" [routerLinkActive]="'is-active'"> ¿Dónde estamos? </a>
+      <a class="navbar-item is-tab" [routerLink]="['ubicacion']" [routerLinkActive]="'is-active'"> ¿Dónde estamos? </a>
       <a class="navbar-item is-tab" [routerLink]="['contacto']" [routerLinkActive]="'is-active'"> Contacto </a>
     </div>
   </div>
 </nav>
 
-<!--app-toaster></app-toaster-->
+<app-toaster></app-toaster>
 
 <div class="main-container">
   <router-outlet (activate)="resetMenu()"></router-outlet>
 </div>
+
+<footer class="footer">
+  <div class="content has-text-centered">
+    <nav class="level">
+      <div class="level-item has-text-centered">
+        <div>
+          <a [routerLink]="['cancionero']" class="heading">Cancionero</a>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <a [routerLink]="['cultos']" class="heading">Cultos</a>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <a [routerLink]="['ubicacion']" class="heading">Ubicación</a>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <a [routerLink]="['contacto']" class="heading">Contacto</a>
+        </div>
+      </div>
+    </nav>
+    <small class="has-text-weight-bold">Iglesia Presbiteriana San Andres de Quilmes</small>
+  </div>
+</footer>

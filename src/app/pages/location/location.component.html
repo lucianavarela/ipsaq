@@ -10,7 +10,7 @@
       <div class="tile is-parent is-vertical is-4">
         <div class="tile is-child notification is-info">
           <p class="subtitle is-6 has-icon-left">
-            <span class="icon"><i class="fa-solid fa-location-dot"></i></span> Alte. Brown 831 (1878), Quilmes
+            <span class="icon"><i class="fa-solid fa-location-dot"></i></span> Alte. Brown 831, Quilmes
           </p>
           <p class="subtitle is-6 has-icon-left">
             <span class="icon"><i class="fa-solid fa-phone"></i></span> Tel. 011 4253-4810
@@ -19,12 +19,15 @@
             <span class="icon"><i class="fa-brands fa-whatsapp"></i></span> Wpp. 112 404 4835
           </p>
           <p class="subtitle is-6 has-icon-left">
-            <span class="icon"><i class="fa-solid fa-envelope"></i></span> ipsaquilmes@gmail.com
+            <span class="icon"><i class="fa-solid fa-envelope"></i></span>
+            <a style="text-decoration: underline !important;" href="mailto:ipsaquilmes@gmail.com">ipsaquilmes@gmail.com</a>
           </p>
           <p class="subtitle is-6 has-icon-left">
-            <span class="icon"><i class="fa-brands fa-instagram"></i></span> Instagram: @presbiquilmes
+            <span class="icon"><i class="fa-brands fa-instagram"></i></span> Instagram: <a 
+            style="text-decoration: underline !important;" href="https://www.instagram.com/presbiquilmes/">@presbiquilmes</a>
           </p>
         </div>
+        <a [routerLink]="['/contacto']" class="tile is-child button is-danger is-light has-text-centered">Contactanos</a>
         <div class="tile is-child notification is-link">
           <p class="subtitle is-6 has-icon-left">
             <span class="icon"><i class="fa-solid fa-church"></i></span> Cultos: 11h
@@ -39,7 +42,7 @@
       </div>
       <div class="tile is-parent is-8">
         <div class="tile is-child notification">
-          <google-map [center]="marker.position" [width]="'auto'">
+          <google-map [center]="marker.position" [width]="'auto'" [height]="'100%'">
             <map-marker
               [position]="marker.position"
               [label]="marker.label"

@@ -3,12 +3,22 @@
 }
 
 .main-container {
-    min-height: 100vh !important;
+    min-height: 100% !important;
 }
 
-.navbar-menu>.is-active {
+.navbar-menu.is-active {
     position: absolute;
     left: 52px;
     top: 66px;
     box-shadow: #6e6e6e99 0px 5px 14px 0px;
+}
+
+.heading {
+    font-size: 12px;
+}
+
+.footer {
+    padding: 2rem 6rem !important;
+    background-color: #efefef;
+    border-top: 1px solid #ddd;
 }

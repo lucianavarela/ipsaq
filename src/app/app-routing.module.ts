@@ -20,7 +20,7 @@ const AppRoutes: Routes = [
   { path: "entrar", component: LoginComponent },
   { path: "reset", component: ResetPwComponent },
   { path: "contacto", component: ContactComponent },
-  { path: "donde_estamos", component: LocationComponent },
+  { path: "ubicacion", component: LocationComponent },
   { path: "cultos", component: SermonsComponent },
   {
     path: "cultos/:id",
