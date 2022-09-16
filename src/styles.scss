@@ -52,6 +52,18 @@ a {
   height: 100%;
 }
 
-thead, tbody, tfoot, tr {
+thead,
+tbody,
+tfoot,
+tr {
   width: 100%;
+}
+
+.mat-tooltip-panel,
+.tooltip {
+  white-space: pre-wrap !important;
+}
+
+.mat-tooltip-hide {
+  display: none !important;
 }

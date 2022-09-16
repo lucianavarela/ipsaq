@@ -13,7 +13,8 @@ import { SongsService } from 'src/app/services/songs.service';
 })
 
 export class SongsComponent implements OnInit {
-  displayedColumns: string[] = ['index', 'beginning', 'title', 'last_used', 'amount_used', 'link_ipsaq', 'button_to_page'];
+  searchedText: string = '';
+  displayedColumns: string[] = ['index', 'lyrics', 'beginning', 'title', 'last_used', 'amount_used', 'link_ipsaq', 'button_to_page'];
   songs: Song[] = [];
   dataSource = new MatTableDataSource<Song>();
   @ViewChild(MatSort) sort!: MatSort;

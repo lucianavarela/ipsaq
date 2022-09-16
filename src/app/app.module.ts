@@ -29,6 +29,8 @@ import { ResetPwComponent } from './pages/reset-pw/reset-pw.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { LocationComponent } from './pages/location/location.component';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { TextFoundPipe } from './decorators/text-found.pipe';
 
 
 
@@ -45,6 +47,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
     SermonEditComponent,
     SafeUrlPipe,
     TransformYoutubePipe,
+    TextFoundPipe,
     ToasterComponent,
     ToastComponent,
     SongsBoxComponent,
@@ -63,7 +66,8 @@ import { GoogleMapsModule } from '@angular/google-maps';
     MatSortModule,
     MatSelectModule,
     NgSelectModule,
-    GoogleMapsModule
+    GoogleMapsModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]

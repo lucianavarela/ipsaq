@@ -27,7 +27,7 @@ export class SermonsService {
   }
 
   getSongsOfSermon(id: number) {
-    return this.sSupabase.getByEqCriteria(id, this.tableSermonSong, 'id, songs!inner(*)', 'id_sermon');
+    return this.sSupabase.get(this.tableSermonSong, 'id, songs!inner(*)').eq('id_sermon', id);
   }
 
   async updateSermon(sermon: Sermon) {

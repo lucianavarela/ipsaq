@@ -12,10 +12,8 @@
           >Buscar por parte de la canción, por nombre o por índice...</mat-label
         >
         <input
-          matInput
+          matInput #input [(ngModel)]="searchedText"
           (keyup)="applyFilter($event)"
-          placeholder="Ex. ium"
-          #input
         />
       </mat-form-field>
     </div>
@@ -30,6 +28,19 @@
       <ng-container matColumnDef="index">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Indice</th>
         <td mat-cell *matCellDef="let song">{{ song.index }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="lyrics">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Letra</th>
+        <td mat-cell *matCellDef="let song">
+          <button class="button is-small is-white is-rounded" 
+          [matTooltip]="song.lyrics | textFound: searchedText" [matTooltipPosition]="'right'" [matTooltipShowDelay]="500"
+          [matTooltipShowDelay]="500" [matTooltipClass]="'tooltip'" #matTooltip="matTooltip">
+            <span class="icon is-small">
+              <i class="fa-solid fa-align-left"></i>
+            </span>
+          </button>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="beginning">
@@ -71,8 +82,7 @@
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let song">
           <p class="control" style="margin: inherit">
-            <a
-              class="button is-info is-small"
+            <a class="button is-info is-small"
               [routerLink]="['/cancionero', song.id]"
             >
               Detalles

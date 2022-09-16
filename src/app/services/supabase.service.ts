@@ -25,16 +25,8 @@ export class SupabaseService {
     return this.supabase.from(table).select(`${queryFields ? queryFields : '*'}`);
   }
   
-  getSortedWithLimit(table: string, sortedBy: string, asc: boolean = true, limitValue: number) {
-    return this.supabase.from(table).select('*').order(sortedBy, {ascending: asc}).limit(limitValue);
-  }
-
   getById(id: number, table: string, queryFields?: string) {
     return this.supabase.from(table).select(`${queryFields ? queryFields : '*'}`).eq('id', id).single()
-  }
-
-  getByEqCriteria(id: number, table: string, queryFields?: string, matchingField: string = 'id') {
-    return this.supabase.from(table).select(`${queryFields ? queryFields : '*'}`).eq(matchingField, id)
   }
 
   add(obj: any, table: string) {
