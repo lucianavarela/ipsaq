@@ -73,7 +73,7 @@ export class SermonEditComponent implements OnInit {
 
   async updateSermon() {
     try {
-      let sermon:any = this.sermon;
+      let sermon:any = structuredClone(this.sermon);
       sermon.related_series = this.sermon.series?.id;
       delete sermon.series;
       this.sSermons
@@ -92,9 +92,12 @@ export class SermonEditComponent implements OnInit {
 
   async addSermon() {
     try {
-      delete this.sermon.id;
+      let sermon:any = structuredClone(this.sermon);
+      sermon.related_series = this.sermon.series?.id;
+      delete sermon.series;
+      delete sermon.id;
       this.sSermons
-        .createSermon(this.sermon)
+        .createSermon(sermon)
         .then((res: any) =>
           this.router.navigateByUrl("/cultos/" + res.data[0]["id"])
         );

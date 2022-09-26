@@ -31,6 +31,7 @@ import { LocationComponent } from './pages/location/location.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TextFoundPipe } from './decorators/text-found.pipe';
+import { HighlightDirective } from './decorators/highlight.directive';
 
 
 
@@ -54,6 +55,7 @@ import { TextFoundPipe } from './decorators/text-found.pipe';
     ResetPwComponent,
     ContactComponent,
     LocationComponent,
+    HighlightDirective,
   ],
   imports: [
     BrowserAnimationsModule,
