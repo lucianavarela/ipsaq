@@ -5,7 +5,7 @@
 </section>
 
 <section class="section">
-  <div class="container table-cont">
+  <div class="container main-list-table">
     <div class="has-text-centered" style="margin-bottom: 1rem">
       <mat-form-field appearance="standard">
         <mat-label
@@ -55,7 +55,7 @@
       </ng-container>
 
       <ng-container matColumnDef="amount_used">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Cant. usada</th>
+        <th mat-header-cell class="centered" *matHeaderCellDef mat-sort-header>Cant. usada</th>
         <td class="has-text-centered" mat-cell *matCellDef="let song">
           {{ song.amount_used }}
         </td>
@@ -71,11 +71,22 @@
       </ng-container>
 
       <ng-container matColumnDef="link_ipsaq">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Version IPSAQ</th>
+        <th mat-header-cell class="centered" *matHeaderCellDef mat-sort-header>Version IPSAQ</th>
         <td class="has-text-centered" mat-cell *matCellDef="let song">
           <span *ngIf="song.link_ipsaq" class="icon has-text-danger">
             <i class="fa-brands fa-youtube"></i>
           </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="link_chords">
+        <th mat-header-cell class="centered" *matHeaderCellDef mat-sort-header>Acordes</th>
+        <td class="has-text-centered" mat-cell *matCellDef="let song">
+          <a *ngIf="song.link_chords" class="button is-small is-ghost" target=”_blank” href="{{ song.link_chords }}">
+            <span class="icon is-small guitar">
+              <i class="fa-solid fa-lg fa-guitar"></i>
+            </span>
+          </a>
         </td>
       </ng-container>
 
