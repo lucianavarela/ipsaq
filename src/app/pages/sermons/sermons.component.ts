@@ -12,7 +12,7 @@ import { SermonsService } from 'src/app/services/sermons.service';
 })
 
 export class SermonsComponent implements OnInit {
-  displayedColumns: string[] = ['title', 'date', 'director', 'preacher', 'bible_verse', 'button_to_page'];
+  displayedColumns: string[] = ['title', 'date', 'bible', 'info', 'button_to_page'];
   sermons: Sermon[] = [];
   dataSource = new MatTableDataSource<Sermon>();
   @ViewChild(MatSort) sort!: MatSort;

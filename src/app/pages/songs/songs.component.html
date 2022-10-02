@@ -12,7 +12,9 @@
           >Buscar por parte de la canción, por nombre o por índice...</mat-label
         >
         <input
-          matInput #input [(ngModel)]="searchedText"
+          matInput
+          #input
+          [(ngModel)]="searchedText"
           (keyup)="applyFilter($event)"
         />
       </mat-form-field>
@@ -26,36 +28,29 @@
       matSortDirection="asc"
     >
       <ng-container matColumnDef="index">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Indice</th>
-        <td mat-cell *matCellDef="let song">{{ song.index }}</td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>#</th>
+        <td mat-cell *matCellDef="let song">{{ song.index ?? '-' }}</td>
       </ng-container>
 
-      <ng-container matColumnDef="lyrics">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Letra</th>
-        <td mat-cell *matCellDef="let song">
-          <button class="button is-small is-white is-rounded" 
-          [matTooltip]="song.lyrics | textFound: searchedText" [matTooltipPosition]="'right'" [matTooltipShowDelay]="500"
-          [matTooltipShowDelay]="500" [matTooltipClass]="'tooltip'" #matTooltip="matTooltip">
-            <span class="icon is-small">
-              <i class="fa-solid fa-align-left"></i>
-            </span>
-          </button>
-        </td>
-      </ng-container>
-  
       <ng-container matColumnDef="beginning">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Comienzo</th>
-        <td mat-cell [highlight]="searchedText" [fullText]="song.beginning" *matCellDef="let song">{{ song.beginning }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="title">
-        <th mat-header-cell class="title-column" *matHeaderCellDef mat-sort-header>Título</th>
-        <td mat-cell class="title-column" [highlight]="searchedText" [fullText]="song.title!=song.beginning ? song.title : ''"
-        *matCellDef="let song">{{ song.title!=song.beginning ? song.title : '' }}</td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Comienzo / <i>Título</i>
+        </th>
+        <td class="song-link" mat-cell *matCellDef="let song" [routerLink]="['/cancionero', song.id]">
+          <p [highlight]="searchedText" [fullText]="song.beginning">
+            {{ song.beginning }}
+          </p>
+          <i class="song-title"
+            *ngIf="song.title != song.beginning"
+            [highlight]="searchedText"
+            [fullText]="song.title"
+            >{{ song.title }}</i
+          >
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="amount_used">
-        <th mat-header-cell class="centered" *matHeaderCellDef mat-sort-header>Cant. usada</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Cant. usada</th>
         <td class="has-text-centered" mat-cell *matCellDef="let song">
           {{ song.amount_used }}
         </td>
@@ -71,7 +66,7 @@
       </ng-container>
 
       <ng-container matColumnDef="link_ipsaq">
-        <th mat-header-cell class="centered" *matHeaderCellDef mat-sort-header>Version IPSAQ</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Version IPSAQ</th>
         <td class="has-text-centered" mat-cell *matCellDef="let song">
           <span *ngIf="song.link_ipsaq" class="icon has-text-danger">
             <i class="fa-brands fa-youtube"></i>
@@ -79,27 +74,51 @@
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="link_chords">
-        <th mat-header-cell class="centered" *matHeaderCellDef mat-sort-header>Acordes</th>
-        <td class="has-text-centered" mat-cell *matCellDef="let song">
-          <a *ngIf="song.link_chords" class="button is-small is-ghost" target=”_blank” href="{{ song.link_chords }}">
-            <span class="icon is-small guitar">
-              <i class="fa-solid fa-lg fa-guitar"></i>
-            </span>
-          </a>
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="button_to_page">
+      <ng-container matColumnDef="lyrics_and_chords">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let song">
-          <p class="control" style="margin: inherit">
-            <a class="button is-info is-small"
-              [routerLink]="['/cancionero', song.id]"
-            >
-              Detalles
-            </a>
-          </p>
+          <div class="field has-addons">
+            <p class="control">
+              <a
+                class="button is-link is-inverted is-small"
+                [routerLink]="['/cancionero', song.id]"
+              >
+                <span class="icon is-small">
+                  <i class="fa-solid fa-circle-info"></i>
+                </span>
+                <span>Detalles</span>
+              </a>
+            </p>
+            <p *ngIf="song.lyrics" class="control">
+              <button
+                class="button is-info is-inverted is-small"
+                [matTooltip]="song.lyrics | textFound: searchedText"
+                [matTooltipPosition]="'right'"
+                [matTooltipShowDelay]="500"
+                [matTooltipShowDelay]="500"
+                [matTooltipClass]="'tooltip'"
+                #matTooltip="matTooltip"
+              >
+                <span class="icon is-small"
+                [class.lyrics-searched] = "song.lyrics && searchedText && song.lyrics.toLowerCase().indexOf(searchedText.toLowerCase()) > -1">
+                  <i class="fa-solid fa-align-left"></i>
+                </span>
+                <span>Letra</span>
+              </button>
+            </p>
+            <p *ngIf="song.link_chords" class="control">
+              <a
+                class="button is-success is-inverted is-small"
+                target="”_blank”"
+                href="{{ song.link_chords }}"
+              >
+                <span class="icon is-small">
+                  <i class="fa-solid fa-guitar"></i>
+                </span>
+                <span>Acordes</span>
+              </a>
+            </p>
+          </div>
         </td>
       </ng-container>
 

@@ -32,7 +32,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TextFoundPipe } from './decorators/text-found.pipe';
 import { HighlightDirective } from './decorators/highlight.directive';
-
+import { SongSuggestionComponent } from './pages/song-suggestion/song-suggestion.component';
 
 
 @NgModule({
@@ -43,6 +43,7 @@ import { HighlightDirective } from './decorators/highlight.directive';
     SongsComponent,
     SongDetailComponent,
     SongEditComponent,
+    SongSuggestionComponent,
     SermonsComponent,
     SermonDetailComponent,
     SermonEditComponent,

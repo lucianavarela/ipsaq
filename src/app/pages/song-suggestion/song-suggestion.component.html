@@ -5,8 +5,7 @@
         <p class="control">
           <button
             class="button is-rounded is-warning"
-            [routerLink]="song.id ? ['/cancionero', song.id] : ['/cancionero']"
-          >
+            [routerLink]="['/cancionero']">
             <span class="icon">
               <i class="fa-solid fa-2x fa-arrow-left"></i>
             </span>
@@ -14,15 +13,7 @@
         </p>
       </div>
       <div class="column has-text-centered">
-        <p class="title">
-          {{
-            song.id
-              ? song.title
-                ? "Editar: " + song.title
-                : "Editar Canción"
-              : "Agregar Canción"
-          }}
-        </p>
+        <p class="title">Sugerir Canción</p>
       </div>
       <div class="column is-1"></div>
     </div>
@@ -47,7 +38,7 @@
         </div>
       </div>
     </div>
-
+      
     <div class="field is-horizontal">
       <div class="field-label">
         <label class="label">Título</label>
@@ -80,26 +71,6 @@
             />
           </p>
         </div>
-        <div class="field has-addons">
-          <ng-container *ngIf="!song.suggestion">
-            <p class="control" style="margin-right: 1rem">
-              <label class="label">Número</label>
-            </p>
-            <p class="control is-expanded">
-              <input
-                class="input"
-                [(ngModel)]="song.index"
-                type="number"
-                placeholder="Indice"
-              />
-            </p>
-          </ng-container>
-          <p *ngIf="song.suggestion" class="control">
-            <label class="checkbox">
-              <input type="checkbox" [(ngModel)]="songSuggestionFlag"/>Mover sugerencia al cancionero
-            </label>
-          </p>
-        </div>
       </div>
     </div>
 
@@ -123,52 +94,12 @@
 
     <div class="field is-horizontal">
       <div class="field-label">
-        <label class="label">Link de nuestra versión</label>
-      </div>
-      <div class="field-body">
-        <div class="field is-expanded">
-          <p class="control is-expanded">
-            <input
-              class="input"
-              type="text"
-              [(ngModel)]="song.link_ipsaq"
-              placeholder="Link a Youtube de nuestra version"
-            />
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <div class="field is-horizontal">
-      <div class="field-label">
-        <label class="label">Link de Acordes</label>
-      </div>
-      <div class="field-body">
-        <div class="field is-expanded">
-          <p class="control is-expanded">
-            <input
-              class="input"
-              type="text"
-              [(ngModel)]="song.link_chords"
-              placeholder="Link al archivo con acordes"
-            />
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <div class="field is-horizontal">
-      <div class="field-label">
         <label class="label">Letra</label>
       </div>
       <div class="field-body">
         <div class="field">
           <div class="control">
-            <textarea
-              rows="30"
-              class="textarea"
-              [(ngModel)]="song.lyrics"
-            ></textarea>
+            <textarea rows="30" class="textarea" [(ngModel)]="song.lyrics"></textarea>
           </div>
         </div>
       </div>
@@ -181,9 +112,9 @@
           <div class="control">
             <button
               class="button is-primary"
-              (click)="song.id ? updateSong() : addSong()"
+              (click)="suggestSong()"
             >
-              {{ song.id ? "Guardar Cambios" : "Crear Cancion" }}
+              Sugerir Canción
             </button>
           </div>
         </div>

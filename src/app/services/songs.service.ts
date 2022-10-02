@@ -16,11 +16,15 @@ export class SongsService {
   }
 
   getSongs(with_usage?: boolean) {
-    return this.sSupabase.get(with_usage? this.usage_view: this.table);
+    return this.sSupabase.get(with_usage? this.usage_view: this.table).filter('suggestion', 'eq', 'false');
   }
 
   getLatestSongs() {
-    return this.sSupabase.get(this.usage_view).order('created_at', {ascending: false}).limit(10);
+    return this.sSupabase.get(this.usage_view).filter('suggestion', 'eq', 'false').order('created_at', {ascending: false}).limit(10);
+  }
+
+  getSuggestedSongs() {
+    return this.sSupabase.get(this.table).filter('suggestion', 'eq', 'true');
   }
 
   async updateSong(song: Song) {

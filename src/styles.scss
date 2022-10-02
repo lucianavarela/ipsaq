@@ -83,7 +83,7 @@ tr {
   }
 
   .mat-table {
-    background-color: #efefef;
+    background-color: #fff;
   }
 
   .mat-cell,
@@ -92,16 +92,12 @@ tr {
     color: #212121;
   }
 
-  .mat-header-cell {
-    font-size: 14px;
+  .mat-header-cell, .mat-cell {
+    font-size: 13px;
   }
   
   .centered .mat-sort-header-container {
     justify-content: center;
-  }
-
-  .mat-cell {
-    font-size: 13px;
   }
 
   th.mat-sort-header-sorted {

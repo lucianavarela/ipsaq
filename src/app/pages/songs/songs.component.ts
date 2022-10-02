@@ -14,7 +14,7 @@ import { SongsService } from 'src/app/services/songs.service';
 
 export class SongsComponent implements OnInit {
   searchedText: string = '';
-  displayedColumns: string[] = ['index', 'lyrics', 'beginning', 'title', 'last_used', 'amount_used', 'link_chords', 'link_ipsaq', 'button_to_page'];
+  displayedColumns: string[] = ['index', 'beginning', 'last_used', 'amount_used', 'link_ipsaq', 'lyrics_and_chords'];
   songs: Song[] = [];
   dataSource = new MatTableDataSource<Song>();
   @ViewChild(MatSort) sort!: MatSort;
@@ -24,12 +24,20 @@ export class SongsComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.router.url)
     if (this.router.url.indexOf('ultimas_canciones') > -1) {
+      this.displayedColumns = ['index', 'beginning', 'lyrics_and_chords'];
       this.sSong.getLatestSongs().then(res => {
         if (res.data) this.songs = res.data.map(o => new Song(o))
         this.dataSource = new MatTableDataSource(this.songs);
         this.dataSource.sort = this.sort;
       });
-    } else {
+    } else if (this.router.url.indexOf('canciones_sugeridas') > -1) {
+      this.displayedColumns = ['beginning', 'lyrics_and_chords'];
+      this.sSong.getSuggestedSongs().then(res => {
+        if (res.data) this.songs = res.data.map(o => new Song(o))
+        this.dataSource = new MatTableDataSource(this.songs);
+        this.dataSource.sort = this.sort;
+      });
+    } else{
       this.sSong.getSongs(true).then(res => {
         if (res.data) this.songs = res.data.map(o => new Song(o))
         this.dataSource = new MatTableDataSource(this.songs);

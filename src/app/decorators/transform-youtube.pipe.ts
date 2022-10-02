@@ -6,8 +6,8 @@ import Utils from "src/app/utils/utils";
 })
 export class TransformYoutubePipe implements PipeTransform {
 
-  transform(link: string): string {
-    return link ? Utils.transformYoutubeIntoEmbed(link) : '';
+  transform(link: string, autoplay: boolean = false): string {
+    return link ? Utils.transformYoutubeIntoEmbed(link, autoplay) : '';
   }
 
 }

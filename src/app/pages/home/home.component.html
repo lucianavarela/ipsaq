@@ -1,7 +1,7 @@
 <div class="main-cont">
   <div class="container">
     <section class="section">
-      <div class="columns is-centered has-text-centered">
+      <div *ngIf="!sermonIsLive" class="columns is-centered has-text-centered">
         <div class="column is-5">
           <div class="box">
             <article class="media">
@@ -24,7 +24,7 @@
       </div>
       <div class="columns">
         <div
-          *ngIf="lastSermon && lastSermon.link_youtube"
+          *ngIf="lastSermon && lastSermon.link_youtube && !sermonIsLive"
           class="column has-text-centered"
         >
           <h5 class="title is-5 has-text-white">
@@ -45,7 +45,15 @@
           class="column has-text-centered"
         >
           <h5 class="title is-5">
-            <a class="has-text-white" [routerLink]="['cultos', upcomingSermon.id]">Próximo Culto</a>
+            <a *ngIf="!sermonIsLive" class="has-text-white" [routerLink]="['cultos', upcomingSermon.id]">Próximo Culto</a>
+            <a *ngIf="sermonIsLive" class="has-text-white" [routerLink]="['cultos', upcomingSermon.id]">Culto de hoy
+              <span class="tag is-danger" style="background-color: #ff0000; padding-left: 4px !important;">
+                <span class="icon">
+                  <i class="fa-solid fa-2xs fa-circle"></i>
+                </span>
+                EN VIVO
+              </span>
+            </a>
           </h5>
           <div class="iframe-container">
           <iframe
@@ -53,7 +61,7 @@
             height="275"
             frameborder="0"
             allowfullscreen
-            [src]="upcomingSermon.link_youtube | transformYoutube | safeUrl"
+            [src]="upcomingSermon.link_youtube | transformYoutube: sermonIsLive | safeUrl"
           ></iframe></div>
         </div>
       </div>

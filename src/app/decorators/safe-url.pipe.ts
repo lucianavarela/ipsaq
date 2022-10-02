@@ -8,7 +8,7 @@ export class SafeUrlPipe implements PipeTransform {
 
   constructor(private _sanitizer: DomSanitizer) {}
 
-  transform(link: string): SafeResourceUrl {
+  transform(link: String): SafeResourceUrl {
     return this._sanitizer.bypassSecurityTrustResourceUrl(link?.toString());
   }
 

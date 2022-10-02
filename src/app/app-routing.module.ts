@@ -11,6 +11,7 @@ import { SermonEditComponent } from "./pages/sermon-edit/sermon-edit.component";
 import { SermonsComponent } from "./pages/sermons/sermons.component";
 import { SongDetailComponent } from "./pages/song-detail/song-detail.component";
 import { SongEditComponent } from "./pages/song-edit/song-edit.component";
+import { SongSuggestionComponent } from "./pages/song-suggestion/song-suggestion.component";
 import { SongsComponent } from "./pages/songs/songs.component";
 import { SermonsResolverService } from "./services/sermons-resolver.service";
 import { SongsResolverService } from "./services/songs-resolver.service";
@@ -44,10 +45,16 @@ const AppRoutes: Routes = [
   },
   { path: "cancionero", component: SongsComponent },
   { path: "ultimas_canciones", component: SongsComponent },
+  { path: "sugerir_cancion", component: SongSuggestionComponent },
   {
     path: "nueva_cancion",
     canActivate: [AuthGuard],
     component: SongEditComponent,
+  },
+  {
+    path: "canciones_sugeridas",
+    canActivate: [AuthGuard],
+    component: SongsComponent
   },
   {
     path: "cancionero/:id",
