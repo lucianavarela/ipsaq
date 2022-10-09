@@ -11,7 +11,7 @@ export default class Utils {
                 }
             }
             if (video_code?.length==1) {
-                transformedLink = `http://www.youtube.com/embed/${video_code[0]}${autoplay ? '?rel=0&autoplay=1&mute=1': ''}`;
+                transformedLink = `https://www.youtube.com/embed/${video_code[0]}${autoplay ? '?rel=0&autoplay=1&mute=1': ''}`;
             }
         }
         return transformedLink;
