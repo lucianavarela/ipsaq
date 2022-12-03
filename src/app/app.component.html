@@ -83,6 +83,13 @@
       >
         Contacto
       </a>
+      <a *ngIf="!isLoggedIn()"
+        class="navbar-item is-tab"
+        [routerLink]="['entrar']"
+        [routerLinkActive]="'is-active'"
+      >
+        <span class="icon"><i class="fa-solid fa-right-to-bracket"></i></span>
+      </a>
     </div>
   </div>
 </nav>
