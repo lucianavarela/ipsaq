@@ -36,7 +36,7 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
           Comienzo / <i>Título</i>
         </th>
-        <td class="song-link" mat-cell *matCellDef="let song" [routerLink]="['/cancionero', song.id]">
+        <td class="song-link" mat-cell *matCellDef="let song"><a style="color: inherit" [routerLink]="['/cancionero', song.id]">
           <p [highlight]="searchedText" [fullText]="song.beginning">
             {{ song.beginning }}
           </p>
@@ -46,7 +46,7 @@
             [fullText]="song.title"
             >{{ song.title }}</i
           >
-        </td>
+        </a></td>
       </ng-container>
 
       <ng-container matColumnDef="amount_used">
