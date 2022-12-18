@@ -37,7 +37,7 @@
   <section class="section" style="padding-bottom: 0;">
     <div class="columns is-centered" id="encargados">
         <div class="column">
-            <div class="box">
+            <div class="box link">
               <article class="media">
                 <div class="media-left">
                   <span class="icon">
@@ -54,7 +54,7 @@
             </div>
           </div>
       <div class="column">
-        <div class="box">
+        <div class="box info">
           <article class="media">
             <div class="media-left">
               <span class="icon">
@@ -71,7 +71,7 @@
         </div>
       </div>
       <div class="column">
-        <div class="box">
+        <div class="box warning">
           <article class="media">
             <div class="media-left">
               <span class="icon">
@@ -88,9 +88,8 @@
         </div>
       </div>
     </div>
-  </section>
 
-  <section class="section has-text-centered">
+  <div class="box light has-text-centered">
     <div class="iframe-container">
     <iframe
       *ngIf="sermon.link_youtube"
@@ -101,6 +100,7 @@
       allowfullscreen
     ></iframe>
     </div>
+  </div>
   </section>
 
   <section *ngIf="songs && songs.length" class="section">

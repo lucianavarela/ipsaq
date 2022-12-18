@@ -1,8 +1,9 @@
 .main-cont {
-    background: linear-gradient(159deg, #00d1b2, #261e9b);
-    min-height: 100vh !important;
+    background-image: url("/assets/background.png");
+    width: 100%;
+    background-size: cover;
 }
 
 .box {
-    margin-top: 10%;
+    margin: 15% 0;
 }

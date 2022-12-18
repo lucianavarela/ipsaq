@@ -13,12 +13,29 @@
     box-shadow: #6e6e6e99 0px 5px 14px 0px;
 }
 
+.navbar-start {
+    justify-content: flex-end;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.navbar-end {
+    justify-content: flex-start;
+    margin-right: auto;
+    margin-left: 0;
+}
+
 .heading {
     font-size: 12px;
 }
 
+.logo img {
+    height: 90px !important;
+    max-height: none;
+}
+
 .footer {
     padding: 2rem 6rem !important;
-    background-color: #efefef;
-    border-top: 1px solid #ddd;
+    background-color: #ffdebb;
+    border-top: 1px solid #c19676;
 }

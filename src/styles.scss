@@ -12,7 +12,6 @@ body {
   font-family: "Nunito", Roboto, "Helvetica Neue", sans-serif;
 }
 
-@import "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css";
 
 $fa-font-path: "./webfonts";
 
@@ -69,7 +68,7 @@ tr {
 }
 
 .highlighted-text {
-  background-color: #ffdb5a;
+  background-color: #ffd556ab;
   padding: 2px 0;
 }
 
@@ -116,4 +115,8 @@ tr {
 
 .left-space {
   padding-left: 5px !important;
+}
+
+html.has-navbar-fixed-top, body.has-navbar-fixed-top {
+  padding-top: 7.25rem !important;
 }
