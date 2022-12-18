@@ -1,3 +1,29 @@
 .banner {
     width: 100%;
 }
+
+.boxes {
+    margin: 0 1rem;
+}
+
+.boxes .box {
+    margin: 3rem;
+    padding: 1rem;
+    cursor: pointer;
+}
+
+.boxes .button {
+    margin: 15px 0;
+}
+
+.video {
+    width: 100%;
+    padding: 1rem;
+    background-color: #ffefdd;
+}
+
+.texture {
+    background-image: url("/assets/texture2.png");
+    width: 100%;
+    background-size: cover;
+}

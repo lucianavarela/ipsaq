@@ -1,66 +1,46 @@
 <nav class="navbar is-fixed-top">
-  <div class="navbar-brand" (click)="toggleNavbar()">
-    <a
-    class="navbar-burger burger"
-      [class.is-active]="menuDisplayed"
-      data-target="navMenu"
-      >
+  <div class="navbar-brand " (click)="toggleNavbar()">
+    <a class="navbar-burger burger" [class.is-active]="menuDisplayed" data-target="navMenu">
       <span></span>
       <span></span>
       <span></span>
+    </a>
+    <a class="logo" href="/" style="display: none">
+      <img src="assets/logo.png" />
     </a>
   </div>
   <div class="navbar-menu" [class.is-active]="menuDisplayed">
     <div class="navbar-start">
-      <a
-      class="navbar-item is-tab"
-      [routerLink]="['home']"
-      [routerLinkActive]="'is-active'"
-      >
-      Inicio
-    </a>
-    <div class="navbar-item has-dropdown is-hoverable">
-      <a class="navbar-link" [routerLink]="['cancionero']">Cancionero</a>
-      <div class="navbar-dropdown">
-        <a class="navbar-item" [routerLink]="['cancionero']">
+      <a class="navbar-item is-tab" [routerLink]="['home']" [routerLinkActive]="'is-active'">
+        Inicio
+      </a>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link" [routerLink]="['cancionero']">Cancionero</a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" [routerLink]="['cancionero']">
             Listado de Canciones
           </a>
           <a class="navbar-item" [routerLink]="['ultimas_canciones']">
             Canciones Nuevas
           </a>
-          <a
-          *ngIf="isLoggedIn()"
-            class="navbar-item"
-            [routerLink]="['nueva_cancion']"
-          >
-          <span class="icon has-text-success"
-          ><i class="fa-solid fa-sm fa-plus"></i></span
-          >Nueva Canción
-        </a>
-        <a class="navbar-item" [routerLink]="['canciones_sugeridas']">
-          Canciones Sugeridas
-        </a>
-        <a class="navbar-item" [routerLink]="['sugerir_cancion']">
-          <span class="icon has-text-success"
-          ><i class="fa-solid fa-sm fa-plus"></i></span
-          >Sugerir Canción
-        </a>
+          <a *ngIf="isLoggedIn()" class="navbar-item" [routerLink]="['nueva_cancion']">
+            <span class="icon has-text-success"><i class="fa-solid fa-sm fa-plus"></i></span>Nueva Canción
+          </a>
+          <a class="navbar-item" [routerLink]="['canciones_sugeridas']">
+            Canciones Sugeridas
+          </a>
+          <a class="navbar-item" [routerLink]="['sugerir_cancion']">
+            <span class="icon has-text-success"><i class="fa-solid fa-sm fa-plus"></i></span>Sugerir Canción
+          </a>
+        </div>
       </div>
-    </div>
-    <div class="navbar-item has-dropdown is-hoverable">
-      <a class="navbar-link" [routerLink]="['cultos']">Cultos</a>
-      <div class="navbar-dropdown">
-        <a class="navbar-item" [routerLink]="['cultos']"
-        >Listado de Cultos
-      </a>
-      <a
-      *ngIf="isLoggedIn()"
-      class="navbar-item"
-      [routerLink]="['nuevo_culto']"
-      >
-      <span class="icon has-text-success"
-      ><i class="fa-solid fa-sm fa-plus"></i></span
-      >Nuevo Culto
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link" [routerLink]="['cultos']">Cultos</a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" [routerLink]="['cultos']">Listado de Cultos
+          </a>
+          <a *ngIf="isLoggedIn()" class="navbar-item" [routerLink]="['nuevo_culto']">
+            <span class="icon has-text-success"><i class="fa-solid fa-sm fa-plus"></i></span>Nuevo Culto
           </a>
         </div>
       </div>
@@ -69,25 +49,13 @@
       <img src="assets/logo.png" />
     </a>
     <div class="navbar-end">
-      <a
-      class="navbar-item is-tab"
-      [routerLink]="['ubicacion']"
-      [routerLinkActive]="'is-active'"
-      >
-      ¿Dónde estamos?
-    </a>
-    <a
-    class="navbar-item is-tab"
-    [routerLink]="['contacto']"
-        [routerLinkActive]="'is-active'"
-      >
+      <a class="navbar-item is-tab" [routerLink]="['ubicacion']" [routerLinkActive]="'is-active'">
+        ¿Dónde estamos?
+      </a>
+      <a class="navbar-item is-tab" [routerLink]="['contacto']" [routerLinkActive]="'is-active'">
         Contacto
       </a>
-      <a *ngIf="!isLoggedIn()"
-        class="navbar-item is-tab"
-        [routerLink]="['entrar']"
-        [routerLinkActive]="'is-active'"
-      >
+      <a *ngIf="!isLoggedIn()" class="navbar-item is-tab" [routerLink]="['entrar']" [routerLinkActive]="'is-active'">
         <span class="icon"><i class="fa-solid fa-right-to-bracket"></i></span>
       </a>
     </div>
@@ -124,8 +92,6 @@
         </div>
       </div>
     </nav>
-    <small class="has-text-weight-bold"
-      >Iglesia Presbiteriana San Andres de Quilmes</small
-    >
+    <small class="has-text-weight-bold">Iglesia Presbiteriana San Andres de Quilmes</small>
   </div>
 </footer>

@@ -37,5 +37,20 @@
 .footer {
     padding: 2rem 6rem !important;
     background-color: #ffdebb;
-    border-top: 1px solid #c19676;
+    border-top: 1px solid #e2a87b75;
 }
+
+.navbar-brand {
+    align-items: center;
+}
+
+.navbar-brand .logo {
+    margin: 0 calc((50vw) - 5.25rem);
+}
+
+@media (max-width: 1022px) {
+    .navbar-brand .logo {
+      display: block !important;
+    }
+  }
+  

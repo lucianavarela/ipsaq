@@ -1,73 +1,59 @@
 <div class="banner">
   <img src="assets/bienvenido.png" />
 </div>
-<div class="main-cont">
-  <div class="container">
-    <section class="section">
-      <div *ngIf="!sermonIsLive" class="columns is-centered has-text-centered">
-        <div class="column is-5">
-          <div class="box link">
-            <article class="media">
-              <div class="media-content">
-                <div class="content">
-                  <p>
-                      <i style="white-space: pre-wrap"
-                      >Tu amor es mejor que la vida;<br />
-                      por eso mis labios te alabarán.<br />
-                      Te bendeciré mientras viva,<br />
-                      y alzando mis manos te invocaré.</i>
-                      <br />
-                    <strong>Salmo 63:3-4</strong>
-                  </p>
-                </div>
-              </div>
-            </article>
-          </div>
+<div class="texture">
+  <section class="section">
+    <div class="columns is-centered has-text-centered boxes">
+      <div class="column">
+        <div class="box" [routerLink]="['cultos']">
+          <img src="assets/bible.png" />
+          <button class="button is-primary">Cultos</button>
         </div>
       </div>
-      <div class="columns">
-        <div
-          *ngIf="lastSermon && lastSermon.link_youtube && !sermonIsLive"
-          class="column has-text-centered"
-        >
-          <h5 class="title is-5 has-text-white">
-            <a class="has-text-white" [routerLink]="['cultos', lastSermon.id]">Último Culto</a>
-          </h5>
-          <div class="iframe-container">
-            <iframe
-              width="490"
-              height="275"
-              frameborder="0"
-              allowfullscreen
-              [src]="lastSermon.link_youtube | transformYoutube | safeUrl"
-          ></iframe>
-          </div>
+      <div class="column">
+        <div class="box" [routerLink]="['cancionero']">
+          <img src="assets/songs.png" />
+          <button class="button is-info">Cancionero</button>
         </div>
-        <div
-          *ngIf="upcomingSermon && upcomingSermon.link_youtube"
-          class="column has-text-centered"
-        >
-          <h5 class="title is-5">
-            <a *ngIf="!sermonIsLive" class="has-text-white" [routerLink]="['cultos', upcomingSermon.id]">Próximo Culto</a>
-            <a *ngIf="sermonIsLive" class="has-text-white" [routerLink]="['cultos', upcomingSermon.id]">Culto de hoy
-              <span class="tag is-danger" style="background-color: #ff0000; padding-left: 4px !important;">
-                <span class="icon">
-                  <i class="fa-solid fa-2xs fa-circle"></i>
-                </span>
-                EN VIVO
+      </div>
+      <div class="column">
+        <div class="box" [routerLink]="['contacto']">
+          <img src="assets/phone.png" />
+          <button class="button is-light">Contactanos</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<div class="video">
+  <section class="section">
+    <div class="columns">
+      <div *ngIf="lastSermon && lastSermon.link_youtube && !sermonIsLive" class="column has-text-centered">
+        <h5 class="title is-5 has-text-white">
+          <a class="has-text-white" [routerLink]="['cultos', lastSermon.id]">Último Culto</a>
+        </h5>
+        <div class="iframe-container">
+          <iframe width="490" height="275" frameborder="0" allowfullscreen
+            [src]="lastSermon.link_youtube | transformYoutube | safeUrl"></iframe>
+        </div>
+      </div>
+      <div *ngIf="upcomingSermon && upcomingSermon.link_youtube" class="column has-text-centered">
+        <h5 class="title is-5">
+          <a *ngIf="!sermonIsLive" class="has-text-primary" [routerLink]="['cultos', upcomingSermon.id]">Próximo Culto</a>
+          <a *ngIf="sermonIsLive" class="has-text-primary" [routerLink]="['cultos', upcomingSermon.id]">Culto de hoy
+            <span class="tag is-danger has-text-white" style="background-color: #ff0000; padding-left: 4px !important;">
+              <span class="icon">
+                <i class="fa-solid fa-2xs fa-circle"></i>
               </span>
-            </a>
-          </h5>
-          <div class="iframe-container">
-          <iframe
-            width="490"
-            height="275"
-            frameborder="0"
-            allowfullscreen
-            [src]="upcomingSermon.link_youtube | transformYoutube: sermonIsLive | safeUrl"
-          ></iframe></div>
+              EN VIVO
+            </span>
+          </a>
+        </h5>
+        <div class="iframe-container">
+          <iframe width="490" height="275" frameborder="0" allowfullscreen
+            [src]="upcomingSermon.link_youtube | transformYoutube: sermonIsLive | safeUrl"></iframe>
         </div>
       </div>
-    </section>
-  </div>
+    </div>
+  </section>
 </div>
