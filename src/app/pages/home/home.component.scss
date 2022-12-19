@@ -1,13 +1,16 @@
 .banner {
-    width: 100%;
+    height: 70vh; 
+    background: url('/assets/bienvenido.png') center center no-repeat;
+    background-size: cover;
 }
 
-.boxes {
-    margin: 0 1rem;
-}
-
+@media (max-width: 1022px) {
+    .banner {
+    height: 50vh !important;
+    }
+  }
+  
 .boxes .box {
-    margin: 3rem;
     padding: 1rem;
     cursor: pointer;
 }
