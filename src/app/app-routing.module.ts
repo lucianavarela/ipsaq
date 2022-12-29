@@ -1,7 +1,10 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes, UrlSegment } from "@angular/router";
 import { AuthGuard } from "./guards/auth.guard";
+import { BeliefsComponent } from "./pages/beliefs/beliefs.component";
 import { ContactComponent } from "./pages/contact/contact.component";
+import { GovernmentComponent } from "./pages/government/government.component";
+import { HistoryComponent } from "./pages/history/history.component";
 import { HomeComponent } from "./pages/home/home.component";
 import { LocationComponent } from "./pages/location/location.component";
 import { LoginComponent } from "./pages/login/login.component";
@@ -72,12 +75,21 @@ const AppRoutes: Routes = [
     },
   },
 
+  {
+    path: "quienes-somos",
+    children: [
+      { path: "historia", component: HistoryComponent },
+      { path: "en-que-creemos", component: BeliefsComponent },
+      { path: "forma-de-gobierno", component: GovernmentComponent }
+    ]
+  },
+
   // otherwise redirect to home
   { path: "**", redirectTo: "" },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(AppRoutes)],
+  imports: [RouterModule.forRoot(AppRoutes, {scrollPositionRestoration: 'enabled'})],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

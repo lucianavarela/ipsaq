@@ -10,9 +10,9 @@ import Utils from "src/app/utils/utils";
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  lastSermon!: Sermon;
-  upcomingSermon!: Sermon;
+  lastsSermons!: Sermon[];
   sermonIsLive: boolean = false;
+  upcomingSermon: boolean = false;
 
   constructor(private sSermon: SermonsService, private route: ActivatedRoute, private router: Router) { }
 
@@ -21,15 +21,17 @@ export class HomeComponent implements OnInit {
       let access_token = this.route.root.snapshot.fragment.match(/access_token\=([^&]+)/);
       if (access_token) this.router.navigate(["/reset"], {queryParams: {'access_token': access_token[1]}})
     }
-    this.sSermon.getSpecificSermon(true).then((res:any) => this.lastSermon = new Sermon(res.data[0]))
-    this.sSermon.getSpecificSermon(false).then((res:any) => {
-      this.upcomingSermon = new Sermon(res.data[0]);
-      const today = new Date();
-      if (
-        this.upcomingSermon?.date && 
-        this.upcomingSermon?.date.toString() == Utils.getToday()
-        ) {
-        this.sermonIsLive = true;
+    this.sSermon.getLastsSermons().then((res:any) => {
+      this.lastsSermons = res.data.map((s:any) => new Sermon(s));
+      if (this.lastsSermons.length) {
+        const today = new Date();
+        this.upcomingSermon = this.lastsSermons[0].date && this.lastsSermons[0]?.date < today ? true : false;
+        if (
+          this.lastsSermons[0]?.date && 
+          this.lastsSermons[0]?.date.toString() == Utils.getToday()
+          ) {
+          this.sermonIsLive = true;
+        }
       }
     });
   }

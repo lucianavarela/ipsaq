@@ -8,8 +8,6 @@ import { SupabaseService } from './supabase.service';
 })
 export class SermonsService {
   table = 'sermons';
-  tableLastSermon = 'last_sermon';
-  tableUpcomingSermon = 'upcoming_sermon';
   tableSermonSong = 'sermon_song';
 
   constructor(public sSupabase: SupabaseService) { }
@@ -18,8 +16,8 @@ export class SermonsService {
     return this.sSupabase.getById(id, this.table, '*, related_series!left(*)');
   }
 
-  getSpecificSermon(isLastSermon: boolean) {
-    return this.sSupabase.get(isLastSermon ? this.tableLastSermon : this.tableUpcomingSermon);
+  getLastsSermons() {
+    return this.sSupabase.get(this.table).order('date', {ascending: false}).limit(3);
   }
 
   getSermons() {

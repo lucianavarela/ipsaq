@@ -9,9 +9,9 @@ $secondary: #c9895e;
 $middle: #e2b37c;
 $highlight: #d2a28e;
 $background: #ffefdd;
-// #ffdfbc;
-// 3. Set the derived variables
-// Use the new pink as the primary color
+$contrast: #7fa2e1;
+$contrast-light: #d4e0f5;
+
 $primary: $highlight;
 $primary-invert: $background;
 $light: $background;

@@ -33,6 +33,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { TextFoundPipe } from './decorators/text-found.pipe';
 import { HighlightDirective } from './decorators/highlight.directive';
 import { SongSuggestionComponent } from './pages/song-suggestion/song-suggestion.component';
+import { HistoryComponent } from './pages/history/history.component';
+import { BeliefsComponent } from './pages/beliefs/beliefs.component';
+import { GovernmentComponent } from './pages/government/government.component';
 
 
 @NgModule({
@@ -57,6 +60,9 @@ import { SongSuggestionComponent } from './pages/song-suggestion/song-suggestion
     ContactComponent,
     LocationComponent,
     HighlightDirective,
+    HistoryComponent,
+    BeliefsComponent,
+    GovernmentComponent,
   ],
   imports: [
     BrowserAnimationsModule,

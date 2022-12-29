@@ -3,7 +3,7 @@
 }
 
 .main-container {
-    min-height: 100% !important;
+    flex:1;
 }
 
 .navbar-menu.is-active {
@@ -34,10 +34,10 @@
     max-height: none;
 }
 
-.footer {
+footer {
     padding: 2rem 6rem !important;
     background-color: #ffdebb;
-    border-top: 1px solid #e2a87b75;
+    border-top: 1px solid #e2a87b75;;
 }
 
 .navbar-brand {

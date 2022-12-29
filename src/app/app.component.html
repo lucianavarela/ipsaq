@@ -1,4 +1,4 @@
-<nav class="navbar is-fixed-top">
+<header class="navbar is-fixed-top">
   <div class="navbar-brand " (click)="toggleNavbar()">
     <a class="navbar-burger burger" [class.is-active]="menuDisplayed" data-target="navMenu">
       <span></span>
@@ -11,9 +11,25 @@
   </div>
   <div class="navbar-menu" [class.is-active]="menuDisplayed">
     <div class="navbar-start">
-      <a class="navbar-item is-tab" [routerLink]="['home']" [routerLinkActive]="'is-active'">
+      <a class="navbar-item is-tab" [routerLink]="['/home']" [routerLinkActive]="'is-active'">
         Inicio
       </a>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link" [routerLink]="['quienes-somos/en-que-creemos']">¿Quiénes somos?</a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" [routerLink]="['quienes-somos/historia']">Historia</a>
+          <a class="navbar-item" [routerLink]="['quienes-somos/en-que-creemos']">¿En qué creemos?</a>
+          <a class="navbar-item" [routerLink]="['quienes-somos/forma-de-gobierno']">Forma de gobierno</a>
+        </div>
+      </div>
+      <a class="navbar-item is-tab" [routerLink]="['ubicacion']" [routerLinkActive]="'is-active'">
+        ¿Dónde estamos?
+      </a>
+    </div>
+    <a [class.is-hidden]="menuDisplayed" class="navbar-item logo" href="/">
+      <img src="assets/logo.png" />
+    </a>
+    <div class="navbar-end">
       <div class="navbar-item has-dropdown is-hoverable">
         <a class="navbar-link" [routerLink]="['cancionero']">Cancionero</a>
         <div class="navbar-dropdown">
@@ -44,14 +60,6 @@
           </a>
         </div>
       </div>
-    </div>
-    <a [class.is-hidden]="menuDisplayed" class="navbar-item logo" href="/">
-      <img src="assets/logo.png" />
-    </a>
-    <div class="navbar-end">
-      <a class="navbar-item is-tab" [routerLink]="['ubicacion']" [routerLinkActive]="'is-active'">
-        ¿Dónde estamos?
-      </a>
       <a class="navbar-item is-tab" [routerLink]="['contacto']" [routerLinkActive]="'is-active'">
         Contacto
       </a>
@@ -59,14 +67,18 @@
         <span class="icon"><i class="fa-solid fa-right-to-bracket"></i></span>
       </a>
     </div>
+    <div class="navbar-item">
+      <a href="https://www.instagram.com/presbiquilmes/" target="_blank"><span class="icon is-medium"><i class="fa-brands fa-lg fa-instagram"></i></span></a>
+      <a href="https://wa.me/541124044835" target="_blank"><span class="icon  is-medium"><i class="fa-brands fa-lg fa-whatsapp"></i></span></a>
+    </div>
   </div>
-</nav>
+</header>
 
 <app-toaster></app-toaster>
 
-<div class="main-container">
+<article class="main-container">
   <router-outlet (activate)="resetMenu()"></router-outlet>
-</div>
+</article>
 
 <footer class="footer">
   <div class="content has-text-centered">

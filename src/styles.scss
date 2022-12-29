@@ -1,12 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
 
-html,
 body {
-  min-height: 100vh !important;
+  min-height: calc(100vh - 122px);
+  display: flex;
+  flex-direction: column
 }
-body {
-  margin: 0;
+
+app-root {
+  min-height: calc(100vh - 122px);
+  display: flex;
+  flex-direction: column
 }
+
 
 * {
   font-family: "Nunito", Roboto, "Helvetica Neue", sans-serif;
@@ -37,7 +42,8 @@ a {
   position: relative;
   overflow: hidden;
   width: 100%;
-  padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+  padding-top: 56.25%;
+  /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
 }
 
 /* Then style the iframe to fit in the container div with full height and width */
@@ -91,10 +97,11 @@ tr {
     color: #212121;
   }
 
-  .mat-header-cell, .mat-cell {
+  .mat-header-cell,
+  .mat-cell {
     font-size: 13px;
   }
-  
+
   .centered .mat-sort-header-container {
     justify-content: center;
   }
@@ -117,6 +124,7 @@ tr {
   padding-left: 5px !important;
 }
 
-html.has-navbar-fixed-top, body.has-navbar-fixed-top {
+html.has-navbar-fixed-top,
+body.has-navbar-fixed-top {
   padding-top: 122px !important;
 }
