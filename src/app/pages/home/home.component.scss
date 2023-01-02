@@ -11,8 +11,12 @@
   }
   
 .boxes .box {
-    padding: 1rem;
     cursor: pointer;
+    width: auto;
+}
+
+.boxes .box img {
+    width: 70%;
 }
 
 .boxes .button {

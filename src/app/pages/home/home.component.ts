@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Sermon } from 'src/app/classes/sermon';
 import { SermonsService } from 'src/app/services/sermons.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import Utils from "src/app/utils/utils";
 
 @Component({
   selector: 'app-home',
@@ -11,7 +10,6 @@ import Utils from "src/app/utils/utils";
 })
 export class HomeComponent implements OnInit {
   lastsSermons!: Sermon[];
-  sermonIsLive: boolean = false;
   upcomingSermon: boolean = false;
 
   constructor(private sSermon: SermonsService, private route: ActivatedRoute, private router: Router) { }
@@ -26,12 +24,6 @@ export class HomeComponent implements OnInit {
       if (this.lastsSermons.length) {
         const today = new Date();
         this.upcomingSermon = this.lastsSermons[0].date && this.lastsSermons[0]?.date < today ? true : false;
-        if (
-          this.lastsSermons[0]?.date && 
-          this.lastsSermons[0]?.date.toString() == Utils.getToday()
-          ) {
-          this.sermonIsLive = true;
-        }
       }
     });
   }

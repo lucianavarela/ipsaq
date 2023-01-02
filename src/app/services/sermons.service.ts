@@ -16,6 +16,10 @@ export class SermonsService {
     return this.sSupabase.getById(id, this.table, '*, related_series!left(*)');
   }
 
+  getUpcomingSermon() {
+    return this.sSupabase.get(this.table).order('date', {ascending: false}).limit(1);
+  }
+
   getLastsSermons() {
     return this.sSupabase.get(this.table).order('date', {ascending: false}).limit(3);
   }

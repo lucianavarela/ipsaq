@@ -16,7 +16,7 @@ export class LocationComponent implements OnInit {
       },
       title: 'Marker title ',
       options: { 
-        icon: {url: 'assets/church.png', scaledSize: {height: 50, width: 50}},
+        icon: {url: 'assets/church-icon.png', scaledSize: {height: 50, width: 50}},
        },
     };
   }
