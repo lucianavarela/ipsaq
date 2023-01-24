@@ -56,7 +56,6 @@ const AppRoutes: Routes = [
   },
   {
     path: "canciones_sugeridas",
-    canActivate: [AuthGuard],
     component: SongsComponent
   },
   {

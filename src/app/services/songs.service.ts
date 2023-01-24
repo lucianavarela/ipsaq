@@ -16,7 +16,7 @@ export class SongsService {
   }
 
   getSongs(with_usage?: boolean) {
-    return this.sSupabase.get(with_usage? this.usage_view: this.table).filter('suggestion', 'eq', 'false');
+    return this.sSupabase.get(with_usage? this.usage_view: this.table).filter('suggestion', 'eq', 'false').order('index');
   }
 
   getLatestSongs() {
@@ -27,12 +27,20 @@ export class SongsService {
     return this.sSupabase.get(this.table).filter('suggestion', 'eq', 'true');
   }
 
+  getLastIndex() {
+    return this.sSupabase.get(this.table).order('index', {ascending: false}).limit(1).select('index');
+  }
+
   async updateSong(song: Song) {
     return await this.sSupabase.update(song, this.table);
   }
 
   async createSong(song: Song) {
     return await this.sSupabase.add(song, this.table);
+  }
+  
+  async deleteSong(id: number) {
+    return await this.sSupabase.delete(id, this.table);
   }
 }
 

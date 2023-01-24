@@ -30,9 +30,15 @@ export class SongEditComponent implements OnInit {
   async updateSong() {
     try {
       this.loading = true;
-      if (this.song.suggestion && this.songSuggestionFlag) this.song.suggestion = false;
-      this.sSongs.updateSong(this.song).then((res:any) => this.router.navigateByUrl('/cancionero/'+res.data[0]['id']));
-      this.toastService.showSuccessToast('Exito!', 'Canción actualizada.');
+      this.sSongs.getLastIndex().then((res:any) => {
+        const nextIndex = (res.data[0].index) + 1;
+        if (this.song.suggestion && this.songSuggestionFlag) {
+          this.song.suggestion = false;
+          this.song.index = nextIndex;
+        }
+        this.sSongs.updateSong(this.song).then((res:any) => this.router.navigateByUrl('/cancionero/'+res.data[0]['id']));
+        this.toastService.showSuccessToast('Exito!', 'Canción actualizada.');
+      })
     } catch (error: any) {
       this.toastService.showErrorToast('Error al guardar', error.error_description || error.message);
     } finally {
@@ -44,12 +50,29 @@ export class SongEditComponent implements OnInit {
     try {
       this.loading = true;
       delete this.song.id;
-      this.sSongs.createSong(this.song).then((res:any) => this.router.navigateByUrl('/cancionero/'+res.data[0]['id']));
-      this.toastService.showSuccessToast('Exito!', 'Canción agregada.');
+      this.sSongs.getLastIndex().then((res:any) => {
+        this.song.index = (res.data[0].index) + 1;
+        this.sSongs.createSong(this.song).then((res:any) => this.router.navigateByUrl('/cancionero/'+res.data[0]['id']));
+        this.toastService.showSuccessToast('Exito!', 'Canción agregada.');
+      });
     } catch (error: any) {
       this.toastService.showErrorToast('Error al guardar', error.error_description || error.message);
     } finally {
       this.loading = false;
+    }
+  }
+
+  removeSuggestion() {
+    const confirmation = confirm("Seguro que desea eliminar esta sugerencia?");
+
+    if (confirmation && this.song.id) {
+      try {
+        this.sSongs.deleteSong(this.song.id).then((res:any) => this.router.navigateByUrl('/cancionero'));
+      } catch (error: any) {
+        this.toastService.showErrorToast('Error al guardar', error.error_description || error.message);
+      } finally {
+        this.loading = false;
+      }
     }
   }
 }

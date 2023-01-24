@@ -139,9 +139,10 @@
                 bindLabel="beginning"
                 (change)="songAdded()"
                 [(ngModel)]="selectedSong"
+                [searchFn]="customSearchSongs"
               >
                 <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
-                  <p>{{ item.index }} | {{ item.beginning }}</p>
+                  <p>{{ item.index }} | {{ item.beginning }}{{ item.title != item.beginning ? ' ['+item.title+']' :'' }}</p>
                 </ng-template>
               </ng-select>
             </p>

@@ -30,7 +30,7 @@ export class SermonEditComponent implements OnInit {
     private toastService: ToastService,
     private sSeries: SeriesService,
     private sSong: SongsService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.activatedRoute.data.subscribe(({ sermon }) => {
@@ -55,7 +55,7 @@ export class SermonEditComponent implements OnInit {
 
   addSeries() {
     let series_name = prompt('Indique el nombre de la serie');
-    if(series_name) {
+    if (series_name) {
       try {
         this.sSeries.createSerie(series_name).then((res: any) => {
           this.sermon.series = new Series(res.data[0])
@@ -73,7 +73,7 @@ export class SermonEditComponent implements OnInit {
 
   async updateSermon() {
     try {
-      let sermon:any = structuredClone(this.sermon);
+      let sermon: any = structuredClone(this.sermon);
       sermon.related_series = this.sermon.series?.id;
       delete sermon.series;
       this.sSermons
@@ -92,7 +92,7 @@ export class SermonEditComponent implements OnInit {
 
   async addSermon() {
     try {
-      let sermon:any = structuredClone(this.sermon);
+      let sermon: any = structuredClone(this.sermon);
       sermon.related_series = this.sermon.series?.id;
       delete sermon.series;
       delete sermon.id;
@@ -113,8 +113,8 @@ export class SermonEditComponent implements OnInit {
   songAdded() {
     if (this.selectedSong) {
       try {
-        this.sSermons.addSermonSong({'id_song': this.selectedSong.id, 'id_sermon': this.sermon.id}).then((res:any) => {
-          this.songs.push(SermonSong.mapObjects([{'id': res.data[0]['id'], 'songs': this.selectedSong}], Number(this.sermon.id))[0]);
+        this.sSermons.addSermonSong({ 'id_song': this.selectedSong.id, 'id_sermon': this.sermon.id }).then((res: any) => {
+          this.songs.push(SermonSong.mapObjects([{ 'id': res.data[0]['id'], 'songs': this.selectedSong }], Number(this.sermon.id))[0]);
           this.toastService.showSuccessToast("Exito!", "Canción agregada.");
           this.ngSelectComponent.clearModel();
         });
@@ -122,8 +122,8 @@ export class SermonEditComponent implements OnInit {
         this.toastService.showErrorToast(
           "Error al agregar canción",
           error.error_description || error.message
-          );
-        }
+        );
+      }
     }
   }
 
@@ -139,5 +139,17 @@ export class SermonEditComponent implements OnInit {
         error.error_description || error.message
       );
     }
+  }
+
+  customSearchSongs(term: string, item: Song) {
+    term = term.toLowerCase();
+    let splitTerm = term.split(' ').filter(t => t);
+    let isWordThere: any = [];
+    splitTerm.forEach(arr_term => {
+      let search = `${item.index} ${item.beginning} ${item.title}`.toLowerCase();
+      isWordThere.push(search.indexOf(arr_term) != -1);
+    });
+    const all_words = (this_word: any) => this_word;
+    return isWordThere.every(all_words);
   }
 }

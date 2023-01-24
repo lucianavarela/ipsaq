@@ -14,7 +14,7 @@
         </p>
       </div>
       <div class="column has-text-centered">
-        <p class="title">{{ song.beginning }}</p>
+        <p class="title"><span *ngIf="song.index" class="index">{{song.index}}</span>{{ song.beginning }}</p>
         <p class="subtitle">{{ song.beginning != song.title ? song.title : '' }}<span *ngIf="song.artist"> [ {{ song.artist }} ]</span></p>
       </div>
       <div class="column is-1">

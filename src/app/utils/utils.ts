@@ -4,13 +4,7 @@ export default class Utils {
         let transformedLink = link;
         if (link && link.indexOf('you') > -1) {
             let video_code = link.match(/((?!IPSA)[A-Za-z0-9_-]{11})/g);
-            if (video_code?.length != 1) {
-                video_code = link.match(/=((?!IPSA)[A-Za-z0-9_-]{11})/g);
-                if (video_code?.length != 1) {
-                    video_code = link.match(/=((?!IPSA)[A-Za-z0-9_-]{11})/g);
-                }
-            }
-            if (video_code?.length==1) {
+            if (video_code?.length) {
                 transformedLink = `https://www.youtube.com/embed/${video_code[0]}${autoplay ? '?rel=0&autoplay=1&mute=1': ''}`;
             }
         }
