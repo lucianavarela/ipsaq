@@ -3,7 +3,6 @@ import {
   AuthChangeEvent,
   AuthUser,
   createClient,
-  PostgrestResponse,
   Session,
   SupabaseClient,
 } from '@supabase/supabase-js'
@@ -39,6 +38,17 @@ export class SupabaseService {
 
   delete(id: number, table: string) {
     return this.supabase.from(table).delete().eq('id', id)
+  }
+
+  functions(body: object) {
+    return this.supabase.functions.invoke('ipsaq-func', {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*"
+      },
+      body: JSON.stringify(body),
+    });
   }
 
   // LOGIN
