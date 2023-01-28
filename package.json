@@ -35,7 +35,6 @@
     "@angular/platform-browser-dynamic": "^14.1.0",
     "@angular/router": "^14.1.0",
     "@ng-select/ng-select": "^9.0.2",
-    "@sendgrid/mail": "^7.7.0",
     "@supabase/supabase-js": "^1.35.6",
     "@types/bootstrap": "^5.2.3",
     "@types/google-maps": "^3.2.3",
