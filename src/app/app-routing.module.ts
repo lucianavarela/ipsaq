@@ -18,6 +18,7 @@ import { SongSuggestionComponent } from "./pages/song-suggestion/song-suggestion
 import { SongsComponent } from "./pages/songs/songs.component";
 import { SermonsResolverService } from "./services/sermons-resolver.service";
 import { SongsResolverService } from "./services/songs-resolver.service";
+import { SuggestedSongsResolverService } from "./services/suggested-songs-resolver.service";
 
 const AppRoutes: Routes = [
   { path: "", component: HomeComponent },
@@ -55,11 +56,7 @@ const AppRoutes: Routes = [
     component: SongEditComponent,
   },
   {
-    path: "canciones_sugeridas",
-    component: SongsComponent
-  },
-  {
-    path: "cancionero/:id",
+    path: "cancionero/:index",
     component: SongDetailComponent,
     resolve: {
       song: SongsResolverService,
@@ -71,6 +68,25 @@ const AppRoutes: Routes = [
     canActivate: [AuthGuard],
     resolve: {
       song: SongsResolverService,
+    },
+  },
+  {
+    path: "canciones_sugeridas",
+    component: SongsComponent
+  },
+  {
+    path: "canciones_sugeridas/:id",
+    component: SongDetailComponent,
+    resolve: {
+      song: SuggestedSongsResolverService,
+    },
+  },
+  {
+    path: "canciones_sugeridas/:id/editar",
+    component: SongDetailComponent,
+    canActivate: [AuthGuard],
+    resolve: {
+      song: SuggestedSongsResolverService,
     },
   },
 

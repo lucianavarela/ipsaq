@@ -28,6 +28,6 @@ export class Song {
         this.created_at = obj?.created_at;
         this.last_used = obj?.last_used;
         this.amount_used = obj?.amount_used;
-        this.suggestion = obj?.suggestion;
+        this.suggestion = !!(obj?.suggestion);
     }
 }

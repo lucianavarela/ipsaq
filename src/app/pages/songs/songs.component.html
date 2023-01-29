@@ -36,7 +36,8 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
           Comienzo / <i>Título</i>
         </th>
-        <td class="song-link" mat-cell *matCellDef="let song"><a style="color: inherit" [routerLink]="['/cancionero', song.id]">
+        <td class="song-link" mat-cell *matCellDef="let song"><a style="color: inherit"
+          [routerLink]="song.suggestion ? ['/canciones_sugeridas', song.id] : ['/cancionero', song.index]">
           <p [highlight]="searchedText" [fullText]="song.beginning">
             {{ song.beginning }}
           </p>
@@ -81,7 +82,7 @@
             <p class="control">
               <a
                 class="button is-link is-inverted is-small"
-                [routerLink]="['/cancionero', song.id]"
+                [routerLink]="song.suggestion ? ['/canciones_sugeridas', song.id] : ['/cancionero', song.index]"
               >
                 <span class="icon is-small">
                   <i class="fa-solid fa-circle-info"></i>

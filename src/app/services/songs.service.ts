@@ -15,6 +15,10 @@ export class SongsService {
     return this.sSupabase.getById(id, this.table);
   }
 
+  getSongByIndex(index: number) {
+    return this.sSupabase.get(this.table).filter('index', 'eq', index).single();
+  }
+
   getSongs(with_usage?: boolean) {
     return this.sSupabase.get(with_usage? this.usage_view: this.table).filter('suggestion', 'eq', 'false').order('index');
   }
