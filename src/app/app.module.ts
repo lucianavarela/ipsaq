@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CommonModule } from '@angular/common';
 
 
 // Material
@@ -45,6 +46,7 @@ import { BeliefsComponent } from './pages/beliefs/beliefs.component';
 import { GovernmentComponent } from './pages/government/government.component';
 import { LiveSermonComponent } from './pages/live-sermon/live-sermon.component';
 import { EditChordsComponent } from './pages/edit-chords/edit-chords.component';
+import { ChordsDirective } from './decorators/chords.directive';
 
 
 
@@ -75,8 +77,10 @@ import { EditChordsComponent } from './pages/edit-chords/edit-chords.component';
     GovernmentComponent,
     LiveSermonComponent,
     EditChordsComponent,
+    ChordsDirective
   ],
   imports: [
+    CommonModule,
     BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,

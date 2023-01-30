@@ -1,6 +1,9 @@
 textarea {
-    width: 50rem;
-    resize:vertical;
-    overflow: hidden;
-    min-height: 50px;
+  width: 50rem;
+  min-height: 50px;
+  white-space: pre-wrap !important;
+}
+
+.chord {
+  color: red;
 }
