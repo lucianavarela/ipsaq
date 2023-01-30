@@ -5,18 +5,17 @@ import { SongsService } from 'src/app/services/songs.service';
 import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
-  selector: 'app-song-suggestion',
-  templateUrl: './song-suggestion.component.html',
-  styleUrls: ['./song-suggestion.component.scss']
+  selector: 'app-edit-chords',
+  templateUrl: './edit-chords.component.html',
+  styleUrls: ['./edit-chords.component.scss']
 })
-export class SongSuggestionComponent implements OnInit {
+export class EditChordsComponent implements OnInit {
   song!: Song;
-  loading = false;
 
   constructor(private sSongs: SongsService, private router: Router, private activatedRoute: ActivatedRoute,
     private toastService: ToastService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ song }) => {
       if (song) {
         this.song = new Song(song.data);
@@ -28,27 +27,12 @@ export class SongSuggestionComponent implements OnInit {
 
   async updateSong() {
     try {
-      this.loading = true;
       this.sSongs.updateSong(this.song).then((res:any) => this.router.navigateByUrl('/cancionero/'+res.data[0]['index']));
       this.toastService.showSuccessToast('Exito!', 'Canción actualizada.');
     } catch (error: any) {
       this.toastService.showErrorToast('Error al guardar', error.error_description || error.message);
     } finally {
-      this.loading = false;
     }
   }
 
-  async suggestSong() {
-    try {
-      this.loading = true;
-      delete this.song.id;
-      this.song.suggestion = true;
-      this.sSongs.createSong(this.song).then((res:any) => this.router.navigateByUrl('/cancionero'));
-      this.toastService.showSuccessToast('Exito!', 'Sugerencia guardada.');
-    } catch (error: any) {
-      this.toastService.showErrorToast('Error al guardar', error.error_description || error.message);
-    } finally {
-      this.loading = false;
-    }
-  }
 }

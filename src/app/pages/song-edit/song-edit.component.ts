@@ -36,7 +36,7 @@ export class SongEditComponent implements OnInit {
           this.song.suggestion = false;
           this.song.index = nextIndex;
         }
-        this.sSongs.updateSong(this.song).then((res:any) => this.router.navigateByUrl('/cancionero/'+res.data[0]['id']));
+        this.sSongs.updateSong(this.song).then((res:any) => this.router.navigateByUrl('/cancionero/'+res.data[0]['index']));
         this.toastService.showSuccessToast('Exito!', 'Canción actualizada.');
       })
     } catch (error: any) {
@@ -52,7 +52,7 @@ export class SongEditComponent implements OnInit {
       delete this.song.id;
       this.sSongs.getLastIndex().then((res:any) => {
         this.song.index = (res.data[0].index) + 1;
-        this.sSongs.createSong(this.song).then((res:any) => this.router.navigateByUrl('/cancionero/'+res.data[0]['id']));
+        this.sSongs.createSong(this.song).then((res:any) => this.router.navigateByUrl('/cancionero/'+res.data[0]['index']));
         this.toastService.showSuccessToast('Exito!', 'Canción agregada.');
       });
     } catch (error: any) {

@@ -14,8 +14,14 @@
         </p>
       </div>
       <div class="column has-text-centered">
-        <p class="title"><span *ngIf="song.index" class="index">{{song.index}}</span>{{ song.beginning }}</p>
-        <p class="subtitle">{{ song.beginning != song.title ? song.title : '' }}<span *ngIf="song.artist"> [ {{ song.artist }} ]</span></p>
+        <p class="title">
+          <span *ngIf="song.index" class="index">{{ song.index }}</span
+          >{{ song.beginning }}
+        </p>
+        <p class="subtitle">
+          {{ song.beginning != song.title ? song.title : ""
+          }}<span *ngIf="song.artist"> [ {{ song.artist }} ]</span>
+        </p>
       </div>
       <div class="column is-1">
         <p class="control" *ngIf="isLoggedIn()">
@@ -41,18 +47,22 @@
       </div>
       <div class="column">
         <ng-container *ngIf="song.link_chords">
-        <p class="container has-text-centered" style="margin-bottom: 
-        30px">
-            <a class="button is-warning has-icons-left is-light is-outlined" target=”_blank” href="{{ song.link_chords }}">
-                <span class="icon is-small"><i class="fa-solid fa-guitar"></i></span>
-            <span>Link al archivo de acordes en Drive</span>
-            </a><br/>
-        </p>
+          <div class="buttons has-addons is-centered" style="margin-bottom: 30px">
+            <a
+              class="button is-warning has-icons-left is-light is-outlined"
+              target="”_blank”" href="{{ song.link_chords }}"
+            >
+              <span class="icon is-small"
+                ><i class="fa-solid fa-guitar"></i
+              ></span>
+              <span>Link al archivo de acordes</span>
+            </a>
+            <a *ngIf="isLoggedIn()" class="button is-warning is-outlined" [routerLink]="['editar_acordes']">Editar</a>
+          </div>
         </ng-container>
         <ng-container *ngIf="song.link_original">
           <h5 class="title is-5">Version Original</h5>
-          <div class="iframe-container" style="margin-bottom: 
-          30px">
+          <div class="iframe-container" style="margin-bottom: 30px">
             <iframe
               width="560"
               height="315"

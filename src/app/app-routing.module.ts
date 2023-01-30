@@ -3,6 +3,7 @@ import { RouterModule, Routes, UrlSegment } from "@angular/router";
 import { AuthGuard } from "./guards/auth.guard";
 import { BeliefsComponent } from "./pages/beliefs/beliefs.component";
 import { ContactComponent } from "./pages/contact/contact.component";
+import { EditChordsComponent } from "./pages/edit-chords/edit-chords.component";
 import { GovernmentComponent } from "./pages/government/government.component";
 import { HistoryComponent } from "./pages/history/history.component";
 import { HomeComponent } from "./pages/home/home.component";
@@ -65,6 +66,14 @@ const AppRoutes: Routes = [
   {
     path: "cancionero/:id/editar",
     component: SongEditComponent,
+    canActivate: [AuthGuard],
+    resolve: {
+      song: SongsResolverService,
+    },
+  },
+  {
+    path: "cancionero/:index/editar_acordes",
+    component: EditChordsComponent,
     canActivate: [AuthGuard],
     resolve: {
       song: SongsResolverService,

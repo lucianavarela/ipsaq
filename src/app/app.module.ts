@@ -44,6 +44,7 @@ import { HistoryComponent } from './pages/history/history.component';
 import { BeliefsComponent } from './pages/beliefs/beliefs.component';
 import { GovernmentComponent } from './pages/government/government.component';
 import { LiveSermonComponent } from './pages/live-sermon/live-sermon.component';
+import { EditChordsComponent } from './pages/edit-chords/edit-chords.component';
 
 
 
@@ -73,6 +74,7 @@ import { LiveSermonComponent } from './pages/live-sermon/live-sermon.component';
     BeliefsComponent,
     GovernmentComponent,
     LiveSermonComponent,
+    EditChordsComponent,
   ],
   imports: [
     BrowserAnimationsModule,
