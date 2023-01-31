@@ -77,7 +77,8 @@ import { ChordsDirective } from './decorators/chords.directive';
     GovernmentComponent,
     LiveSermonComponent,
     EditChordsComponent,
-    ChordsDirective
+    ChordsDirective,
+    
   ],
   imports: [
     CommonModule,
@@ -95,7 +96,8 @@ import { ChordsDirective } from './decorators/chords.directive';
     MatTooltipModule,
     MatDialogModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

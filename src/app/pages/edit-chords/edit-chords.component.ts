@@ -11,6 +11,7 @@ import { ToastService } from 'src/app/services/toast.service';
 })
 export class EditChordsComponent implements OnInit {
   song!: Song;
+  chordsText: string = '';
 
   constructor(private sSongs: SongsService, private router: Router, private activatedRoute: ActivatedRoute,
     private toastService: ToastService) { }
@@ -19,6 +20,7 @@ export class EditChordsComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ song }) => {
       if (song) {
         this.song = new Song(song.data);
+        this.chordsText = this.song.chords ?? '';
       } else {
         this.song = new Song();
       }
@@ -35,4 +37,7 @@ export class EditChordsComponent implements OnInit {
     }
   }
 
+  textAltered() {
+    this.song.chords = this.chordsText;
+  }
 }

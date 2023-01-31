@@ -24,9 +24,10 @@
 
 <div class="container">
   <section class="section">
+    <p [chords]="chordsText"></p>
     <div class="field">
       <div class="control">
-        <div class="textarea" contenteditable="true" #chordsText [chords]="song.chords" (input)="song.chords = chordsText.innerHTML"></div>
+        <div class="textarea" contenteditable="true" [chords]="chordsText" (input)="textAltered()"></div>
       </div>
     </div>
     <div class="field">

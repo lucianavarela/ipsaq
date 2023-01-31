@@ -12,10 +12,11 @@ export class ChordsDirective implements OnChanges {
   ngOnChanges() {
     let text = this.chords;
     if (text) {
-      const regex = new RegExp(`\$\{([a-zA-Z0-9]+)\}`, 'gi');
-      text = text.replace(regex, `<span class='color'>$1</span>`);
-      console.log(text)
+      const regex = new RegExp(`\{([a-zA-Z0-9]+)\}`, 'gm');
+      console.log(text.match(regex))
+      text = text.replace(regex, `<span class='chord'>$1</span>`);
       this.el.nativeElement.innerHTML = text;
+      console.log(text)
     }
   }
 }
