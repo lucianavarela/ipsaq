@@ -1,4 +1,5 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
+import { Title } from "@angular/platform-browser";
 import { Router } from "@angular/router";
 import { SupabaseService } from "src/app/services/supabase.service";
 import { ToastService } from "src/app/services/toast.service";
@@ -8,7 +9,7 @@ import { ToastService } from "src/app/services/toast.service";
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.scss"],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loading = false;
   email: string = "";
   pw: string = "";
@@ -16,9 +17,14 @@ export class LoginComponent {
   constructor(
     private readonly supabase: SupabaseService,
     private sToast: ToastService,
-    private router: Router
+    private router: Router,
+    private sTitle: Title
     
   ) {}
+
+  ngOnInit() {
+    this.sTitle.setTitle('Iniciar Sesión');
+  }
 
   async login() {
     try {

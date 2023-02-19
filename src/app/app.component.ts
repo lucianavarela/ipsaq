@@ -56,7 +56,6 @@ export class AppComponent implements OnInit {
   }
 
   openSermon() {
-    console.log(this.upcomingSermon)
     this.dialog.open(LiveSermonComponent, {
       width: '75%', height: 'auto',
       data: {

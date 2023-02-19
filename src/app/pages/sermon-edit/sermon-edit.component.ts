@@ -9,6 +9,7 @@ import { ToastService } from "src/app/services/toast.service";
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { Series } from "src/app/classes/series";
 import { SeriesService } from "src/app/services/series.service";
+import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: "app-sermon-edit",
@@ -29,13 +30,15 @@ export class SermonEditComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private toastService: ToastService,
     private sSeries: SeriesService,
-    private sSong: SongsService
+    private sSong: SongsService,
+    private sTitle: Title
   ) { }
 
   ngOnInit() {
     this.activatedRoute.data.subscribe(({ sermon }) => {
       if (sermon) {
         this.sermon = new Sermon(sermon.data);
+        this.sTitle.setTitle(`Editar Culto ${this.sermon.title?'"'+this.sermon.title+'"':this.sermon.date ? 'del '  + new Date(this.sermon.date).toLocaleDateString() : ''}`);
         this.sSong.getSongs().then((res: any) => {
           this.allSongs = res.data
             ?.map((s: any) => new Song(s))
@@ -44,6 +47,7 @@ export class SermonEditComponent implements OnInit {
           this.songs = SermonSong.mapObjects(res.data, Number(sermon.data.id));
         });
       } else {
+        this.sTitle.setTitle(`Crear culto`);
         this.sermon = new Sermon();
       }
       this.sSeries.getSeries().then((res: any) => {

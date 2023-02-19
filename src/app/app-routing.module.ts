@@ -63,7 +63,7 @@ const AppRoutes: Routes = [
     },
   },
   {
-    path: "cancionero/:id/editar",
+    path: "cancionero/:index/editar",
     component: SongEditComponent,
     canActivate: [AuthGuard],
     resolve: {
@@ -83,7 +83,7 @@ const AppRoutes: Routes = [
   },
   {
     path: "canciones_sugeridas/:id/editar",
-    component: SongDetailComponent,
+    component: SongEditComponent,
     canActivate: [AuthGuard],
     resolve: {
       song: SuggestedSongsResolverService,

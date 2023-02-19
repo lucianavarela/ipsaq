@@ -1,5 +1,6 @@
 <div mat-dialog-title class="dialog-title">
-    <h2>{{sermon.title}}
+    <h2><span class="tag is-danger has-text-white live">
+        <span class="icon"><i class="fa-solid fa-2xs fa-circle"></i></span>EN VIVO</span>{{sermon.title}}
         <a [routerLink]="['cultos', sermon.id]" target="_blank" style="margin-left: 5px;">
             <span class="icon has-text-light is-small"><i class="fa-solid fa-sm fa-up-right-from-square"></i></span>
         </a>

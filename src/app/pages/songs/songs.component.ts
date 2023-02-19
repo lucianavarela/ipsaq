@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Song } from 'src/app/classes/song';
 import { SongsService } from 'src/app/services/songs.service';
 import { SupabaseService } from 'src/app/services/supabase.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-songs',
@@ -20,10 +21,12 @@ export class SongsComponent implements OnInit {
   dataSource = new MatTableDataSource<Song>();
   @ViewChild(MatSort) sort!: MatSort;
   
-  constructor(private sSong: SongsService, private router: Router, private readonly supabase: SupabaseService) { }
+  constructor(private sSong: SongsService, private router: Router, private readonly supabase: SupabaseService,
+    private sTitle: Title) { }
   
   ngOnInit(): void {
     if (this.router.url.indexOf('ultimas_canciones') > -1) {
+      this.sTitle.setTitle('Ultimas Canciones');
       this.displayedColumns = ['index', 'beginning', 'lyrics_and_chords'];
       this.sSong.getLatestSongs().then(res => {
         if (res.data) this.songs = res.data.map(o => new Song(o))
@@ -31,6 +34,7 @@ export class SongsComponent implements OnInit {
         this.dataSource.sort = this.sort;
       });
     } else if (this.router.url.indexOf('canciones_sugeridas') > -1) {
+      this.sTitle.setTitle('Canciones Sugeridas');
       this.displayedColumns = ['beginning', 'lyrics_and_chords'];
       this.sSong.getSuggestedSongs().then(res => {
         if (res.data) this.songs = res.data.map(o => new Song(o))
@@ -38,6 +42,7 @@ export class SongsComponent implements OnInit {
         this.dataSource.sort = this.sort;
       });
     } else{
+      this.sTitle.setTitle('Cancionero');
       if (this.supabase.isLoggedIn()) {
         this.displayedColumns = ['index', 'beginning', 'last_used', 'amount_used', 'link_ipsaq', 'lyrics_and_chords'];
       }

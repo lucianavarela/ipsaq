@@ -14,7 +14,6 @@ export class LiveSermonComponent implements OnInit {
 
   ngOnInit(): void {
     this.sermon = this.data.sermon;
-    console.log(this.sermon)
   }
 
 }

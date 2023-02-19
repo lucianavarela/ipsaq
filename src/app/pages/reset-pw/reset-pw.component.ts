@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthUser } from '@supabase/supabase-js';
 import { SupabaseService } from 'src/app/services/supabase.service';
@@ -16,9 +17,10 @@ export class ResetPwComponent {
   pw2: string = '';
 
   constructor(private readonly supabase: SupabaseService, private sToast: ToastService, private route: ActivatedRoute,
-    private router: Router) {}
+    private router: Router, private sTitle: Title) {}
 
   ngOnInit() {
+    this.sTitle.setTitle(`Resetear contraseña`);
     this.route.queryParams
       .subscribe(params => {
         if (params['access_token']) this.token = params['access_token'];

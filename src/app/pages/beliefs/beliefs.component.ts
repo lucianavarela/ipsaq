@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-beliefs',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BeliefsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private sTitle: Title) { }
 
   ngOnInit(): void {
+    this.sTitle.setTitle(`¿En qué creemos?`);
   }
 
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Song } from 'src/app/classes/song';
 import { SongsService } from 'src/app/services/songs.service';
@@ -15,13 +16,15 @@ export class SongEditComponent implements OnInit {
   songSuggestionFlag = false;
 
   constructor(private sSongs: SongsService, private router: Router, private activatedRoute: ActivatedRoute,
-    private toastService: ToastService) { }
+    private toastService: ToastService, private sTitle: Title) { }
 
   ngOnInit() {
     this.activatedRoute.data.subscribe(({ song }) => {
       if (song) {
         this.song = new Song(song.data);
+        this.sTitle.setTitle(`Editar ${this.song.index?this.song.index + ' | ':''}${(this.song.beginning || this.song.title)}`);
       } else {
+        this.sTitle.setTitle('Agregar canción');
         this.song = new Song();
       }
     })

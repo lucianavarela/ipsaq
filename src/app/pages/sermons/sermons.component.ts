@@ -2,6 +2,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Title } from '@angular/platform-browser';
 import { Sermon } from 'src/app/classes/sermon';
 import { SermonsService } from 'src/app/services/sermons.service';
 
@@ -17,9 +18,10 @@ export class SermonsComponent implements OnInit {
   dataSource = new MatTableDataSource<Sermon>();
   @ViewChild(MatSort) sort!: MatSort;
   
-  constructor(private sSermon: SermonsService, private _liveAnnouncer: LiveAnnouncer) { }
+  constructor(private sSermon: SermonsService, private _liveAnnouncer: LiveAnnouncer, private sTitle: Title) { }
   
   ngOnInit(): void {
+    this.sTitle.setTitle(`Cultos`);
     this.sSermon.getSermons().then(res => {
       if (res.data) this.sermons = res.data.map(o => new Sermon(o))
       this.dataSource = new MatTableDataSource(this.sermons);

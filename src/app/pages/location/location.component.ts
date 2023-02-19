@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-location',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class LocationComponent implements OnInit {
   marker: any;
 
-  constructor() {
+  constructor(private sTitle: Title) {
     this.marker = {
       position: {
         lat: -34.72524442682835,
@@ -22,6 +23,7 @@ export class LocationComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.sTitle.setTitle(`¿Dónde estámos?`);
   }
 
 }

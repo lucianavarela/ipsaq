@@ -12,7 +12,7 @@
   <div class="navbar-menu" [class.is-active]="menuDisplayed">
     <div class="navbar-item" *ngIf="sermonIsLive">
       <a (click)="openSermon()">
-        <span class="tag is-danger has-text-white" style="background-color: #ff0000; padding-left: 4px !important;">
+        <span class="tag is-danger has-text-white live">
           <span class="icon"><i class="fa-solid fa-2xs fa-circle"></i></span>EN VIVO</span>
       </a>
     </div>
@@ -29,7 +29,7 @@
         </div>
       </div>
       <a class="navbar-item is-tab" [routerLink]="['ubicacion']" [routerLinkActive]="'is-active'">
-        ¿Dónde estamos?
+        ¿Dónde estámos?
       </a>
     </div>
     <a [class.is-hidden]="menuDisplayed" class="navbar-item logo" href="/">

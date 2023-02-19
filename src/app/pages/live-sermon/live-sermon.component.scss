@@ -1,5 +1,12 @@
 .dialog-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.live {
+  background-color: #ff0000 !important;
+  padding-left: 4px !important;
+  margin-right: 10px;
+  vertical-align: top;
+}
