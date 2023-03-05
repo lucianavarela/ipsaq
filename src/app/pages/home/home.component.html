@@ -34,36 +34,19 @@
 <div class="video">
   <section class="section">
     <div *ngIf="lastsSermons" class="columns is-variable is-8">
-      <div *ngIf="lastsSermons[2] && lastsSermons[2].link_youtube" class="column has-text-centered">
-        <h5 class="title is-5">
-          <a [routerLink]="['cultos', lastsSermons[2].id]">{{lastsSermons[2].date | date: 'dd/MM/yy'}}</a>
-        </h5>
-        <div class="iframe-container">
-          <iframe width="490" height="275" frameborder="0" allowfullscreen
-            [src]="lastsSermons[2].link_youtube | transformYoutube | safeUrl"></iframe>
-        </div>
-      </div>
-      <div *ngIf="lastsSermons[1] && lastsSermons[1].link_youtube" class="column has-text-centered">
-        <h5 class="title is-5">
-          <a [routerLink]="['cultos', lastsSermons[1].id]">{{lastsSermons[1].date | date: 'dd/MM/yy'}}</a>
-        </h5>
-        <div class="iframe-container">
-          <iframe width="490" height="275" frameborder="0" allowfullscreen
-            [src]="lastsSermons[1].link_youtube | transformYoutube | safeUrl"></iframe>
-        </div>
-      </div>
-      <div *ngIf="lastsSermons[0] && lastsSermons[0].link_youtube" class="column has-text-centered">
 
-
-        <h5 class="title is-5">
-          <a *ngIf="!upcomingSermon" class="has-text-primary" [routerLink]="['cultos', lastsSermons[0].id]">{{lastsSermons[0].date | date: 'dd/MM/yy'}}</a>
-          <a *ngIf="upcomingSermon" class="has-text-primary" [routerLink]="['cultos', lastsSermons[0].id]">Próximo Culto</a>
-        </h5>
-        <div class="iframe-container">
-          <iframe width="490" height="275" frameborder="0" allowfullscreen
-            [src]="lastsSermons[0].link_youtube | transformYoutube | safeUrl"></iframe>
+      <ng-template ngFor let-item [ngForOf]="lastsSermons">
+        <div *ngIf="item && item.link_youtube" class="column has-text-centered">
+          <h5 class="title is-5">
+            <a [routerLink]="['cultos', item.id]">{{item.date == today ? 'Hoy' : item.date == tomorrow ? 'Mañana' : (item.date | date: 'dd/MM/yy')}}</a>
+          </h5>
+          <div class="iframe-container">
+            <iframe width="490" height="275" frameborder="0" allowfullscreen
+              [src]="item.link_youtube | transformYoutube | safeUrl"></iframe>
+          </div>
         </div>
-      </div>
+      </ng-template>
+
     </div>
   </section>
 </div>

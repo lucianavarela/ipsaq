@@ -7,6 +7,7 @@ import { Song } from 'src/app/classes/song';
 import { SongsService } from 'src/app/services/songs.service';
 import { SupabaseService } from 'src/app/services/supabase.service';
 import { Title } from '@angular/platform-browser';
+import Utils from 'src/app/utils/utils';
 
 @Component({
   selector: 'app-songs',
@@ -56,6 +57,6 @@ export class SongsComponent implements OnInit {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.dataSource.filter = Utils.removeAccents(filterValue.trim()).toLowerCase();
   }
 }

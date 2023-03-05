@@ -89,10 +89,9 @@
       </div>
     </div>
 
-  <div class="box light has-text-centered">
+  <div *ngIf="sermon.link_youtube" class="box light has-text-centered">
     <div class="iframe-container">
     <iframe
-      *ngIf="sermon.link_youtube"
       width="860"
       height="484"
       [src]="sermon.link_youtube | transformYoutube | safeUrl"

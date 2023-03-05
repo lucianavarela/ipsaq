@@ -10,6 +10,7 @@ import { NgSelectComponent } from '@ng-select/ng-select';
 import { Series } from "src/app/classes/series";
 import { SeriesService } from "src/app/services/series.service";
 import { Title } from "@angular/platform-browser";
+import Utils from "src/app/utils/utils";
 
 @Component({
   selector: "app-sermon-edit",
@@ -146,11 +147,11 @@ export class SermonEditComponent implements OnInit {
   }
 
   customSearchSongs(term: string, item: Song) {
-    term = term.toLowerCase();
+    term = Utils.removeAccents(term).toLowerCase();
     let splitTerm = term.split(' ').filter(t => t);
     let isWordThere: any = [];
     splitTerm.forEach(arr_term => {
-      let search = `${item.index} ${item.beginning} ${item.title}`.toLowerCase();
+      let search = Utils.removeAccents(`${item.index} ${item.beginning} ${item.title}`).toLowerCase();
       isWordThere.push(search.indexOf(arr_term) != -1);
     });
     const all_words = (this_word: any) => this_word;

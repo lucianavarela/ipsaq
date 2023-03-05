@@ -44,6 +44,7 @@ import { HistoryComponent } from './pages/history/history.component';
 import { BeliefsComponent } from './pages/beliefs/beliefs.component';
 import { GovernmentComponent } from './pages/government/government.component';
 import { LiveSermonComponent } from './pages/live-sermon/live-sermon.component';
+import { NoAccentsPipe } from './decorators/no-accents.pipe';
 
 
 
@@ -73,6 +74,7 @@ import { LiveSermonComponent } from './pages/live-sermon/live-sermon.component';
     BeliefsComponent,
     GovernmentComponent,
     LiveSermonComponent,
+    NoAccentsPipe,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -91,7 +93,7 @@ import { LiveSermonComponent } from './pages/live-sermon/live-sermon.component';
     MatIconModule,
     MatButtonModule
   ],
-  providers: [],
+  providers: [NoAccentsPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

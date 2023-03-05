@@ -46,7 +46,7 @@ export class AppComponent implements OnInit {
       let today = new Date();
       if (this.upcomingSermon && 
         this.upcomingSermon.date && 
-        this.upcomingSermon.date.toString() == Utils.getToday() && 
+        this.upcomingSermon.date.toString() == Utils.getTheDate('today') && 
         ['14','15'].indexOf(today.toISOString().split('T')[1].slice(0,2)) > -1
         ) {
         this.sermonIsLive = true;

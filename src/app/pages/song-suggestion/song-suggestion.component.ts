@@ -28,18 +28,6 @@ export class SongSuggestionComponent implements OnInit {
     })
   }
 
-  async updateSong() {
-    try {
-      this.loading = true;
-      this.sSongs.updateSong(this.song).then((res:any) => this.router.navigateByUrl('/cancionero/'+res.data[0]['id']));
-      this.toastService.showSuccessToast('Exito!', 'Canción actualizada.');
-    } catch (error: any) {
-      this.toastService.showErrorToast('Error al guardar', error.error_description || error.message);
-    } finally {
-      this.loading = false;
-    }
-  }
-
   async suggestSong() {
     try {
       this.loading = true;
