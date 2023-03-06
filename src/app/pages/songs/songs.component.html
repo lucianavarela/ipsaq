@@ -15,7 +15,7 @@
           matInput
           #input
           [(ngModel)]="searchedText"
-          (keyup)="applyFilter($event)"
+          (keyup)="applyFilter()"
         />
       </mat-form-field>
     </div>
@@ -101,7 +101,7 @@
                 #matTooltip="matTooltip"
               >
                 <span class="icon is-small"
-                [class.lyrics-searched] = "song.lyrics && searchedText && song.lyrics.toLowerCase().indexOf(searchedText.toLowerCase()) > -1">
+                [class.lyrics-searched] = "lyricsMatch(song.lyrics)">
                   <i class="fa-solid fa-align-left"></i>
                 </span>
                 <span>Letra</span>

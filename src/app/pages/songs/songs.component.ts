@@ -8,6 +8,7 @@ import { SongsService } from 'src/app/services/songs.service';
 import { SupabaseService } from 'src/app/services/supabase.service';
 import { Title } from '@angular/platform-browser';
 import Utils from 'src/app/utils/utils';
+import { normalize } from 'path';
 
 @Component({
   selector: 'app-songs',
@@ -19,7 +20,7 @@ export class SongsComponent implements OnInit {
   searchedText: string = '';
   displayedColumns: string[] = ['index', 'beginning', 'link_ipsaq', 'lyrics_and_chords'];
   songs: Song[] = [];
-  dataSource = new MatTableDataSource<Song>();
+  dataSource!: MatTableDataSource<Song>;
   @ViewChild(MatSort) sort!: MatSort;
   
   constructor(private sSong: SongsService, private router: Router, private readonly supabase: SupabaseService,
@@ -31,16 +32,14 @@ export class SongsComponent implements OnInit {
       this.displayedColumns = ['index', 'beginning', 'lyrics_and_chords'];
       this.sSong.getLatestSongs().then(res => {
         if (res.data) this.songs = res.data.map(o => new Song(o))
-        this.dataSource = new MatTableDataSource(this.songs);
-        this.dataSource.sort = this.sort;
+        this.initializeTable();
       });
     } else if (this.router.url.indexOf('canciones_sugeridas') > -1) {
       this.sTitle.setTitle('Canciones Sugeridas');
       this.displayedColumns = ['beginning', 'lyrics_and_chords'];
       this.sSong.getSuggestedSongs().then(res => {
         if (res.data) this.songs = res.data.map(o => new Song(o))
-        this.dataSource = new MatTableDataSource(this.songs);
-        this.dataSource.sort = this.sort;
+        this.initializeTable();
       });
     } else{
       this.sTitle.setTitle('Cancionero');
@@ -49,14 +48,33 @@ export class SongsComponent implements OnInit {
       }
       this.sSong.getSongs(true).then(res => {
         if (res.data) this.songs = res.data.map(o => new Song(o))
-        this.dataSource = new MatTableDataSource(this.songs);
-        this.dataSource.sort = this.sort;
+        this.initializeTable();
       });
+    }
+    
+  }
+  
+  initializeTable() {
+    this.dataSource = new MatTableDataSource(this.songs);
+    this.dataSource.sort = this.sort;
+    this.dataSource.filterPredicate = (data: Song, filter: string): boolean => {
+      const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => {
+        return (currentTerm + (data as { [key: string]: any })[key] + '◬');
+      }, '').normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase();
+      const transformedFilter = filter.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+      return dataStr.indexOf(transformedFilter) != -1;
     }
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = Utils.removeAccents(filterValue.trim()).toLowerCase();
+  applyFilter() {
+    this.dataSource.filter = this.searchedText.trim().normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase();
+  }
+
+  lyricsMatch(lyrics: string) {
+    if (!this.searchedText) return false;
+    const normalizedText = lyrics.normalize("NFD").replace(/\p{Diacritic}/giu, "");
+    const term = this.searchedText.normalize("NFD").replace(/\p{Diacritic}/giu, "");
+    const regex = new RegExp(`${term}`, "gi");
+    return !!normalizedText.match(regex)
   }
 }
