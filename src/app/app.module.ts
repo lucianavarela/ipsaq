@@ -32,6 +32,7 @@ import { TransformYoutubePipe } from './decorators/transform-youtube.pipe';
 import { ToasterComponent } from './utils/toaster/toaster.component';
 import { ToastComponent } from './utils/toast/toast.component';
 import { SongsBoxComponent } from './pages/songs-box/songs-box.component';
+import { SermonBoxComponent } from './pages/sermon-box/sermon-box.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ResetPwComponent } from './pages/reset-pw/reset-pw.component';
 import { ContactComponent } from './pages/contact/contact.component';
@@ -45,6 +46,8 @@ import { BeliefsComponent } from './pages/beliefs/beliefs.component';
 import { GovernmentComponent } from './pages/government/government.component';
 import { LiveSermonComponent } from './pages/live-sermon/live-sermon.component';
 import { NoAccentsPipe } from './decorators/no-accents.pipe';
+import { SeriesComponent } from './pages/series/series.component';
+import { SerieDetailComponent } from './pages/serie-detail/serie-detail.component';
 
 
 
@@ -66,6 +69,7 @@ import { NoAccentsPipe } from './decorators/no-accents.pipe';
     ToasterComponent,
     ToastComponent,
     SongsBoxComponent,
+    SermonBoxComponent,
     ResetPwComponent,
     ContactComponent,
     LocationComponent,
@@ -75,6 +79,8 @@ import { NoAccentsPipe } from './decorators/no-accents.pipe';
     GovernmentComponent,
     LiveSermonComponent,
     NoAccentsPipe,
+    SeriesComponent,
+    SerieDetailComponent,
   ],
   imports: [
     BrowserAnimationsModule,

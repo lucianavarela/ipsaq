@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
-import { SermonsService } from './sermons.service';
+import { SeriesService } from './series.service';
  
 @Injectable({
   providedIn: 'root'
 })
-export class SermonsResolverService implements Resolve<any> {
-  constructor(private sSermons: SermonsService, private router: Router) {}
+export class SeriesResolverService implements Resolve<any> {
+  constructor(private sSeries: SeriesService, private router: Router) {}
   
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     if (!isNaN(Number(route.paramMap.get('id')))) {
-      return this.sSermons.getSermon(Number(route.paramMap.get('id')));
+      return this.sSeries.getSerie(Number(route.paramMap.get('id')));
     } else {
       this.router.navigateByUrl('/cultos');
       return;

@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Sermon } from 'src/app/classes/sermon';
 import { SermonsService } from 'src/app/services/sermons.service';
 import { DomSanitizer, Title } from '@angular/platform-browser';
-import { Song } from 'src/app/classes/song';
 import { SermonSong } from 'src/app/classes/sermon-song';
 import { SupabaseService } from 'src/app/services/supabase.service';
 

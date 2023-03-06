@@ -1,8 +1,9 @@
-.is-static {
-    background-color: transparent;
-}
-
 .item-link:hover {
     cursor: pointer;
     color: #485fc7 !important;
+}
+
+.box .button {
+    bottom: -30px;
+    border: none;
 }

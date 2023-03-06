@@ -9,6 +9,8 @@ import { HomeComponent } from "./pages/home/home.component";
 import { LocationComponent } from "./pages/location/location.component";
 import { LoginComponent } from "./pages/login/login.component";
 import { ResetPwComponent } from "./pages/reset-pw/reset-pw.component";
+import { SerieDetailComponent } from "./pages/serie-detail/serie-detail.component";
+import { SeriesComponent } from "./pages/series/series.component";
 import { SermonDetailComponent } from "./pages/sermon-detail/sermon-detail.component";
 import { SermonEditComponent } from "./pages/sermon-edit/sermon-edit.component";
 import { SermonsComponent } from "./pages/sermons/sermons.component";
@@ -16,6 +18,7 @@ import { SongDetailComponent } from "./pages/song-detail/song-detail.component";
 import { SongEditComponent } from "./pages/song-edit/song-edit.component";
 import { SongSuggestionComponent } from "./pages/song-suggestion/song-suggestion.component";
 import { SongsComponent } from "./pages/songs/songs.component";
+import { SeriesResolverService } from "./services/series-resolver.service";
 import { SermonsResolverService } from "./services/sermons-resolver.service";
 import { SongsResolverService } from "./services/songs-resolver.service";
 import { SuggestedSongsResolverService } from "./services/suggested-songs-resolver.service";
@@ -24,7 +27,7 @@ const AppRoutes: Routes = [
   { path: "", component: HomeComponent },
   { path: "entrar", component: LoginComponent },
   { path: "reset", component: ResetPwComponent },
-  { path: "contacto", component: ContactComponent },
+  //{ path: "contacto", component: ContactComponent },
   { path: "ubicacion", component: LocationComponent },
   { path: "cultos", component: SermonsComponent },
   {
@@ -46,6 +49,14 @@ const AppRoutes: Routes = [
     path: "nuevo_culto",
     canActivate: [AuthGuard],
     component: SermonEditComponent,
+  },
+  { path: "series", component: SeriesComponent },
+  {
+    path: "series/:id",
+    component: SerieDetailComponent,
+    resolve: {
+      serie: SeriesResolverService,
+    },
   },
   { path: "cancionero", component: SongsComponent },
   { path: "ultimas_canciones", component: SongsComponent },

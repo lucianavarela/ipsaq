@@ -1,0 +1,19 @@
+<a class="box" *ngIf="sermon" [routerLink]="['/cultos', sermon.id]">
+  <article class="media">
+    <div class="media-content">
+      <div class="content">
+        <p style="margin-bottom: 0; padding-right:10px">{{sermon.title}}</p>
+      </div>
+    </div>
+    <div class="media-right">
+      <a *ngIf="sermon.bible_verse" style="margin-right: 10px;" class="icon has-text-dark">
+        <i class="fa-solid fa-book-bible"></i>
+      </a>
+      <span style="margin-right: 10px;">{{ sermon.bible_verse }}</span>
+      <a class="icon has-text-dark" style="margin-right: 10px;">
+        <i class="fa-solid fa-calendar-alt"></i>
+      </a>
+      <span>{{ sermon.date | date: 'dd/MM/yy' }}</span>
+    </div>
+  </article>
+</a>

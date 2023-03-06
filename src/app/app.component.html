@@ -66,8 +66,8 @@
           </a>
         </div>
       </div>
-      <a class="navbar-item is-tab" [routerLink]="['contacto']" [routerLinkActive]="'is-active'">
-        Contacto
+      <a class="navbar-item is-tab" [routerLink]="['series']" [routerLinkActive]="'is-active'">
+        Series
       </a>
       <a *ngIf="!isLoggedIn()" class="navbar-item is-tab" [routerLink]="['entrar']" [routerLinkActive]="'is-active'">
         <span class="icon"><i class="fa-solid fa-right-to-bracket"></i></span>
@@ -91,22 +91,22 @@
     <nav class="level">
       <div class="level-item has-text-centered">
         <div>
-          <a [routerLink]="['cancionero']" class="heading">Cancionero</a>
+          <a [routerLink]="['cancionero']" class="heading has-text-dark">Cancionero</a>
         </div>
       </div>
       <div class="level-item has-text-centered">
         <div>
-          <a [routerLink]="['cultos']" class="heading">Cultos</a>
+          <a [routerLink]="['cultos']" class="heading has-text-dark">Cultos</a>
         </div>
       </div>
       <div class="level-item has-text-centered">
         <div>
-          <a [routerLink]="['ubicacion']" class="heading">Ubicación</a>
+          <a [routerLink]="['ubicacion']" class="heading has-text-dark">Ubicación</a>
         </div>
       </div>
       <div class="level-item has-text-centered">
         <div>
-          <a [routerLink]="['contacto']" class="heading">Contacto</a>
+          <!--a [routerLink]="['contacto']" class="heading has-text-dark">Contacto</a-->
         </div>
       </div>
     </nav>
