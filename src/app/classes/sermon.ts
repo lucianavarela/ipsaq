@@ -9,9 +9,10 @@ export class Sermon {
     public link_youtube?: string;
     public bible_verse?: string;
     public series?: Series;
+    public chapter_number?: number;
 
     constructor(obj?: {id: number, director: number, preacher: number, title: string,
-        date: Date, link_youtube: string, bible_verse: string, related_series: any}) {
+        date: Date, link_youtube: string, bible_verse: string, related_series: any, chapter_number: number}) {
         this.id = obj?.id;
         this.director = obj?.director;
         this.preacher = obj?.preacher;
@@ -20,5 +21,6 @@ export class Sermon {
         this.link_youtube = obj?.link_youtube;
         this.bible_verse = obj?.bible_verse;
         this.series = obj?.related_series ? new Series({id: Number(obj?.related_series.id), name:obj?.related_series.name}) : undefined;
+        this.chapter_number = obj?.chapter_number;
     }
 }

@@ -79,7 +79,8 @@ export class SermonEditComponent implements OnInit {
   async updateSermon() {
     try {
       let sermon: any = structuredClone(this.sermon);
-      sermon.related_series = this.sermon.series?.id;
+      sermon.related_series = this.sermon.series ? this.sermon.series?.id : null;
+      if (!sermon.related_series) sermon.chapter_number = null;
       delete sermon.series;
       this.sSermons
         .updateSermon(sermon)

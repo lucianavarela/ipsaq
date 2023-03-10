@@ -1,8 +1,16 @@
 .is-static {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 .item-link:hover {
+  cursor: pointer;
+  color: #485fc7 !important;
+}
+
+.tag.series {
     cursor: pointer;
-    color: #485fc7 !important;
+}
+
+.tag.series:hover {
+    filter: brightness(0.95);
 }

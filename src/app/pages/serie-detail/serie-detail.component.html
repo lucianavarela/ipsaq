@@ -20,7 +20,7 @@
 
 <div class="container">
     <section *ngIf="serie.sermons && serie.sermons.length" class="section">
-        <h2 class="title is-3">Capitulos</h2>
+        <h2 class="title is-3">Capítulos</h2>
         <article class="sermon-list" *ngFor="let sermon of serie.sermons">
             <app-sermon-box [sermonInput]="sermon"></app-sermon-box>
         </article>

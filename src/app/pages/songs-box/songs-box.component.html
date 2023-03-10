@@ -1,4 +1,4 @@
-<div class="box" *ngIf="sermonSong?.song">
+<a class="box" *ngIf="sermonSong?.song" [routerLink]="!editMode?['/cancionero', sermonSong?.song?.index]:[]">
   <article class="media">
     <div class="media-left">
       <span class="icon">
@@ -12,12 +12,12 @@
       </div>
     </div>
     <div class="media-right">
-        <a *ngIf="!editMode" [routerLink]="['/cancionero', sermonSong?.song?.id]" class="icon">
-            <i class="fa-solid  fa-lg fa-up-right-from-square"></i>
-        </a>
+      <span *ngIf="!editMode&&sermonSong?.song?.link_chords" class="icon has-text-gray has-text-info">
+        <i class="fa-solid fa-guitar"></i>
+      </span>
         <span *ngIf="editMode" class="icon" style="cursor:pointer" (click)="deleteSong()">
             <i class="fa-solid fa-lg fa-times has-text-danger"></i>
         </span>
     </div>
   </article>
-</div>
+</a>

@@ -17,11 +17,11 @@ export class SermonsService {
   }
 
   getUpcomingSermon() {
-    return this.sSupabase.get(this.table).order('date', {ascending: false}).limit(1);
+    return this.sSupabase.get(this.table, '*, related_series!left(*)').order('date', {ascending: false}).limit(1);
   }
 
   getLastsSermons() {
-    return this.sSupabase.get(this.table).order('date', {ascending: false}).limit(3);
+    return this.sSupabase.get(this.table, '*, related_series!left(*)').order('date', {ascending: false}).limit(3);
   }
 
   getSermons() {

@@ -21,15 +21,10 @@ export class SerieDetailComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ serie }) => {
       if (serie) {
         this.serie = new Series(serie.data);
-        this.sTitle.setTitle('Serie ' + (`"${this.serie.name}"`) || `#${this.serie.id}`);
+        this.sTitle.setTitle(`"${this.serie.name}"` || `Serie #${this.serie.id}`);
         if (this.serie.sermons) {
           this.serie.sermons = this.serie.sermons.map((s: any) => new Sermon(s)).sort((a: Sermon, b: Sermon)  => {
-            if (a.date && b.date) {
-              let dateA = new Date(a.date);
-              let dateB = new Date(b.date);
-              return dateA.getTime() - dateB.getTime();
-            }
-            return 0;
+            return a?.chapter_number && b?.chapter_number ? a.chapter_number - b.chapter_number : 0;
           });;
         };
       }
