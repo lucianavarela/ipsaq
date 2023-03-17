@@ -2,14 +2,7 @@
   <div class="hero-body">
     <div class="columns">
       <div class="column is-1">
-        <p class="control">
-          <button class="button is-rounded is-warning"
-            [routerLink]="song.id ? ['/cancionero', song.index] : ['/cancionero']">
-            <span class="icon">
-              <i class="fa-solid fa-2x fa-arrow-left"></i>
-            </span>
-          </button>
-        </p>
+        <app-back-button></app-back-button>
       </div>
       <div class="column has-text-centered">
         <p class="title">

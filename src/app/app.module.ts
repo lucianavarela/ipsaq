@@ -1,9 +1,11 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { registerLocaleData } from '@angular/common';
+import localeEsAr from '@angular/common/locales/es-AR';
 
 
 // Material
@@ -48,8 +50,9 @@ import { LiveSermonComponent } from './pages/live-sermon/live-sermon.component';
 import { NoAccentsPipe } from './decorators/no-accents.pipe';
 import { SeriesComponent } from './pages/series/series.component';
 import { SerieDetailComponent } from './pages/serie-detail/serie-detail.component';
+import { BackButtonComponent } from './utils/back-button/back-button.component';
 
-
+registerLocaleData(localeEsAr, 'es-Ar');
 
 @NgModule({
   declarations: [
@@ -81,6 +84,7 @@ import { SerieDetailComponent } from './pages/serie-detail/serie-detail.componen
     NoAccentsPipe,
     SeriesComponent,
     SerieDetailComponent,
+    BackButtonComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -99,7 +103,8 @@ import { SerieDetailComponent } from './pages/serie-detail/serie-detail.componen
     MatIconModule,
     MatButtonModule
   ],
-  providers: [NoAccentsPipe],
+  providers: [NoAccentsPipe,
+    { provide: LOCALE_ID, useValue: 'es-Ar' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
