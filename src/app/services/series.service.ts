@@ -11,11 +11,11 @@ export class SeriesService {
   constructor(public sSupabase: SupabaseService) { }
 
   getSeries() {
-    return this.sSupabase.get(this.table, '*, sermons!inner(*)').order('id', {ascending: false});
+    return this.sSupabase.get(this.table, '*, sermons!left(*)').order('id', {ascending: false});
   }
 
   getSerie(id: number) {
-    return this.sSupabase.getById(id, this.table, '*, sermons!inner(*)');
+    return this.sSupabase.getById(id, this.table, '*, sermons!left(*)');
   }
 
   async createSerie(name: string) {
