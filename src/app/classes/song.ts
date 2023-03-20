@@ -12,10 +12,12 @@ export class Song {
     public last_used?: Date;
     public amount_used?: number;
     public suggestion?: boolean;
+    public verified?: boolean;
 
     constructor(obj?: {id: number, title: string, beginning: string, index: number,
         artist: string, link_original: string, link_ipsaq: string, lyrics: string,
-        link_chords: string, created_at: Date, last_used: Date, amount_used: number, suggestion: boolean}) {
+        link_chords: string, created_at: Date, last_used: Date, amount_used: number,
+        suggestion: boolean, verified: boolean}) {
         this.id = obj?.id;
         this.title = obj?.title;
         this.beginning = obj?.beginning;
@@ -29,5 +31,6 @@ export class Song {
         this.last_used = obj?.last_used;
         this.amount_used = obj?.amount_used;
         this.suggestion = !!(obj?.suggestion);
+        this.verified = !!(obj?.verified);
     }
 }

@@ -18,6 +18,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 // Components
 import { HomeComponent } from './pages/home/home.component';
@@ -101,7 +102,8 @@ registerLocaleData(localeEsAr, 'es-Ar');
     MatTooltipModule,
     MatDialogModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSlideToggleModule
   ],
   providers: [NoAccentsPipe,
     { provide: LOCALE_ID, useValue: 'es-Ar' }],

@@ -7,11 +7,11 @@
       <div class="column has-text-centered">
         <p class="title">
           {{
-          song.id
-          ? song.title
-          ? "Editar: " + song.title
-          : "Editar Canción"
-          : "Agregar Canción"
+            song.id
+              ? song.title
+                ? "Editar: " + song.title
+                : "Editar Canción"
+              : "Agregar Canción"
           }}
         </p>
       </div>
@@ -22,7 +22,6 @@
 
 <div class="container">
   <section class="section">
-
     <div *ngIf="song.suggestion" class="field is-horizontal">
       <div class="field-label">
         <label class="label"></label>
@@ -31,11 +30,20 @@
         <div class="field has-addons">
           <p class="control is-expanded">
             <label class="checkbox">
-              <input type="checkbox" style="margin-right: 5px;" [(ngModel)]="songSuggestionFlag" />Mover sugerencia al cancionero
+              <input
+                type="checkbox"
+                style="margin-right: 5px"
+                [(ngModel)]="songSuggestionFlag"
+              />Mover sugerencia al cancionero
             </label>
           </p>
           <p class="control">
-            <button class="button is-small is-danger has-text-white" (click)="removeSuggestion()">Borrar Sugerencia</button>
+            <button
+              class="button is-small is-danger has-text-white"
+              (click)="removeSuggestion()"
+            >
+              Borrar Sugerencia
+            </button>
           </p>
         </div>
       </div>
@@ -48,7 +56,11 @@
       <div class="field-body">
         <div class="field is-expanded">
           <p class="control is-expanded">
-            <input class="input" [(ngModel)]="song.beginning" placeholder="Comienzo/Primer oración" />
+            <input
+              class="input"
+              [(ngModel)]="song.beginning"
+              placeholder="Comienzo/Primer oración"
+            />
           </p>
         </div>
       </div>
@@ -61,12 +73,21 @@
       <div class="field-body">
         <div class="field is-expanded">
           <p class="control is-expanded">
-            <input class="input" [(ngModel)]="song.title" placeholder="Título" />
+            <input
+              class="input"
+              [(ngModel)]="song.title"
+              placeholder="Título"
+            />
           </p>
         </div>
         <div class="field">
           <p class="control is-expanded">
-            <input class="input" [(ngModel)]="song.artist" type="text" placeholder="Artista" />
+            <input
+              class="input"
+              [(ngModel)]="song.artist"
+              type="text"
+              placeholder="Artista"
+            />
           </p>
         </div>
       </div>
@@ -79,8 +100,12 @@
       <div class="field-body">
         <div class="field is-expanded">
           <p class="control is-expanded">
-            <input class="input" [(ngModel)]="song.link_original" type="text"
-              placeholder="Link a Youtube de version original" />
+            <input
+              class="input"
+              [(ngModel)]="song.link_original"
+              type="text"
+              placeholder="Link a Youtube de version original"
+            />
           </p>
         </div>
       </div>
@@ -93,8 +118,12 @@
       <div class="field-body">
         <div class="field is-expanded">
           <p class="control is-expanded">
-            <input class="input" type="text" [(ngModel)]="song.link_ipsaq"
-              placeholder="Link a Youtube de nuestra version" />
+            <input
+              class="input"
+              type="text"
+              [(ngModel)]="song.link_ipsaq"
+              placeholder="Link a Youtube de nuestra version"
+            />
           </p>
         </div>
       </div>
@@ -105,9 +134,19 @@
         <label class="label">Link de Acordes</label>
       </div>
       <div class="field-body">
-        <div class="field is-expanded">
+        <div class="field has-addons">
           <p class="control is-expanded">
-            <input class="input" type="text" [(ngModel)]="song.link_chords" placeholder="Link al archivo con acordes" />
+            <input
+              class="input"
+              type="text"
+              [(ngModel)]="song.link_chords"
+              placeholder="Link al archivo con acordes"
+            />
+          </p>
+          <p class="control" *ngIf="song.link_chords">
+            <mat-slide-toggle style="margin: 8px 0 8px 15px;font-family: inherit;"
+              [(ngModel)]="song.verified" [color]="'primary'">Acordes Verificados
+            </mat-slide-toggle>
           </p>
         </div>
       </div>
@@ -120,7 +159,11 @@
       <div class="field-body">
         <div class="field">
           <div class="control">
-            <textarea rows="30" class="textarea" [(ngModel)]="song.lyrics"></textarea>
+            <textarea
+              rows="30"
+              class="textarea"
+              [(ngModel)]="song.lyrics"
+            ></textarea>
           </div>
         </div>
       </div>
@@ -131,7 +174,10 @@
       <div class="field-body">
         <div class="field">
           <div class="control">
-            <button class="button is-primary" (click)="song.id ? updateSong() : addSong()">
+            <button
+              class="button is-primary"
+              (click)="song.id ? updateSong() : addSong()"
+            >
               {{ song.id ? "Guardar Cambios" : "Crear Cancion" }}
             </button>
           </div>

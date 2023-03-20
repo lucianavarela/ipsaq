@@ -22,9 +22,12 @@ export class SongsComponent implements OnInit {
   songs: Song[] = [];
   dataSource!: MatTableDataSource<Song>;
   @ViewChild(MatSort) sort!: MatSort;
+  isMobile = false;
   
   constructor(private sSong: SongsService, private router: Router, private readonly supabase: SupabaseService,
-    private sTitle: Title) { }
+    private sTitle: Title) {
+      this.isMobile = window.innerWidth <= 767;
+    }
   
   ngOnInit(): void {
     if (this.router.url.indexOf('ultimas_canciones') > -1) {

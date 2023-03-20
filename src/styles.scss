@@ -26,6 +26,7 @@ $fa-font-path: "./webfonts";
 @import "./assets/font-awesome/solid.scss";
 @import "./assets/font-awesome/regular.scss";
 @import "./assets/font-awesome/brands.scss";
+@import "./bulma.scss";
 
 @import "~@ng-select/ng-select/themes/default.theme.css";
 // ... or
@@ -127,4 +128,22 @@ tr {
 html.has-navbar-fixed-top,
 body.has-navbar-fixed-top {
   padding-top: 122px !important;
+}
+
+.mat-slide-toggle {
+  .mat-slide-toggle-thumb {
+    background: gray;
+  }
+  .mat-slide-toggle-bar {
+    background: lightgrey;
+  }
+}
+
+.mat-slide-toggle.mat-checked {
+  .mat-slide-toggle-thumb {
+    background: $success !important;
+  }
+  .mat-slide-toggle-bar {
+    background: #c9dd92 !important;
+  }
 }
