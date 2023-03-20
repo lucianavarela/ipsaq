@@ -31,20 +31,6 @@
   }
 }
 
-@media (max-width: 991px) {
-  .title-column {
-    display: none;
-  }
-}
-
-.mat-form-field {
-  width: 60%;
-}
-
-.guitar {
-  color: #7565b5;
-}
-
 .song-title {
   color:#818181;
 }
@@ -58,3 +44,8 @@
   color: #ffd556ab !important;
 }
 
+
+.tags {
+  margin-top: 5px;
+  margin-bottom: -3px !important;
+}

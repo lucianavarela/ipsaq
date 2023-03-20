@@ -47,7 +47,11 @@ export class SongsComponent implements OnInit {
     } else{
       this.sTitle.setTitle('Cancionero');
       if (this.supabase.isLoggedIn()) {
-        this.displayedColumns = ['index', 'beginning', 'last_used', 'amount_used', 'link_ipsaq', 'lyrics_and_chords'];
+        if (!this.isMobile) {
+          this.displayedColumns = ['index', 'beginning', 'last_used', 'amount_used', 'link_ipsaq', 'lyrics_and_chords'];
+        } else {
+          this.displayedColumns = ['index', 'beginning', 'lyrics_and_chords'];
+        }
       }
       this.sSong.getSongs(true).then(res => {
         if (res.data) this.songs = res.data.map(o => new Song(o))
