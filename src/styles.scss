@@ -1,5 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
 
+@font-face {
+  font-family: 'Nunito';
+  src: url('./assets/fonts/Nunito/Nunito-VariableFont_wght.ttf');
+}
+
+@font-face {
+  font-family: 'Abril Fatface';
+  src: url('./assets/fonts/Abril_Fatface/AbrilFatface-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Righteous';
+  src: url('./assets/fonts/Righteous/Righteous-Regular.ttf');
+}
+
 body {
   min-height: calc(100vh - 122px);
   display: flex;
@@ -17,6 +32,14 @@ app-root {
   font-family: "Nunito", Roboto, "Helvetica Neue", sans-serif;
 }
 
+h1, h2, h3, .title {
+  font-family: "Righteous", "Nunito", Roboto, "Helvetica Neue", sans-serif;
+  font-weight: 100 !important;
+
+  * {
+    font-family: inherit;
+  }
+}
 
 $fa-font-path: "./webfonts";
 

@@ -28,7 +28,7 @@ export class SongsService {
   }
 
   getSuggestedSongs() {
-    return this.sSupabase.get(this.table).filter('suggestion', 'eq', 'true');
+    return this.sSupabase.get(this.table).filter('suggestion', 'is', 'true');
   }
 
   getLastIndex() {
