@@ -18,11 +18,12 @@ import { normalize } from 'path';
 
 export class SongsComponent implements OnInit {
   searchedText: string = '';
-  displayedColumns: string[] = ['index', 'beginning', 'link_ipsaq', 'lyrics_and_chords'];
+  displayedColumns: string[] = ['index', 'beginning', 'lyrics_and_chords'];
   songs: Song[] = [];
   dataSource!: MatTableDataSource<Song>;
   @ViewChild(MatSort) sort!: MatSort;
   isMobile = false;
+  isLoggedIn = false;
   
   constructor(private sSong: SongsService, private router: Router, private readonly supabase: SupabaseService,
     private sTitle: Title) {
@@ -30,9 +31,9 @@ export class SongsComponent implements OnInit {
     }
   
   ngOnInit(): void {
+    this.isLoggedIn = this.supabase.isLoggedIn();
     if (this.router.url.indexOf('ultimas_canciones') > -1) {
       this.sTitle.setTitle('Ultimas Canciones');
-      this.displayedColumns = ['index', 'beginning', 'lyrics_and_chords'];
       this.sSong.getLatestSongs().then(res => {
         if (res.data) this.songs = res.data.map(o => new Song(o))
         this.initializeTable();
@@ -46,12 +47,8 @@ export class SongsComponent implements OnInit {
       });
     } else{
       this.sTitle.setTitle('Cancionero');
-      if (this.supabase.isLoggedIn()) {
-        if (!this.isMobile) {
-          this.displayedColumns = ['index', 'beginning', 'last_used', 'amount_used', 'link_ipsaq', 'lyrics_and_chords'];
-        } else {
-          this.displayedColumns = ['index', 'beginning', 'lyrics_and_chords'];
-        }
+      if (this.supabase.isLoggedIn() && !this.isMobile) {
+        this.displayedColumns = ['index', 'beginning', 'last_used', 'amount_used', 'link_ipsaq', 'lyrics_and_chords'];
       }
       this.sSong.getSongs(true).then(res => {
         if (res.data) this.songs = res.data.map(o => new Song(o))

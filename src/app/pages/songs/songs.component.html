@@ -139,7 +139,7 @@
                 <i class="fa-solid fa-guitar"></i>
               </span>
               <span>Acordes</span>
-              <span class="icon is-small" *ngIf="song.verified">
+              <span class="icon is-small" *ngIf="isLoggedIn && song.verified">
                 <i class="fa-solid fa-check"></i>
               </span>
             </a>
@@ -237,7 +237,7 @@
               <i class="fa-solid fa-align-left"></i>
             </span>
           </p>
-          <p *ngIf="song.link_chords" class="tag is-success">
+          <p *ngIf="song.link_chords" class="tag" [ngClass]="[isLoggedIn && song.verified ? 'is-success' : 'is-warning']">
             <span class="icon is-small">
               <i class="fa-solid fa-guitar"></i>
             </span>

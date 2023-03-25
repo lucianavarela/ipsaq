@@ -39,7 +39,7 @@ export class SongEditComponent implements OnInit {
           this.song.suggestion = false;
           this.song.index = nextIndex;
         }
-        this.sSongs.updateSong(this.song).then((res:any) => this.router.navigateByUrl('/cancionero/'+res.data[0]['index']));
+        this.sSongs.updateSong(this.song).then((res:any) => this.router.navigateByUrl('/cancionero/'+this.song.index));
         this.toastService.showSuccessToast('Exito!', 'Canción actualizada.');
       })
     } catch (error: any) {
