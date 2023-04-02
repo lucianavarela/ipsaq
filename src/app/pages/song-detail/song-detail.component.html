@@ -5,14 +5,14 @@
         <app-back-button></app-back-button>
       </div>
       <div class="column has-text-centered">
-        <p class="title">
+        <h1 class="title">
           <span *ngIf="song.index" class="index">{{ song.index }}</span
           >{{ song.beginning }}
-        </p>
-        <p class="subtitle">
+          </h1>
+        <h2 class="subtitle">
           {{ song.beginning != song.title ? song.title : ""
           }}<span *ngIf="song.artist"> [ {{ song.artist }} ]</span>
-        </p>
+        </h2>
       </div>
       <div class="column is-1">
         <p class="control" *ngIf="isLoggedIn()">

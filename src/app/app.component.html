@@ -17,18 +17,18 @@
       </a>
     </div>
     <div class="navbar-start">
-      <a class="navbar-item is-tab" [routerLink]="['/home']" [routerLinkActive]="'is-active'">
+      <a class="navbar-item is-tab" [routerLink]="['/home']">
         Inicio
       </a>
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link" [routerLink]="['quienes-somos/en-que-creemos']">¿Quiénes somos?</a>
+      <div class="navbar-item has-dropdown" [class.is-active]="dropdownDisplayed=='info'">
+        <a class="navbar-link" (click)="toggleMenu('info')">¿Quiénes somos?</a>
         <div class="navbar-dropdown">
           <a class="navbar-item" [routerLink]="['quienes-somos/historia']">Historia</a>
           <a class="navbar-item" [routerLink]="['quienes-somos/en-que-creemos']">¿En qué creemos?</a>
           <a class="navbar-item" [routerLink]="['quienes-somos/forma-de-gobierno']">Forma de gobierno</a>
         </div>
       </div>
-      <a class="navbar-item is-tab" [routerLink]="['ubicacion']" [routerLinkActive]="'is-active'">
+      <a class="navbar-item is-tab" [routerLink]="['ubicacion']">
         ¿Dónde estámos?
       </a>
     </div>
@@ -36,8 +36,8 @@
       <img src="assets/logo.png" />
     </a>
     <div class="navbar-end">
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link" [routerLink]="['cancionero']">Cancionero</a>
+      <div class="navbar-item has-dropdown" [class.is-active]="dropdownDisplayed=='songs'">
+        <a class="navbar-link" (click)="toggleMenu('songs')">Cancionero</a>
         <div class="navbar-dropdown">
           <a class="navbar-item" [routerLink]="['cancionero']">
             Listado de Canciones
@@ -56,8 +56,8 @@
           </a>
         </div>
       </div>
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link" [routerLink]="['cultos']">Cultos</a>
+      <div class="navbar-item has-dropdown" [class.is-active]="dropdownDisplayed=='sermons'">
+        <a class="navbar-link" (click)="toggleMenu('sermons')">Cultos</a>
         <div class="navbar-dropdown">
           <a class="navbar-item" [routerLink]="['cultos']">Listado de Cultos
           </a>
@@ -66,10 +66,10 @@
           </a>
         </div>
       </div>
-      <a class="navbar-item is-tab" [routerLink]="['series']" [routerLinkActive]="'is-active'">
+      <a class="navbar-item is-tab" [routerLink]="['series']">
         Series
       </a>
-      <a *ngIf="!isLoggedIn()" class="navbar-item is-tab" [routerLink]="['entrar']" [routerLinkActive]="'is-active'">
+      <a *ngIf="!isLoggedIn()" class="navbar-item is-tab" [routerLink]="['entrar']">
         <span class="icon"><i class="fa-solid fa-right-to-bracket"></i></span>
       </a>
     </div>

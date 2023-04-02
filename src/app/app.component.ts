@@ -16,6 +16,7 @@ import { LiveSermonComponent } from './pages/live-sermon/live-sermon.component';
 })
 export class AppComponent implements OnInit {
   menuDisplayed = false;
+  dropdownDisplayed = "";
   sermonIsLive = false;
   upcomingSermon!: Sermon;
 
@@ -38,6 +39,7 @@ export class AppComponent implements OnInit {
 
   resetMenu() {
     this.menuDisplayed = false;
+    this.dropdownDisplayed = "";
   }
 
   setUpNewSermon() {
@@ -62,5 +64,9 @@ export class AppComponent implements OnInit {
         sermon: this.upcomingSermon
       }
     });
+  }
+
+  toggleMenu(menu: string) {
+    this.dropdownDisplayed = menu;
   }
 }

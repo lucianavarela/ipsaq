@@ -5,8 +5,8 @@
         <app-back-button></app-back-button>
       </div>
       <div class="column has-text-centered">
-        <p class="subtitle" *ngIf="sermon.series">{{sermon.series.name}} #{{sermon.chapter_number}}</p>
-        <p class="title" style="padding: 10px 0;">{{ sermon.title }}</p>
+        <h2 class="subtitle has-text-dark" *ngIf="sermon.series">{{sermon.series.name}} #{{sermon.chapter_number}}</h2>
+        <h1 class="title" style="padding: 10px 0;">{{ sermon.title }}</h1>
         <p class="subtitle is-6 has-text-grey">{{ sermon.date | date: 'd \'de\' MMMM, y' }}</p>
       </div>
       <div class="column is-1">
@@ -95,7 +95,7 @@
   </section>
 
   <section *ngIf="songs && songs.length" class="section">
-    <h2 class="title is-3">Alabanza</h2>
+    <h2 class="title is-4">Alabanza</h2>
 
     <div class="columns is-multiline">
       <div *ngFor="let song of songs" class="column is-narrow">

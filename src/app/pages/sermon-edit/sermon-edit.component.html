@@ -5,7 +5,7 @@
         <app-back-button></app-back-button>
       </div>
       <div class="column has-text-centered">
-        <p class="title">
+        <h1 class="title">
           {{
             sermon.id
               ? sermon.title
@@ -13,7 +13,7 @@
                 : "Editar Culto"
               : "Agregar Culto"
           }}
-        </p>
+        </h1>
       </div>
       <div class="column is-1"></div>
     </div>
@@ -132,7 +132,7 @@
     <ng-container *ngIf="sermon.id">
       <div class="field is-horizontal">
         <div class="field-label">
-          <label class="label">Alabanza</label>
+          <h2 class="label">Alabanza</h2>
         </div>
         <div class="field-body">
           <div class="field is-grouped" style="width: 100%">
