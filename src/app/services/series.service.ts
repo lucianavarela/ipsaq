@@ -7,11 +7,16 @@ import { SupabaseService } from './supabase.service';
 })
 export class SeriesService {
   table='series';
+  table_with_dates='series_with_dates';
 
   constructor(public sSupabase: SupabaseService) { }
 
   getSeries() {
     return this.sSupabase.get(this.table, '*, sermons!left(*)').order('id', {ascending: false});
+  }
+
+  getSeriesWithDates() {
+    return this.sSupabase.get(this.table_with_dates);
   }
 
   getSerie(id: number) {
