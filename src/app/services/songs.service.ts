@@ -36,7 +36,7 @@ export class SongsService {
   }
 
   async updateSong(song: Song) {
-    return await this.sSupabase.update(song, this.table);
+    return await this.sSupabase.update(song, this.table).eq('id', song.id);;
   }
 
   async createSong(song: Song) {

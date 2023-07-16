@@ -39,8 +39,14 @@ export class SongEditComponent implements OnInit {
           this.song.suggestion = false;
           this.song.index = nextIndex;
         }
-        this.sSongs.updateSong(this.song).then((res:any) => this.router.navigateByUrl('/cancionero/'+this.song.index));
-        this.toastService.showSuccessToast('Exito!', 'Canción actualizada.');
+        this.sSongs.updateSong(this.song).then((res:any) => {
+          if (res.status && res.status == 400) {
+            this.toastService.showErrorToast('Error al guardar', res.error.message);
+          } else {
+            this.toastService.showSuccessToast('Exito!', 'Canción actualizada.');
+            this.router.navigateByUrl('/cancionero/'+this.song.index);
+          }
+        });
       })
     } catch (error: any) {
       this.toastService.showErrorToast('Error al guardar', error.error_description || error.message);

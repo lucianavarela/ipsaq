@@ -84,10 +84,14 @@ export class SermonEditComponent implements OnInit {
       delete sermon.series;
       this.sSermons
         .updateSermon(sermon)
-        .then((res: any) =>
-          this.router.navigateByUrl("/cultos/" + res.data[0]["id"])
-        );
-      this.toastService.showSuccessToast("Exito!", "Culto actualizado.");
+        .then((res: any) => {
+          if (res.status && res.status == 400) {
+            this.toastService.showErrorToast('Error al guardar', res.error.message);
+          } else {
+            this.toastService.showSuccessToast("Exito!", "Culto actualizado.");
+            this.router.navigateByUrl("/cultos/" + res.data[0]["id"])
+          }
+      });
     } catch (error: any) {
       this.toastService.showErrorToast(
         "Error al guardar",
