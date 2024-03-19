@@ -22,12 +22,12 @@ import { SeriesResolverService } from "./services/series-resolver.service";
 import { SermonsResolverService } from "./services/sermons-resolver.service";
 import { SongsResolverService } from "./services/songs-resolver.service";
 import { SuggestedSongsResolverService } from "./services/suggested-songs-resolver.service";
+import { SchedulePageComponent } from "./pages/schedule-page/schedule-page.component";
 
 const AppRoutes: Routes = [
   { path: "", component: HomeComponent },
   { path: "entrar", component: LoginComponent },
   { path: "reset", component: ResetPwComponent },
-  //{ path: "contacto", component: ContactComponent },
   { path: "ubicacion", component: LocationComponent },
   { path: "cultos", component: SermonsComponent },
   {
@@ -100,7 +100,11 @@ const AppRoutes: Routes = [
       song: SuggestedSongsResolverService,
     },
   },
-
+  {
+    path: "cronograma",
+    canActivate: [AuthGuard],
+    component: SchedulePageComponent,
+  },
   {
     path: "quienes-somos",
     children: [

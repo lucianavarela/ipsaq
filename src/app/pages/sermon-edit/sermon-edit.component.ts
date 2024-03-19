@@ -53,9 +53,16 @@ export class SermonEditComponent implements OnInit {
       }
       this.sSeries.getSeries().then((res: any) => {
         this.series = res.data
-          ?.map((s: any) => new Series(s));
+          ?.map((s: any) => new Series({...s, "sermons_amount": s.sermons[0].count}));
       });
     });
+  }
+
+  selectSeries() {
+    if (this.sermon.series && this.sermon.series.sermons_amount) {
+      this.sermon.chapter_number = this.sermon.series.sermons_amount + 1;
+      this.toastService.showInfoToast("Serie seleccionada", "El capítulo que sigue a esa serie es el número "+ this.sermon.chapter_number +"!");
+    }
   }
 
   addSeries() {
@@ -65,6 +72,7 @@ export class SermonEditComponent implements OnInit {
         this.sSeries.createSerie(series_name).then((res: any) => {
           this.sermon.series = new Series(res.data[0])
           this.series.push(new Series(res.data[0]))
+          this.sermon.chapter_number = 1;
           this.toastService.showSuccessToast("Exito!", "Serie creada.");
         });
       } catch (error: any) {

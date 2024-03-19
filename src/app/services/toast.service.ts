@@ -42,7 +42,7 @@ export class ToastService {
     this._toastEvents.next({
       message,
       title,
-      type: EventTypes.Warning,
+      type: EventTypes.Info,
     });
   }
 }

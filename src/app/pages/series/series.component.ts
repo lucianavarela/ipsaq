@@ -23,9 +23,9 @@ export class SeriesComponent implements OnInit {
   
   ngOnInit(): void {
     this.sTitle.setTitle(`Cultos`);
-    this.sSerie.getSeriesWithDates().then(res => {
-      if (res.data) this.series = res.data.map(o => new Series(o))
-      this.series.map(serie => {if (serie.sermons) serie.sermons.map((s: any) => new Sermon(s))});
+    this.sSerie.getSeries().then(res => {
+      if (res.data) this.series = res.data.map(s => new Series({...s, "sermons_amount": s.sermons[0].count}))
+      this.series.map(serie => {if (serie.sermons) serie.sermons_amount = serie.sermons[0].count});
       this.dataSource = new MatTableDataSource(this.series);
       this.dataSource.sort = this.sort;
     });

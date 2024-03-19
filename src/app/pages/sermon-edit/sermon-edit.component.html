@@ -80,12 +80,13 @@
               placeholder="Lectura"
             />
           </p>
-          <p class="control" style="max-width: 15rem;">
+          <p class="control is-expanded is-fullwidth" style="max-width: 20rem;">
             <ng-select
               [items]="series"
               bindLabel="name"
-              placeholder="Selecciona una Serie"
+              placeholder="Selecciona una serie"
               [(ngModel)]="sermon.series"
+              (change)="selectSeries()"
             >
             </ng-select>
           </p>
@@ -101,7 +102,7 @@
           </p>
           <p class="control">
             <button
-              class="button is-primary is-light is-outlined"
+              class="button is-warning is-light is-outlined"
               (click)="addSeries()"
             >
               Agregar Serie
@@ -132,11 +133,11 @@
     <ng-container *ngIf="sermon.id">
       <div class="field is-horizontal">
         <div class="field-label">
-          <h2 class="label">Alabanza</h2>
+          <label class="label">Alabanza</label>
         </div>
         <div class="field-body">
-          <div class="field is-grouped" style="width: 100%">
-            <p class="control is-expanded">
+          <div class="field is-grouped is-grouped-multiline" style="width: 100%">
+            <p class="control is-expanded is-fullwidth">
               <ng-select
                 #ngSelectComponent
                 [items]="allSongs"
@@ -144,6 +145,7 @@
                 (change)="songAdded()"
                 [(ngModel)]="selectedSong"
                 [searchFn]="customSearchSongs"
+                placeholder="Selecciona las canciones"
               >
                 <ng-template
                   ng-option-tmp
@@ -163,14 +165,8 @@
             </p>
             <p class="control">
               <a
-                class="button is-info is-light is-outlined"
-                target="_blank"
-                [routerLink]="['/nueva_cancion']"
-              >
-                <span class="icon">
-                  <i class="fa-solid fa-plus"></i>
-                </span>
-              </a>
+                class="button is-warning is-light is-outlined" target="_blank"
+                [routerLink]="['/nueva_cancion']">Agregar canción</a>
             </p>
           </div>
         </div>

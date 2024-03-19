@@ -12,11 +12,7 @@ export class SeriesService {
   constructor(public sSupabase: SupabaseService) { }
 
   getSeries() {
-    return this.sSupabase.get(this.table, '*, sermons!left(*)').order('id', {ascending: false});
-  }
-
-  getSeriesWithDates() {
-    return this.sSupabase.get(this.table_with_dates);
+    return this.sSupabase.get(this.table_with_dates, '*, sermons(count)').order('ultimo', {ascending: false});
   }
 
   getSerie(id: number) {

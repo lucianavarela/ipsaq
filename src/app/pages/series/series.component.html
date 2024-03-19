@@ -18,12 +18,12 @@
                 <p><span class="icon has-text-dark" style="margin-right: 5px;">
                   <i class="fa-solid fa-bars-staggered"></i>
                 </span>
-                {{ serie.sermons?serie.sermons.length:'' }} Capítulos</p>
+                {{ serie.sermons_amount || '' }} Capítulos</p>
               </div>
             </div>
             <div class="media-right">
               <p class="control">
-                <a class="button is-link is-outlined" [routerLink]="['/series', serie.id]">
+                <a class="button is-link is-outlined" title="Entrar a la serie" [routerLink]="['/series', serie.id]">
                   <span class="icon">
                     <i class="fa-solid fa-lg fa-up-right-from-square"></i>
                   </span>

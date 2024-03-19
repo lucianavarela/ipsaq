@@ -52,6 +52,7 @@ import { NoAccentsPipe } from './decorators/no-accents.pipe';
 import { SeriesComponent } from './pages/series/series.component';
 import { SerieDetailComponent } from './pages/serie-detail/serie-detail.component';
 import { BackButtonComponent } from './utils/back-button/back-button.component';
+import { SchedulePageComponent } from './pages/schedule-page/schedule-page.component';
 
 registerLocaleData(localeEsAr, 'es-Ar');
 
@@ -86,6 +87,7 @@ registerLocaleData(localeEsAr, 'es-Ar');
     SeriesComponent,
     SerieDetailComponent,
     BackButtonComponent,
+    SchedulePageComponent,
   ],
   imports: [
     BrowserAnimationsModule,

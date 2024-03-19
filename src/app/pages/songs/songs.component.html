@@ -104,15 +104,12 @@
                   : ['/cancionero', song.index]
               "
             >
-              <span class="icon is-small">
-                <i class="fa-solid fa-circle-info"></i>
-              </span>
               <span>Detalles</span>
             </a>
           </p>
           <p *ngIf="song.lyrics" class="control">
             <button
-              class="button is-info is-inverted is-small"
+              class="button is-primary is-inverted is-small"
               [matTooltip]="song.lyrics | textFound : searchedText"
               [matTooltipPosition]="'right'"
               [matTooltipShowDelay]="500"
@@ -120,11 +117,8 @@
               [matTooltipClass]="'tooltip'"
               #matTooltip="matTooltip"
             >
-              <span
-                class="icon is-small"
-                [class.lyrics-searched]="lyricsMatch(song.lyrics)"
-              >
-                <i class="fa-solid fa-align-left"></i>
+              <span class="icon is-small" [class.is-hidden]="!lyricsMatch(song.lyrics)">
+                <i class="fa-solid fa-magnifying-glass-arrow-right"></i>
               </span>
               <span>Letra</span>
             </button>
@@ -222,7 +216,7 @@
           </p>
           <p
             *ngIf="song.lyrics"
-            class="tag is-info"
+            class="tag is-primary"
             [matTooltip]="song.lyrics | textFound : searchedText"
             [matTooltipPosition]="'right'"
             [matTooltipShowDelay]="500"
@@ -231,10 +225,8 @@
             #matTooltip="matTooltip"
           >
             <span
-              class="icon is-small"
-              [class.lyrics-searched]="lyricsMatch(song.lyrics)"
-            >
-              <i class="fa-solid fa-align-left"></i>
+              class="icon is-small">
+              <i class="fa-solid" [ngClass]="[lyricsMatch(song.lyrics) ? 'fa-magnifying-glass-arrow-right' : 'fa-align-left']"></i>
             </span>
           </p>
           <p *ngIf="song.link_chords" class="tag" [ngClass]="[isLoggedIn && song.verified ? 'is-success' : 'is-warning']">
