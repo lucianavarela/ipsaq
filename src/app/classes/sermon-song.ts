@@ -1,4 +1,3 @@
-import { Sermon } from "./sermon";
 import { Song } from "./song";
 
 export class SermonSong {

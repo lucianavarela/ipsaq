@@ -9,6 +9,7 @@ import { SupabaseService } from './supabase.service';
 export class SermonsService {
   table = 'sermons';
   tableSermonSong = 'sermon_song';
+  tableSermonBand = 'sermon_band';
 
   constructor(public sSupabase: SupabaseService) { }
 
@@ -32,6 +33,10 @@ export class SermonsService {
     return this.sSupabase.get(this.tableSermonSong, 'id, songs!inner(*)').eq('id_sermon', id);
   }
 
+  getBandOfSermon(id: number) {
+    return this.sSupabase.get(this.tableSermonBand, 'id, users!inner(*)').eq('id_sermon', id);
+  }
+  
   async updateSermon(sermon: Sermon) {
     return await this.sSupabase.update(sermon, this.table).eq('id', sermon.id);;
   }

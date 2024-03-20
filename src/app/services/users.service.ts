@@ -10,11 +10,11 @@ export class UsersService {
   constructor(public sSupabase: SupabaseService) { }
 
   getUsers() {
-    return this.sSupabase.get(this.table, '*, auth.users!left(email)').order('id', {ascending: false});
+    return this.sSupabase.get(this.table).order('nickname', {ascending: true});
   }
 
   getUser(id: number) {
-    return this.sSupabase.getById(id, this.table, '*, auth.users!left(email)');
+    return this.sSupabase.getById(id, this.table);
   }
 
   async createUser(name: string) {

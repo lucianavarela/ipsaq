@@ -2,8 +2,8 @@ import { Series } from "./series";
 
 export class Sermon {
     public id?: number;
-    public director?: number;
-    public preacher?: number;
+    public director?: string;
+    public preacher?: string;
     public title?: string;
     public date?: Date;
     public link_youtube?: string;
@@ -11,7 +11,7 @@ export class Sermon {
     public series?: Series;
     public chapter_number?: number;
 
-    constructor(obj?: {id: number, director: number, preacher: number, title: string,
+    constructor(obj?: {id: number, director: string, preacher: string, title: string,
         date: Date, link_youtube: string, bible_verse: string, related_series: any, chapter_number: number}) {
         this.id = obj?.id;
         this.director = obj?.director;

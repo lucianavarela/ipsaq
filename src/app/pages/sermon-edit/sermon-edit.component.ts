@@ -11,6 +11,9 @@ import { Series } from "src/app/classes/series";
 import { SeriesService } from "src/app/services/series.service";
 import { Title } from "@angular/platform-browser";
 import Utils from "src/app/utils/utils";
+import { User } from "src/app/classes/user";
+import { UsersService } from "src/app/services/users.service";
+import { SermonBand } from "src/app/classes/sermon-band";
 
 @Component({
   selector: "app-sermon-edit",
@@ -23,6 +26,8 @@ export class SermonEditComponent implements OnInit {
   series: Series[] = [];
   songs: SermonSong[] = [];
   allSongs: Song[] = [];
+  band: User[] = [];
+  allPlayers: User[] = [];
   selectedSong!: Song;
 
   constructor(
@@ -32,6 +37,7 @@ export class SermonEditComponent implements OnInit {
     private toastService: ToastService,
     private sSeries: SeriesService,
     private sSong: SongsService,
+    private sUser: UsersService,
     private sTitle: Title
   ) { }
 
@@ -39,13 +45,23 @@ export class SermonEditComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ sermon }) => {
       if (sermon) {
         this.sermon = new Sermon(sermon.data);
-        this.sTitle.setTitle(`Editar Culto ${this.sermon.title?'"'+this.sermon.title+'"':this.sermon.date ? 'del '  + new Date(this.sermon.date).toLocaleDateString() : ''}`);
+        this.sTitle.setTitle(`Editar Culto ${this.sermon.title ? '"' + this.sermon.title + '"' : this.sermon.date ? 'del ' + new Date(this.sermon.date).toLocaleDateString() : ''}`);
         this.sSong.getSongs().then((res: any) => {
           this.allSongs = res.data
             ?.map((s: any) => new Song(s))
         });
+        this.sUser.getUsers().then((res: any) => {
+          this.allPlayers = res.data?.map((s: any) => new User(s)).filter((u:User) => u.band_role || u.choir_role);
+        });
         this.sSermons.getSongsOfSermon(sermon.data.id).then((res: any) => {
           this.songs = SermonSong.mapObjects(res.data, Number(sermon.data.id));
+        });
+        this.sSermons.getBandOfSermon(sermon.data.id).then((res: any) => {
+          const players = SermonBand.mapObjects(res.data, Number(sermon.data.id));
+          this.band = players.reduce<User[]>((result: User[], i: SermonBand) => {
+            if (i.player) result.push(i.player);
+            return result;
+          }, []);
         });
       } else {
         this.sTitle.setTitle(`Crear culto`);
@@ -53,7 +69,7 @@ export class SermonEditComponent implements OnInit {
       }
       this.sSeries.getSeries().then((res: any) => {
         this.series = res.data
-          ?.map((s: any) => new Series({...s, "sermons_amount": s.sermons[0].count}));
+          ?.map((s: any) => new Series({ ...s, "sermons_amount": s.sermons[0].count }));
       });
     });
   }
@@ -61,7 +77,7 @@ export class SermonEditComponent implements OnInit {
   selectSeries() {
     if (this.sermon.series && this.sermon.series.sermons_amount) {
       this.sermon.chapter_number = this.sermon.series.sermons_amount + 1;
-      this.toastService.showInfoToast("Serie seleccionada", "El capítulo que sigue a esa serie es el número "+ this.sermon.chapter_number +"!");
+      this.toastService.showInfoToast("Serie seleccionada", "El capítulo que sigue a esa serie es el número " + this.sermon.chapter_number + "!");
     }
   }
 
@@ -99,7 +115,7 @@ export class SermonEditComponent implements OnInit {
             this.toastService.showSuccessToast("Exito!", "Culto actualizado.");
             this.router.navigateByUrl("/cultos/" + res.data[0]["id"])
           }
-      });
+        });
     } catch (error: any) {
       this.toastService.showErrorToast(
         "Error al guardar",
@@ -170,4 +186,6 @@ export class SermonEditComponent implements OnInit {
     const all_words = (this_word: any) => this_word;
     return isWordThere.every(all_words);
   }
+
+  groupBand = (item: any) => item.band_role?'Músicos':'Coro';
 }
