@@ -141,9 +141,12 @@
               <ng-select
                 [multiple]="true"
                 [items]="allPlayers"
-                bindLabel="nickname"
-                [(ngModel)]="band"
+                bindLabel="player.nickname"
+                [(ngModel)]="selectedPlayers"
                 [groupBy]="groupBand"
+                (add)="addPlayer($event)"
+                (remove)="removePlayer($event)"
+                [closeOnSelect]="false"
                 placeholder="Selecciona los músicos">
               </ng-select>
             </p>

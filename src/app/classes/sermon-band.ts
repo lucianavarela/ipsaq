@@ -1,22 +1,22 @@
 import { User } from "./user";
 
 export class SermonBand {
-    public id?: number;
+    public id?: number | null;
     public player?: User;
-    public sermon_id?: number;
+    public id_sermon?: number;
 
-    constructor(obj?: {id: number, player: User, sermon_id: number}) {
+    constructor(obj?: {id?: number, player?: User, id_sermon?: number}) {
         this.id = obj?.id;
         this.player = obj?.player;
-        this.sermon_id = obj?.sermon_id;
+        this.id_sermon = obj?.id_sermon;
     }
 
-    static mapObjects(data: any[], sermon_id: number) {
+    static mapObjects(data: any[], id_sermon: number) {
         return data.map(obj => {
-            const user = 'player_id' in obj ? new User({'id': obj['player_id']}) : new User(obj['users']);
+            const user = 'id_player' in obj ? new User({'id': obj['id_player']}) : new User(obj['users']);
             return new SermonBand({
                 id: obj['id'],
-                sermon_id: sermon_id,
+                id_sermon: id_sermon,
                 player: user,
             });
         });

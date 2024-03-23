@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Sermon } from '../classes/sermon';
-import { SermonSong } from '../classes/sermon-song';
 import { SupabaseService } from './supabase.service';
 
 @Injectable({
@@ -14,19 +13,19 @@ export class SermonsService {
   constructor(public sSupabase: SupabaseService) { }
 
   getSermon(id: number) {
-    return this.sSupabase.getById(id, this.table, '*, related_series!left(*)');
+    return this.sSupabase.getById(id, this.table, '*, id_series!left(*), sermon_band(*)');
   }
 
   getUpcomingSermon() {
-    return this.sSupabase.get(this.table, '*, related_series!left(*)').order('date', {ascending: false}).limit(1);
+    return this.sSupabase.get(this.table, '*, id_series!left(*)').order('date', {ascending: false}).limit(1);
   }
 
   getLastsSermons() {
-    return this.sSupabase.get(this.table, '*, related_series!left(*)').order('date', {ascending: false}).limit(3);
+    return this.sSupabase.get(this.table, '*, id_series!left(*)').order('date', {ascending: false}).limit(3);
   }
 
   getSermons() {
-    return this.sSupabase.get(this.table, '*, related_series!left(*)').order('date', {ascending: false});
+    return this.sSupabase.get(this.table, '*, id_series!left(*)').order('date', {ascending: false});
   }
 
   getSermonsWithBand() {
@@ -61,7 +60,7 @@ export class SermonsService {
     return await this.sSupabase.delete(ids, this.tableSermonBand);
   }
 
-  async addSermonBands(sermonSong: any) {
-    return await this.sSupabase.add(sermonSong, this.tableSermonSong);
+  async addSermonBands(sermonSongs: any) {
+    return await this.sSupabase.add(sermonSongs, this.tableSermonBand);
   }
 }

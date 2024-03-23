@@ -26,11 +26,11 @@ export class SermonEditComponent implements OnInit {
   series: Series[] = [];
   songs: SermonSong[] = [];
   allSongs: Song[] = [];
-  band: User[] = [];
-  allPlayers: User[] = [];
+  selectedPlayers: SermonBand[] = [];
+  allPlayers: SermonBand[] = [];
   selectedSong!: Song;
-  playesToDelete: User[] = [];
-  playesToAdd: User[] = [];
+  playersToAdd: any[] = [];
+  playersToDelete: number[] = [];
 
   constructor(
     private sSermons: SermonsService,
@@ -48,23 +48,27 @@ export class SermonEditComponent implements OnInit {
       if (sermon) {
         this.sermon = new Sermon(sermon.data);
         this.sTitle.setTitle(`Editar Culto ${this.sermon.title ? '"' + this.sermon.title + '"' : this.sermon.date ? 'del ' + new Date(this.sermon.date).toLocaleDateString() : ''}`);
+
         this.sSong.getSongs().then((res: any) => {
           this.allSongs = res.data
             ?.map((s: any) => new Song(s))
         });
+
         this.sUser.getUsers().then((res: any) => {
-          this.allPlayers = res.data?.map((s: any) => new User(s)).filter((u:User) => u.band_role || u.choir_role);
+          this.allPlayers = res.data?.filter((u: any) => u.band_role || u.choir_role).map((u: any) => {
+            let sbId = sermon.data.sermon_band.find((d:any) => d.id_player == u.id)?.id ?? null;
+            let sermonPlayer = new SermonBand({id: sbId, player: new User(u), id_sermon: this.sermon.id});
+            if (sbId) {
+              this.selectedPlayers.push(sermonPlayer);
+            }
+            return sermonPlayer;
+          });
         });
+        
         this.sSermons.getSongsOfSermon(sermon.data.id).then((res: any) => {
           this.songs = SermonSong.mapObjects(res.data, Number(sermon.data.id));
         });
-        this.sSermons.getBandOfSermon(sermon.data.id).then((res: any) => {
-          const players = SermonBand.mapObjects(res.data, Number(sermon.data.id));
-          this.band = players.reduce<User[]>((result: User[], i: SermonBand) => {
-            if (i.player) result.push(i.player);
-            return result;
-          }, []);
-        });
+
       } else {
         this.sTitle.setTitle(`Crear culto`);
         this.sermon = new Sermon();
@@ -105,7 +109,7 @@ export class SermonEditComponent implements OnInit {
   async addSermon() {
     try {
       let sermon: any = structuredClone(this.sermon);
-      sermon.related_series = this.sermon.series?.id;
+      sermon.id_series = this.sermon.series?.id;
       delete sermon.series;
       delete sermon.id;
       this.sSermons
@@ -125,9 +129,10 @@ export class SermonEditComponent implements OnInit {
   async updateSermon() {
     try {
       let sermon: any = structuredClone(this.sermon);
-      sermon.related_series = this.sermon.series ? this.sermon.series?.id : null;
-      if (!sermon.related_series) sermon.chapter_number = null;
+      sermon.id_series = this.sermon.series ? this.sermon.series?.id : null;
+      if (!sermon.id_series) sermon.chapter_number = null;
       delete sermon.series;
+      delete sermon.ids_band;
       this.sSermons
         .updateSermon(sermon)
         .then((res: any) => {
@@ -146,16 +151,29 @@ export class SermonEditComponent implements OnInit {
   }
 
   storeBand() {
-    if (this.playesToDelete.length || this.playesToAdd.length) {
+    if (this.playersToAdd.length) {
       try {
         this.sSermons
-          .addSermonBands([])
+          .addSermonBands(this.playersToAdd)
           .then((res: any) => {
             if (res.status && res.status == 400) {
               this.toastService.showErrorToast('Error al guardar', res.error.message);
             } else {
-              this.toastService.showSuccessToast("Exito!", "Culto actualizado.");
-              this.router.navigateByUrl("/cultos/" + res.data[0]["id"])
+              if (this.playersToDelete.length) {
+                this.sSermons
+                  .removeSermonBands(this.playersToDelete)
+                  .then((res: any) => {
+                    if (res.status && res.status == 400) {
+                      this.toastService.showErrorToast('Error al guardar', res.error.message);
+                    } else {
+                      this.toastService.showSuccessToast("Exito!", "Culto actualizado.");
+                      this.router.navigateByUrl("/cultos/" + this.sermon.id)
+                    }
+                  });
+              } else {
+                this.toastService.showSuccessToast("Exito!", "Culto actualizado.");
+                this.router.navigateByUrl("/cultos/" + this.sermon.id);
+              }
             }
           });
       } catch (error: any) {
@@ -213,5 +231,17 @@ export class SermonEditComponent implements OnInit {
     return isWordThere.every(all_words);
   }
 
-  groupBand = (item: any) => item.band_role?'Músicos':'Coro';
+  groupBand = (item: any) => item.player.band_role ? 'Músicos' : 'Coro';
+
+  addPlayer(sb: SermonBand) {
+    if (!sb.id && sb.player) {
+      this.playersToAdd.push({id_sermon: this.sermon.id, id_player: sb.player.id});
+    }
+  }
+
+  removePlayer(sb: SermonBand) {
+    if (sb.id) {
+      this.playersToDelete.push(sb.id);
+    }
+  }
 }

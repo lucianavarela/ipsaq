@@ -3,19 +3,19 @@ import { Song } from "./song";
 export class SermonSong {
     public id?: number;
     public song?: Song;
-    public sermon_id?: number;
+    public id_sermon?: number;
 
-    constructor(obj?: {id: number, song: Song, sermon_id: number}) {
+    constructor(obj?: {id: number, song: Song, id_sermon: number}) {
         this.id = obj?.id;
         this.song = obj?.song;
-        this.sermon_id = obj?.sermon_id;
+        this.id_sermon = obj?.id_sermon;
     }
 
-    static mapObjects(data: any[], sermon_id: number) {
+    static mapObjects(data: any[], id_sermon: number) {
         return data.map(obj => {
             return new SermonSong({
                 id: obj['id'],
-                sermon_id: sermon_id,
+                id_sermon: id_sermon,
                 song: new Song(obj['songs'])
             });
         });

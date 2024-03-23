@@ -18,8 +18,8 @@
       <ng-container *ngFor="let nickname of namesHeaders; let colIndex = index" matColumnDef="{{nickname}}">
         <th mat-header-cell *matHeaderCellDef>{{nickname}}</th>
         <td mat-cell *matCellDef="let sermon">
-          <span *ngIf="users[colIndex].id == sermon.director_id || sermon.band.includes(users[colIndex].id)" class="icon">
-            <i [ngClass]="[users[colIndex].id == sermon.director_id ? 'fa-regular fa-user' : users[colIndex].choir_role ? 'fa-solid fa-microphone' : 'fa-solid fa-guitar']"></i>
+          <span *ngIf="users[colIndex].id == sermon.id_director || sermon.ids_band.includes(users[colIndex].id)" class="icon">
+            <i [ngClass]="[users[colIndex].id == sermon.id_director ? 'fa-regular fa-user' : users[colIndex].choir_role ? 'fa-solid fa-microphone' : 'fa-solid fa-guitar']"></i>
           </span>
         </td>
       </ng-container>
