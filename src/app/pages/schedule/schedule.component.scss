@@ -1,0 +1,34 @@
+.container {
+    text-align: -webkit-center;
+}
+
+table {
+    width: auto;
+}
+
+.mat-row {
+    height: 30px;
+}
+
+.element-row td {
+    border-bottom-width: 0;
+}
+
+.mat-cell, .mat-header-cell {
+    border-right: 1px solid #ebebeb;
+}
+
+.mat-column-sermon_date {
+    border-right: 2px solid #d0b5a5;
+    padding-right: 10px !important;
+    text-align: right;
+    width: 11rem;
+}
+
+.mat-cell:not(.mat-column-sermon_date), .mat-header-cell:not(.mat-column-sermon_date) {
+    width: 60px;
+}
+
+.mat-row, .mat-header-cell {
+    text-align: center !important;
+}

@@ -22,7 +22,7 @@ import { SeriesResolverService } from "./services/series-resolver.service";
 import { SermonsResolverService } from "./services/sermons-resolver.service";
 import { SongsResolverService } from "./services/songs-resolver.service";
 import { SuggestedSongsResolverService } from "./services/suggested-songs-resolver.service";
-import { SchedulePageComponent } from "./pages/schedule-page/schedule-page.component";
+import { ScheduleComponent } from "./pages/schedule/schedule.component";
 
 const AppRoutes: Routes = [
   { path: "", component: HomeComponent },
@@ -103,7 +103,7 @@ const AppRoutes: Routes = [
   {
     path: "cronograma",
     canActivate: [AuthGuard],
-    component: SchedulePageComponent,
+    component: ScheduleComponent,
   },
   {
     path: "quienes-somos",

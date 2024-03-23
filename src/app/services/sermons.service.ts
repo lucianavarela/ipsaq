@@ -26,7 +26,11 @@ export class SermonsService {
   }
 
   getSermons() {
-    return this.sSupabase.get(this.table, '*, related_series!left(*)');
+    return this.sSupabase.get(this.table, '*, related_series!left(*)').order('date', {ascending: false});
+  }
+
+  getSermonsWithBand() {
+    return this.sSupabase.get(this.table, '*, sermon_band(*)').gt('date', '2022-08-14').order('date', {ascending: false});
   }
 
   getSongsOfSermon(id: number) {
@@ -46,10 +50,18 @@ export class SermonsService {
   }
 
   async removeSermonSong(id: number) {
-    return await this.sSupabase.delete(id, this.tableSermonSong);
+    return await this.sSupabase.deleteById(id, this.tableSermonSong);
   }
 
   async addSermonSong(sermonSong: any) {
+    return await this.sSupabase.add(sermonSong, this.tableSermonSong);
+  }
+
+  async removeSermonBands(ids: number[]) {
+    return await this.sSupabase.delete(ids, this.tableSermonBand);
+  }
+
+  async addSermonBands(sermonSong: any) {
     return await this.sSupabase.add(sermonSong, this.tableSermonSong);
   }
 }

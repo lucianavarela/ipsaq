@@ -11,8 +11,8 @@ export class User {
     public band_role?: boolean;
     public direction_role?: boolean;
 
-    constructor(obj?: {id: number, email: string, nickname: string, first_name: string, last_name: string,
-        sermon_role: boolean, choir_role: boolean, band_role: boolean, direction_role: boolean}, auth_user?: AuthUser) {
+    constructor(obj?: {id: number, email?: string, nickname?: string, first_name?: string, last_name?: string,
+        sermon_role?: boolean, choir_role?: boolean, band_role?: boolean, direction_role?: boolean}, auth_user?: AuthUser) {
         this.id = obj?.id;
         this.email = auth_user?.email;
         this.nickname = obj?.nickname;

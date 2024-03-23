@@ -35,9 +35,13 @@ export class SupabaseService {
   update(obj: any, table: string) {
     return this.supabase.from(table).update(obj);
   }
+  
+  delete(ids: number[], table: string) {
+    return this.supabase.from(table).delete().in('id', ids);
+  }
 
-  delete(id: number, table: string) {
-    return this.supabase.from(table).delete().eq('id', id)
+  deleteById(id: number, table: string) {
+    return this.supabase.from(table).delete().eq('id', id);
   }
 
   functions(body: object) {

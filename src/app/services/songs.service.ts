@@ -44,7 +44,7 @@ export class SongsService {
   }
   
   async deleteSong(id: number) {
-    return await this.sSupabase.delete(id, this.table);
+    return await this.sSupabase.deleteById(id, this.table);
   }
 }
 

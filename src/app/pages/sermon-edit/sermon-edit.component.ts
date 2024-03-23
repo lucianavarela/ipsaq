@@ -29,6 +29,8 @@ export class SermonEditComponent implements OnInit {
   band: User[] = [];
   allPlayers: User[] = [];
   selectedSong!: Song;
+  playesToDelete: User[] = [];
+  playesToAdd: User[] = [];
 
   constructor(
     private sSermons: SermonsService,
@@ -100,30 +102,6 @@ export class SermonEditComponent implements OnInit {
     }
   }
 
-  async updateSermon() {
-    try {
-      let sermon: any = structuredClone(this.sermon);
-      sermon.related_series = this.sermon.series ? this.sermon.series?.id : null;
-      if (!sermon.related_series) sermon.chapter_number = null;
-      delete sermon.series;
-      this.sSermons
-        .updateSermon(sermon)
-        .then((res: any) => {
-          if (res.status && res.status == 400) {
-            this.toastService.showErrorToast('Error al guardar', res.error.message);
-          } else {
-            this.toastService.showSuccessToast("Exito!", "Culto actualizado.");
-            this.router.navigateByUrl("/cultos/" + res.data[0]["id"])
-          }
-        });
-    } catch (error: any) {
-      this.toastService.showErrorToast(
-        "Error al guardar",
-        error.error_description || error.message
-      );
-    }
-  }
-
   async addSermon() {
     try {
       let sermon: any = structuredClone(this.sermon);
@@ -141,6 +119,54 @@ export class SermonEditComponent implements OnInit {
         "Error al guardar",
         error.error_description || error.message
       );
+    }
+  }
+
+  async updateSermon() {
+    try {
+      let sermon: any = structuredClone(this.sermon);
+      sermon.related_series = this.sermon.series ? this.sermon.series?.id : null;
+      if (!sermon.related_series) sermon.chapter_number = null;
+      delete sermon.series;
+      this.sSermons
+        .updateSermon(sermon)
+        .then((res: any) => {
+          if (res.status && res.status == 400) {
+            this.toastService.showErrorToast('Error al guardar', res.error.message);
+          } else {
+            this.storeBand();
+          }
+        });
+    } catch (error: any) {
+      this.toastService.showErrorToast(
+        "Error al guardar",
+        error.error_description || error.message
+      );
+    }
+  }
+
+  storeBand() {
+    if (this.playesToDelete.length || this.playesToAdd.length) {
+      try {
+        this.sSermons
+          .addSermonBands([])
+          .then((res: any) => {
+            if (res.status && res.status == 400) {
+              this.toastService.showErrorToast('Error al guardar', res.error.message);
+            } else {
+              this.toastService.showSuccessToast("Exito!", "Culto actualizado.");
+              this.router.navigateByUrl("/cultos/" + res.data[0]["id"])
+            }
+          });
+      } catch (error: any) {
+        this.toastService.showErrorToast(
+          "Error al guardar",
+          error.error_description || error.message
+        );
+      }
+    } else {
+      this.toastService.showSuccessToast("Exito!", "Culto actualizado.");
+      this.router.navigateByUrl("/cultos/" + this.sermon.id);
     }
   }
 

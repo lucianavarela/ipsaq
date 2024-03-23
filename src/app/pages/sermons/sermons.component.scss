@@ -15,11 +15,11 @@
     filter: brightness(0.95);
 }
 
-tr.example-element-row:not(.example-expanded-row):hover {
+tr.element-row:not(.expanded-row):hover {
   background: whitesmoke;
 }
 
-tr.example-element-row:not(.example-expanded-row):active {
+tr.element-row:not(.expanded-row):active {
   background: #efefef;
 }
 
@@ -27,11 +27,11 @@ table.mobile {
   width: 100%;
 }
 
-tr.example-detail-row {
+tr.detail-row {
   height: 0;
 }
 
-.example-element-detail {
+.element-detail {
   overflow: hidden;
   display: flex;
 }
@@ -41,6 +41,6 @@ table.mobile .mat-column-title {
   padding-bottom: 5px;
 }
 
-.example-element-row td {
+.element-row td {
   border-bottom-width: 0;
 }
