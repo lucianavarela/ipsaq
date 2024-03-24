@@ -15,7 +15,7 @@ export class Sermon {
     public ids_band?: number[] = [];
 
     constructor(obj?: {id: number, director: string, preacher: string, title: string, date: Date, id_director: number, id_preacher: number, 
-        link_youtube: string, bible_verse: string, id_series: any, chapter_number: number, sermon_band: any[]}) {
+        link_youtube: string, bible_verse: string, related_series: any, chapter_number: number, sermon_band: any[]}) {
         this.id = obj?.id;
         this.director = obj?.director;
         this.preacher = obj?.preacher;
@@ -23,7 +23,7 @@ export class Sermon {
         this.date = obj?.date;
         this.link_youtube = obj?.link_youtube;
         this.bible_verse = obj?.bible_verse;
-        this.series = obj?.id_series ? new Series({id: Number(obj?.id_series.id), name:obj?.id_series.name}) : undefined;
+        this.series = obj?.related_series ? new Series({id: Number(obj?.related_series.id), name:obj?.related_series.name}) : undefined;
         this.chapter_number = obj?.chapter_number;
         this.id_director = obj?.id_director;
         this.id_preacher = obj?.id_preacher;

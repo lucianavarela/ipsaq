@@ -64,6 +64,10 @@ a {
   min-height: 2.5em !important;
 }
 
+.control.has-icons-left .ng-value-container {
+  padding-left: 2.5em;
+}
+
 .iframe-container {
   position: relative;
   overflow: hidden;

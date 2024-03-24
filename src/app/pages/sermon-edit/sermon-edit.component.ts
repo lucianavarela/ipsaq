@@ -25,10 +25,12 @@ export class SermonEditComponent implements OnInit {
   sermon!: Sermon;
   series: Series[] = [];
   songs: SermonSong[] = [];
+  allPreachers: User[] = [];
+  allDirectors: User[] = [];
   allSongs: Song[] = [];
-  selectedPlayers: SermonBand[] = [];
-  allPlayers: SermonBand[] = [];
   selectedSong!: Song;
+  allPlayers: SermonBand[] = [];
+  selectedPlayers: SermonBand[] = [];
   playersToAdd: any[] = [];
   playersToDelete: number[] = [];
 
@@ -55,16 +57,26 @@ export class SermonEditComponent implements OnInit {
         });
 
         this.sUser.getUsers().then((res: any) => {
-          this.allPlayers = res.data?.filter((u: any) => u.band_role || u.choir_role).map((u: any) => {
-            let sbId = sermon.data.sermon_band.find((d:any) => d.id_player == u.id)?.id ?? null;
-            let sermonPlayer = new SermonBand({id: sbId, player: new User(u), id_sermon: this.sermon.id});
-            if (sbId) {
-              this.selectedPlayers.push(sermonPlayer);
+          res.data?.forEach((u: any) => {
+            let newUser = new User(u);
+
+            if (newUser.direction_role) this.allDirectors.push(newUser);
+            if (newUser.sermon_role) this.allPreachers.push(newUser);
+
+            if (newUser.band_role || newUser.choir_role) {
+              let sbId = sermon.data.sermon_band.find((d: any) => d.id_player == u.id)?.id ?? null;
+              let sermonPlayer = new SermonBand({ id: sbId, player: newUser, id_sermon: this.sermon.id });
+              if (sbId) {
+                this.selectedPlayers.push(sermonPlayer);
+              }
+              this.allPlayers.push(sermonPlayer);
             }
-            return sermonPlayer;
           });
+          this.selectedPlayers = [...this.selectedPlayers];
+          this.allDirectors = [...this.allDirectors];
+          this.allPreachers = [...this.allPreachers];
         });
-        
+
         this.sSermons.getSongsOfSermon(sermon.data.id).then((res: any) => {
           this.songs = SermonSong.mapObjects(res.data, Number(sermon.data.id));
         });
@@ -109,7 +121,7 @@ export class SermonEditComponent implements OnInit {
   async addSermon() {
     try {
       let sermon: any = structuredClone(this.sermon);
-      sermon.id_series = this.sermon.series?.id;
+      sermon.related_series = this.sermon.series?.id;
       delete sermon.series;
       delete sermon.id;
       this.sSermons
@@ -129,8 +141,8 @@ export class SermonEditComponent implements OnInit {
   async updateSermon() {
     try {
       let sermon: any = structuredClone(this.sermon);
-      sermon.id_series = this.sermon.series ? this.sermon.series?.id : null;
-      if (!sermon.id_series) sermon.chapter_number = null;
+      sermon.related_series = this.sermon.series ? this.sermon.series?.id : null;
+      if (!sermon.related_series) sermon.chapter_number = null;
       delete sermon.series;
       delete sermon.ids_band;
       this.sSermons
@@ -235,7 +247,7 @@ export class SermonEditComponent implements OnInit {
 
   addPlayer(sb: SermonBand) {
     if (!sb.id && sb.player) {
-      this.playersToAdd.push({id_sermon: this.sermon.id, id_player: sb.player.id});
+      this.playersToAdd.push({ id_sermon: this.sermon.id, id_player: sb.player.id });
     }
   }
 

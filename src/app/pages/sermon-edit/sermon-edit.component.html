@@ -47,21 +47,32 @@
         <label class="label">Encargados</label>
       </div>
       <div class="field-body">
-        <div class="field has-addons">
-          <p class="control is-expanded">
-            <input
-              class="input"
-              [(ngModel)]="sermon.director"
-              type="text"
-              placeholder="Dirección"
-            />
+        <div class="field is-grouped">
+          <p class="control is-expanded is-fullwidth has-icons-left">
+            <ng-select
+              [items]="allDirectors"
+              bindLabel="nickname"
+              bindValue="id"
+              placeholder="Selecciona a quien dirige"
+              [(ngModel)]="sermon.id_director"
+            >
+            </ng-select>
+            <span class="icon is-small">
+              <i class="fa-regular fa-sm fa-user"></i>
+            </span>
           </p>
-          <p class="control is-expanded">
-            <input
-              class="input"
-              [(ngModel)]="sermon.preacher"
-              placeholder="Predicador"
-            />
+          <p class="control is-expanded is-fullwidth has-icons-left">
+            <ng-select
+            [items]="allPreachers"
+            bindLabel="nickname"
+            bindValue="id"
+            placeholder="Selecciona a quien predica"
+            [(ngModel)]="sermon.id_preacher"
+            >
+          </ng-select>
+          <span class="icon is-small">
+              <i class="fa-solid fa-sm fa-user-tie"></i>
+            </span>
           </p>
         </div>
       </div>
