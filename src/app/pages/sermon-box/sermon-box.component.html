@@ -1,0 +1,22 @@
+<a class="box" *ngIf="sermon" [routerLink]="['/cultos', sermon.id]">
+  <div class="columns is-mobile is-multiline">
+    <div *ngIf="sermon.chapter_number" class="column is-narrow">
+      <strong>{{ sermon.chapter_number }}</strong>
+    </div>
+    <div *ngIf="sermon.title" class="column is-10-mobile">
+      <p>{{ sermon.title }}</p>
+    </div>
+    <div *ngIf="sermon.bible_verse" class="column is-3-desktop is-7-mobile">
+      <small><span class="icon has-text-dark">
+        <i class="fa-solid fa-book-bible"></i>
+      </span>
+      {{ sermon.bible_verse }}</small>
+    </div>
+    <div *ngIf="sermon.date" class="column is-narrow-desktop is-5-mobile">
+      <small><span class="icon has-text-dark">
+        <i class="fa-solid fa-calendar-alt"></i>
+      </span>
+      {{ sermon.date | date : "dd/MM/yy" }}</small>
+    </div>
+  </div>
+</a>

@@ -1,0 +1,14 @@
+.main {
+    background-image: url("/assets/texture3.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.main .container {
+    max-width: 1000px;
+    text-align: center;
+}
+
+.message {
+    box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 10%), 0 0px 0 1px rgb(10 10 10 / 2%);
+}

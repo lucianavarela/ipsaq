@@ -1,0 +1,231 @@
+<section class="hero is-warning">
+  <div class="hero-body">
+    <div class="columns">
+      <div class="column is-1">
+        <app-back-button></app-back-button>
+      </div>
+      <div class="column has-text-centered">
+        <h1 class="title">
+          {{
+            sermon.id
+              ? sermon.title
+                ? "Editar: " + sermon.title
+                : "Editar Culto"
+              : "Agregar Culto"
+          }}
+        </h1>
+      </div>
+      <div class="column is-1"></div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <section class="section">
+    <div class="field is-horizontal">
+      <div class="field-label">
+        <label class="label">Título</label>
+      </div>
+      <div class="field-body">
+        <div class="field has-addons">
+          <p class="control is-expanded">
+            <input
+              class="input"
+              [(ngModel)]="sermon.title"
+              placeholder="Titulo"
+            />
+          </p>
+          <p class="control">
+            <input class="input" type="date" [(ngModel)]="sermon.date" />
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="field is-horizontal">
+      <div class="field-label">
+        <label class="label">Encargados</label>
+      </div>
+      <div class="field-body">
+        <div class="field is-grouped">
+          <p class="control is-expanded is-fullwidth has-icons-left">
+            <ng-select
+              [items]="allDirectors"
+              bindLabel="nickname"
+              placeholder="Selecciona a quien dirige"
+              [(ngModel)]="sermon.director"
+            >
+            </ng-select>
+            <span class="icon is-small">
+              <i class="fa-regular fa-sm fa-user"></i>
+            </span>
+          </p>
+          <p class="control is-expanded is-fullwidth has-icons-left">
+            <ng-select
+            [items]="allPreachers"
+            bindLabel="nickname"
+            placeholder="Selecciona a quien predica"
+            [(ngModel)]="sermon.preacher"
+            >
+          </ng-select>
+          <span class="icon is-small">
+              <i class="fa-solid fa-sm fa-user-tie"></i>
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="field is-horizontal">
+      <div class="field-label">
+        <label class="label">Lectura</label>
+      </div>
+      <div class="field-body">
+        <div class="field is-grouped is-grouped-multiline" style="width: -webkit-fill-available;">
+          <p class="control is-expanded">
+            <input
+              class="input"
+              [(ngModel)]="sermon.bible_verse"
+              placeholder="Lectura"
+            />
+          </p>
+          <p class="control is-expanded is-fullwidth" style="max-width: 20rem;">
+            <ng-select
+              [items]="series"
+              bindLabel="name"
+              placeholder="Selecciona una serie"
+              [(ngModel)]="sermon.series"
+              (change)="selectSeries()"
+            >
+            </ng-select>
+          </p>
+          <p *ngIf="sermon.series" class="control has-icons-left" style="width: 6rem">
+            <span class="icon is-small is-left">
+              <i class="fas fa-hashtag"></i>
+            </span>
+            <input
+              class="input"
+              [(ngModel)]="sermon.chapter_number"
+              placeholder="Cap"
+            />
+          </p>
+          <p class="control">
+            <button
+              class="button is-warning is-light is-outlined"
+              (click)="addSeries()"
+            >
+              Agregar Serie
+            </button>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="field is-horizontal">
+      <div class="field-label">
+        <label class="label">Link al culto</label>
+      </div>
+      <div class="field-body">
+        <div class="field is-expanded">
+          <p class="control is-expanded">
+            <input
+              class="input"
+              [(ngModel)]="sermon.link_youtube"
+              type="text"
+              placeholder="Link al culto en YouTube"
+            />
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <ng-container *ngIf="sermon.id">
+      <div class="field is-horizontal">
+        <div class="field-label">
+          <label class="label">Músicos</label>
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <p class="control is-expanded">
+              <ng-select
+                [multiple]="true"
+                [items]="allPlayers"
+                bindLabel="player.nickname"
+                [(ngModel)]="selectedPlayers"
+                [groupBy]="groupBand"
+                [closeOnSelect]="false"
+                placeholder="Selecciona los músicos">
+              </ng-select>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="field is-horizontal">
+        <div class="field-label">
+          <label class="label">Alabanza</label>
+        </div>
+        <div class="field-body">
+          <div class="field is-grouped is-grouped-multiline" style="width: 100%">
+            <p class="control is-expanded is-fullwidth">
+              <ng-select
+                #ngSelectComponent
+                [items]="allSongs"
+                bindLabel="beginning"
+                (change)="songAdded()"
+                [(ngModel)]="selectedSong"
+                [searchFn]="customSearchSongs"
+                placeholder="Selecciona las canciones"
+              >
+                <ng-template
+                  ng-option-tmp
+                  let-item="item"
+                  let-search="searchTerm"
+                >
+                  <p>
+                    {{ item.index }} | {{ item.beginning
+                    }}{{
+                      item.title != item.beginning
+                        ? " [" + item.title + "]"
+                        : ""
+                    }}
+                  </p>
+                </ng-template>
+              </ng-select>
+            </p>
+            <p class="control">
+              <a
+                class="button is-warning is-light is-outlined" target="_blank"
+                [routerLink]="['/nueva_cancion']">Agregar canción</a>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="columns is-multiline" style="margin-top: 1rem">
+        <div *ngFor="let song of songs" class="column is-narrow">
+          <app-songs-box
+            [sermonSongInput]="song"
+            [editMode]="true"
+            (songDeleted)="songDeleted($event)"
+          ></app-songs-box>
+        </div>
+      </div>
+    </ng-container>
+    <div class="field is-grouped">
+      <div class="field-label"></div>
+      <div class="field-body">
+        <div class="field">
+          <div class="control">
+            <button
+              class="button is-primary"
+              (click)="sermon.id ? updateSermon() : addSermon()"
+            >
+              {{ sermon.id ? "Guardar Cambios" : "Crear Culto" }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

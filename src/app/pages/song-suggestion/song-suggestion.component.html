@@ -1,0 +1,116 @@
+<section class="hero is-warning">
+  <div class="hero-body">
+    <div class="columns">
+      <div class="column is-1">
+        <app-back-button></app-back-button>
+      </div>
+      <div class="column has-text-centered">
+        <h1 class="title">Sugerir Canción</h1>
+      </div>
+      <div class="column is-1"></div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <section class="section">
+    <div class="field is-horizontal">
+      <div class="field-label">
+        <label class="label">Comienzo</label>
+      </div>
+      <div class="field-body">
+        <div class="field is-expanded">
+          <p class="control is-expanded">
+            <input
+              class="input"
+              [(ngModel)]="song.beginning"
+              placeholder="Comienzo/Primer oración"
+            />
+          </p>
+        </div>
+      </div>
+    </div>
+      
+    <div class="field is-horizontal">
+      <div class="field-label">
+        <label class="label">Título</label>
+      </div>
+      <div class="field-body">
+        <div class="field is-expanded">
+          <p class="control is-expanded">
+            <input
+              class="input"
+              [(ngModel)]="song.title"
+              placeholder="Título"
+            />
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="field is-horizontal">
+      <div class="field-label">
+        <label class="label">Artista</label>
+      </div>
+      <div class="field-body">
+        <div class="field">
+          <p class="control is-expanded">
+            <input
+              class="input"
+              [(ngModel)]="song.artist"
+              type="text"
+              placeholder="Artista"
+            />
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="field is-horizontal">
+      <div class="field-label">
+        <label class="label">Link de canción original</label>
+      </div>
+      <div class="field-body">
+        <div class="field is-expanded">
+          <p class="control is-expanded">
+            <input
+              class="input"
+              [(ngModel)]="song.link_original"
+              type="text"
+              placeholder="Link a Youtube de version original"
+            />
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="field is-horizontal">
+      <div class="field-label">
+        <label class="label">Letra</label>
+      </div>
+      <div class="field-body">
+        <div class="field">
+          <div class="control">
+            <textarea rows="30" class="textarea" [(ngModel)]="song.lyrics"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="field is-grouped">
+      <div class="field-label"></div>
+      <div class="field-body">
+        <div class="field">
+          <div class="control">
+            <button
+              class="button is-primary"
+              (click)="suggestSong()"
+            >
+              Sugerir Canción
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

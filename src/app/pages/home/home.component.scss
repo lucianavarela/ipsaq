@@ -1,0 +1,36 @@
+.banner {
+    height: 70vh; 
+    background: url('/assets/bienvenido.png') center center no-repeat;
+    background-size: cover;
+}
+
+@media (max-width: 1022px) {
+    .banner {
+    height: 50vh !important;
+    }
+  }
+  
+.boxes .box {
+    cursor: pointer;
+    width: auto;
+}
+
+.boxes .box img {
+    width: 70%;
+}
+
+.boxes .button {
+    margin: 15px 0;
+}
+
+.video {
+    width: 100%;
+    padding: 1rem;
+    background-color: #ffefdd;
+}
+
+.texture {
+    background-image: url("/assets/texture2.png");
+    width: 100%;
+    background-size: cover;
+}

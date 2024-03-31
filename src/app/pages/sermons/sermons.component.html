@@ -1,0 +1,219 @@
+<section class="hero is-light">
+  <div class="hero-body has-text-centered">
+    <h1 class="title">CULTOS</h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container main-list-table">
+    <ng-container
+      *ngTemplateOutlet="isMobile ? mobile : desktop"
+    ></ng-container>
+  </div>
+</section>
+
+<ng-template #desktop>
+  <table
+    mat-table
+    [dataSource]="dataSource"
+    class="mat-elevation-z8"
+    matSort
+    matSortActive="date"
+    matSortDirection="desc"
+  >
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Titulo</th>
+      <td mat-cell *matCellDef="let sermon">
+        <p
+          *ngIf="sermon.series"
+          [routerLink]="['/series', sermon.series.id]"
+          class="tag series"
+        >
+          {{ sermon.series.name }} #{{ sermon.chapter_number }}
+        </p>
+        <a
+          class="item-link"
+          style="color: inherit"
+          [routerLink]="['/cultos', sermon.id]"
+        >
+          {{ sermon.title }}</a
+        >
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</th>
+      <td mat-cell *matCellDef="let sermon">
+        {{ sermon.date | date : "dd-MM-yy" }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="bible">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Lectura</th>
+      <td mat-cell *matCellDef="let sermon">{{ sermon.bible_verse }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="info">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Dirección | Prédica</th>
+      <td mat-cell *matCellDef="let sermon">
+        <div class="field has-addons">
+          <p *ngIf="sermon.director" class="control">
+            <a class="button is-inverted is-small is-static">
+              <span class="icon is-small">
+                <i class="fa-solid fa-guitar"></i>
+              </span>
+              <span>{{ sermon.director.nickname }}</span>
+            </a>
+          </p>
+          <p *ngIf="sermon.preacher" class="control">
+            <a class="button is-inverted is-small is-static">
+              <span class="icon is-small">
+                <i class="fa-solid fa-user-tie"></i>
+              </span>
+              <span>{{ sermon.preacher.nickname }}</span>
+            </a>
+          </p>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="button_to_page">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let sermon">
+        <p class="control">
+          <a
+            class="button is-link is-inverted is-small"
+            [routerLink]="['/cultos', sermon.id]"
+          >
+            <span class="icon is-small">
+              <i class="fa-solid fa-circle-info"></i>
+            </span>
+            <span>Detalles</span>
+          </a>
+        </p>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">Sin resultados :(</td>
+    </tr>
+  </table>
+</ng-template>
+
+<ng-template #mobile>
+  <table
+    mat-table
+    multiTemplateDataRows
+    [dataSource]="dataSource"
+    class="mat-elevation-z8 mobile"
+    matSort
+    matSortActive="date"
+    matSortDirection="desc"
+  >
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Titulo</th>
+      <td mat-cell *matCellDef="let sermon">
+        <div style="padding-bottom: 5px">
+          <p style="color:#bb718f;padding-bottom: 5px"
+            *ngIf="sermon.series"
+            [routerLink]="['/series', sermon.series.id]"
+            >{{ sermon.series.name }} #{{ sermon.chapter_number }}:</p>
+          <a
+            class="item-link"
+            style="color: inherit"
+            [routerLink]="['/cultos', sermon.id]"
+          >
+            {{ sermon.title }}</a
+          ><br />
+        </div>
+        <small>
+          <span class="icon is-small">
+            <i class="fa-regular fa-calendar"></i>
+          </span>
+          {{ sermon.date | date : "dd-MM-yy" }}</small
+        >
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="expand">
+      <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+      <td mat-cell *matCellDef="let sermon">
+        <button
+          mat-icon-button
+          aria-label="expand row"
+          (click)="
+            expandedElement = expandedElement === sermon ? null : sermon;
+            $event.stopPropagation()
+          "
+        >
+          <mat-icon *ngIf="expandedElement !== sermon"
+            >keyboard_arrow_down</mat-icon
+          >
+          <mat-icon *ngIf="expandedElement === sermon"
+            >keyboard_arrow_up</mat-icon
+          >
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="expandedDetail">
+      <td mat-cell *matCellDef="let sermon" [attr.colspan]="4">
+        <div
+          class="element-detail"
+          [@detailExpand]="sermon == expandedElement ? 'expanded' : 'collapsed'"
+        >
+          <div class="tags" style="margin: 9px 0">
+            <a
+              *ngIf="sermon.bible_verse"
+              class="tag is-light is-small is-success"
+            >
+              <span class="icon is-small">
+                <i class="fa-solid fa-bible"></i>
+              </span>
+              <span>{{ sermon.bible_verse }}</span>
+            </a>
+            <a
+              *ngIf="sermon.director"
+              class="tag is-light is-small is-link"
+            >
+              <span class="icon is-small">
+                <i class="fa-solid fa-guitar"></i>
+              </span>
+              <span>{{ sermon.director.nickname }}</span>
+            </a>
+            <a
+              *ngIf="sermon.preacher"
+              class="tag is-light is-small is-info"
+            >
+              <span class="icon is-small">
+                <i class="fa-solid fa-user-tie"></i>
+              </span>
+              <span>{{ sermon.preacher.nickname }}</span>
+            </a>
+          </div>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr
+      mat-row
+      *matRowDef="let element; columns: displayedColumns"
+      class="element-row"
+      [class.expanded-row]="expandedElement === element"
+      (click)="expandedElement = expandedElement === element ? null : element"
+    ></tr>
+
+    <tr
+      mat-row
+      *matRowDef="let row; columns: ['expandedDetail']"
+      class="detail-row"
+    ></tr>
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">Sin resultados :(</td>
+    </tr>
+  </table>
+</ng-template>

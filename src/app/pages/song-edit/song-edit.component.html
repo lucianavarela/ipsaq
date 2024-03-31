@@ -1,0 +1,188 @@
+<section class="hero is-warning">
+  <div class="hero-body">
+    <div class="columns">
+      <div class="column is-1">
+        <app-back-button></app-back-button>
+      </div>
+      <div class="column has-text-centered">
+        <h1 class="title">
+          {{
+            song.id
+              ? song.title
+                ? "Editar: " + song.title
+                : "Editar Canción"
+              : "Agregar Canción"
+          }}
+        </h1>
+      </div>
+      <div class="column is-1"></div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <section class="section">
+    <div *ngIf="song.suggestion" class="field is-horizontal">
+      <div class="field-label">
+        <label class="label"></label>
+      </div>
+      <div class="field-body">
+        <div class="field has-addons">
+          <p class="control is-expanded">
+            <label class="checkbox">
+              <input
+                type="checkbox"
+                style="margin-right: 5px"
+                [(ngModel)]="songSuggestionFlag"
+              />Mover sugerencia al cancionero
+            </label>
+          </p>
+          <p class="control">
+            <button
+              class="button is-small is-danger has-text-white"
+              (click)="removeSuggestion()"
+            >
+              Borrar Sugerencia
+            </button>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="field is-horizontal">
+      <div class="field-label">
+        <label class="label">Comienzo</label>
+      </div>
+      <div class="field-body">
+        <div class="field is-expanded">
+          <p class="control is-expanded">
+            <input
+              class="input"
+              [(ngModel)]="song.beginning"
+              placeholder="Comienzo/Primer oración"
+            />
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="field is-horizontal">
+      <div class="field-label">
+        <label class="label">Título</label>
+      </div>
+      <div class="field-body">
+        <div class="field is-expanded">
+          <p class="control is-expanded">
+            <input
+              class="input"
+              [(ngModel)]="song.title"
+              placeholder="Título"
+            />
+          </p>
+        </div>
+        <div class="field">
+          <p class="control is-expanded">
+            <input
+              class="input"
+              [(ngModel)]="song.artist"
+              type="text"
+              placeholder="Artista"
+            />
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="field is-horizontal">
+      <div class="field-label">
+        <label class="label">Link de canción original</label>
+      </div>
+      <div class="field-body">
+        <div class="field is-expanded">
+          <p class="control is-expanded">
+            <input
+              class="input"
+              [(ngModel)]="song.link_original"
+              type="text"
+              placeholder="Link a Youtube de version original"
+            />
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="field is-horizontal">
+      <div class="field-label">
+        <label class="label">Link de nuestra versión</label>
+      </div>
+      <div class="field-body">
+        <div class="field is-expanded">
+          <p class="control is-expanded">
+            <input
+              class="input"
+              type="text"
+              [(ngModel)]="song.link_ipsaq"
+              placeholder="Link a Youtube de nuestra version"
+            />
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="field is-horizontal">
+      <div class="field-label">
+        <label class="label">Link de Acordes</label>
+      </div>
+      <div class="field-body">
+        <div class="field has-addons">
+          <p class="control is-expanded">
+            <input
+              class="input"
+              type="text"
+              [(ngModel)]="song.link_chords"
+              placeholder="Link al archivo con acordes"
+            />
+          </p>
+          <p class="control" *ngIf="song.link_chords">
+            <mat-slide-toggle style="margin: 8px 0 8px 15px;font-family: inherit;"
+              [(ngModel)]="song.verified" [color]="'primary'">Acordes Verificados
+            </mat-slide-toggle>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="field is-horizontal">
+      <div class="field-label">
+        <label class="label">Letra</label>
+      </div>
+      <div class="field-body">
+        <div class="field">
+          <div class="control">
+            <textarea
+              rows="30"
+              class="textarea"
+              [(ngModel)]="song.lyrics"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="field is-grouped">
+      <div class="field-label"></div>
+      <div class="field-body">
+        <div class="field">
+          <div class="control">
+            <button
+              class="button is-primary"
+              (click)="song.id ? updateSong() : addSong()"
+            >
+              {{ song.id ? "Guardar Cambios" : "Crear Cancion" }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

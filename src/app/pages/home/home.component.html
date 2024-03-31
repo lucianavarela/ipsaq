@@ -1,0 +1,52 @@
+<div class="banner">
+  <!--img src="assets/bienvenido.png" /-->
+</div>
+<div class="texture">
+  <section class="section">
+    <div class="columns is-mobile is-multiline is-variable is-1-mobile is-1-tablet is-3-desktop is-8-widescreen is-2-fullhd is-centered has-text-centered boxes">
+      <div class="column is-6-mobile">
+        <div class="box" [routerLink]="['quienes-somos/en-que-creemos']">
+          <img src="assets/church.png" /><br/>
+          <button class="button is-primary" style="background-color: #dbb8b3;">Conocénos</button>
+        </div>
+      </div>
+      <div class="column is-6-mobile">
+        <div class="box" [routerLink]="['cultos']">
+          <img src="assets/bible.png" /><br/>
+          <button class="button is-primary">Cultos</button>
+        </div>
+      </div>
+      <div class="column is-6-mobile">
+        <div class="box" [routerLink]="['cancionero']">
+          <img src="assets/songs.png" /><br/>
+          <button class="button is-link">Cancionero</button>
+        </div>
+      </div>
+      <div class="column is-6-mobile">
+        <div class="box" [routerLink]="['ubicacion']">
+          <img src="assets/phone.png" /><br/>
+          <button class="button is-light">Contactános</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<div class="video">
+  <section class="section">
+    <div *ngIf="lastsSermons" class="columns is-variable is-8">
+
+      <ng-template ngFor let-item [ngForOf]="lastsSermons">
+        <div *ngIf="item && item.link_youtube" class="column has-text-centered">
+          <h5 class="title is-5">
+            <a [routerLink]="['cultos', item.id]">{{item.date == today ? 'Hoy' : item.date == tomorrow ? 'Mañana' : (item.date | date: 'dd/MM/yy')}}</a>
+          </h5>
+          <div class="iframe-container">
+            <iframe width="490" height="275" frameborder="0" allowfullscreen
+              [src]="item.link_youtube | transformYoutube | safeUrl"></iframe>
+          </div>
+        </div>
+      </ng-template>
+
+    </div>
+  </section>
+</div>

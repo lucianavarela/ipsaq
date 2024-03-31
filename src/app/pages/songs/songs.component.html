@@ -1,0 +1,253 @@
+<section class="hero is-primary">
+  <div class="hero-body has-text-centered">
+    <h1 class="title">CANCIONERO</h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container main-list-table">
+    <div class="has-text-centered" style="margin-bottom: 1rem">
+      <mat-form-field appearance="standard" [style.width]="isMobile? '100%':'60%'">
+        <mat-label
+          >Buscar por parte de la canción, por nombre o por índice...</mat-label
+        >
+        <input
+          matInput
+          #input
+          [(ngModel)]="searchedText"
+          (keyup)="applyFilter()"
+        />
+      </mat-form-field>
+    </div>
+    <ng-container *ngTemplateOutlet="isMobile ? mobile : desktop"></ng-container>
+  </div>
+</section>
+
+<ng-template #desktop>
+  <table
+    mat-table
+    [dataSource]="dataSource"
+    class="mat-elevation-z8"
+    matSort
+    matSortActive="index"
+    matSortDirection="asc"
+  >
+    <ng-container matColumnDef="index">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>#</th>
+      <td mat-cell *matCellDef="let song" style="font-weight: bold; padding-right: 7px;">
+        {{ song.index ?? "-" }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="beginning">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Comienzo / <i>Título</i>
+      </th>
+      <td class="song-link" mat-cell *matCellDef="let song">
+        <a
+          style="color: inherit"
+          [routerLink]="
+            song.suggestion
+              ? ['/canciones_sugeridas', song.id]
+              : ['/cancionero', song.index]
+          "
+        >
+          <p [highlight]="searchedText" [fullText]="song.beginning">
+            {{ song.beginning }}
+          </p>
+          <i
+            class="song-title"
+            *ngIf="song.title != song.beginning"
+            [highlight]="searchedText"
+            [fullText]="song.title"
+            >{{ song.title }}</i
+          >
+        </a>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="amount_used">
+      <th class="centered" mat-header-cell *matHeaderCellDef mat-sort-header>Cant. usada</th>
+      <td class="has-text-centered" mat-cell *matCellDef="let song">
+        {{ song.amount_used }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="last_used">
+      <th class="centered" mat-header-cell *matHeaderCellDef mat-sort-header>
+        Última vez usado
+      </th>
+      <td class="has-text-centered" mat-cell *matCellDef="let song">
+        {{ song.last_used | date : "dd-MM-yy" }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="link_ipsaq">
+      <th class="centered" mat-header-cell *matHeaderCellDef mat-sort-header>Version IPSAQ</th>
+      <td class="has-text-centered" mat-cell *matCellDef="let song">
+        <span *ngIf="song.link_ipsaq" class="icon has-text-danger">
+          <i class="fa-brands fa-youtube"></i>
+        </span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="lyrics_and_chords">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let song">
+        <div class="field has-addons">
+          <p class="control">
+            <a
+              class="button is-link is-inverted is-small"
+              [routerLink]="
+                song.suggestion
+                  ? ['/canciones_sugeridas', song.id]
+                  : ['/cancionero', song.index]
+              "
+            >
+              <span>Detalles</span>
+            </a>
+          </p>
+          <p *ngIf="song.lyrics" class="control">
+            <button
+              class="button is-primary is-inverted is-small"
+              [matTooltip]="song.lyrics | textFound : searchedText"
+              [matTooltipPosition]="'right'"
+              [matTooltipShowDelay]="500"
+              [matTooltipShowDelay]="500"
+              [matTooltipClass]="'tooltip'"
+              #matTooltip="matTooltip"
+            >
+              <span class="icon is-small" [class.is-hidden]="!lyricsMatch(song.lyrics)">
+                <i class="fa-solid fa-magnifying-glass-arrow-right"></i>
+              </span>
+              <span>Letra</span>
+            </button>
+          </p>
+          <p *ngIf="song.link_chords" class="control">
+            <a
+              class="button is-success is-inverted is-small"
+              target="”_blank”"
+              href="{{ song.link_chords }}"
+            >
+              <span class="icon is-small">
+                <i class="fa-solid fa-guitar"></i>
+              </span>
+              <span>Acordes</span>
+              <span class="icon is-small" *ngIf="isLoggedIn && song.verified">
+                <i class="fa-solid fa-check"></i>
+              </span>
+            </a>
+          </p>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">Sin resultados :(</td>
+    </tr>
+  </table>
+</ng-template>
+
+<ng-template #mobile>
+  <table
+    mat-table
+    [dataSource]="dataSource"
+    class="mat-elevation-z8"
+    matSort
+    matSortActive="index"
+    matSortDirection="asc"
+  >
+    <ng-container matColumnDef="index">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>#</th>
+      <td mat-cell *matCellDef="let song" style="font-weight: bold; padding-right: 7px;">
+        {{ song.index ?? "-" }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="beginning">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Comienzo / <i>Título</i>
+      </th>
+      <td class="song-link" mat-cell *matCellDef="let song">
+        <a
+          style="color: inherit"
+          [routerLink]="
+            song.suggestion
+              ? ['/canciones_sugeridas', song.id]
+              : ['/cancionero', song.index]
+          "
+        >
+          <p [highlight]="searchedText" [fullText]="song.beginning">
+            {{ song.beginning }}
+          </p>
+          <i
+            class="song-title"
+            *ngIf="song.title != song.beginning"
+            [highlight]="searchedText"
+            [fullText]="song.title"
+            >{{ song.title }}</i
+          >
+        </a>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="amount_used">
+      <th mat-header-cell *matHeaderCellDef>Cant. usada</th>
+      <td class="has-text-centered" mat-cell *matCellDef="let song">
+        <small>{{ song.amount_used }}</small
+        ><br />
+        <small>{{ song.last_used | date : "dd-MM-yy" }}</small>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="lyrics_and_chords">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let song">
+        <div
+          class="tags are-small" style="width:66px"
+          [routerLink]="song.suggestion ? ['/canciones_sugeridas', song.id] : ['/cancionero', song.index]">
+          <p class="tag is-link">
+            <span class="icon is-small">
+              <i class="fa-solid fa-circle-info"></i>
+            </span>
+          </p>
+          <p
+            *ngIf="song.lyrics"
+            class="tag is-primary"
+            [matTooltip]="song.lyrics | textFound : searchedText"
+            [matTooltipPosition]="'right'"
+            [matTooltipShowDelay]="500"
+            [matTooltipShowDelay]="500"
+            [matTooltipClass]="'tooltip'"
+            #matTooltip="matTooltip"
+          >
+            <span
+              class="icon is-small">
+              <i class="fa-solid" [ngClass]="[lyricsMatch(song.lyrics) ? 'fa-magnifying-glass-arrow-right' : 'fa-align-left']"></i>
+            </span>
+          </p>
+          <p *ngIf="song.link_chords" class="tag" [ngClass]="[isLoggedIn && song.verified ? 'is-success' : 'is-warning']">
+            <span class="icon is-small">
+              <i class="fa-solid fa-guitar"></i>
+            </span>
+          </p>
+          <p *ngIf="song.link_ipsaq" class="tag is-danger">
+            <span class="icon is-small">
+              <i class="fa-brands fa-youtube"></i>
+            </span>
+          </p>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">Sin resultados :(</td>
+    </tr>
+  </table>
+</ng-template>

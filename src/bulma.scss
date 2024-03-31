@@ -1,0 +1,77 @@
+// 1. Import the initial variables
+@import "node_modules/bulma/sass/utilities/initial-variables";
+@import "node_modules/bulma/sass/utilities/functions";
+
+// 2. Set your own initial variables
+// Update blue
+// Add pink and its invert
+$background: #ffefdd;
+
+$primary: #d2a28e;
+$primary-invert: $background;
+$light: $background;
+$white-ter: $background;
+
+$secondary: #dbb8b3;
+$tertiary: #ad9e91;
+
+$link: #d0b5a5;
+$info: #7FA2E1;
+$warning: #e8b359;
+$success: #9fb45b;
+$danger: #d64a57;
+$danger-invert: #f499a1;
+$info-invert: #D4E0F5;
+$link-invert: #fbf4ef;
+$warning-invert: #fff0d8;
+$success-invert: #eef3e0;
+
+// Use the new serif family
+$family-primary: "Nunito", Roboto, "Helvetica Neue", sans-serif;
+
+// // 5. Add new color variables to the color map.
+// @import "node_modules/bulma/sass/utilities/derived-variables";
+// $addColors: (
+//   "twitter":($twitter, $twitter-invert),
+//   "linkedin": ($linkedin, $linkedin-invert),
+//   "github": ($github, $github-invert)
+// );
+// $colors: map-merge($colors, $addColors);
+
+// 6. Import the rest of Bulma
+@import "node_modules/bulma";
+
+.success {
+  background-color: $success;
+  color: #fff;
+}
+
+.info {
+  background-color: $info;
+  color: #fff;
+}
+
+.warning {
+  background-color: $warning;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.error {
+  background-color: $danger;
+  color: white;
+}
+
+.link {
+  background-color: $link;
+  color: white;
+}
+
+.primary {
+  background-color: $primary;
+  color: white;
+}
+
+.light {
+  background-color: $background;
+  color: $primary;
+}

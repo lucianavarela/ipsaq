@@ -1,0 +1,47 @@
+<a
+  class="box"
+  *ngIf="sermonSong?.song"
+  [routerLink]="!editMode ? ['/cancionero', sermonSong?.song?.index] : []"
+>
+  <article class="media">
+    <div class="media-left">
+      <span class="icon">
+        <i class="fa-solid fa-lg fa-music"></i>
+      </span>
+    </div>
+    <div class="media-content">
+      <div class="content">
+        <p style="margin-bottom: 0">
+          <strong style="padding-right: 10px">{{
+            sermonSong?.song?.index
+          }}</strong
+          >{{ sermonSong?.song?.beginning }}
+        </p>
+        <small
+          style="font-style: italic"
+          *ngIf="sermonSong?.song?.beginning != sermonSong?.song?.title"
+          >{{ sermonSong?.song?.title }}</small
+        >
+      </div>
+    </div>
+    <div class="media-right">
+      <span
+        *ngIf="!editMode && sermonSong?.song?.link_chords"
+        class="icon has-text-warning"
+      >
+        <i class="fa-solid fa-guitar"></i>
+      </span>
+      <span class="icon has-text-success" *ngIf="!editMode && sermonSong?.song?.verified && isLoggedIn">
+        <i class="fa-solid fa-check"></i>
+      </span>
+      <span
+        *ngIf="editMode"
+        class="icon"
+        style="cursor: pointer"
+        (click)="deleteSong()"
+      >
+        <i class="fa-solid fa-lg fa-times has-text-danger"></i>
+      </span>
+    </div>
+  </article>
+</a>

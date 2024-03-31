@@ -1,0 +1,46 @@
+.is-static {
+  background-color: transparent;
+}
+
+.item-link:hover {
+  cursor: pointer;
+  color: #485fc7 !important;
+}
+
+.tag.series {
+    cursor: pointer;
+}
+
+.tag.series:hover {
+    filter: brightness(0.95);
+}
+
+tr.element-row:not(.expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.element-row:not(.expanded-row):active {
+  background: #efefef;
+}
+
+table.mobile {
+  width: 100%;
+}
+
+tr.detail-row {
+  height: 0;
+}
+
+.element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+table.mobile .mat-column-title {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.element-row td {
+  border-bottom-width: 0;
+}

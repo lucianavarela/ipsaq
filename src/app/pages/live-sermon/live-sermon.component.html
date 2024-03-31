@@ -1,0 +1,28 @@
+<div mat-dialog-title class="dialog-title">
+  <h2>
+    <span class="tag is-danger has-text-white live">
+      <span class="icon"><i class="fa-solid fa-circle"></i></span></span
+    ><span *ngIf="sermon.series">{{sermon.series.name}} #{{sermon.chapter_number}}: </span>{{ sermon.title }}
+    <a
+      [routerLink]="['cultos', sermon.id]"
+      target="_blank"
+      style="margin-left: 5px"
+    >
+      <span class="icon has-text-light is-small"
+        ><i class="fa-solid fa-sm fa-up-right-from-square"></i
+      ></span>
+    </a>
+  </h2>
+  <button mat-icon-button aria-label="close dialog" mat-dialog-close>
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<div *ngIf="sermon && sermon.link_youtube" class="iframe-container">
+  <iframe
+    width="490"
+    height="275"
+    frameborder="0"
+    allowfullscreen
+    [src]="sermon.link_youtube | transformYoutube : true | safeUrl"
+  ></iframe>
+</div>

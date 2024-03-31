@@ -1,0 +1,124 @@
+<header class="navbar is-fixed-top">
+  <div class="navbar-brand " (click)="toggleNavbar()">
+    <a class="navbar-burger burger" [class.is-active]="menuDisplayed" data-target="navMenu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </a>
+    <a class="logo" href="/" style="display: none">
+      <img src="assets/logo.png" />
+    </a>
+  </div>
+  <div class="navbar-menu" [class.is-active]="menuDisplayed">
+    <div class="navbar-item" *ngIf="sermonIsLive">
+      <a (click)="openSermon()">
+        <span class="tag is-danger has-text-white live">
+          <span class="icon"><i class="fa-solid fa-2xs fa-circle"></i></span>EN VIVO</span>
+      </a>
+    </div>
+    <div class="navbar-start">
+      <a class="navbar-item is-tab" [routerLink]="['/home']">
+        Inicio
+      </a>
+      <div class="navbar-item has-dropdown" [class.is-active]="dropdownDisplayed=='info'">
+        <a class="navbar-link" (click)="toggleMenu('info')">¿Quiénes somos?</a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" [routerLink]="['quienes-somos/historia']">
+            <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-cross"></i></span>Historia
+          </a>
+          <a class="navbar-item" [routerLink]="['quienes-somos/en-que-creemos']">
+            <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-book-bible"></i></span>¿En qué creemos?
+          </a>
+          <a class="navbar-item" [routerLink]="['quienes-somos/forma-de-gobierno']">
+            <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-place-of-worship"></i></span>Forma de gobierno
+          </a>
+        </div>
+      </div>
+      <a class="navbar-item is-tab" [routerLink]="['ubicacion']">
+        ¿Dónde estámos?
+      </a>
+    </div>
+    <a [class.is-hidden]="menuDisplayed" class="navbar-item logo" href="/">
+      <img src="assets/logo.png" />
+    </a>
+    <div class="navbar-end">
+      <div class="navbar-item has-dropdown" [class.is-active]="dropdownDisplayed=='songs'">
+        <a class="navbar-link" (click)="toggleMenu('songs')">Cancionero</a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" [routerLink]="['cancionero']">
+            Listado de Canciones
+          </a>
+          <a class="navbar-item" [routerLink]="['ultimas_canciones']">
+            Canciones Nuevas
+          </a>
+          <a *ngIf="isLoggedIn()" class="navbar-item" [routerLink]="['nueva_cancion']">
+            <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-plus"></i></span>Nueva Canción
+          </a>
+          <a class="navbar-item" [routerLink]="['canciones_sugeridas']">
+            Canciones Sugeridas
+          </a>
+          <a class="navbar-item" [routerLink]="['sugerir_cancion']">
+            <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-music"></i></span>Sugerir Canción
+          </a>
+        </div>
+      </div>
+      <div class="navbar-item has-dropdown" [class.is-active]="dropdownDisplayed=='sermons'">
+        <a class="navbar-link" (click)="toggleMenu('sermons')">Cultos</a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" [routerLink]="['cultos']">Listado de Cultos
+          </a>
+          <a *ngIf="isLoggedIn()" class="navbar-item" [routerLink]="['nuevo_culto']">
+            <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-plus"></i></span>Nuevo Culto
+          </a>
+          <a *ngIf="isLoggedIn()" class="navbar-item" [routerLink]="['cronograma']">
+            <span class="icon has-text-primary"><i class="fa-regular fa-sm fa-calendar"></i></span>Cronograma
+          </a>
+        </div>
+      </div>
+      <a class="navbar-item is-tab" [routerLink]="['series']">
+        Series
+      </a>
+      <a *ngIf="!isLoggedIn()" class="navbar-item is-tab" [routerLink]="['entrar']">
+        <span class="icon"><i class="fa-solid fa-right-to-bracket"></i></span>
+      </a>
+    </div>
+    <div class="navbar-item">
+      <a href="https://www.instagram.com/presbiquilmes/" target="_blank"><span class="icon is-medium"><i class="fa-brands fa-lg fa-instagram"></i></span></a>
+      <a href="https://wa.me/541124044835" target="_blank"><span class="icon  is-medium"><i class="fa-brands fa-lg fa-whatsapp"></i></span></a>
+    </div>
+  </div>
+</header>
+
+<app-toaster></app-toaster>
+
+<article class="main-container">
+  <router-outlet (activate)="resetMenu()"></router-outlet>
+</article>
+
+<footer class="footer">
+  <div class="content has-text-centered">
+    <nav class="level">
+      <div class="level-item has-text-centered">
+        <div>
+          <a [routerLink]="['cancionero']" class="heading has-text-dark">Cancionero</a>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <a [routerLink]="['cultos']" class="heading has-text-dark">Cultos</a>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <a [routerLink]="['series']" class="heading has-text-dark">Series</a>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <a [routerLink]="['ubicacion']" class="heading has-text-dark">Ubicación</a>
+        </div>
+      </div>
+    </nav>
+    <small class="has-text-weight-bold">Iglesia Presbiteriana San Andres de Quilmes</small>
+  </div>
+</footer>

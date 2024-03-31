@@ -1,0 +1,96 @@
+<section class="hero is-primary">
+  <div class="hero-body">
+    <div class="columns">
+      <div class="column is-1">
+        <app-back-button></app-back-button>
+      </div>
+      <div class="column has-text-centered">
+        <h1 class="title">
+          <span *ngIf="song.index" class="index">{{ song.index }}</span
+          >{{ song.beginning }}
+          </h1>
+        <h2 class="subtitle">
+          {{ song.beginning != song.title ? song.title : ""
+          }}<span *ngIf="song.artist"> [ {{ song.artist }} ]</span>
+        </h2>
+      </div>
+      <div class="column is-1">
+        <p class="control" *ngIf="isLoggedIn()">
+          <button title="Editar"
+            class="button is-rounded is-primary"
+            [routerLink]="['editar']"
+          >
+            <span class="icon">
+              <i class="fa-solid fa-2x fa-pencil"></i>
+            </span>
+          </button>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <section class="section">
+    <div class="columns">
+      <div class="column">
+        <p style="white-space: pre-wrap">{{ song.lyrics }}</p>
+      </div>
+      <div class="column">
+        <ng-container *ngIf="song.link_chords">
+          <div class="container chords has-text-centered" style="margin-bottom: 30px">
+            <div class="field has-addons" style="place-content: center;">
+              <div class="control">
+                <a
+                  class="button is-warning has-icons-left is-light is-outlined"
+                  target="”_blank”"
+                  href="{{ song.link_chords }}"
+                >
+                  <span class="icon is-small"
+                    ><i class="fa-solid fa-guitar"></i
+                  ></span>
+                  <span
+                    >Link al archivo de acordes en Drive
+                  </span>
+                </a>
+              </div>
+              <div *ngIf="song.verified && isLoggedIn()" title="Acordes Verificados" class="control">
+                <p
+                  class="button is-static is-success has-icons-left is-light is-outlined"
+                >
+                  <span class="icon is-small"
+                    ><i class="fa-solid fa-check"></i
+                  ></span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="song.link_original">
+          <h5 class="title is-5">Version Original</h5>
+          <div class="iframe-container" style="margin-bottom: 30px">
+            <iframe
+              width="560"
+              height="315"
+              [src]="song.link_original | transformYoutube | safeUrl"
+              frameborder="0"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="song.link_ipsaq">
+          <h5 class="title is-5">Version Quilmes</h5>
+          <div class="iframe-container">
+            <iframe
+              width="560"
+              height="315"
+              [src]="song.link_ipsaq | transformYoutube | safeUrl"
+              frameborder="0"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </section>
+</div>

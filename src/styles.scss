@@ -1,0 +1,185 @@
+/* You can add global styles to this file, and also import other style files */
+
+@font-face {
+  font-family: 'Nunito';
+  src: url('./assets/fonts/Nunito/Nunito-VariableFont_wght.ttf');
+}
+
+@font-face {
+  font-family: 'Abril Fatface';
+  src: url('./assets/fonts/Abril_Fatface/AbrilFatface-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Righteous';
+  src: url('./assets/fonts/Righteous/Righteous-Regular.ttf');
+}
+
+body {
+  min-height: calc(100vh - 122px);
+  display: flex;
+  flex-direction: column
+}
+
+app-root {
+  min-height: calc(100vh - 122px);
+  display: flex;
+  flex-direction: column
+}
+
+
+* {
+  font-family: "Nunito", Roboto, "Helvetica Neue", sans-serif;
+}
+
+h1, h2, h3 {
+  font-family: "Abril Fatface", "Nunito", Roboto, "Helvetica Neue", sans-serif;
+  font-weight: 100 !important;
+
+  * {
+    font-family: inherit;
+  }
+
+  
+}
+
+$fa-font-path: "./webfonts";
+
+// importing core styling file
+
+@import "./assets/font-awesome/fontawesome.scss";
+@import "./assets/font-awesome/solid.scss";
+@import "./assets/font-awesome/regular.scss";
+@import "./assets/font-awesome/brands.scss";
+@import 'material-symbols';
+@import "./bulma.scss";
+
+@import "~@ng-select/ng-select/themes/default.theme.css";
+// ... or
+
+a {
+  text-decoration: none !important;
+}
+
+.ng-select-container {
+  min-height: 2.5em !important;
+}
+
+.control.has-icons-left .ng-value-container {
+  padding-left: 2.5em;
+}
+
+.iframe-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding-top: 56.25%;
+  /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+}
+
+/* Then style the iframe to fit in the container div with full height and width */
+.iframe-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}
+
+thead,
+tbody,
+tfoot,
+tr {
+  width: 100%;
+}
+
+.mat-tooltip-panel,
+.tooltip {
+  white-space: pre-wrap !important;
+}
+
+.mat-tooltip-hide {
+  display: none !important;
+}
+
+.highlighted-text {
+  background-color: #ffd556ab;
+  padding: 2px 0;
+}
+
+.main-list-table {
+  width: 100%;
+
+  table {
+    width: 100%;
+    display: table;
+    overflow-x: scroll;
+  }
+
+  .mat-table {
+    background-color: #fff;
+  }
+
+  .mat-cell,
+  .mat-header-cell {
+    vertical-align: middle;
+    color: #212121;
+  }
+
+  .mat-header-cell,
+  .mat-cell {
+    font-size: 13px;
+  }
+
+  .centered .mat-sort-header-container {
+    justify-content: center;
+  }
+
+  th.mat-sort-header-sorted {
+    color: black;
+  }
+
+  mat-row,
+  mat-header-row,
+  mat-footer-row,
+  th.mat-header-cell,
+  td.mat-cell,
+  td.mat-footer-cell {
+    border-bottom-color: #bbbbbb;
+  }
+}
+
+.left-space {
+  padding-left: 5px !important;
+}
+
+html.has-navbar-fixed-top,
+body.has-navbar-fixed-top {
+  padding-top: 122px !important;
+}
+
+.mat-slide-toggle {
+  .mat-slide-toggle-thumb {
+    background: gray;
+  }
+  .mat-slide-toggle-bar {
+    background: lightgrey;
+  }
+}
+
+.mat-slide-toggle.mat-checked {
+  .mat-slide-toggle-thumb {
+    background: $success !important;
+  }
+  .mat-slide-toggle-bar {
+    background: #c9dd92 !important;
+  }
+}
+
+.material-symbols-outlined {
+  font-size: 22px;
+  margin-bottom: -8px !important;
+  font-weight: 300;
+}

@@ -1,0 +1,136 @@
+<section class="hero is-light">
+  <div class="hero-body">
+    <div class="columns">
+      <div class="column is-1">
+        <app-back-button></app-back-button>
+      </div>
+      <div class="column has-text-centered">
+        <h2 class="subtitle has-text-dark" *ngIf="sermon.series">{{sermon.series.name}} #{{sermon.chapter_number}}</h2>
+        <h1 class="title" style="padding: 10px 0;">{{ sermon.title }}</h1>
+        <p class="subtitle is-6 has-text-grey">{{ sermon.date | date: 'd \'de\' MMMM, y' }}</p>
+      </div>
+      <div class="column is-1">
+        <p class="control" *ngIf="isLoggedIn()">
+          <button title="Editar" class="button is-rounded is-light" [routerLink]="['editar']">
+            <span class="icon">
+              <i class="fa-solid fa-2x fa-pencil"></i>
+            </span>
+          </button>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <section class="section" style="padding-bottom: 0;">
+    <div class="columns is-multiline is-centered" id="encargados">
+      <div class="column is-4" *ngIf="sermon.bible_verse">
+        <div class="box primary" style="background-color: #dbb8b3;">
+          <article class="media">
+            <div class="media-left">
+              <span class="icon">
+                <i class="fa-solid fa-lg fa-book-bible"></i>
+              </span>
+            </div>
+            <div class="media-content">
+              <div class="content">
+                <small>Lectura</small><br />
+                <strong>{{ sermon.bible_verse }}</strong>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+      <div class="column is-4" *ngIf="sermon.director">
+        <div class="box link">
+          <article class="media">
+            <div class="media-left">
+              <span class="icon">
+                <i class="fa-regular fa-lg fa-user"></i>
+              </span>
+            </div>
+            <div class="media-content">
+              <div class="content">
+                <small>Dirección</small><br />
+                <strong>{{ sermon.director.nickname }}</strong>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+      <div class="column is-4" *ngIf="sermon.preacher">
+        <div class="box primary">
+          <article class="media">
+            <div class="media-left">
+              <span class="icon">
+                <i class="fa-solid fa-lg fa-user-tie"></i>
+              </span>
+            </div>
+            <div class="media-content">
+              <div class="content">
+                <small>Predica</small><br />
+                <strong>{{ sermon.preacher.nickname }}</strong>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="column is-6" *ngIf="band.length">
+        <div class="box band">
+          <article class="media">
+            <div class="media-left">
+              <span class="icon">
+                <i class="fa-solid fa-lg fa-guitar"></i>
+              </span>
+            </div>
+            <div class="media-content">
+              <div class="content">
+                <small>Músicos</small><br />
+                <strong><span *ngFor="let player of band; let i = index">{{player.player?.nickname}}{{i < band.length -2
+                      ? ', ' : i===band.length -2 ? ' y ' : '' }}</span></strong>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="column is-6" *ngIf="choir.length">
+        <div class="box band">
+          <article class="media">
+            <div class="media-left">
+              <span class="icon">
+                <i class="fa-solid fa-lg fa-users"></i>
+              </span>
+            </div>
+            <div class="media-content">
+              <div class="content">
+                <small>Coro</small><br />
+                <strong><span *ngFor="let player of choir; let i = index">{{player.player?.nickname}}{{i < choir.length -2
+                      ? ', ' : i===choir.length -2 ? ' y ' : '' }}</span></strong>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="sermon.link_youtube" class="box light has-text-centered">
+      <div class="iframe-container">
+        <iframe width="860" height="484" [src]="sermon.link_youtube | transformYoutube | safeUrl" frameborder="0"
+          allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
+
+  <section *ngIf="songs && songs.length" class="section">
+    <h2 class="title is-4">Alabanza</h2>
+
+    <div class="columns is-multiline">
+      <div *ngFor="let song of songs" class="column is-narrow">
+        <app-songs-box [sermonSongInput]="song"></app-songs-box>
+      </div>
+    </div>
+  </section>
+</div>

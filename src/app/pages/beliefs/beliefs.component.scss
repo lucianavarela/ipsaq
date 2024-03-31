@@ -1,0 +1,16 @@
+.main {
+    //background-image: url("/assets/texture.png");
+    //width: 100%;
+    //background-size: cover;
+    background-color:#fff;
+    background-image: radial-gradient(#ffefdd 6%, transparent 7%),
+    radial-gradient(#ffefdd 6%, transparent 7%);
+    background-size: 60px 60px;
+    background-position: 0 0, 30px 30px;
+}
+
+
+.main .container {
+    max-width: 1100px;
+    text-align: center;
+}

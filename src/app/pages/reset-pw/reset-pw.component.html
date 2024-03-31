@@ -1,0 +1,65 @@
+<div class="main-cont">
+  <div class="container">
+    <section class="section">
+      <div class="columns is-centered">
+        <div class="column is-7">
+          <div class="box">
+            <h4 class="title is-4">Resetear Contraseña</h4>
+            <div class="field is-horizontal">
+              <div class="field-label">
+                <label class="label">Contraseña</label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <p class="control is-expanded has-icons-left">
+                    <input
+                      class="input"
+                      [(ngModel)]="pw1" (keyup.enter)="reset()"
+                      type="password"
+                      placeholder="Contraseña"
+                    />
+                    <span class="icon is-small is-left">
+                      <i class="fa-solid fa-lock"></i>
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="field is-horizontal">
+              <div class="field-label">
+                <label class="label">Repita Contraseña</label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <p class="control is-expanded has-icons-left">
+                    <input
+                      class="input" (keyup.enter)="reset()"
+                      type="password"
+                      [(ngModel)]="pw2"
+                      placeholder="Repita Contraseña"
+                    />
+                    <span class="icon is-small is-left">
+                      <i class="fa-solid fa-lock"></i>
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="field is-grouped">
+              <div class="field-label"></div>
+              <div class="field-body">
+                <div class="field">
+                  <div class="control">
+                    <button class="button is-primary" (click)="reset()">
+                      Entrar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

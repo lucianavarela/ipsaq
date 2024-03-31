@@ -1,0 +1,54 @@
+<section class="hero is-primary">
+  <div class="hero-body has-text-centered">
+    <h1 class="title">Comunicate con nosotros</h1>
+    <h2 class="subtitle">Queremos estar en contacto con vos ♥</h2>
+  </div>
+</section>
+
+<div class="container">
+  <section class="section" style="padding:2rem 15%;">
+
+    <div class="field">
+      <label class="label">Nombre</label>
+      <div class="control has-icons-left">
+        <input
+          class="input"
+          type="text"
+          [(ngModel)]="name"
+          placeholder="Dejanos tu nombre"
+        />
+        <span class="icon is-small is-left">
+          <i class="fas fa-user"></i>
+        </span>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Email</label>
+      <div class="control has-icons-left">
+        <input
+          class="input"
+          type="Dejanos tu email"
+          [(ngModel)]="email"
+          placeholder="Email"
+        />
+        <span class="icon is-small is-left">
+          <i class="fas fa-envelope"></i>
+        </span>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Mensaje</label>
+      <div class="control">
+        <textarea class="textarea" [(ngModel)]="content" placeholder="Textarea"></textarea>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <button class="button is-primary" (click)="sendEmail()">Enviar</button>
+      </div>
+    </div>
+  </section>
+</div>

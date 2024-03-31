@@ -1,0 +1,38 @@
+<section class="hero is-link">
+  <div class="hero-body has-text-centered">
+    <h1 class="title">SERIES</h1>
+  </div>
+</section>
+
+<section *ngIf="series && series.length" class="section">
+  <div class="container">
+    <div class="columns is-multiline">
+      <article class="column is-narrow" *ngFor="let serie of series">
+        <a class="box" [routerLink]="['/series', serie.id]">
+          <article class="media">
+            <div class="media-left">
+            </div>
+            <div class="media-content">
+              <div class="content">
+                <p>{{serie.name}}</p>
+                <p><span class="icon has-text-dark" style="margin-right: 5px;">
+                  <i class="fa-solid fa-bars-staggered"></i>
+                </span>
+                {{ serie.sermons_amount || '' }} Capítulos</p>
+              </div>
+            </div>
+            <div class="media-right">
+              <p class="control">
+                <a class="button is-link is-outlined" title="Entrar a la serie" [routerLink]="['/series', serie.id]">
+                  <span class="icon">
+                    <i class="fa-solid fa-lg fa-up-right-from-square"></i>
+                  </span>
+                </a>
+              </p>
+            </div>
+          </article>
+        </a>
+      </article>
+    </div>
+  </div>
+</section>

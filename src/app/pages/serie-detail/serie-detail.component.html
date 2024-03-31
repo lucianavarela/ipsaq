@@ -1,0 +1,22 @@
+<section class="hero is-link">
+    <div class="hero-body">
+        <div class="columns">
+            <div class="column is-1">
+                <app-back-button></app-back-button>
+            </div>
+            <div class="column has-text-centered">
+                <h2 class="subtitle">Serie</h2>
+                <h1 class="title">{{ serie.name }}</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <section *ngIf="serie.sermons && serie.sermons.length" class="section">
+        <h2 class="title is-4">Capítulos</h2>
+        <article class="sermon-list" *ngFor="let sermon of serie.sermons">
+            <app-sermon-box [sermonInput]="sermon"></app-sermon-box>
+        </article>
+    </section>
+</div>
