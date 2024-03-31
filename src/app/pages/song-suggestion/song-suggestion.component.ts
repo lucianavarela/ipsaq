@@ -12,7 +12,6 @@ import { ToastService } from 'src/app/services/toast.service';
 })
 export class SongSuggestionComponent implements OnInit {
   song!: Song;
-  loading = false;
 
   constructor(private sSongs: SongsService, private router: Router, private activatedRoute: ActivatedRoute,
     private toastService: ToastService, private sTitle: Title) { }
@@ -29,16 +28,17 @@ export class SongSuggestionComponent implements OnInit {
   }
 
   async suggestSong() {
-    try {
-      this.loading = true;
-      delete this.song.id;
-      this.song.suggestion = true;
-      this.sSongs.createSong(this.song).then((res:any) => this.router.navigateByUrl('/canciones_sugeridas'));
-      this.toastService.showSuccessToast('Exito!', 'Sugerencia guardada.');
-    } catch (error: any) {
-      this.toastService.showErrorToast('Error al guardar', error.error_description || error.message);
-    } finally {
-      this.loading = false;
+    if (this.song.beginning) {
+      try {
+        delete this.song.id;
+        this.song.suggestion = true;
+        this.sSongs.createSong(this.song).then((res: any) => this.router.navigateByUrl('/canciones_sugeridas'));
+        this.toastService.showSuccessToast('Exito!', 'Sugerencia guardada.');
+      } catch (error: any) {
+        this.toastService.showErrorToast('Error al guardar', error.error_description || error.message);
+      }
+    } else {
+      this.toastService.showErrorToast('Error al guardar', "El comienzo de la canción es un campo obligatorio.");
     }
   }
 }

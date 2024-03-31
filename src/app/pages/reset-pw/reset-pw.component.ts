@@ -10,7 +10,6 @@ import { ToastService } from 'src/app/services/toast.service';
   styleUrls: ['./reset-pw.component.scss']
 })
 export class ResetPwComponent {
-  loading = false
   token: string = '';
   pw1: string = '';
   pw2: string = '';
@@ -30,7 +29,6 @@ export class ResetPwComponent {
   async reset() {
     if (this.pw1 && this.pw2 && this.pw1 == this.pw2) {
       try {
-        this.loading = true
         this.supabase.resetPW(this.token, this.pw1).then((res: any) => {
           this.supabase.setUser(res.user);
           if (res.user) {
@@ -43,8 +41,6 @@ export class ResetPwComponent {
         })
       } catch (error: any) {
         this.sToast.showErrorToast('Error al resetear!', error.error_description || error.message);
-      } finally {
-        this.loading = false
       }
     } else {
       this.sToast.showErrorToast('Error', 'Las contraseñas deben ser iguales.');

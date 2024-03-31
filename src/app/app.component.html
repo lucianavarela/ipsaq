@@ -21,7 +21,7 @@
         Inicio
       </a>
       <div class="navbar-item has-dropdown" [class.is-active]="dropdownDisplayed=='info'">
-        <a class="navbar-link" (click)="toggleMenu('info')">¿Quiénes somos?</a>
+        <a #infoDropdown class="navbar-link" (click)="toggleMenu('info')">¿Quiénes somos?</a>
         <div class="navbar-dropdown">
           <a class="navbar-item" [routerLink]="['quienes-somos/historia']">
             <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-cross"></i></span>Historia
@@ -43,7 +43,7 @@
     </a>
     <div class="navbar-end">
       <div class="navbar-item has-dropdown" [class.is-active]="dropdownDisplayed=='songs'">
-        <a class="navbar-link" (click)="toggleMenu('songs')">Cancionero</a>
+        <a #songsDropdown class="navbar-link" (click)="toggleMenu('songs')">Cancionero</a>
         <div class="navbar-dropdown">
           <a class="navbar-item" [routerLink]="['cancionero']">
             Listado de Canciones
@@ -63,7 +63,7 @@
         </div>
       </div>
       <div class="navbar-item has-dropdown" [class.is-active]="dropdownDisplayed=='sermons'">
-        <a class="navbar-link" (click)="toggleMenu('sermons')">Cultos</a>
+        <a #sermonsDropdown class="navbar-link" (click)="toggleMenu('sermons')">Cultos</a>
         <div class="navbar-dropdown">
           <a class="navbar-item" [routerLink]="['cultos']">Listado de Cultos
           </a>

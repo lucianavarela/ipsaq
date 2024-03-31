@@ -12,7 +12,6 @@ import { Sermon } from 'src/app/classes/sermon';
 })
 export class SerieDetailComponent implements OnInit {
   serie!: Series;
-  loading = false;
 
   constructor(private activatedRoute: ActivatedRoute, private supabase: SupabaseService, private sTitle: Title) {
   }

@@ -10,7 +10,6 @@ import { ToastService } from "src/app/services/toast.service";
   styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent implements OnInit {
-  loading = false;
   email: string = "";
   pw: string = "";
 
@@ -28,7 +27,6 @@ export class LoginComponent implements OnInit {
 
   async login() {
     try {
-      this.loading = true;
       this.supabase.signIn(this.email, this.pw).then((res: any) => {
         if (!res["error"]) {
           this.supabase.setUser(res.user);
@@ -43,8 +41,6 @@ export class LoginComponent implements OnInit {
         "Error al loguearse",
         error.error_description || error.message
       );
-    } finally {
-      this.loading = false;
     }
   }
 
@@ -66,8 +62,6 @@ export class LoginComponent implements OnInit {
           "Error!",
           error.error_description || error.message
         );
-      } finally {
-        this.loading = false;
       }
     } else {
       this.sToast.showErrorToast("Error!", "El email debe ser completado.");

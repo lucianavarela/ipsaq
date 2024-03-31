@@ -12,7 +12,6 @@ import { SupabaseService } from 'src/app/services/supabase.service';
 })
 export class SongDetailComponent implements OnInit {
   song!: Song;
-  loading = false;
 
   constructor(private sSongs: SongsService, private activatedRoute: ActivatedRoute, private _sanitizer: DomSanitizer,
     private supabase: SupabaseService, private sTitle: Title) {

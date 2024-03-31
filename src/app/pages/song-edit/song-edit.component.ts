@@ -12,7 +12,6 @@ import { ToastService } from 'src/app/services/toast.service';
 })
 export class SongEditComponent implements OnInit {
   song!: Song;
-  loading = false;
   songSuggestionFlag = false;
 
   constructor(private sSongs: SongsService, private router: Router, private activatedRoute: ActivatedRoute,
@@ -22,7 +21,7 @@ export class SongEditComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ song }) => {
       if (song) {
         this.song = new Song(song.data);
-        this.sTitle.setTitle(`Editar ${this.song.index?this.song.index + ' | ':''}${(this.song.beginning || this.song.title)}`);
+        this.sTitle.setTitle(`Editar ${this.song.index ? this.song.index + ' | ' : ''}${(this.song.beginning || this.song.title)}`);
       } else {
         this.sTitle.setTitle('Agregar canción');
         this.song = new Song();
@@ -31,47 +30,49 @@ export class SongEditComponent implements OnInit {
   }
 
   async updateSong() {
-    try {
-      this.loading = true;
-      this.sSongs.getLastIndex().then((res:any) => {
-        const nextIndex = (res.data[0].index) + 1;
-        if (this.song.suggestion && this.songSuggestionFlag) {
-          this.song.suggestion = false;
-          this.song.index = nextIndex;
-        }
-        this.sSongs.updateSong(this.song).then((res:any) => {
-          if (res.status && res.status == 400) {
-            this.toastService.showErrorToast('Error al guardar', res.error.message);
-          } else {
-            this.toastService.showSuccessToast('Exito!', 'Canción actualizada.');
-            if (this.song.suggestion) {
-              this.router.navigateByUrl('/canciones_sugeridas/'+this.song.id);
-            } else {
-              this.router.navigateByUrl('/cancionero/'+this.song.index);
-            }
+    if (this.song.beginning) {
+      try {
+        this.sSongs.getLastIndex().then((res: any) => {
+          const nextIndex = (res.data[0].index) + 1;
+          if (this.song.suggestion && this.songSuggestionFlag) {
+            this.song.suggestion = false;
+            this.song.index = nextIndex;
           }
-        });
-      })
-    } catch (error: any) {
-      this.toastService.showErrorToast('Error al guardar', error.error_description || error.message);
-    } finally {
-      this.loading = false;
+          this.sSongs.updateSong(this.song).then((res: any) => {
+            if (res.status && res.status == 400) {
+              this.toastService.showErrorToast('Error al guardar', res.error.message);
+            } else {
+              this.toastService.showSuccessToast('Exito!', 'Canción actualizada.');
+              if (this.song.suggestion) {
+                this.router.navigateByUrl('/canciones_sugeridas/' + this.song.id);
+              } else {
+                this.router.navigateByUrl('/cancionero/' + this.song.index);
+              }
+            }
+          });
+        })
+      } catch (error: any) {
+        this.toastService.showErrorToast('Error al guardar', error.error_description || error.message);
+      }
+    } else {
+      this.toastService.showErrorToast('Error al guardar', "El comienzo de la canción es un campo obligatorio.");
     }
   }
 
   async addSong() {
-    try {
-      this.loading = true;
-      delete this.song.id;
-      this.sSongs.getLastIndex().then((res:any) => {
-        this.song.index = (res.data[0].index) + 1;
-        this.sSongs.createSong(this.song).then((res:any) => this.router.navigateByUrl('/cancionero/'+res.data[0]['index']));
-        this.toastService.showSuccessToast('Exito!', 'Canción agregada.');
-      });
-    } catch (error: any) {
-      this.toastService.showErrorToast('Error al guardar', error.error_description || error.message);
-    } finally {
-      this.loading = false;
+    if (this.song.beginning) {
+      try {
+        delete this.song.id;
+        this.sSongs.getLastIndex().then((res: any) => {
+          this.song.index = (res.data[0].index) + 1;
+          this.sSongs.createSong(this.song).then((res: any) => this.router.navigateByUrl('/cancionero/' + res.data[0]['index']));
+          this.toastService.showSuccessToast('Exito!', 'Canción agregada.');
+        });
+      } catch (error: any) {
+        this.toastService.showErrorToast('Error al guardar', error.error_description || error.message);
+      }
+    } else {
+      this.toastService.showErrorToast('Error al guardar', "El comienzo de la canción es un campo obligatorio.");
     }
   }
 
@@ -80,11 +81,10 @@ export class SongEditComponent implements OnInit {
 
     if (confirmation && this.song.id) {
       try {
-        this.sSongs.deleteSong(this.song.id).then((res:any) => this.router.navigateByUrl('/cancionero'));
+        this.sSongs.deleteSong(this.song.id).then((res: any) => this.router.navigateByUrl('/cancionero'));
       } catch (error: any) {
         this.toastService.showErrorToast('Error al guardar', error.error_description || error.message);
       } finally {
-        this.loading = false;
       }
     }
   }

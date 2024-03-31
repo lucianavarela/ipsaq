@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Sermon } from '../classes/sermon';
 import { SupabaseService } from './supabase.service';
-import { Observable, combineLatest } from 'rxjs'; 
+import { Observable, combineLatest } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,21 +18,27 @@ export class SermonsService {
   }
 
   getUpcomingSermon() {
-    return this.sSupabase.get(this.table, '*, related_series!left(*)').filter('link_youtube', 'not.is', 'null').order('date', {ascending: false}).limit(1);
+    let date = new Date();
+    date.setFullYear(date.getFullYear() - 1);
+    return this.sSupabase.get(this.table, '*, related_series!left(*)')
+      .filter('link_youtube', 'not.is', 'null')
+      .eq('date', date.toISOString().split('T')[0])
+      .order('date', { ascending: false })
+      .limit(1);
   }
 
   getLastsSermons() {
-    return this.sSupabase.get(this.table, '*, related_series!left(*)').filter('link_youtube', 'not.is', 'null').order('date', {ascending: false}).limit(3);
+    return this.sSupabase.get(this.table, '*, related_series!left(*)').filter('link_youtube', 'not.is', 'null').order('date', { ascending: false }).limit(3);
   }
 
   getSermons() {
-    return this.sSupabase.get(this.table, '*, related_series!left(*), id_preacher(id, nickname), id_director(id, nickname)').order('date', {ascending: false});
+    return this.sSupabase.get(this.table, '*, related_series!left(*), id_preacher(id, nickname), id_director(id, nickname)').order('date', { ascending: false });
   }
 
   getSermonsWithBand() {
     let date = new Date();
-    date.setFullYear(date.getFullYear()-1);
-    return this.sSupabase.get(this.table, '*, sermon_band(*)').gt('date', date.toISOString().split('T')[0]).order('date', {ascending: false});
+    date.setFullYear(date.getFullYear() - 1);
+    return this.sSupabase.get(this.table, '*, sermon_band(*)').gt('date', date.toISOString().split('T')[0]).order('date', { ascending: false });
   }
 
   getSongsOfSermon(id: number) {
@@ -42,7 +48,7 @@ export class SermonsService {
   getBandOfSermon(id: number) {
     return this.sSupabase.get(this.tableSermonBand, 'id, users!inner(*)').eq('id_sermon', id);
   }
-  
+
   async updateSermon(sermon: Sermon) {
     return await this.sSupabase.update(sermon, this.table).eq('id', sermon.id);;
   }

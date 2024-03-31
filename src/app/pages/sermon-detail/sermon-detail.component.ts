@@ -14,7 +14,6 @@ import { SermonBand } from 'src/app/classes/sermon-band';
 })
 export class SermonDetailComponent implements OnInit {
   sermon!: Sermon;
-  loading = false;
   songs: SermonSong[] = []
   band: SermonBand[] = []
   choir: SermonBand[] = []

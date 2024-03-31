@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { Sermon } from './classes/sermon';
 import { SermonsService } from './services/sermons.service';
 import { SupabaseService } from './services/supabase.service';
@@ -18,15 +18,24 @@ export class AppComponent implements OnInit {
   menuDisplayed = false;
   dropdownDisplayed = "";
   sermonIsLive = false;
+  upcomingSermonSearched: boolean = false;
   upcomingSermon!: Sermon;
+  @ViewChild('infoDropdown') infoDropdown!: ElementRef;
+  @ViewChild('sermonsDropdown') sermonsDropdown!: ElementRef;
+  @ViewChild('songsDropdown') songsDropdown!: ElementRef;
 
   constructor(private readonly supabase: SupabaseService, private sSermon: SermonsService,
-    public dialog: MatDialog) {
+    public dialog: MatDialog, private renderer: Renderer2) {
     this.supabase.setUser();
+    this.renderer.listen('window', 'click',(e:Event)=>{
+     if(e.target !== this.infoDropdown.nativeElement && e.target!==this.sermonsDropdown.nativeElement && e.target!==this.songsDropdown.nativeElement){
+         this.resetMenu();
+     }
+ });
   }
 
   ngOnInit() {
-    this.setUpNewSermon();
+    if (!this.upcomingSermonSearched) this.setUpNewSermon();
   }
 
   isLoggedIn() {
@@ -44,15 +53,18 @@ export class AppComponent implements OnInit {
 
   setUpNewSermon() {
     this.sSermon.getUpcomingSermon().then((res:any) => {
-      this.upcomingSermon = new Sermon(res.data[0]);
-      let today = new Date();
-      if (this.upcomingSermon && 
-        this.upcomingSermon.date && 
-        this.upcomingSermon.date.toString() == Utils.getTheDate('today') && 
-        ['14','15'].indexOf(today.toISOString().split('T')[1].slice(0,2)) > -1
-        ) {
-        this.sermonIsLive = true;
-        this.openSermon();
+      this.upcomingSermonSearched = true;
+      if(res?.data.length) {
+        this.upcomingSermon = new Sermon(res.data[0]);
+        let today = new Date();
+        if (this.upcomingSermon && 
+          this.upcomingSermon.date && 
+          this.upcomingSermon.date.toString() == Utils.getTheDate('today') && 
+          ['14','15'].indexOf(today.toISOString().split('T')[1].slice(0,2)) > -1
+          ) {
+          this.sermonIsLive = true;
+          this.openSermon();
+        }
       }
     });
   }
