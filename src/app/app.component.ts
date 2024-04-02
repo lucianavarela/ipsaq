@@ -12,7 +12,7 @@ import { LiveSermonComponent } from './pages/live-sermon/live-sermon.component';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  host: {'window:beforeunload': 'toggleNavbar'}
+  host: { 'window:beforeunload': 'toggleNavbar' }
 })
 export class AppComponent implements OnInit {
   menuDisplayed = false;
@@ -20,6 +20,7 @@ export class AppComponent implements OnInit {
   sermonIsLive = false;
   upcomingSermonSearched: boolean = false;
   upcomingSermon!: Sermon;
+  @ViewChild('hamburguer') hamburguer!: ElementRef;
   @ViewChild('infoDropdown') infoDropdown!: ElementRef;
   @ViewChild('sermonsDropdown') sermonsDropdown!: ElementRef;
   @ViewChild('songsDropdown') songsDropdown!: ElementRef;
@@ -27,11 +28,12 @@ export class AppComponent implements OnInit {
   constructor(private readonly supabase: SupabaseService, private sSermon: SermonsService,
     public dialog: MatDialog, private renderer: Renderer2) {
     this.supabase.setUser();
-    this.renderer.listen('window', 'click',(e:Event)=>{
-     if(e.target !== this.infoDropdown.nativeElement && e.target!==this.sermonsDropdown.nativeElement && e.target!==this.songsDropdown.nativeElement){
-         this.resetMenu();
-     }
- });
+    this.renderer.listen('window', 'click', (e: Event) => {
+      if (e.target !== this.infoDropdown.nativeElement && e.target !== this.sermonsDropdown.nativeElement &&
+        e.target !== this.songsDropdown.nativeElement && e.target !== this.hamburguer.nativeElement) {
+        this.resetMenu();
+      }
+    });
   }
 
   ngOnInit() {
@@ -52,16 +54,16 @@ export class AppComponent implements OnInit {
   }
 
   setUpNewSermon() {
-    this.sSermon.getUpcomingSermon().then((res:any) => {
+    this.sSermon.getUpcomingSermon().then((res: any) => {
       this.upcomingSermonSearched = true;
-      if(res?.data.length) {
+      if (res?.data.length) {
         this.upcomingSermon = new Sermon(res.data[0]);
         let today = new Date();
-        if (this.upcomingSermon && 
-          this.upcomingSermon.date && 
-          this.upcomingSermon.date.toString() == Utils.getTheDate('today') && 
-          ['14','15'].indexOf(today.toISOString().split('T')[1].slice(0,2)) > -1
-          ) {
+        if (this.upcomingSermon &&
+          this.upcomingSermon.date &&
+          this.upcomingSermon.date.toString() == Utils.getTheDate('today') &&
+          ['14', '15'].indexOf(today.toISOString().split('T')[1].slice(0, 2)) > -1
+        ) {
           this.sermonIsLive = true;
           this.openSermon();
         }

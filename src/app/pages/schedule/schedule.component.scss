@@ -3,7 +3,7 @@
 }
 
 table {
-    width: auto;
+    width: auto !important;
 }
 
 .mat-row {
@@ -14,7 +14,8 @@ table {
     border-bottom-width: 0;
 }
 
-.mat-cell, .mat-header-cell {
+.mat-cell,
+.mat-header-cell {
     border-right: 1px solid #e1e1e1;
     border-bottom-color: #e1e1e1 !important;
 }
@@ -24,19 +25,23 @@ table {
     border-bottom-color: #d0b5a5 !important;
 }
 
-.mat-cell:not(.mat-column-sermon_date), .mat-header-cell:not(.mat-column-sermon_date) {
+.mat-cell:not(.mat-column-sermon_date),
+.mat-header-cell:not(.mat-column-sermon_date) {
     width: 60px;
 }
 
-.mat-row, .mat-header-cell {
+.mat-row,
+.mat-header-cell {
     text-align: center;
 }
 
-td.mat-cell:last-of-type, th.mat-header-cell:last-of-type {
+td.mat-cell:last-of-type,
+th.mat-header-cell:last-of-type {
     padding-right: inherit;
 }
 
-th.mat-header-cell:first-of-type, td.mat-cell:first-of-type {
+th.mat-header-cell:first-of-type,
+td.mat-cell:first-of-type {
     padding-left: inherit;
 }
 

@@ -32,7 +32,9 @@ app-root {
   font-family: "Nunito", Roboto, "Helvetica Neue", sans-serif;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-family: "Abril Fatface", "Nunito", Roboto, "Helvetica Neue", sans-serif;
   font-weight: 100 !important;
 
@@ -40,7 +42,7 @@ h1, h2, h3 {
     font-family: inherit;
   }
 
-  
+
 }
 
 $fa-font-path: "./webfonts";
@@ -109,7 +111,7 @@ tr {
   padding: 2px 0;
 }
 
-.main-list-table {
+.container:has(> table.mat-table) {
   width: 100%;
 
   table {
@@ -164,6 +166,7 @@ body.has-navbar-fixed-top {
   .mat-slide-toggle-thumb {
     background: gray;
   }
+
   .mat-slide-toggle-bar {
     background: lightgrey;
   }
@@ -173,6 +176,7 @@ body.has-navbar-fixed-top {
   .mat-slide-toggle-thumb {
     background: $success !important;
   }
+
   .mat-slide-toggle-bar {
     background: #c9dd92 !important;
   }
@@ -182,4 +186,27 @@ body.has-navbar-fixed-top {
   font-size: 22px;
   margin-bottom: -8px !important;
   font-weight: 300;
+}
+
+
+table.schedule {
+  .fa-user {
+    color: #86b5b5;
+  }
+
+  .fa-drum {
+    color: $success;
+  }
+
+  .fa-guitar {
+    color: $warning;
+  }
+
+  .choir-icon {
+    color: #b5b5b5;
+  }
+
+  .piano-icon {
+    color: #bf8f9e;
+  }
 }

@@ -36,13 +36,13 @@ export class User {
                     break;
                 case 7: //jose
                 case 12: //luba
-                    this.player_icon = '<i class="material-symbols-outlined">piano</i>';
+                    this.player_icon = '<i class="material-symbols-outlined piano-icon">piano</i>';
                     break;
                 default:
                     this.player_icon = '<i class="fa-solid fa-guitar"></i>';
                     break;
             }
         }
-        if (this.choir_role) this.player_icon = '<span class="material-symbols-outlined">adaptive_audio_mic</span>';
+        if (this.choir_role) this.player_icon = '<span class="material-symbols-outlined choir-icon">adaptive_audio_mic</span>';
     }
 }

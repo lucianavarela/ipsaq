@@ -1,6 +1,9 @@
 .main-cont {
     background-image: url("/assets/background.png");
     width: 100%;
+    height: -webkit-fill-available;
+    position: absolute;
+    background-size: contain;
 }
 
 .box {
