@@ -20,6 +20,8 @@ export class ScheduleComponent implements OnInit {
   users: User[] = [];
   dataSource = new MatTableDataSource<Sermon>();
   expandedElement!: Sermon | null;
+  filters: string[] = ['choir', 'players', 'directors'];
+  filtersClasses: string = 'filter-choir filter-players filter-directors';
   
   constructor(private sSermon: SermonsService, private sUser: UsersService, private sTitle: Title) {
     this.isMobile = window.innerWidth <= 767;
@@ -38,5 +40,11 @@ export class ScheduleComponent implements OnInit {
       });
       this.displayedColumns = this.displayedColumns.concat(this.namesHeaders);
     });
+  }
+
+  onFiltersChange() {
+    console.log(this.filters);
+    this.filtersClasses = '';
+    this.filters.forEach(f => this.filtersClasses = this.filtersClasses.concat(` filter-${f}`));
   }
 }

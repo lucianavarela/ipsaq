@@ -41,8 +41,6 @@ h3 {
   * {
     font-family: inherit;
   }
-
-
 }
 
 $fa-font-path: "./webfonts";
@@ -57,7 +55,6 @@ $fa-font-path: "./webfonts";
 @import "./bulma.scss";
 
 @import "~@ng-select/ng-select/themes/default.theme.css";
-// ... or
 
 a {
   text-decoration: none !important;
@@ -95,6 +92,11 @@ tbody,
 tfoot,
 tr {
   width: 100%;
+}
+
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background,
+.mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  background-color: $warning;
 }
 
 .mat-tooltip-panel,
@@ -188,14 +190,14 @@ body.has-navbar-fixed-top {
   font-weight: 300;
 }
 
-
+//These classes goes here because the scope from the component does not work with InnerHTML
 table.schedule {
   .fa-user {
-    color: #86b5b5;
+    color: #86b595;
   }
 
   .fa-drum {
-    color: $success;
+    color: #db5f6a;
   }
 
   .fa-guitar {
@@ -203,10 +205,22 @@ table.schedule {
   }
 
   .choir-icon {
-    color: #b5b5b5;
+    color: #b6bfdb;
   }
 
   .piano-icon {
-    color: #bf8f9e;
+    color: #5b5b5b;
   }
+}
+
+table.schedule:not(.filter-choir) i.choir {
+  visibility: hidden;
+}
+
+table.schedule:not(.filter-players) i.player {
+  visibility: hidden;
+}
+
+table.schedule:not(.filter-directors) i.director {
+  visibility: hidden;
 }

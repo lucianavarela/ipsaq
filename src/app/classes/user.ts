@@ -32,17 +32,17 @@ export class User {
         if (this.band_role) {
             switch (this.id) {
                 case 6: //jhonny
-                    this.player_icon = '<i class="fa-solid fa-drum"></i>';
+                    this.player_icon = '<i class="fa-solid fa-drum player"></i>';
                     break;
                 case 7: //jose
                 case 12: //luba
-                    this.player_icon = '<i class="material-symbols-outlined piano-icon">piano</i>';
+                    this.player_icon = '<i class="material-symbols-outlined piano-icon player">piano</i>';
                     break;
                 default:
-                    this.player_icon = '<i class="fa-solid fa-guitar"></i>';
+                    this.player_icon = '<i class="fa-solid fa-guitar player"></i>';
                     break;
             }
         }
-        if (this.choir_role) this.player_icon = '<span class="material-symbols-outlined choir-icon">adaptive_audio_mic</span>';
+        if (this.choir_role) this.player_icon = '<i class="material-symbols-outlined choir-icon choir">adaptive_audio_mic</i>';
     }
 }

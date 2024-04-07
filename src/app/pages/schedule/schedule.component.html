@@ -4,13 +4,23 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section" style="padding-top: 2rem;">
   <div class="container">
-    <table mat-table [dataSource]="dataSource" class="schedule mat-elevation-z8">
+
+    <div class="has-text-centered" style="margin-bottom: 2rem">
+      <mat-chip-set aria-label="Filtro" multiple [(ngModel)]="filters" (change)="onFiltersChange()">
+        <mat-chip value="directors">Dir de alabanza</mat-chip>
+        <mat-chip value="players">Músicos</mat-chip>
+        <mat-chip value="choir">Coro</mat-chip>
+      </mat-chip-set>
+    </div>
+
+    <table mat-table [dataSource]="dataSource" class="schedule mat-elevation-z8" [ngClass]="filtersClasses">
       <ng-container matColumnDef="sermon_date">
         <th mat-header-cell *matHeaderCellDef>Fecha del culto</th>
         <td mat-cell *matCellDef="let sermon">
-          <a class="has-text-dark" [routerLink]="['/cultos', sermon.id]">{{ sermon.date | date : !isMobile ? "dd \'de\' MMMM\',\' yy":"dd\'/\'MM\'/\'yy" }}</a>
+          <a class="has-text-dark" [routerLink]="['/cultos', sermon.id]">{{ sermon.date | date : !isMobile ? "dd \'de\'
+            MMMM\',\' yy":"dd\'/\'MM\'/\'yy" }}</a>
         </td>
       </ng-container>
 
@@ -20,7 +30,7 @@
           <span *ngIf="users[colIndex]?.id == sermon.director?.id || sermon.ids_band.includes(users[colIndex]?.id)"
             class="icon">
             <i *ngIf="users[colIndex]?.id == sermon.director?.id; then director else player"></i>
-            <ng-template #director><i class="fa-solid fa-user"></i></ng-template>
+            <ng-template #director><i class="fa-solid fa-user director"></i></ng-template>
             <ng-template #player><span [outerHTML]="users[colIndex].player_icon"></span></ng-template>
           </span>
         </td>
