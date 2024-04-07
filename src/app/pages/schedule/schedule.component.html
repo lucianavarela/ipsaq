@@ -8,11 +8,11 @@
   <div class="container">
 
     <div class="has-text-centered" style="margin-bottom: 2rem">
-      <mat-chip-set aria-label="Filtro" multiple [(ngModel)]="filters" (change)="onFiltersChange()">
-        <mat-chip value="directors">Dir de alabanza</mat-chip>
-        <mat-chip value="players">Músicos</mat-chip>
-        <mat-chip value="choir">Coro</mat-chip>
-      </mat-chip-set>
+      <mat-chip-listbox aria-label="Filtro" multiple [(ngModel)]="filters" (change)="onFiltersChange()">
+        <mat-chip-option value="directors">Dir de alabanza</mat-chip-option>
+        <mat-chip-option value="players">Músicos</mat-chip-option>
+        <mat-chip-option value="choir">Coro</mat-chip-option>
+      </mat-chip-listbox>
     </div>
 
     <table mat-table [dataSource]="dataSource" class="schedule mat-elevation-z8" [ngClass]="filtersClasses">
