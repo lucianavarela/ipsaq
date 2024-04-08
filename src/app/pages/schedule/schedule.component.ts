@@ -29,7 +29,7 @@ export class ScheduleComponent implements OnInit {
   ngOnInit(): void {
     this.sTitle.setTitle(`Cronograma`);
     this.sSermon.getSermonsWithBand().then(res => {
-      if (res.data) this.sermons = res.data.map(o => new Sermon(o))
+      if (res.data) this.sermons = res.data.map((o:any) => new Sermon(o))
       this.dataSource = new MatTableDataSource(this.sermons);
     });
     this.sUser.getUsers().then((res: any) => {

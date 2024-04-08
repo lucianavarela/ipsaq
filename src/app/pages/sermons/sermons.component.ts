@@ -36,7 +36,7 @@ export class SermonsComponent implements OnInit {
   ngOnInit(): void {
     this.sTitle.setTitle(`Cultos`);
     this.sSermon.getSermons().then(res => {
-      if (res.data) this.sermons = res.data.map(o => new Sermon(o))
+      if (res.data) this.sermons = res.data.map((o:any) => new Sermon(o))
       this.dataSource = new MatTableDataSource(this.sermons);
       this.dataSource.sort = this.sort;
     });

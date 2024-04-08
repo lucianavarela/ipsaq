@@ -17,7 +17,7 @@ export class SongsBoxComponent implements OnInit {
   constructor(private supabase: SupabaseService) { }
 
   ngOnInit(): void {
-    this.isLoggedIn = this.supabase.isLoggedIn();
+    this.isLoggedIn = !!(this.supabase.isLoggedIn());
   }
 
   deleteSong() {

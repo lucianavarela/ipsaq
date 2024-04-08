@@ -18,16 +18,18 @@ export class SeriesComponent implements OnInit {
   series: Series[] = [];
   dataSource = new MatTableDataSource<Series>();
   @ViewChild(MatSort) sort!: MatSort;
-  
+
   constructor(private sSerie: SeriesService, private _liveAnnouncer: LiveAnnouncer, private sTitle: Title) { }
-  
+
   ngOnInit(): void {
     this.sTitle.setTitle(`Cultos`);
     this.sSerie.getSeries().then(res => {
-      if (res.data) this.series = res.data.map(s => new Series({...s, "sermons_amount": s.sermons[0].count}))
-      this.series.map(serie => {if (serie.sermons) serie.sermons_amount = serie.sermons[0].count});
-      this.dataSource = new MatTableDataSource(this.series);
-      this.dataSource.sort = this.sort;
+      if (res.data) {
+        this.series = res.data.map((s:any) => new Series({ ...s, "sermons_amount": s.sermons[0].count }))
+        this.series.map(serie => { if (serie.sermons) serie.sermons_amount = serie.sermons[0].count });
+        this.dataSource = new MatTableDataSource(this.series);
+        this.dataSource.sort = this.sort;
+      }
     });
   }
 }

@@ -31,18 +31,18 @@ export class SongsComponent implements OnInit {
     }
   
   ngOnInit(): void {
-    this.isLoggedIn = this.supabase.isLoggedIn();
+    this.isLoggedIn = !!(this.supabase.isLoggedIn());
     if (this.router.url.indexOf('ultimas_canciones') > -1) {
       this.sTitle.setTitle('Ultimas Canciones');
       this.sSong.getLatestSongs().then(res => {
-        if (res.data) this.songs = res.data.map(o => new Song(o))
+        if (res.data) this.songs = res.data.map((o:any) => new Song(o))
         this.initializeTable();
       });
     } else if (this.router.url.indexOf('canciones_sugeridas') > -1) {
       this.sTitle.setTitle('Canciones Sugeridas');
       this.displayedColumns = ['beginning', 'lyrics_and_chords'];
       this.sSong.getSuggestedSongs().then(res => {
-        if (res.data) this.songs = res.data.map(o => new Song(o))
+        if (res.data) this.songs = res.data.map((o:any) => new Song(o))
         this.initializeTable();
       });
     } else{
@@ -51,7 +51,7 @@ export class SongsComponent implements OnInit {
         this.displayedColumns = ['index', 'beginning', 'last_used', 'amount_used', 'link_ipsaq', 'lyrics_and_chords'];
       }
       this.sSong.getSongs(true).then(res => {
-        if (res.data) this.songs = res.data.map(o => new Song(o))
+        if (res.data) this.songs = res.data.map((o:any) => new Song(o))
         this.initializeTable();
       });
     }

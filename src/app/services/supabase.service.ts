@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core'
+import { Injectable, Type } from '@angular/core'
 import {
   AuthChangeEvent,
   AuthUser,
   createClient,
   Session,
   SupabaseClient,
+  UserResponse,
 } from '@supabase/supabase-js'
 import { environment } from 'src/environments/environment';
 
@@ -14,7 +15,7 @@ import { environment } from 'src/environments/environment';
 
 export class SupabaseService {
   private supabase: SupabaseClient;
-  private user!: AuthUser;
+  private user!: AuthUser | null;
 
   constructor() {
     this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey)
@@ -23,7 +24,7 @@ export class SupabaseService {
   get(table: string, queryFields?: string) {
     return this.supabase.from(table).select(`${queryFields ? queryFields : '*'}`);
   }
-  
+
   getById(id: number, table: string, queryFields?: string) {
     return this.supabase.from(table).select(`${queryFields ? queryFields : '*'}`).eq('id', id).single()
   }
@@ -35,7 +36,7 @@ export class SupabaseService {
   update(obj: any, table: string) {
     return this.supabase.from(table).update(obj);
   }
-  
+
   delete(ids: number[], table: string) {
     return this.supabase.from(table).delete().in('id', ids);
   }
@@ -65,8 +66,9 @@ export class SupabaseService {
     if (user) {
       this.user = user;
     } else {
-      let logged_user = this.supabase.auth.user();
-      if (logged_user) this.user = logged_user;
+      this.supabase.auth.getUser().then((res: UserResponse) => {
+        if (res) this.user = res.data.user;
+      });
     }
   }
 
@@ -81,23 +83,23 @@ export class SupabaseService {
   }
 
   signIn(email: string, pw: string) {
-    return this.supabase.auth.signIn({ 'email': email, password: pw})
+    return this.supabase.auth.signInWithPassword({ 'email': email, password: pw })
   }
 
   signOut() {
-    return this.supabase.auth.signOut()
+    return this.supabase.auth.signOut();
   }
 
   get session() {
-    return this.supabase.auth.session()
+    return this.supabase.auth.getSession();
   }
 
   resetPW(access_token: string, new_pw: string) {
-    return this.supabase.auth.api.updateUser(access_token, { password: new_pw, })
+    return this.supabase.auth.updateUser({ password: new_pw, })
   }
 
   requestReset(email: string) {
-    return this.supabase.auth.api.resetPasswordForEmail(email)
+    return this.supabase.auth.resetPasswordForEmail(email)
   }
 
 }
