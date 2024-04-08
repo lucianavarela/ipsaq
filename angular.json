@@ -89,10 +89,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "ipsaq-website:build:production"
+              "buildTarget": "ipsaq-website:build:production"
             },
             "development": {
-              "browserTarget": "ipsaq-website:build:development"
+              "buildTarget": "ipsaq-website:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -100,7 +100,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ipsaq-website:build"
+            "buildTarget": "ipsaq-website:build"
           }
         },
         "test": {
