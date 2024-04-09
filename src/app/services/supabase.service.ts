@@ -87,7 +87,7 @@ export class SupabaseService {
   }
 
   signOut() {
-    return this.supabase.auth.signOut();
+    return this.supabase.auth.signOut().then(res => { this.user = null });
   }
 
   get session() {
@@ -95,11 +95,12 @@ export class SupabaseService {
   }
 
   resetPW(access_token: string, new_pw: string) {
-    return this.supabase.auth.updateUser({ password: new_pw, })
+    return this.supabase.auth.updateUser({ password: new_pw });
   }
 
   requestReset(email: string) {
-    return this.supabase.auth.resetPasswordForEmail(email)
+    const url = environment.production ? 'https://presbiquilmes.org.ar/reset' : 'localhost:4200/reset';
+    return this.supabase.auth.resetPasswordForEmail(email, { redirectTo: url })
   }
 
 }

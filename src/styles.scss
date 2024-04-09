@@ -94,17 +94,17 @@ tr {
   width: 100%;
 }
 
-.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background,
-.mat-checkbox-checked.mat-accent .mat-checkbox-background {
+.mat-mdc-checkbox-indeterminate.mat-mdc-accent .mat-mdc-checkbox-background,
+.mat-mdc-checkbox-checked.mat-mdc-accent .mat-mdc-checkbox-background {
   background-color: $warning;
 }
 
-.mat-tooltip-panel,
+.mat-mdc-tooltip-panel,
 .tooltip {
   white-space: pre-wrap !important;
 }
 
-.mat-tooltip-hide {
+.mat-mdc-tooltip-hide {
   display: none !important;
 }
 
@@ -113,7 +113,7 @@ tr {
   padding: 2px 0;
 }
 
-.container:has(> table.mat-table) {
+.container:has(> table.mat-mdc-table) {
   width: 100%;
 
   table {
@@ -122,35 +122,35 @@ tr {
     overflow-x: scroll;
   }
 
-  .mat-table {
+  .mat-mdc-table {
     background-color: #fff;
   }
 
-  .mat-cell,
-  .mat-header-cell {
+  .mat-mdc-cell,
+  .mat-mdc-header-cell {
     vertical-align: middle;
     color: #212121;
   }
 
-  .mat-header-cell,
-  .mat-cell {
+  .mat-mdc-header-cell,
+  .mat-mdc-cell {
     font-size: 13px;
   }
 
-  .centered .mat-sort-header-container {
+  .centered .mat-mdc-sort-header-container {
     justify-content: center;
   }
 
-  th.mat-sort-header-sorted {
+  th.mat-mdc-sort-header-sorted {
     color: black;
   }
 
   mat-row,
   mat-header-row,
   mat-footer-row,
-  th.mat-header-cell,
-  td.mat-cell,
-  td.mat-footer-cell {
+  th.mat-mdc-header-cell,
+  td.mat-mdc-cell,
+  td.mat-mdc-footer-cell {
     border-bottom-color: #bbbbbb;
   }
 }
@@ -164,22 +164,22 @@ body.has-navbar-fixed-top {
   padding-top: 122px !important;
 }
 
-.mat-slide-toggle {
-  .mat-slide-toggle-thumb {
+.mat-mdc-slide-toggle {
+  .mat-mdc-slide-toggle-thumb {
     background: gray;
   }
 
-  .mat-slide-toggle-bar {
+  .mat-mdc-slide-toggle-bar {
     background: lightgrey;
   }
 }
 
-.mat-slide-toggle.mat-checked {
-  .mat-slide-toggle-thumb {
+.mat-mdc-slide-toggle.mat-mdc-checked {
+  .mat-mdc-slide-toggle-thumb {
     background: $success !important;
   }
 
-  .mat-slide-toggle-bar {
+  .mat-mdc-slide-toggle-bar {
     background: #c9dd92 !important;
   }
 }

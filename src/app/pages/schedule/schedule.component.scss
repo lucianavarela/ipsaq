@@ -6,7 +6,7 @@ table {
     width: auto !important;
 }
 
-.mat-row {
+.mat-mdc-row {
     height: 35px;
 }
 
@@ -14,34 +14,34 @@ table {
     border-bottom-width: 0;
 }
 
-.mat-cell,
-.mat-header-cell {
+.mat-mdc-cell,
+.mat-mdc-header-cell {
     border-right: 1px solid #e1e1e1;
     border-bottom-color: #e1e1e1 !important;
 }
 
-.mat-header-cell {
+.mat-mdc-header-cell {
     border-bottom-width: 2px;
     border-bottom-color: #d0b5a5 !important;
 }
 
-.mat-cell:not(.mat-column-sermon_date),
-.mat-header-cell:not(.mat-column-sermon_date) {
+.mat-mdc-cell:not(.mat-column-sermon_date),
+.mat-mdc-header-cell:not(.mat-column-sermon_date) {
     width: 60px;
 }
 
-.mat-row,
-.mat-header-cell {
+.mat-mdc-row,
+.mat-mdc-header-cell {
     text-align: center;
 }
 
-td.mat-cell:last-of-type,
-th.mat-header-cell:last-of-type {
+td.mat-mdc-cell:last-of-type,
+th.mat-mdc-header-cell:last-of-type {
     padding-right: inherit;
 }
 
-th.mat-header-cell:first-of-type,
-td.mat-cell:first-of-type {
+th.mat-mdc-header-cell:first-of-type,
+td.mat-mdc-cell:first-of-type {
     padding-left: inherit;
 }
 

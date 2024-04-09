@@ -30,7 +30,8 @@
             <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-book-bible"></i></span>¿En qué creemos?
           </a>
           <a class="navbar-item" [routerLink]="['quienes-somos/forma-de-gobierno']">
-            <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-place-of-worship"></i></span>Forma de gobierno
+            <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-place-of-worship"></i></span>Forma de
+            gobierno
           </a>
         </div>
       </div>
@@ -78,16 +79,27 @@
       <a class="navbar-item is-tab" [routerLink]="['series']">
         Series
       </a>
-      <a *ngIf="!isLoggedIn()" class="navbar-item is-tab" [routerLink]="['entrar']">
-        <span class="icon"><i class="fa-solid fa-right-to-bracket"></i></span>
-      </a>
+      <a *ngIf="isLoggedIn(); then logout else login"></a>
     </div>
     <div class="navbar-item">
-      <a href="https://www.instagram.com/presbiquilmes/" target="_blank"><span class="icon is-medium"><i class="fa-brands fa-lg fa-instagram"></i></span></a>
-      <a href="https://wa.me/541124044835" target="_blank"><span class="icon  is-medium"><i class="fa-brands fa-lg fa-whatsapp"></i></span></a>
+      <a href="https://www.instagram.com/presbiquilmes/" target="_blank"><span class="icon is-medium"><i
+            class="fa-brands fa-lg fa-instagram"></i></span></a>
+      <a href="https://wa.me/541124044835" target="_blank"><span class="icon  is-medium"><i
+            class="fa-brands fa-lg fa-whatsapp"></i></span></a>
     </div>
   </div>
 </header>
+
+<ng-template #login>
+  <a class="navbar-item is-tab" [routerLink]="['entrar']">
+    <span class="icon"><i class="fa-solid fa-right-to-bracket"></i></span>
+  </a>
+</ng-template>
+<ng-template #logout>
+  <a class="navbar-item is-tab has-text-warning" (click)="logOut()">
+    <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+  </a>
+</ng-template>
 
 <app-toaster></app-toaster>
 

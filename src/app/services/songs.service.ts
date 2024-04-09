@@ -32,7 +32,7 @@ export class SongsService {
   }
 
   getLastIndex() {
-    return this.sSupabase.get(this.table).order('index', {ascending: false}).limit(1).select('index');
+    return this.sSupabase.get(this.table).filter('index', 'not.is', 'null').select('index').order('index', {ascending: false}).limit(1);
   }
 
   async updateSong(song: Song) {

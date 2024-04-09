@@ -1,34 +1,9 @@
-::ng-deep .mat-form-field {
-  .mat-input-element {
-    color: slategray;
-  }
-  .mat-form-field-label {
-    color: slategray;
-  }
-  .mat-form-field-underline {
-    background-color: slategray;
-  }
-  .mat-form-field-ripple {
-    background-color: slategray;
-  }
-  .mat-form-field-required-marker {
-    color: slategray;
-  }
+::ng-deep .mat-mdc-form-field .mdc-text-field {
+  background-color: white !important;
 }
 
-::ng-deep .mat-form-field.mat-focused {
-  .mat-form-field-label {
-    color: #00d1b2;
-  }
-  .mat-form-field-ripple {
-    background-color: #00d1b2;
-  }
-  .mat-form-field-required-marker {
-    color: #00d1b2;
-  }
-  .mat-input-element {
-    color: #00d1b2;
-  }
+::ng-deep .mat-mdc-form-field.mat-focused mat-label {
+  color: #7FA2E1;
 }
 
 .song-title {
@@ -45,6 +20,6 @@
   margin-bottom: -3px !important;
 }
 
-.mat-header-cell.centered .mat-sort-header-container {
+.mat-mdc-header-cell.centered .mat-mdc-sort-header-container {
   justify-content: center !important;
 }

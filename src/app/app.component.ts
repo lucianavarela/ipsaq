@@ -2,9 +2,11 @@ import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/co
 import { Sermon } from './classes/sermon';
 import { SermonsService } from './services/sermons.service';
 import { SupabaseService } from './services/supabase.service';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import Utils from "src/app/utils/utils";
 import { LiveSermonComponent } from './pages/live-sermon/live-sermon.component';
+import { Router } from '@angular/router';
+import { ToastService } from './services/toast.service';
 /// <reference path="<relevant path>/node_modules/@types/googlemaps/index.d.ts" />
 
 
@@ -26,7 +28,7 @@ export class AppComponent implements OnInit {
   @ViewChild('songsDropdown') songsDropdown!: ElementRef;
 
   constructor(private readonly supabase: SupabaseService, private sSermon: SermonsService,
-    public dialog: MatDialog, private renderer: Renderer2) {
+    public dialog: MatDialog, private renderer: Renderer2, private router: Router, private sToast: ToastService) {
     this.supabase.setUser();
     this.renderer.listen('window', 'click', (e: Event) => {
       if (e.target !== this.infoDropdown.nativeElement && e.target !== this.sermonsDropdown.nativeElement &&
@@ -82,5 +84,12 @@ export class AppComponent implements OnInit {
 
   toggleMenu(menu: string) {
     this.dropdownDisplayed = menu;
+  }
+
+  logOut() {
+    this.supabase.signOut().then(res => {
+      this.sToast.showSuccessToast("Exito", "Sesión finalizada!");
+      this.router.navigate(['/']);
+    })
   }
 }
