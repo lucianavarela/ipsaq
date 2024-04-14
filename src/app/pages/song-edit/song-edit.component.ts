@@ -81,7 +81,7 @@ export class SongEditComponent implements OnInit {
 
     if (confirmation && this.song.id) {
       try {
-        this.sSongs.deleteSong(this.song.id).then((res: any) => this.router.navigateByUrl('/cancionero'));
+        this.sSongs.deleteSong(this.song.id).then((res: any) => this.router.navigateByUrl('/canciones_sugeridas'));
       } catch (error: any) {
         this.toastService.showErrorToast('Error al guardar', error.error_description || error.message);
       } finally {

@@ -37,15 +37,24 @@ table {
 
 td.mat-mdc-cell:last-of-type,
 th.mat-mdc-header-cell:last-of-type {
-    padding-right: inherit;
+    padding-right: 16px;
 }
 
 th.mat-mdc-header-cell:first-of-type,
 td.mat-mdc-cell:first-of-type {
     padding-left: inherit;
+    
 }
 
 .mat-column-sermon_date {
     border-right: 2px solid #d0b5a5;
     width: 10rem;
+}
+
+::ng-deep mat-chip-listbox .mdc-evolution-chip-set__chips {
+        justify-content: center;
+}
+
+::ng-deep mat-chip-option {
+    background-color: #d2a28e !important;
 }

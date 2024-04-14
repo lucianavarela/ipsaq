@@ -32,6 +32,8 @@ export class AppComponent implements OnInit {
   constructor(private readonly supabase: SupabaseService, private sSermon: SermonsService,
     public dialog: MatDialog, private renderer: Renderer2, private router: Router, private sToast: ToastService) {
     this.renderer.listen('window', 'click', (e: Event) => {
+      this.supabase.setUser();
+      
       if (e.target !== this.infoDropdown.nativeElement && e.target !== this.sermonsDropdown.nativeElement &&
         e.target !== this.songsDropdown.nativeElement && e.target !== this.hamburguer.nativeElement) {
         this.resetMenu();
@@ -41,7 +43,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     if (!this.upcomingSermonSearched) this.setUpNewSermon();
-    this.supabase.setUser();
   }
 
   isLoggedIn() {

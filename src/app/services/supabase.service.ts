@@ -29,7 +29,7 @@ export class SupabaseService {
   }
 
   add(obj: any, table: string) {
-    return this.supabase.from(table).insert(obj);
+    return this.supabase.from(table).insert(obj).select();
   }
 
   update(obj: any, table: string) {

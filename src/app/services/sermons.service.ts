@@ -18,11 +18,9 @@ export class SermonsService {
   }
 
   getUpcomingSermon() {
-    let date = new Date();
-    date.setFullYear(date.getFullYear() - 1);
     return this.sSupabase.get(this.table, '*, related_series!left(*)')
       .filter('link_youtube', 'not.is', 'null')
-      .eq('date', date.toISOString().split('T')[0])
+      .eq('date', new Date().toISOString().split('T')[0])
       .order('date', { ascending: false })
       .limit(1);
   }
