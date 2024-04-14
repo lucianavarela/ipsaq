@@ -18,14 +18,14 @@ export class LoginComponent implements OnInit {
     private sToast: ToastService,
     private router: Router,
     private sTitle: Title
-    
-  ) {}
+
+  ) { }
 
   ngOnInit() {
     this.sTitle.setTitle('Iniciar Sesión');
   }
 
-  async login() {
+  async login(): Promise<void> {
     try {
       this.supabase.signIn(this.email, this.pw).then((res: any) => {
         if (!res["error"]) {

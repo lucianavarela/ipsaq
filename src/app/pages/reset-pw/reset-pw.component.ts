@@ -30,7 +30,6 @@ export class ResetPwComponent {
     if (this.pw1 && this.pw2 && this.pw1 == this.pw2) {
       try {
         this.supabase.resetPW(this.token, this.pw1).then((res: any) => {
-          this.supabase.setUser(res.user);
           if (res.user) {
             this.supabase.setUser(res.user);
             this.sToast.showSuccessToast('Exito!', 'Usuario logueado.');

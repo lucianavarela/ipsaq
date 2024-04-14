@@ -5,7 +5,6 @@ import {
   createClient,
   Session,
   SupabaseClient,
-  UserResponse,
 } from '@supabase/supabase-js'
 import { environment } from 'src/environments/environment';
 
@@ -15,7 +14,7 @@ import { environment } from 'src/environments/environment';
 
 export class SupabaseService {
   private supabase: SupabaseClient;
-  private user!: AuthUser | null;
+  private user!: any;
 
   constructor() {
     this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey)
@@ -66,9 +65,7 @@ export class SupabaseService {
     if (user) {
       this.user = user;
     } else {
-      this.supabase.auth.getUser().then((res: UserResponse) => {
-        if (res) this.user = res.data.user;
-      });
+      this.supabase.auth.getSession().then(s => { this.user = s?.data?.session?.user || null });
     }
   }
 
