@@ -97,7 +97,8 @@
 </ng-template>
 <ng-template #logout>
   <a class="navbar-item is-tab has-text-warning" (click)="logOut()">
-    <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+    <span>{{loggedUser?.email}}</span>
+    <span class="icon" style="margin-left: 6px;"><i class="fa-solid fa-right-from-bracket"></i></span>
   </a>
 </ng-template>
 

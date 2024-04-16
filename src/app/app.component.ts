@@ -7,7 +7,7 @@ import Utils from "src/app/utils/utils";
 import { LiveSermonComponent } from './pages/live-sermon/live-sermon.component';
 import { Router } from '@angular/router';
 import { ToastService } from './services/toast.service';
-import { Session } from '@supabase/supabase-js';
+import { AuthUser, Session } from '@supabase/supabase-js';
 /// <reference path="<relevant path>/node_modules/@types/googlemaps/index.d.ts" />
 
 
@@ -23,25 +23,25 @@ export class AppComponent implements OnInit {
   sermonIsLive = false;
   upcomingSermonSearched: boolean = false;
   upcomingSermon!: Sermon;
+  loggedUser!: AuthUser | null;
   @ViewChild('hamburguer') hamburguer!: ElementRef;
   @ViewChild('infoDropdown') infoDropdown!: ElementRef;
   @ViewChild('sermonsDropdown') sermonsDropdown!: ElementRef;
   @ViewChild('songsDropdown') songsDropdown!: ElementRef;
-  session: any = this.supabase.session;
 
   constructor(private readonly supabase: SupabaseService, private sSermon: SermonsService,
     public dialog: MatDialog, private renderer: Renderer2, private router: Router, private sToast: ToastService) {
     this.renderer.listen('window', 'click', (e: Event) => {
-      this.supabase.setUser();
-      
       if (e.target !== this.infoDropdown.nativeElement && e.target !== this.sermonsDropdown.nativeElement &&
         e.target !== this.songsDropdown.nativeElement && e.target !== this.hamburguer.nativeElement) {
-        this.resetMenu();
-      }
-    });
-  }
-
-  ngOnInit() {
+          this.resetMenu();
+        }
+      });
+    }
+    
+    ngOnInit() {
+    this.supabase.setUser();
+    this.loggedUser = this.supabase.getUser;
     if (!this.upcomingSermonSearched) this.setUpNewSermon();
   }
 

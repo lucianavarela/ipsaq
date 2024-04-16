@@ -44,6 +44,5 @@ export class ScheduleComponent implements OnInit {
   onFiltersChange(event: any) {
     this.filtersClasses = '';
     event.value.forEach((f: string) => this.filtersClasses = this.filtersClasses.concat(` filter-${f}`));
-    console.log(this.filtersClasses);
   }
 }

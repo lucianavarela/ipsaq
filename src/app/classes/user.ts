@@ -2,6 +2,7 @@ import { AuthUser } from "@supabase/supabase-js";
 
 export class User {
     public id?: number;
+    public user_id?: string;
     public email?: string;
     public nickname?: string;
     public first_name?: string;
@@ -13,14 +14,18 @@ export class User {
     public player_icon?: string = '';
 
     constructor(obj?: {
-        id: number, nickname?: string, first_name?: string, last_name?: string,
+        id: string, email?: string, nickname?: string, first_name?: string, last_name?: string,
         sermon_role?: boolean, choir_role?: boolean, band_role?: boolean, direction_role?: boolean
-    }, auth_user?: AuthUser) {
+    }) {
         if (typeof obj === 'number') {
             this.id = Number(obj);
         } else {
-            this.id = obj?.id;
-            this.email = auth_user?.email;
+            if (typeof obj?.id === 'number') {
+                this.id = Number(obj.id);
+            } else {
+                this.user_id = obj?.id;
+            }
+            this.email = obj?.email;
             this.nickname = obj?.nickname;
             this.first_name = obj?.first_name;
             this.last_name = obj?.last_name;

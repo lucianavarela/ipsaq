@@ -7,6 +7,7 @@ import {
   SupabaseClient,
 } from '@supabase/supabase-js'
 import { environment } from 'src/environments/environment';
+import { User } from '../classes/user';
 
 @Injectable({
   providedIn: 'root',
@@ -55,7 +56,8 @@ export class SupabaseService {
     });
   }
 
-  // LOGIN
+
+  /*  LOGIN  */
 
   get getUser() {
     return this.user;
@@ -63,9 +65,13 @@ export class SupabaseService {
 
   setUser(user?: AuthUser) {
     if (user) {
-      this.user = user;
+      this.user = new User(user);
+    } else if (localStorage.getItem("supabase.auth.token")) {
+      this.user = new User(JSON.parse(localStorage.getItem("supabase.auth.token") || '{}')['currentSession']['user']);
     } else {
-      this.supabase.auth.getSession().then(s => { this.user = s?.data?.session?.user || null });
+      this.supabase.auth.getSession().then(s => {
+        this.user = s?.data?.session?.user || null
+      });
     }
   }
 
@@ -84,11 +90,9 @@ export class SupabaseService {
   }
 
   signOut() {
-    return this.supabase.auth.signOut().then(res => { this.user = null });
-  }
-
-  get session() {
-    return this.supabase.auth.getSession();
+    return this.supabase.auth.signOut().then(() => {
+      this.user = null
+    });
   }
 
   resetPW(access_token: string, new_pw: string) {
@@ -99,7 +103,6 @@ export class SupabaseService {
     const url = environment.production ? 'https://presbiquilmes.org.ar/reset' : 'localhost:4200/reset';
     return this.supabase.auth.resetPasswordForEmail(email, { redirectTo: url })
   }
-
 }
 
 
