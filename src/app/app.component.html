@@ -1,4 +1,4 @@
-<header class="navbar is-fixed-top">
+<header class="navbar is-fixed-top" [class.for-desktop]="!isMobile">
   <div class="navbar-brand " (click)="toggleNavbar()">
     <a #hamburguer class="navbar-burger burger" [class.is-active]="menuDisplayed" data-target="navMenu">
       <span></span>
@@ -16,90 +16,70 @@
           <span class="icon"><i class="fa-solid fa-2xs fa-circle"></i></span>EN VIVO</span>
       </a>
     </div>
+    <a *ngIf="isLoggedIn(); then logout else login"></a>
     <div class="navbar-start">
-      <a class="navbar-item is-tab" [routerLink]="['/home']">
-        Inicio
-      </a>
+      <a class="navbar-item is-tab" [routerLink]="['/home']">Inicio</a>
       <div class="navbar-item has-dropdown" [class.is-active]="dropdownDisplayed=='info'">
         <a #infoDropdown class="navbar-link" (click)="toggleMenu('info')">¿Quiénes somos?</a>
         <div class="navbar-dropdown">
           <a class="navbar-item" [routerLink]="['quienes-somos/historia']">
-            <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-cross"></i></span>Historia
-          </a>
+            <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-cross"></i></span>Historia</a>
           <a class="navbar-item" [routerLink]="['quienes-somos/en-que-creemos']">
-            <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-book-bible"></i></span>¿En qué creemos?
-          </a>
+            <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-book-bible"></i></span>¿En qué creemos?</a>
           <a class="navbar-item" [routerLink]="['quienes-somos/forma-de-gobierno']">
             <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-place-of-worship"></i></span>Forma de
-            gobierno
-          </a>
+            gobierno</a>
         </div>
       </div>
-      <a class="navbar-item is-tab" [routerLink]="['ubicacion']">
-        ¿Dónde estámos?
-      </a>
-    </div>
-    <a [class.is-hidden]="menuDisplayed" class="navbar-item logo" href="/">
-      <img src="assets/logo.png" />
-    </a>
-    <div class="navbar-end">
+      <a class="navbar-item is-tab" [routerLink]="['ubicacion']">¿Dónde estámos?</a>
+      <a [class.is-hidden]="menuDisplayed" class="navbar-item logo" href="/"><img src="assets/logo.png" /></a>
       <div class="navbar-item has-dropdown" [class.is-active]="dropdownDisplayed=='songs'">
         <a #songsDropdown class="navbar-link" (click)="toggleMenu('songs')">Cancionero</a>
         <div class="navbar-dropdown">
-          <a class="navbar-item" [routerLink]="['cancionero']">
-            Listado de Canciones
-          </a>
-          <a class="navbar-item" [routerLink]="['ultimas_canciones']">
-            Canciones Nuevas
-          </a>
+          <a class="navbar-item" [routerLink]="['cancionero']">Listado de Canciones</a>
+          <a class="navbar-item" [routerLink]="['ultimas_canciones']">Canciones Nuevas</a>
           <a *ngIf="isLoggedIn()" class="navbar-item" [routerLink]="['nueva_cancion']">
-            <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-plus"></i></span>Nueva Canción
-          </a>
-          <a class="navbar-item" [routerLink]="['canciones_sugeridas']">
-            Canciones Sugeridas
-          </a>
+            <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-plus"></i></span>Nueva Canción</a>
+          <a class="navbar-item" [routerLink]="['canciones_sugeridas']">Canciones Sugeridas</a>
           <a class="navbar-item" [routerLink]="['sugerir_cancion']">
-            <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-music"></i></span>Sugerir Canción
-          </a>
+            <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-music"></i></span>Sugerir Canción</a>
         </div>
       </div>
       <div class="navbar-item has-dropdown" [class.is-active]="dropdownDisplayed=='sermons'">
         <a #sermonsDropdown class="navbar-link" (click)="toggleMenu('sermons')">Cultos</a>
         <div class="navbar-dropdown">
-          <a class="navbar-item" [routerLink]="['cultos']">Listado de Cultos
-          </a>
+          <a class="navbar-item" [routerLink]="['cultos']">Listado de Cultos</a>
           <a *ngIf="isLoggedIn()" class="navbar-item" [routerLink]="['nuevo_culto']">
-            <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-plus"></i></span>Nuevo Culto
-          </a>
+            <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-plus"></i></span>Nuevo Culto</a>
           <a *ngIf="isLoggedIn()" class="navbar-item" [routerLink]="['cronograma']">
-            <span class="icon has-text-primary"><i class="fa-regular fa-sm fa-calendar"></i></span>Cronograma
-          </a>
+            <span class="icon has-text-primary"><i class="fa-regular fa-sm fa-calendar"></i></span>Cronograma</a>
         </div>
       </div>
-      <a class="navbar-item is-tab" [routerLink]="['series']">
-        Series
-      </a>
-      <a *ngIf="isLoggedIn(); then logout else login"></a>
+      <a class="navbar-item is-tab" [routerLink]="['series']">Series</a>
     </div>
-    <div class="navbar-item">
-      <a href="https://www.instagram.com/presbiquilmes/" target="_blank"><span class="icon is-medium"><i
-            class="fa-brands fa-lg fa-instagram"></i></span></a>
-      <a href="https://wa.me/541124044835" target="_blank"><span class="icon  is-medium"><i
-            class="fa-brands fa-lg fa-whatsapp"></i></span></a>
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <a href="https://www.instagram.com/presbiquilmes/" target="_blank">
+          <span class="icon is-medium"><i class="fa-brands fa-lg fa-instagram"></i></span></a>
+        <a href="https://wa.me/541124044835" target="_blank">
+          <span class="icon  is-medium"><i class="fa-brands fa-lg fa-whatsapp"></i></span></a>
+      </div>
     </div>
   </div>
 </header>
 
 <ng-template #login>
-  <a class="navbar-item is-tab" [routerLink]="['entrar']">
+  <a matTooltip="Iniciar sesión" class="navbar-item" [routerLink]="['entrar']">
     <span class="icon"><i class="fa-solid fa-right-to-bracket"></i></span>
   </a>
 </ng-template>
 <ng-template #logout>
-  <a class="navbar-item is-tab has-text-warning" (click)="logOut()">
-    <span>{{loggedUser?.email}}</span>
-    <span class="icon" style="margin-left: 6px;"><i class="fa-solid fa-right-from-bracket"></i></span>
-  </a>
+  <div class="navbar-item">
+    <span matTooltip="Sesión iniciada con el email {{loggedUser?.email}}" matTooltipPosition="above" class="icon">
+      <i class="fa-solid fa-user-check"></i></span>
+    <a matTooltip="Cerrar sesión" matTooltipPosition="right" (click)="logOut()"><span class="icon" style="margin-left: 5px;">
+        <i class="fa-solid fa-right-from-bracket"></i></span></a>
+  </div>
 </ng-template>
 
 <app-toaster></app-toaster>

@@ -18,6 +18,7 @@ import { AuthUser, Session } from '@supabase/supabase-js';
   host: { 'window:beforeunload': 'toggleNavbar' }
 })
 export class AppComponent implements OnInit {
+  isMobile = false;
   menuDisplayed = false;
   dropdownDisplayed = "";
   sermonIsLive = false;
@@ -31,15 +32,16 @@ export class AppComponent implements OnInit {
 
   constructor(private readonly supabase: SupabaseService, private sSermon: SermonsService,
     public dialog: MatDialog, private renderer: Renderer2, private router: Router, private sToast: ToastService) {
+    this.isMobile = window.innerWidth <= 767;
     this.renderer.listen('window', 'click', (e: Event) => {
       if (e.target !== this.infoDropdown.nativeElement && e.target !== this.sermonsDropdown.nativeElement &&
         e.target !== this.songsDropdown.nativeElement && e.target !== this.hamburguer.nativeElement) {
-          this.resetMenu();
-        }
-      });
-    }
-    
-    ngOnInit() {
+        this.resetMenu();
+      }
+    });
+  }
+
+  ngOnInit() {
     this.supabase.setUser();
     this.loggedUser = this.supabase.getUser;
     if (!this.upcomingSermonSearched) this.setUpNewSermon();

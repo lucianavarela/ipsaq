@@ -213,7 +213,6 @@ export class SermonEditComponent implements OnInit {
         this.sSermons.addSermonSong({ 'id_song': this.selectedSong.id, 'id_sermon': this.sermon.id }).then((res: any) => {
           this.songs.push(SermonSong.mapObjects([{ 'id': res.data[0]['id'], 'songs': this.selectedSong }], Number(this.sermon.id))[0]);
           this.toastService.showSuccessToast("Exito!", "Canción agregada.");
-          this.ngSelectComponent.clearModel();
           this.selectedSong = null;
         });
       } catch (error: any) {

@@ -14,15 +14,13 @@
 }
 
 .navbar-start {
-  justify-content: flex-end;
-  margin-left: auto;
-  margin-right: 0;
+  justify-content: center;
+  margin: 0 auto;
 }
 
-.navbar-end {
-  justify-content: flex-start;
-  margin-right: auto;
-  margin-left: 0;
+.navbar.for-desktop .navbar-end {
+  width: fit-content;
+  margin: 0;
 }
 
 .heading {

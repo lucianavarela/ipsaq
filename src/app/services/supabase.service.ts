@@ -66,11 +66,12 @@ export class SupabaseService {
   setUser(user?: AuthUser) {
     if (user) {
       this.user = new User(user);
-    } else if (localStorage.getItem("supabase.auth.token")) {
-      this.user = new User(JSON.parse(localStorage.getItem("supabase.auth.token") || '{}')['currentSession']['user']);
     } else {
+      if (localStorage.getItem("supabase.auth.token")) {
+        this.user = new User(JSON.parse(localStorage.getItem("supabase.auth.token") || '{}')['currentSession']['user']);
+      }
       this.supabase.auth.getSession().then(s => {
-        this.user = s?.data?.session?.user || null
+        this.user = s?.data?.session?.user || null;
       });
     }
   }
