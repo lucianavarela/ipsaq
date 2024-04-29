@@ -30,7 +30,7 @@ export class SermonsService {
   }
 
   getSermons() {
-    return this.sSupabase.get(this.table, '*, related_series!left(*), id_preacher(id, nickname), id_director(id, nickname)').order('date', { ascending: false });
+    return this.sSupabase.get(this.table, '*, related_series!left(*), id_preacher(nickname), id_director(nickname)').order('date', { ascending: false });
   }
 
   getSermonsWithBand() {

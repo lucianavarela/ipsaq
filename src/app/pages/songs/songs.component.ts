@@ -1,14 +1,11 @@
-import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { MatSort, Sort } from '@angular/material/sort';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Song } from 'src/app/classes/song';
 import { SongsService } from 'src/app/services/songs.service';
 import { SupabaseService } from 'src/app/services/supabase.service';
 import { Title } from '@angular/platform-browser';
-import Utils from 'src/app/utils/utils';
-import { normalize } from 'path';
 
 @Component({
   selector: 'app-songs',
@@ -24,40 +21,40 @@ export class SongsComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   isMobile = false;
   isLoggedIn = false;
-  
+
   constructor(private sSong: SongsService, private router: Router, private readonly supabase: SupabaseService,
     private sTitle: Title) {
-      this.isMobile = window.innerWidth <= 767;
-    }
-  
+    this.isMobile = window.innerWidth <= 767;
+  }
+
   ngOnInit(): void {
     this.isLoggedIn = !!(this.supabase.isLoggedIn());
     if (this.router.url.indexOf('ultimas_canciones') > -1) {
       this.sTitle.setTitle('Ultimas Canciones');
       this.sSong.getLatestSongs().then(res => {
-        if (res.data) this.songs = res.data.map((o:any) => new Song(o))
+        if (res.data) this.songs = res.data.map((o: any) => new Song(o))
         this.initializeTable();
       });
     } else if (this.router.url.indexOf('canciones_sugeridas') > -1) {
       this.sTitle.setTitle('Canciones Sugeridas');
       this.displayedColumns = ['beginning', 'lyrics_and_chords'];
       this.sSong.getSuggestedSongs().then(res => {
-        if (res.data) this.songs = res.data.map((o:any) => new Song(o))
+        if (res.data) this.songs = res.data.map((o: any) => new Song(o))
         this.initializeTable();
       });
-    } else{
+    } else {
       this.sTitle.setTitle('Cancionero');
       if (this.supabase.isLoggedIn() && !this.isMobile) {
         this.displayedColumns = ['index', 'beginning', 'last_used', 'amount_used', 'link_ipsaq', 'lyrics_and_chords'];
       }
       this.sSong.getSongs(true).then(res => {
-        if (res.data) this.songs = res.data.map((o:any) => new Song(o))
+        if (res.data) this.songs = res.data.map((o: any) => new Song(o))
         this.initializeTable();
       });
     }
-    
+
   }
-  
+
   initializeTable() {
     this.dataSource = new MatTableDataSource(this.songs);
     this.dataSource.sort = this.sort;

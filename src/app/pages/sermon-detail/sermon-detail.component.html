@@ -39,6 +39,13 @@
                 <strong>{{ sermon.bible_verse }}</strong>
               </div>
             </div>
+            <div class="media-right">
+              <a href="https://www.biblegateway.com/passage/?search={{ sermon.bible_verse }}&version=NVI" target="_blank">
+                <span class="icon has-text-dark">
+                  <i class="fa-solid fa-magnifying-glass-arrow-right"></i>
+                </span>
+              </a>
+            </div>
           </article>
         </div>
       </div>
@@ -107,8 +114,8 @@
             <div class="media-content">
               <div class="content">
                 <small>Coro</small><br />
-                <strong><span *ngFor="let player of choir; let i = index">{{player.player?.nickname}}{{i < choir.length -2
-                      ? ', ' : i===choir.length -2 ? ' y ' : '' }}</span></strong>
+                <strong><span *ngFor="let player of choir; let i = index">{{player.player?.nickname}}{{i < choir.length
+                      -2 ? ', ' : i===choir.length -2 ? ' y ' : '' }}</span></strong>
               </div>
             </div>
           </article>
