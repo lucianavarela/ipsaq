@@ -1,0 +1,40 @@
+<div class="main container is-fluid">
+    <div class="hero-body has-text-centered">
+        <h1 class="title has-text-white">Fiesta del 100 Aniversario</h1>
+        <h2 class="subtitle has-text-white">1924 - 2024</h2>
+    </div>
+    <div class="texto has-text-white has-text-centered">
+        <i>"Habiendo amado a los suyos que estaban en el mundo, los amó hasta el fin."</i>
+        <p>Juan 13:1</p>
+    </div>
+    <section class="section">
+        <div class="columns is-centered">
+            <div class="column is-half-desktop">
+                <div class="box">
+                    <div class="field">
+                        <label class="label">Nombre</label>
+                        <div class="control">
+                            <input class="input" type="text" [(ngModel)]="newComment.author" placeholder="Tu nombre">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Message</label>
+                        <div class="control">
+                            <textarea class="textarea" [(ngModel)]="newComment.message"
+                                placeholder="Dejanos un mensaje..."></textarea>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <button class="button is-danger has-text-white" (click)="saveComment()">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="columns is-multiline">
+            <app-comment-box class="column is-4" *ngFor="let comment of comments" [comment]="comment"
+                [can-delete]="isLoggedIn()" (commentDeleted)="removeComment($event)"></app-comment-box>
+        </div>
+    </section>
+</div>

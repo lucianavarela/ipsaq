@@ -6,7 +6,7 @@
       <span></span>
     </a>
     <a class="logo" href="/" style="display: none">
-      <img src="assets/logo.png" />
+      <img src="assets/new-logo.svg" />
     </a>
   </div>
   <div class="navbar-menu" [class.is-active]="menuDisplayed">
@@ -32,7 +32,7 @@
         </div>
       </div>
       <a class="navbar-item is-tab" [routerLink]="['ubicacion']">¿Dónde estámos?</a>
-      <a [class.is-hidden]="menuDisplayed" class="navbar-item logo" href="/"><img src="assets/logo.png" /></a>
+      <a [class.is-hidden]="menuDisplayed" class="navbar-item logo" href="/"><img src="assets/new-logo.svg" /></a>
       <div class="navbar-item has-dropdown" [class.is-active]="dropdownDisplayed=='songs'">
         <a #songsDropdown class="navbar-link" (click)="toggleMenu('songs')">Cancionero</a>
         <div class="navbar-dropdown">

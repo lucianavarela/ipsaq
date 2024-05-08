@@ -29,7 +29,7 @@ export class SerieDetailComponent implements OnInit {
       }
     })
   }
-  
+
   isLoggedIn() {
     return this.supabase.isLoggedIn();
   }

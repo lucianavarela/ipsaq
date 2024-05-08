@@ -23,6 +23,7 @@ import { SermonsResolverService } from "./services/sermons-resolver.service";
 import { SongsResolverService } from "./services/songs-resolver.service";
 import { SuggestedSongsResolverService } from "./services/suggested-songs-resolver.service";
 import { ScheduleComponent } from "./pages/schedule/schedule.component";
+import { AniversaryComponent } from "./pages/aniversary/aniversary.component";
 
 const AppRoutes: Routes = [
   { path: "", component: HomeComponent },
@@ -113,6 +114,7 @@ const AppRoutes: Routes = [
       { path: "forma-de-gobierno", component: GovernmentComponent }
     ]
   },
+  { path: "aniversario", component: AniversaryComponent },
 
   // otherwise redirect to home
   { path: "**", redirectTo: "" },

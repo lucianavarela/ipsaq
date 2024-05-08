@@ -20,7 +20,6 @@ export class SongsComponent implements OnInit {
   dataSource!: MatTableDataSource<Song>;
   @ViewChild(MatSort) sort!: MatSort;
   isMobile = false;
-  isLoggedIn = false;
 
   constructor(private sSong: SongsService, private router: Router, private readonly supabase: SupabaseService,
     private sTitle: Title) {
@@ -28,7 +27,6 @@ export class SongsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isLoggedIn = !!(this.supabase.isLoggedIn());
     if (this.router.url.indexOf('ultimas_canciones') > -1) {
       this.sTitle.setTitle('Ultimas Canciones');
       this.sSong.getLatestSongs().then(res => {
@@ -44,7 +42,7 @@ export class SongsComponent implements OnInit {
       });
     } else {
       this.sTitle.setTitle('Cancionero');
-      if (this.supabase.isLoggedIn() && !this.isMobile) {
+      if (this.isLoggedIn() && !this.isMobile) {
         this.displayedColumns = ['index', 'beginning', 'last_used', 'amount_used', 'link_ipsaq', 'lyrics_and_chords'];
       }
       this.sSong.getSongs(true).then(res => {
@@ -52,7 +50,10 @@ export class SongsComponent implements OnInit {
         this.initializeTable();
       });
     }
+  }
 
+  isLoggedIn() {
+    return this.supabase.isLoggedIn();
   }
 
   initializeTable() {

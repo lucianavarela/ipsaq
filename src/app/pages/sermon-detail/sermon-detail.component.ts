@@ -21,6 +21,7 @@ export class SermonDetailComponent implements OnInit {
   constructor(private sSermons: SermonsService, private activatedRoute: ActivatedRoute, private _sanitizer: DomSanitizer,
     private supabase: SupabaseService, private sTitle: Title) {
   }
+  
   ngOnInit() {
     this.activatedRoute.data.subscribe(({ sermon }) => {
       if (sermon) {

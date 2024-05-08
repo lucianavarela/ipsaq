@@ -16,7 +16,6 @@ import { SeriesService } from 'src/app/services/series.service';
 export class SeriesComponent implements OnInit {
   displayedColumns: string[] = ['name', 'chapters', 'button_to_page'];
   series: Series[] = [];
-  dataSource = new MatTableDataSource<Series>();
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private sSerie: SeriesService, private _liveAnnouncer: LiveAnnouncer, private sTitle: Title) { }
@@ -27,8 +26,6 @@ export class SeriesComponent implements OnInit {
       if (res.data) {
         this.series = res.data.map((s:any) => new Series({ ...s, "sermons_amount": s.sermons[0].count }))
         this.series.map(serie => { if (serie.sermons) serie.sermons_amount = serie.sermons[0].count });
-        this.dataSource = new MatTableDataSource(this.series);
-        this.dataSource.sort = this.sort;
       }
     });
   }

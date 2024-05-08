@@ -52,6 +52,8 @@ import { SeriesComponent } from './pages/series/series.component';
 import { SerieDetailComponent } from './pages/serie-detail/serie-detail.component';
 import { BackButtonComponent } from './utils/back-button/back-button.component';
 import { ScheduleComponent } from './pages/schedule/schedule.component';
+import { AniversaryComponent } from './pages/aniversary/aniversary.component';
+import { CommentBoxComponent } from './pages/comment-box/comment-box.component';
 
 registerLocaleData(localeEsAr, 'es-Ar');
 
@@ -87,6 +89,8 @@ registerLocaleData(localeEsAr, 'es-Ar');
     SerieDetailComponent,
     BackButtonComponent,
     ScheduleComponent,
+    AniversaryComponent,
+    CommentBoxComponent
   ],
   imports: [
     BrowserAnimationsModule,

@@ -12,15 +12,17 @@ export class SongsBoxComponent implements OnInit {
   @Input('sermonSongInput') sermonSong!: SermonSong | undefined;
   @Input('editMode') editMode: boolean = false;
   @Output() songDeleted = new EventEmitter<number>();
-  isLoggedIn = false;
 
-  constructor(private supabase: SupabaseService) { }
-
-  ngOnInit(): void {
-    this.isLoggedIn = !!(this.supabase.isLoggedIn());
+  constructor(private supabase: SupabaseService) {
   }
+
+  ngOnInit(): void {}
 
   deleteSong() {
     if (this.sermonSong?.song) this.songDeleted.emit(this.sermonSong.id);
+  }
+  
+  isLoggedIn() {
+    return this.supabase.isLoggedIn();
   }
 }
