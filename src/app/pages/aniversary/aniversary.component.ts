@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Comment } from 'src/app/classes/comment';
+import { Sermon } from 'src/app/classes/sermon';
+import { Song } from 'src/app/classes/song';
 import { CommentsService } from 'src/app/services/comments.service';
+import { SermonsService } from 'src/app/services/sermons.service';
 import { SupabaseService } from 'src/app/services/supabase.service';
 import { ToastService } from 'src/app/services/toast.service';
 
@@ -13,8 +16,10 @@ import { ToastService } from 'src/app/services/toast.service';
 export class AniversaryComponent implements OnInit {
   comments: Comment[] = [];
   newComment!: Comment;
+  songs: Song[] = [];
 
-  constructor(private sTitle: Title, private supabase: SupabaseService, private sComments: CommentsService, private toastService: ToastService) {
+  constructor(private sTitle: Title, private supabase: SupabaseService, private sComments: CommentsService,
+    private toastService: ToastService, private sSermons: SermonsService) {
     this.newComment = new Comment();
   }
 
@@ -22,6 +27,9 @@ export class AniversaryComponent implements OnInit {
     this.sTitle.setTitle(`100 Aniversario`);
     this.sComments.getComments().then(res => {
       if (res.data) this.comments = res.data.map((c: any) => new Comment(c))
+    });
+    this.sSermons.getSongsOfSermon(313).then((res: any) => {
+      this.songs = res.data.map((s: any) => new Song(s.songs));
     });
   }
 

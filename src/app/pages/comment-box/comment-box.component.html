@@ -2,11 +2,8 @@
     <article class="media">
         <div class="media-content">
             <div class="content">
-                <p>
-                    <strong>{{comment.author}}</strong>
-                    <br />
-                    {{comment.message}}
-                </p>
+                <small>{{comment.message}}</small>
+                <p class="has-text-weight-bold" style="margin-top: 5px;">{{comment.author}}</p>
             </div>
         </div>
         <div *ngIf="auth" class="media-right">

@@ -2,3 +2,39 @@
     background: linear-gradient(180deg, #400d45 50%, #e77b79 90%, #f2c59d 100%)
 }
 
+.hero-body .title {
+    font-family: Hello;
+    font-size: 70px;
+    text-shadow: 2px 2px 5px #e8b359;
+    margin-bottom: 20px;
+}
+
+.subtitle {
+    font-size: 26px;
+    font-family: inherit;
+}
+
+.dot {
+    padding: 0 10px;
+    font-size: 20px;
+}
+
+.comment-item {
+    margin: 0;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    margin-bottom: 10px;
+    break-inside: avoid;
+}
+
+.comments-gallery {
+    column-count: 3;
+    column-gap: 10px;
+}
+
+
+@media (max-width: 1022px) {
+    .comments-gallery {
+        column-count: 1;
+    }
+}
