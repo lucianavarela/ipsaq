@@ -1,4 +1,4 @@
-import { Component, OnChanges, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Sermon } from 'src/app/classes/sermon';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 

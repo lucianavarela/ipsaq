@@ -1,5 +1,5 @@
 .main {
-    background: linear-gradient(180deg, #400d45 50%, #e77b79 90%, #f2c59d 100%)
+    background: linear-gradient(180deg, #422345 50%, #e77b79 90%, #f2c59d 100%)
 }
 
 .hero-body .title {
@@ -36,5 +36,41 @@
 @media (max-width: 1022px) {
     .comments-gallery {
         column-count: 1;
+    }
+}
+
+
+.box.comments {
+    margin-bottom: 2rem;
+    padding: 7px;
+
+    button {
+        border-top-right-radius: 0;
+        border-bottom-left-radius: 4px;
+    }
+}
+
+.box.comments button {
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 4px !important;
+}
+
+.box.comments>.field {
+    border-top: 1px solid #ddd;
+    border-radius: 0;
+}
+
+.box.comments textarea, .box.comments input {
+    border: none;
+    box-shadow: none;
+
+    :hover {
+        border: none;
+        box-shadow: none;
+    }
+
+    :active {
+        border: none;
+        box-shadow: none;
     }
 }

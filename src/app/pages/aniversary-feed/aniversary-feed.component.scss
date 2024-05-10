@@ -1,0 +1,69 @@
+.main {
+    background: linear-gradient(180deg, #422345 50%, #e77b79 90%, #f2c59d 100%);
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.logo {
+    position: absolute;
+    right: 30px;
+    top: 30px;
+
+    img {
+        filter: drop-shadow(2px 2px 4px rgba(232, 179, 89, 0.6));
+        height: 90px;
+    }
+}
+
+.qr.box {
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    padding: 2px;
+
+    img {
+        height: 120px;
+    }
+}
+
+.hero-body .title {
+    font-family: Hello;
+    font-size: 70px;
+    text-shadow: 2px 2px 5px #e8b359;
+    margin-bottom: 20px;
+}
+
+.subtitle {
+    font-size: 26px;
+    font-family: inherit;
+}
+
+.dot {
+    padding: 0 10px;
+    font-size: 20px;
+}
+
+.column {
+    display: flex;
+    align-items: center;
+}
+
+.comment-item {
+    margin: 0;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    margin-bottom: 10px;
+    break-inside: avoid;
+}
+
+.comments-gallery {
+    column-count: 3;
+    column-gap: 10px;
+}
+
+@media (max-width: 1022px) {
+    .comments-gallery {
+        column-count: 1;
+    }
+}

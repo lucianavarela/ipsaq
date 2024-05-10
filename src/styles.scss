@@ -4,31 +4,34 @@
   font-family: 'Nunito';
   src: url('./assets/fonts/Nunito/Nunito-VariableFont_wght.ttf');
 }
+
 @font-face {
   font-family: 'Abril Fatface';
   src: url('./assets/fonts/Abril_Fatface/AbrilFatface-Regular.ttf');
 }
+
 @font-face {
   font-family: 'Righteous';
   src: url('./assets/fonts/Righteous/Righteous-Regular.ttf');
 }
+
 @font-face {
   font-family: 'Hello';
   src: url('./assets/fonts/Hello/Hello.ttf');
 }
+
 @font-face {
   font-family: 'Mitta Sweety';
   src: url('./assets/fonts/Mitta_Sweety/MittaSweety.ttf');
 }
 
 body {
-  min-height: calc(100vh - 122px);
   display: flex;
   flex-direction: column
 }
 
 app-root {
-  min-height: calc(100vh - 122px);
+  min-height: calc(100vh - 112px);
   display: flex;
   flex-direction: column
 }
@@ -167,7 +170,23 @@ tr {
 
 html.has-navbar-fixed-top,
 body.has-navbar-fixed-top {
+  padding-top: 0;
+}
+
+html.has-navbar-fixed-top:not(:has(.hidden-frame)),
+body.has-navbar-fixed-top:not(:has(.hidden-frame)) {
   padding-top: 112px !important;
+  min-height: calc(100vh - 112px);
+}
+
+html.has-navbar-fixed-top:has(.hidden-frame),
+body.has-navbar-fixed-top:has(.hidden-frame) {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .mat-mdc-slide-toggle {

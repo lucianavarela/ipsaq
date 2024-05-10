@@ -1,0 +1,9 @@
+<div mat-dialog-title class="dialog-title has-text-centered">
+    <div style="margin-bottom:1rem;">
+        <h2>{{song.beginning}}</h2>
+        <i style="font-size: 15px; color:#818181;" *ngIf="song.title && song.beginning != song.title">{{song.title}}</i>
+    </div>
+    <div>
+        <small style="white-space: pre-wrap; font-size: 15px;">{{song.lyrics}}</small>
+    </div>
+</div>

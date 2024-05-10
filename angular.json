@@ -33,9 +33,7 @@
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "./node_modules/material-symbols/_core.scss",
               "./node_modules/bootstrap/scss/bootstrap.scss",
-              "node_modules/bulma/css/bulma.min.css",
-              "src/styles.scss",
-              "src/bulma.scss"
+              "src/styles.scss"
             ],
             "scripts": []
           },
@@ -120,9 +118,7 @@
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "./node_modules/material-symbols/_core.scss",
               "./node_modules/bootstrap/scss/bootstrap.scss",
-              "node_modules/bulma/css/bulma.min.css",
-              "src/styles.scss",
-              "src/bulma.scss"
+              "src/styles.scss"
             ],
             "scripts": []
           }

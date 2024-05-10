@@ -1,9 +1,9 @@
-<div class="box">
+<div class="box" *ngIf="comment">
     <article class="media">
-        <div class="media-content">
+        <div class="media-content" [class.large-font]="size == 'large'">
             <div class="content">
-                <small>{{comment.message}}</small>
-                <p class="has-text-weight-bold" style="margin-top: 5px;">{{comment.author}}</p>
+                <small *ngIf="comment.message">{{comment.message}}</small>
+                <p *ngIf="comment.author" class="has-text-weight-bold" style="margin-top: 5px; font-style: italic;">- {{comment.author}}</p>
             </div>
         </div>
         <div *ngIf="auth" class="media-right">

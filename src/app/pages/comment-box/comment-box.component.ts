@@ -10,6 +10,7 @@ import { ToastService } from 'src/app/services/toast.service';
 })
 export class CommentBoxComponent {
   @Input('comment') comment!: Comment;
+  @Input('size') size: string = 'normal';
   @Input('can-delete') auth!: boolean;
   @Output() commentDeleted = new EventEmitter<number>();
 

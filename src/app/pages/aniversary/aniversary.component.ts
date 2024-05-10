@@ -7,6 +7,8 @@ import { CommentsService } from 'src/app/services/comments.service';
 import { SermonsService } from 'src/app/services/sermons.service';
 import { SupabaseService } from 'src/app/services/supabase.service';
 import { ToastService } from 'src/app/services/toast.service';
+import { LyricsDialogComponent } from '../lyrics-dialog/lyrics-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-aniversary',
@@ -14,13 +16,15 @@ import { ToastService } from 'src/app/services/toast.service';
   styleUrls: ['./aniversary.component.scss']
 })
 export class AniversaryComponent implements OnInit {
+  isMobile = false;
   comments: Comment[] = [];
   newComment!: Comment;
   songs: Song[] = [];
 
   constructor(private sTitle: Title, private supabase: SupabaseService, private sComments: CommentsService,
-    private toastService: ToastService, private sSermons: SermonsService) {
+    private toastService: ToastService, private sSermons: SermonsService, public dialog: MatDialog) {
     this.newComment = new Comment();
+    this.isMobile = window.innerWidth <= 767;
   }
 
   ngOnInit(): void {
@@ -38,17 +42,28 @@ export class AniversaryComponent implements OnInit {
   }
 
   saveComment() {
-    let commentToAdd: any = structuredClone(this.newComment);
-    delete commentToAdd.id
-    delete commentToAdd.created_at
-    this.sComments.createComment(commentToAdd).then((res: any) => {
-      this.toastService.showSuccessToast("Exito!", "Comentario agregado!");
-      this.comments.unshift(new Comment(res.data[0]));
-      this.newComment = new Comment();
-    });
+    if (this.newComment.message) {
+      let commentToAdd: any = structuredClone(this.newComment);
+      delete commentToAdd.id
+      delete commentToAdd.created_at
+      this.sComments.createComment(commentToAdd).then((res: any) => {
+        this.toastService.showSuccessToast("Exito!", "Comentario agregado!");
+        this.comments.unshift(new Comment(res.data[0]));
+        this.newComment = new Comment();
+      });
+    } else {
+      this.toastService.showErrorToast("Error", "El mensaje está vacio!");
+    }
   }
 
   removeComment(id: number) {
     this.comments = this.comments.filter(c => c.id != id);
+  }
+
+  openLyrics(song: Song) {
+    this.dialog.open(LyricsDialogComponent, {
+      width: this.isMobile ? '70%' : '40%', height: '80%',
+      data: { song: song }
+    });
   }
 }

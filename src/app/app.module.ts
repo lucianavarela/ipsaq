@@ -54,6 +54,8 @@ import { BackButtonComponent } from './utils/back-button/back-button.component';
 import { ScheduleComponent } from './pages/schedule/schedule.component';
 import { AniversaryComponent } from './pages/aniversary/aniversary.component';
 import { CommentBoxComponent } from './pages/comment-box/comment-box.component';
+import { LyricsDialogComponent } from './pages/lyrics-dialog/lyrics-dialog.component';
+import { AniversaryFeedComponent } from './pages/aniversary-feed/aniversary-feed.component';
 
 registerLocaleData(localeEsAr, 'es-Ar');
 
@@ -90,7 +92,9 @@ registerLocaleData(localeEsAr, 'es-Ar');
     BackButtonComponent,
     ScheduleComponent,
     AniversaryComponent,
-    CommentBoxComponent
+    CommentBoxComponent,
+    LyricsDialogComponent,
+    AniversaryFeedComponent
   ],
   imports: [
     BrowserAnimationsModule,
