@@ -6,18 +6,26 @@ export class Sermon {
     public director?: User | null;
     public preacher?: User | null;
     public title?: string;
-    public date?: Date;
+    public date?: string;
+    public time?: string;
     public link_youtube?: string;
     public bible_verse?: string;
     public series?: Series;
     public chapter_number?: number;
     public ids_band?: number[] = [];
 
-    constructor(obj?: {id: number, title: string, date: Date, id_director: any, id_preacher: any, 
-        link_youtube: string, bible_verse: string, related_series: any, chapter_number: number, sermon_band: any[]}) {
+    constructor(obj?: {id: number, title: string, id_director: any, id_preacher: any, link_youtube: string, bible_verse: string,
+        related_series: any, chapter_number: number, sermon_band: any[], datetime?: string, date?: string, time?: string}) {
         this.id = obj?.id;
         this.title = obj?.title;
-        this.date = obj?.date;
+        if (obj?.datetime) {
+            const values = obj?.datetime.split('T');
+            this.date = values[0];
+            this.time = values[1].split('+')[0];
+        } else {
+            this.date = obj?.date ?? '';
+            this.time = obj?.time ?? '';
+        }
         this.link_youtube = obj?.link_youtube;
         this.bible_verse = obj?.bible_verse;
         this.series = obj?.related_series ? new Series({id: Number(obj?.related_series.id), name:obj?.related_series.name}) : undefined;

@@ -43,7 +43,6 @@ export class SermonsComponent implements OnInit {
   }
 
   initializeTable() {
-    console.log('2',this.sermons)
     this.dataSource = new MatTableDataSource(this.sermons);
     this.dataSource.sort = this.sort;
     this.dataSource.filterPredicate = (data: Sermon, filter: string): boolean => {

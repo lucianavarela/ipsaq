@@ -1,5 +1,5 @@
 .main {
-    background: linear-gradient(180deg, #422345 50%, #e77b79 90%, #f2c59d 100%);
+    background: linear-gradient(180deg, #121212 10%, #422345 60%, #e77b79 100%);
     height: 100%;
     width: 100%;
     overflow: hidden;
@@ -8,10 +8,10 @@
 .logo {
     position: absolute;
     right: 30px;
-    top: 30px;
+    bottom: 30px;
 
     img {
-        filter: drop-shadow(2px 2px 4px rgba(232, 179, 89, 0.6));
+        filter: drop-shadow(2px 2px 4px rgba(54, 45, 28, 0.6));
         height: 90px;
     }
 }
@@ -21,6 +21,7 @@
     left: 20px;
     bottom: 20px;
     padding: 2px;
+    filter: drop-shadow(2px 2px 4px rgba(71, 64, 50, 0.6));
 
     img {
         height: 120px;
@@ -30,7 +31,7 @@
 .hero-body .title {
     font-family: Hello;
     font-size: 70px;
-    text-shadow: 2px 2px 5px #e8b359;
+    text-shadow: 2px 2px 5px #ffab1c;;
     margin-bottom: 20px;
 }
 

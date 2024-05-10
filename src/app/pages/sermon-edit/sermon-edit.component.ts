@@ -23,6 +23,7 @@ import { SermonBand } from "src/app/classes/sermon-band";
 export class SermonEditComponent implements OnInit {
   @ViewChild(NgSelectComponent) ngSelectComponent!: NgSelectComponent;
   sermon!: Sermon;
+  datetime: string = '';
   series: Series[] = [];
   songs: SermonSong[] = [];
   allPreachers: User[] = [];
@@ -49,7 +50,14 @@ export class SermonEditComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ sermon }) => {
       if (sermon) {
         this.sermon = new Sermon(sermon.data);
-        this.sTitle.setTitle(`Editar Culto ${this.sermon.title ? '"' + this.sermon.title + '"' : this.sermon.date ? 'del ' + new Date(this.sermon.date).toLocaleDateString() : ''}`);
+        
+        if (this.sermon.date && this.sermon.time) {
+          const timeValue = this.sermon.time.split(':', 2);
+          this.datetime = `${this.sermon.date}T${Number(timeValue[0])-3}:${timeValue[1]}`
+        }
+
+        this.sTitle.setTitle(`Editar Culto ${this.sermon.title ? '"' + this.sermon.title + '"' : this.sermon.date ? 'del ' + 
+        new Date(this.sermon.date).toLocaleDateString() : ''}`);
         this.getUsers(sermon.data.sermon_band);
         this.sSong.getSongs().then((res: any) => {
           this.allSongs = res.data
@@ -117,17 +125,9 @@ export class SermonEditComponent implements OnInit {
   }
 
   async addSermon() {
-    if (this.sermon.date) {
+    if (!!this.datetime) {
       try {
-        let sermon: any = structuredClone(this.sermon);
-        sermon.related_series = this.sermon.series?.id ?? null;
-        if (!sermon.related_series) sermon.chapter_number = null;
-        sermon.id_preacher = this.sermon.preacher?.id ?? null;
-        sermon.id_director = this.sermon.director?.id ?? null;
-        delete sermon.series
-        delete sermon.preacher
-        delete sermon.director
-        delete sermon.ids_band;
+        const sermon = this.formatSermonToSave();
         delete sermon.id;
         this.sSermons
           .createSermon(sermon)
@@ -147,17 +147,9 @@ export class SermonEditComponent implements OnInit {
   }
 
   async updateSermon() {
-    if (this.sermon.date) {
+    if (!!this.datetime) {
       try {
-        let sermon: any = structuredClone(this.sermon);
-        sermon.related_series = this.sermon.series?.id ?? null;
-        if (!sermon.related_series) sermon.chapter_number = null;
-        sermon.id_preacher = this.sermon.preacher?.id ?? null;
-        sermon.id_director = this.sermon.director?.id ?? null;
-        delete sermon.series
-        delete sermon.preacher
-        delete sermon.director
-        delete sermon.ids_band;
+        const sermon = this.formatSermonToSave();
         this.sSermons
           .updateSermon(sermon)
           .then((res: any) => {
@@ -176,6 +168,26 @@ export class SermonEditComponent implements OnInit {
     } else {
       this.toastService.showErrorToast("Error", "El culto debe tener una fecha agregada.");
     }
+  }
+
+  formatSermonToSave() {
+    let sermon: any = structuredClone(this.sermon);
+    
+    const dateValue = this.datetime.toString().split('T');
+    const timeValue = dateValue[1].split(':', 2);
+    sermon.datetime = `${dateValue[0]}T${Number(timeValue[0])+3}:${timeValue[1]}+00:00`
+
+    sermon.related_series = this.sermon.series?.id ?? null;
+    if (!sermon.related_series) sermon.chapter_number = null;
+    sermon.id_preacher = this.sermon.preacher?.id ?? null;
+    sermon.id_director = this.sermon.director?.id ?? null;
+    delete sermon.time
+    delete sermon.date
+    delete sermon.series
+    delete sermon.preacher
+    delete sermon.director
+    delete sermon.ids_band;
+    return sermon;
   }
 
   storeBand() {

@@ -4,6 +4,7 @@ import { SermonsService } from 'src/app/services/sermons.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { DatePipe } from '@angular/common';
+import Utils from 'src/app/utils/utils';
 
 @Component({
   selector: 'app-home',
@@ -20,12 +21,8 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.sTitle.setTitle(`Presbi Quilmes`);
 
-    const dateToday = new Date();
-    this.today = new DatePipe("en-US").transform(dateToday, 'yyyy-MM-dd');
-
-    const dateTomorrow = new Date();
-    dateTomorrow.setDate(dateTomorrow.getDate() + 1);
-    this.tomorrow = new DatePipe("en-US").transform(dateTomorrow, 'yyyy-MM-dd');
+    this.today = Utils.getTheDate('today');
+    this.tomorrow = Utils.getTheDate('tomorrow');
 
     if (this.route.root.snapshot.fragment && this.route.root.snapshot.fragment.indexOf('type=recovery') > -1) {
       let access_token = this.route.root.snapshot.fragment.match(/access_token\=([^&]+)/);

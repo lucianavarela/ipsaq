@@ -18,25 +18,30 @@ export class SermonsService {
   }
 
   getUpcomingSermon() {
+    let date = new Date().toISOString().split('T')[0];
     return this.sSupabase.get(this.table, '*, related_series!left(*)')
       .filter('link_youtube', 'not.is', 'null')
-      .eq('date', new Date().toISOString().split('T')[0])
-      .order('date', { ascending: false })
+      .gte('datetime', date)
+      .order('datetime')
       .limit(1);
   }
 
   getLastsSermons() {
-    return this.sSupabase.get(this.table, '*, related_series!left(*)').filter('link_youtube', 'not.is', 'null').order('date', { ascending: false }).limit(3);
+    return this.sSupabase.get(this.table, '*, related_series!left(*)')
+    .filter('link_youtube', 'not.is', 'null')
+    .neq('link_youtube', '')
+    .order('datetime', { ascending: false })
+    .limit(3);
   }
 
   getSermons() {
-    return this.sSupabase.get(this.table, '*, related_series!left(*), id_preacher(nickname), id_director(nickname)').order('date', { ascending: false });
+    return this.sSupabase.get(this.table, '*, related_series!left(*), id_preacher(nickname), id_director(nickname)').order('datetime', { ascending: false });
   }
 
   getSermonsWithBand() {
     let date = new Date();
     date.setFullYear(date.getFullYear() - 1);
-    return this.sSupabase.get(this.table, '*, sermon_band(*)').gt('date', date.toISOString().split('T')[0]).order('date', { ascending: false });
+    return this.sSupabase.get(this.table, '*, sermon_band(*)').gt('datetime', date.toISOString().split('T')[0]).order('datetime', { ascending: false });
   }
 
   getSongsOfSermon(id: number) {

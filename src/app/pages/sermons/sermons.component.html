@@ -41,9 +41,7 @@
           *ngIf="sermon.series"
           [routerLink]="['/series', sermon.series.id]"
           class="tag series"
-        >
-          {{ sermon.series.name }} #{{ sermon.chapter_number }}
-        </p>
+        >{{ sermon.series.name }} #{{ sermon.chapter_number }}</p>
         <a
           class="item-link"
           style="color: inherit"

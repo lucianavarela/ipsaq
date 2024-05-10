@@ -67,11 +67,11 @@ export class AppComponent implements OnInit {
       this.upcomingSermonSearched = true;
       if (res?.data.length) {
         this.upcomingSermon = new Sermon(res.data[0]);
-        let today = new Date();
-        if (this.upcomingSermon &&
-          this.upcomingSermon.date &&
+        const nowHour = new Date().getUTCHours();
+        const sermonHour = Number(this.upcomingSermon?.time?.split(':')[0]) ?? '';
+        if (this.upcomingSermon && this.upcomingSermon.date && sermonHour &&
           this.upcomingSermon.date.toString() == Utils.getTheDate('today') &&
-          ['14', '15'].indexOf(today.toISOString().split('T')[1].slice(0, 2)) > -1
+          (nowHour == sermonHour || nowHour == sermonHour + 1)
         ) {
           this.sermonIsLive = true;
           this.openSermon();

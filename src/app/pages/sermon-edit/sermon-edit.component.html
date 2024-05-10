@@ -36,7 +36,7 @@
             />
           </p>
           <p class="control">
-            <input class="input" type="datetime-local" [(ngModel)]="sermon.date" />
+            <input class="input" type="datetime-local" [(ngModel)]="datetime"/>
           </p>
         </div>
       </div>
@@ -47,7 +47,7 @@
         <label class="label">Encargados</label>
       </div>
       <div class="field-body">
-        <div class="field is-grouped">
+        <div class="field is-grouped is-grouped-multiline">
           <p class="control is-expanded is-fullwidth has-icons-left">
             <ng-select
               [items]="allDirectors"

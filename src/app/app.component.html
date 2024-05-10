@@ -10,13 +10,13 @@
     </a>
   </div>
   <div class="navbar-menu" [class.is-active]="menuDisplayed">
+    <a *ngIf="isLoggedIn(); then logout else login"></a>
     <div class="navbar-item" *ngIf="sermonIsLive">
       <a (click)="openSermon()">
         <span class="tag is-danger has-text-white live">
           <span class="icon"><i class="fa-solid fa-2xs fa-circle"></i></span>EN VIVO</span>
       </a>
     </div>
-    <a *ngIf="isLoggedIn(); then logout else login"></a>
     <div class="navbar-start">
       <a class="navbar-item" [routerLink]="['/home']">Inicio</a>
       <div class="navbar-item has-dropdown" [class.is-active]="dropdownDisplayed=='info'">
