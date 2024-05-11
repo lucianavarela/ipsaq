@@ -34,7 +34,9 @@ export class AppComponent implements OnInit {
   constructor(private readonly supabase: SupabaseService, private sSermon: SermonsService,
     public dialog: MatDialog, private renderer: Renderer2, private router: Router, private sToast: ToastService) {
     this.isMobile = window.innerWidth <= 767;
+    
     this.hideHeaderFooter = !!(window.location.pathname == '/aniversario/feed');
+
     this.renderer.listen('window', 'click', (e: Event) => {
       if (e.target !== this.infoDropdown.nativeElement && e.target !== this.sermonsDropdown.nativeElement &&
         e.target !== this.songsDropdown.nativeElement && e.target !== this.hamburguer.nativeElement) {
@@ -74,7 +76,7 @@ export class AppComponent implements OnInit {
           (nowHour == sermonHour || nowHour == sermonHour + 1)
         ) {
           this.sermonIsLive = true;
-          this.openSermon();
+          if (!window.location.pathname.includes('aniversario')) this.openSermon();
         }
       }
     });

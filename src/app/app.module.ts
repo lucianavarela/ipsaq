@@ -56,6 +56,7 @@ import { AniversaryComponent } from './pages/aniversary/aniversary.component';
 import { CommentBoxComponent } from './pages/comment-box/comment-box.component';
 import { LyricsDialogComponent } from './pages/lyrics-dialog/lyrics-dialog.component';
 import { AniversaryFeedComponent } from './pages/aniversary-feed/aniversary-feed.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 registerLocaleData(localeEsAr, 'es-Ar');
 
@@ -113,7 +114,8 @@ registerLocaleData(localeEsAr, 'es-Ar');
     MatIconModule,
     MatButtonModule,
     MatSlideToggleModule,
-    MatChipsModule
+    MatChipsModule,
+    MatPaginatorModule
   ],
   providers: [NoAccentsPipe,
     { provide: LOCALE_ID, useValue: 'es-Ar' }],

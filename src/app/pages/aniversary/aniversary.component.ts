@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Comment } from 'src/app/classes/comment';
 import { Sermon } from 'src/app/classes/sermon';
@@ -9,17 +9,24 @@ import { SupabaseService } from 'src/app/services/supabase.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { LyricsDialogComponent } from '../lyrics-dialog/lyrics-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
+import { PaginatorIntl } from 'src/app/services/paginatorIntl.service';
 
 @Component({
   selector: 'app-aniversary',
   templateUrl: './aniversary.component.html',
-  styleUrls: ['./aniversary.component.scss']
+  styleUrls: ['./aniversary.component.scss'],
+  providers: [{ provide: MatPaginatorIntl, useClass: PaginatorIntl }],
 })
 export class AniversaryComponent implements OnInit {
+  @ViewChild('comments_gallery') commentsGalleryRef!: ElementRef;
   isMobile = false;
   comments: Comment[] = [];
+  currentCommentsToShow: Comment[] = [];
   newComment!: Comment;
   songs: Song[] = [];
+  currentPage = 0;
+  pageSize = 5;
 
   constructor(private sTitle: Title, private supabase: SupabaseService, private sComments: CommentsService,
     private toastService: ToastService, private sSermons: SermonsService, public dialog: MatDialog) {
@@ -30,7 +37,10 @@ export class AniversaryComponent implements OnInit {
   ngOnInit(): void {
     this.sTitle.setTitle(`100 Aniversario`);
     this.sComments.getComments().then(res => {
-      if (res.data) this.comments = res.data.map((c: any) => new Comment(c))
+      if (res.data) {
+        this.comments = res.data.map((c: any) => new Comment(c));
+        this.handlePageEvent();
+      }
     });
     this.sSermons.getSongsOfSermon(313).then((res: any) => {
       this.songs = res.data.map((s: any) => new Song(s.songs));
@@ -65,5 +75,11 @@ export class AniversaryComponent implements OnInit {
       width: this.isMobile ? '70%' : '40%', height: '80%',
       data: { song: song }
     });
+  }
+
+  handlePageEvent(pageEvent?: PageEvent) {
+    if (pageEvent) this.currentPage = pageEvent.pageIndex;
+    this.currentCommentsToShow = this.comments.slice(this.currentPage * this.pageSize, this.currentPage * this.pageSize + this.pageSize);
+    if (pageEvent) this.commentsGalleryRef.nativeElement.scrollIntoView();
   }
 }

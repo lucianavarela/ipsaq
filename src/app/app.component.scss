@@ -48,16 +48,27 @@ footer {
 }
 
 @media (max-width: 1022px) {
-  .navbar-brand .logo {
+  .navbar-brand .logo, .navbar-brand .mobile.live-tag {
     display: block !important;
+  }
+  
+  .logo img {
+    height: 60px !important;
   }
 }
 
-.live {
-  background-color: #ff0000 !important;
+.live-tag {
+  background-color: #fb3648 !important;
+}
+
+.live-tag.mobile {
+  position: absolute;
+  right: 1rem;
+}
+
+.live-tag:not(:has(.mobile)) {
   padding-left: 4px !important;
   margin-right: 10px;
-  vertical-align: top;
 }
 
 @media (max-width: 1022px) {

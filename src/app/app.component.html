@@ -1,4 +1,5 @@
-<header [hidden]="hideHeaderFooter" class="navbar is-fixed-top" [class.hidden-frame]="hideHeaderFooter" [class.for-desktop]="!isMobile">
+<header [hidden]="hideHeaderFooter" class="navbar is-fixed-top" [class.hidden-frame]="hideHeaderFooter"
+  [class.for-desktop]="!isMobile">
   <div class="navbar-brand " (click)="toggleNavbar()">
     <a #hamburguer class="navbar-burger burger" [class.is-active]="menuDisplayed" data-target="navMenu">
       <span></span>
@@ -8,13 +9,16 @@
     <a class="logo" href="/" style="display: none">
       <img src="assets/new-logo.svg" />
     </a>
+    <div class="tag mobile live-tag is-danger has-text-white" *ngIf="sermonIsLive" style="display: none"
+      (click)="openSermon()">
+      <span class="icon"><i class="fa-solid fa-2xs fa-circle"></i></span>EN VIVO
+    </div>
   </div>
   <div class="navbar-menu" [class.is-active]="menuDisplayed">
     <a *ngIf="isLoggedIn(); then logout else login"></a>
     <div class="navbar-item" *ngIf="sermonIsLive">
-      <a (click)="openSermon()">
-        <span class="tag is-danger has-text-white live">
-          <span class="icon"><i class="fa-solid fa-2xs fa-circle"></i></span>EN VIVO</span>
+      <a class="tag is-danger has-text-white live-tag" (click)="openSermon()">
+        <span class="icon"><i class="fa-solid fa-2xs fa-circle"></i></span>EN VIVO
       </a>
     </div>
     <div class="navbar-start">
@@ -78,7 +82,8 @@
   <div class="navbar-item">
     <span matTooltip="Sesión iniciada con el email {{loggedUser?.email}}" matTooltipPosition="above" class="icon">
       <i class="fa-solid fa-user-check"></i></span>
-    <a matTooltip="Cerrar sesión" matTooltipPosition="right" (click)="logOut()"><span class="icon" style="margin-left: 5px;">
+    <a matTooltip="Cerrar sesión" matTooltipPosition="right" (click)="logOut()"><span class="icon"
+        style="margin-left: 5px;">
         <i class="fa-solid fa-right-from-bracket"></i></span></a>
   </div>
 </ng-template>

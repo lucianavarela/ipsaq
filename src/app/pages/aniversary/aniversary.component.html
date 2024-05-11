@@ -8,7 +8,12 @@
     <div class="has-text-white has-text-centered">
         <i>"Habiendo amado a los suyos que estaban en el mundo, los amó hasta el fin."</i>
         <p class="has-text-weight-bold">Juan 13:1</p>
+        <div class="logo">
+            <img src="assets/100-logo.svg">
+        </div>
     </div>
+
+
     <section class="section">
         <div class="columns is-centered">
             <div class="column is-half-desktop is-half-widescreen is-two-thirds-tablet is-one-third-fullhd">
@@ -27,9 +32,11 @@
                 </div>
             </div>
         </div>
-        <div class="comments-gallery">
-            <app-comment-box class="comment-item" *ngFor="let comment of comments" [comment]="comment"
-                [can-delete]="isLoggedIn()" (commentDeleted)="removeComment($event)"></app-comment-box>
+        <div class="has-text-centered" #comments_gallery style="margin-bottom: 1.5rem;">
+            <h1 class="title is-3 has-text-white">Comentarios</h1>
+        </div>
+        <div class="comments-gallery" *ngIf="comments">
+            <div *ngIf="!isMobile; then desktopComments else mobileComments"></div>
         </div>
     </section>
 
@@ -45,7 +52,34 @@
     <section class="section has-text-centered">
         <h1 class="title is-2 has-text-white">Fotos</h1>
         <p class="has-text-white">Subí las fotos que saques durante esta celebración en Instagram y agregá el hashtag
-            <strong class="has-text-white">#presbiquilmes</strong>!</p>
-        <iframe src="https://widget.taggbox.com/154854" style="width:100%;height:400px;border:none;"></iframe>
+            <strong class="has-text-white">#presbiquilmes100años</strong>!
+        </p>
+        <iframe src="https://widget.taggbox.com/154854" style="width:100%;height:300px;border:none;"></iframe>
+    </section>
+
+    <section class="section has-text-centered history">
+        <h1 class="title is-2 has-text-white">Historia</h1>
+        <a class="card" [routerLink]="['/quienes-somos/historia']">
+            <div class="card-image">
+                <figure class="image">
+                    <img src="assets/iglesia/frente.jpg">
+                </figure>
+            </div>
+            <div class="card-content">
+                <strong class="content">Conocé cómo se fundó nuestra iglesia local!</strong>
+            </div>
+        </a>
     </section>
 </div>
+
+<ng-template #desktopComments>
+    <app-comment-box class="comment-item" *ngFor="let comment of comments" [comment]="comment"
+        [can-delete]="isLoggedIn()" (commentDeleted)="removeComment($event)"></app-comment-box>
+</ng-template>
+
+<ng-template #mobileComments>
+    <app-comment-box class="comment-item" *ngFor="let comment of currentCommentsToShow" [comment]="comment" [can-delete]="isLoggedIn()"
+    (commentDeleted)="removeComment($event)"></app-comment-box>
+    <mat-paginator [length]="comments.length" [pageSize]="5" aria-label="Pagina de comentarios" hidePageSize="true" [pageIndex]="currentPage" (page)="handlePageEvent($event)">
+    </mat-paginator>
+</ng-template>

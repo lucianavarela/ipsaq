@@ -175,8 +175,17 @@ body.has-navbar-fixed-top {
 
 html.has-navbar-fixed-top:not(:has(.hidden-frame)),
 body.has-navbar-fixed-top:not(:has(.hidden-frame)) {
-  padding-top: 112px !important;
+  padding-top: 112px;
   min-height: calc(100vh - 112px);
+}
+
+@media (max-width: 1022px) {
+
+  html.has-navbar-fixed-top:not(:has(.hidden-frame)),
+  body.has-navbar-fixed-top:not(:has(.hidden-frame)) {
+    padding-top: 86px;
+    min-height: calc(100vh - 86px);
+  }
 }
 
 html.has-navbar-fixed-top:has(.hidden-frame),
