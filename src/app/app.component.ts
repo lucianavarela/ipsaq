@@ -76,7 +76,6 @@ export class AppComponent implements OnInit {
           (nowHour == sermonHour || nowHour == sermonHour + 1)
         ) {
           this.sermonIsLive = true;
-          if (!window.location.pathname.includes('aniversario')) this.openSermon();
         }
       }
     });

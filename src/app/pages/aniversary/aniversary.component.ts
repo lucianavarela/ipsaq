@@ -39,7 +39,7 @@ export class AniversaryComponent implements OnInit {
     this.sComments.getComments().then(res => {
       if (res.data) {
         this.comments = res.data.map((c: any) => new Comment(c));
-        this.handlePageEvent();
+        this.currentCommentsToShow = this.comments.slice(this.currentPage * this.pageSize, this.currentPage * this.pageSize + this.pageSize);
       }
     });
     this.sSermons.getSongsOfSermon(313).then((res: any) => {
@@ -60,6 +60,8 @@ export class AniversaryComponent implements OnInit {
         this.toastService.showSuccessToast("Exito!", "Comentario agregado!");
         this.comments.unshift(new Comment(res.data[0]));
         this.newComment = new Comment();
+        this.currentPage = 0;
+        this.handlePageEvent();
       });
     } else {
       this.toastService.showErrorToast("Error", "El mensaje está vacio!");
@@ -68,6 +70,7 @@ export class AniversaryComponent implements OnInit {
 
   removeComment(id: number) {
     this.comments = this.comments.filter(c => c.id != id);
+    this.currentCommentsToShow = this.currentCommentsToShow.filter(c => c.id != id);
   }
 
   openLyrics(song: Song) {
@@ -80,6 +83,6 @@ export class AniversaryComponent implements OnInit {
   handlePageEvent(pageEvent?: PageEvent) {
     if (pageEvent) this.currentPage = pageEvent.pageIndex;
     this.currentCommentsToShow = this.comments.slice(this.currentPage * this.pageSize, this.currentPage * this.pageSize + this.pageSize);
-    if (pageEvent) this.commentsGalleryRef.nativeElement.scrollIntoView();
+    this.commentsGalleryRef.nativeElement.scrollIntoView();
   }
 }
