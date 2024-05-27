@@ -1,12 +1,51 @@
 .banner {
     height: 70vh;
-    background: url('/assets/bienvenido.png') center center no-repeat;
+    background: url('/assets/background.png') center center no-repeat;
     background-size: cover;
+    
+    h2 {
+        color: #C66550;
+        padding-top: 7.5rem;
+        font-size: 35px;
+        font-family: Nunito;
+        font-weight: 300;
+    }
+
+    .title {
+        padding: 2rem 0 2rem 0;
+        font-family: Mitta Sweety;
+        color: #875E53;
+        font-size: 110px;
+        font-weight: normal;
+        text-shadow: 3px 3px 3px #ad847acc;
+    }
+    
+    .logo {
+        img {
+            filter: drop-shadow(3px 3px 3px rgba(173, 132, 122, 0.8)) opacity(0.7);
+            height: 140px;
+        }
+    }
 }
 
 @media (max-width: 1022px) {
     .banner {
         height: 50vh !important;
+        
+        h2 {
+            padding-top: 3rem;
+            font-size: 20px;
+        }
+
+        .title {
+            padding-top: 1rem;
+            font-size: 65px;
+            padding-bottom: 1rem;
+        }
+
+        .logo img {
+            height: 85px;
+        }
     }
 }
 

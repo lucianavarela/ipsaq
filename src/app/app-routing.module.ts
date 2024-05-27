@@ -116,7 +116,7 @@ const AppRoutes: Routes = [
     ]
   },
   { path: "aniversario", component: AniversaryComponent },
-  { path: "aniversario/feed", component: AniversaryFeedComponent },
+  //{ path: "aniversario/feed", component: AniversaryFeedComponent },
 
   // otherwise redirect to home
   { path: "**", redirectTo: "" },
