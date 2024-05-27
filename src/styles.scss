@@ -45,7 +45,7 @@ h1,
 h2,
 h3 {
   font-family: "Abril Fatface", "Nunito", Roboto, "Helvetica Neue", sans-serif;
-  font-weight: 100;
+  font-weight: 100 !important;
 
   * {
     font-family: inherit;
