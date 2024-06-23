@@ -33,7 +33,7 @@ section.history {
     }
     
     .card-image, .image, img {
-        height: auo;
+        height: auto;
         width: 12rem;
     }
 
@@ -47,8 +47,8 @@ section.history {
 
 @media (max-width: 1022px) {
     .card-image, .image, img {
-        height: 6rem !important;
-        width: -webkit-fill-available !important;
+        height: auto !important;
+        width: 7rem !important;
     }
     
     section.history .card .card-content {
