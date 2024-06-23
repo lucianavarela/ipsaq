@@ -76,6 +76,7 @@ export class AppComponent implements OnInit {
           (nowHour == sermonHour || nowHour == sermonHour + 1)
         ) {
           this.sermonIsLive = true;
+          this.openSermon();
         }
       }
     });

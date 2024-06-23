@@ -1,0 +1,13 @@
+<div class="box comments">
+    <div class="control">
+        <textarea class="textarea" [(ngModel)]="newComment.message" placeholder="Tu mensaje"></textarea>
+    </div>
+    <div class="field has-addons">
+        <div class="control is-expanded">
+            <input class="input" type="text" [(ngModel)]="newComment.author" placeholder="Tu nombre">
+        </div>
+        <div class="control">
+            <button class="button is-danger has-text-white" (click)="saveComment()">Guardar</button>
+        </div>
+    </div>
+</div>

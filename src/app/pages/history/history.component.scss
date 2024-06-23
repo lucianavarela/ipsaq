@@ -3,10 +3,55 @@
     background-size: cover;
 }
 
-.catedral {
+.imagen {
     border-radius: 5px;
     box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 10%), 0 0px 0 1px rgb(10 10 10 / 2%);
-    width: 26rem;
+    width: 12rem;
+    height: auto;
+    margin: 1rem;
+    background: transparent;
+}
+
+.imagen.right {
     float: right;
-    margin: 1rem 0 1rem 2rem;
+    margin-right: 0;
+}
+
+.imagen.left {
+    float: left;
+    margin-left: 0;
+}
+
+section.history {
+    .card {
+        width: 30rem;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin: 0 auto;
+        border-color: #eee;
+    }
+    
+    .card-image, .image, img {
+        height: auo;
+        width: 12rem;
+    }
+
+    img {
+        border-bottom-left-radius: 0.25rem;
+        border-top-left-radius: 0.25rem;
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+    }
+}
+
+@media (max-width: 1022px) {
+    .card-image, .image, img {
+        height: 6rem !important;
+        width: -webkit-fill-available !important;
+    }
+    
+    section.history .card .card-content {
+        padding: 0;
+    }
 }

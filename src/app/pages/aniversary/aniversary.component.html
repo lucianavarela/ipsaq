@@ -13,25 +13,19 @@
         </div>
     </div>
 
-
-    <section class="section">
-        <div class="columns is-centered">
-            <div class="column is-half-desktop is-half-widescreen is-two-thirds-tablet is-one-third-fullhd">
-                <div class="box comments">
-                    <div class="control">
-                        <textarea class="textarea" [(ngModel)]="newComment.message" placeholder="Tu mensaje"></textarea>
-                    </div>
-                    <div class="field has-addons">
-                        <div class="control is-expanded">
-                            <input class="input" type="text" [(ngModel)]="newComment.author" placeholder="Tu nombre">
-                        </div>
-                        <div class="control">
-                            <button class="button is-danger has-text-white" (click)="saveComment()">Guardar</button>
-                        </div>
-                    </div>
+    <section class="section" style="padding-bottom: 0;">
+        <div class="columns">
+            <div class="column is-1"></div>
+            <div class="column">
+                <div class="iframe-container">
+                    <iframe [src]="aniversaryVideo | transformYoutube: true | safeUrl" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
+            <div class="column is-1"></div>
         </div>
+    </section>
+
+    <section class="section">
         <div class="has-text-centered" #comments_gallery style="margin-bottom: 1.5rem;">
             <h1 class="title is-3 has-text-white">Comentarios</h1>
         </div>
@@ -42,7 +36,7 @@
 
     <section class="section has-text-centered">
         <h1 class="title is-2 has-text-white">Alabanzas</h1>
-        <div class="columns is-centered is-multiline">
+        <div class="columns is-centered is-multiline" style="max-width: 80rem; margin: 0 auto;">
             <div class="column is-narrow has-text-white" *ngFor="let song of songs">
                 <button class="button is-light" (click)="openLyrics(song)">{{song.index}} • {{song.beginning}}</button>
             </div>
@@ -72,13 +66,12 @@
 </div>
 
 <ng-template #desktopComments>
-    <app-comment-box class="comment-item" *ngFor="let comment of comments" [comment]="comment"
-        [can-delete]="isLoggedIn()" (commentDeleted)="removeComment($event)"></app-comment-box>
+    <app-comment-box class="comment-item" *ngFor="let comment of comments" [comment]="comment"></app-comment-box>
 </ng-template>
 
 <ng-template #mobileComments>
-    <app-comment-box class="comment-item" *ngFor="let comment of currentCommentsToShow" [comment]="comment" [can-delete]="isLoggedIn()"
-    (commentDeleted)="removeComment($event)"></app-comment-box>
-    <mat-paginator [length]="comments.length" [pageSize]="5" aria-label="Pagina de comentarios" hidePageSize="true" [pageIndex]="currentPage" (page)="handlePageEvent($event)">
+    <app-comment-box class="comment-item" *ngFor="let comment of currentCommentsToShow" [comment]="comment"></app-comment-box>
+    <mat-paginator [length]="comments.length" [pageSize]="5" aria-label="Pagina de comentarios" hidePageSize="true"
+        [pageIndex]="currentPage" (page)="handlePageEvent($event)">
     </mat-paginator>
 </ng-template>

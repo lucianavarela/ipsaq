@@ -20,6 +20,7 @@ import { PaginatorIntl } from 'src/app/services/paginatorIntl.service';
 })
 export class AniversaryComponent implements OnInit {
   @ViewChild('comments_gallery') commentsGalleryRef!: ElementRef;
+  aniversaryVideo = "https://www.youtube.com/watch?v=1mgVp20uEFI";
   isMobile = false;
   comments: Comment[] = [];
   currentCommentsToShow: Comment[] = [];
