@@ -36,6 +36,7 @@ section.history {
         align-items: center;
         margin: 0 auto;
         border-color: #eee;
+        background-color: #e7e4e2;
     }
     
     .card-image, .image, img {
@@ -52,17 +53,22 @@ section.history {
 }
 
 @media (max-width: 1022px) {
+    .card {
+        width: 17rem !important;
+        font-size: 13px;
+    }
+
     .card-image, .image, img {
         height: auto !important;
         width: 7rem !important;
     }
     
     section.history .card .card-content {
-        padding: 0;
+        padding: 0 13px;
     }
     
     .footer-img {
-        width: fit-content;
+        width: fit-content !important;
     }
 
     strong {
