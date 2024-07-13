@@ -26,21 +26,25 @@ export class LoginComponent implements OnInit {
   }
 
   async login(): Promise<void> {
-    try {
-      this.supabase.signIn(this.email, this.pw).then((res: any) => {
-        if (!res.error) {
-          this.supabase.setUser(res.data.user);
-          this.sToast.showSuccessToast("Exito!", "Usuario logueado.");
-          this.router.navigate(["/"]);
-        } else {
-          this.sToast.showErrorToast("Error!", "Credenciales incorrectas :(");
-        }
-      });
-    } catch (error: any) {
-      this.sToast.showErrorToast(
-        "Error al loguearse",
-        error.error_description || error.message
-      );
+    if (this.email && this.pw) {
+      try {
+        this.supabase.signIn(this.email, this.pw).then((res: any) => {
+          if (!res.error) {
+            this.supabase.setUser(res.data.user);
+            this.sToast.showSuccessToast("Exito!", "Usuario logueado.");
+            this.router.navigate(["/"]);
+          } else {
+            this.sToast.showErrorToast("Error!", "Credenciales incorrectas :(");
+          }
+        });
+      } catch (error: any) {
+        this.sToast.showErrorToast(
+          "Error al loguearse",
+          error.error_description || error.message
+        );
+      }
+    } else {
+      this.sToast.showErrorToast("Error!", "El email y la contraseña deben ser ingresados.");
     }
   }
 

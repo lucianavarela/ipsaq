@@ -24,11 +24,6 @@ export class HomeComponent implements OnInit {
     this.today = Utils.getTheDate('today');
     this.tomorrow = Utils.getTheDate('tomorrow');
 
-    if (this.route.root.snapshot.fragment && this.route.root.snapshot.fragment.indexOf('type=recovery') > -1) {
-      let access_token = this.route.root.snapshot.fragment.match(/access_token\=([^&]+)/);
-      if (access_token) this.router.navigate(["/reset"], {queryParams: {'access_token': access_token[1]}})
-    }
-
     this.sSermon.getLastsSermons().then((res:any) => {
       this.lastsSermons = res.data.map((s:any) => new Sermon(s));
     });

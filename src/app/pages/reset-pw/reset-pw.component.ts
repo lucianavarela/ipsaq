@@ -10,7 +10,6 @@ import { ToastService } from 'src/app/services/toast.service';
   styleUrls: ['./reset-pw.component.scss']
 })
 export class ResetPwComponent {
-  token: string = '';
   pw1: string = '';
   pw2: string = '';
 
@@ -19,20 +18,15 @@ export class ResetPwComponent {
 
   ngOnInit() {
     this.sTitle.setTitle(`Resetear contraseña`);
-    this.route.queryParams
-      .subscribe(params => {
-        if (params['access_token']) this.token = params['access_token'];
-      }
-    );
   }
 
   async reset() {
     if (this.pw1 && this.pw2 && this.pw1 == this.pw2) {
       try {
-        this.supabase.resetPW(this.token, this.pw1).then((res: any) => {
+        this.supabase.resetPW(this.pw1).then((res: any) => {
           if (res.user) {
             this.supabase.setUser(res.user);
-            this.sToast.showSuccessToast('Exito!', 'Usuario logueado.');
+            this.sToast.showSuccessToast('Exito!', 'Contraseña restablecida.');
             this.router.navigate(["/"]);
           } else {
             this.sToast.showErrorToast('Error al resetear!', 'No se pudo resetear la contraseña.');

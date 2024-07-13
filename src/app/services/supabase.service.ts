@@ -96,12 +96,13 @@ export class SupabaseService {
     });
   }
 
-  resetPW(access_token: string, new_pw: string) {
+  resetPW(new_pw: string) {
     return this.supabase.auth.updateUser({ password: new_pw });
   }
 
   requestReset(email: string) {
-    const url = environment.production ? 'https://presbiquilmes.org.ar/reset' : 'localhost:4200/reset';
+    const url = 'https://presbiquilmes.org.ar/reset';
+    //const url = 'localhost:4200/reset';
     return this.supabase.auth.resetPasswordForEmail(email, { redirectTo: url })
   }
 }
