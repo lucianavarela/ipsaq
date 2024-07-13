@@ -24,14 +24,14 @@ export class ResetPwComponent {
     if (this.pw1 && this.pw2 && this.pw1 == this.pw2) {
       try {
         this.supabase.resetPW(this.pw1).then((res: any) => {
-          if (res.user) {
-            this.supabase.setUser(res.user);
+          if (res) {
+            this.supabase.setUser(res);
             this.sToast.showSuccessToast('Exito!', 'Contraseña restablecida.');
             this.router.navigate(["/"]);
           } else {
             this.sToast.showErrorToast('Error al resetear!', 'No se pudo resetear la contraseña.');
           }
-        })
+        });
       } catch (error: any) {
         this.sToast.showErrorToast('Error al resetear!', error.error_description || error.message);
       }

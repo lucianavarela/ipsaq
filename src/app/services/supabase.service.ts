@@ -87,7 +87,7 @@ export class SupabaseService {
   }
 
   signIn(email: string, pw: string) {
-    return this.supabase.auth.signInWithPassword({ 'email': email, password: pw })
+    return this.supabase.auth.signInWithPassword({ 'email': email, password: pw });
   }
 
   signOut() {
