@@ -1,26 +1,6 @@
-<section class="hero is-light">
-  <div class="hero-body">
-    <div class="columns">
-      <div class="column is-1">
-        <app-back-button></app-back-button>
-      </div>
-      <div class="column has-text-centered">
-        <h2 class="subtitle has-text-dark" *ngIf="sermon.series">{{sermon.series.name}} #{{sermon.chapter_number}}</h2>
-        <h1 class="title" style="padding: 10px 0;">{{ sermon.title }}</h1>
-        <p class="subtitle is-6 has-text-grey">{{ sermon.date | date: 'd \'de\' MMMM, y' }}</p>
-      </div>
-      <div class="column is-1">
-        <p class="control" *ngIf="isLoggedIn()">
-          <button title="Editar" class="button is-rounded is-light" [routerLink]="['editar']">
-            <span class="icon">
-              <i class="fa-solid fa-2x fa-pencil"></i>
-            </span>
-          </button>
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
+<app-header [color]="'is-light'" [overtitle]="sermon.series ? sermon.series.name +' #'+sermon.chapter_number:''"
+  [title]="sermon.title" [undertitle]="sermon.date | date: 'd \'de\' MMMM, y' ">
+</app-header>
 
 <div class="container">
   <section class="section" style="padding-bottom: 0;">
@@ -40,7 +20,8 @@
               </div>
             </div>
             <div class="media-right" style="align-self: self-end;">
-              <a href="https://www.biblegateway.com/passage/?search={{ sermon.bible_verse }}&version=NVI" target="_blank">
+              <a href="https://www.biblegateway.com/passage/?search={{ sermon.bible_verse }}&version=NVI"
+                target="_blank">
                 <span class="icon has-text-dark">
                   <i class="fa-solid fa-lg fa-square-up-right"></i>
                 </span>
@@ -141,3 +122,5 @@
     </div>
   </section>
 </div>
+
+<app-page-button [url]="'editar'" [color]="'info'" [needsAuth]="true" [icon]="'fa-solid fa-pencil'"></app-page-button>

@@ -1,8 +1,4 @@
-<section class="hero is-primary">
-  <div class="hero-body has-text-centered">
-    <h1 class="title">CANCIONERO</h1>
-  </div>
-</section>
+<app-header [title]="'CANCIONERO'"></app-header>
 
 <section class="section">
   <div class="container">
@@ -168,8 +164,7 @@
     </ng-container>
 
     <ng-container matColumnDef="beginning">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>
-        Comienzo / <i>Título</i>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header><span style="text-wrap: wrap;text-align: left;">Comienzo / <i>Título</i></span>
       </th>
       <td class="song-link" mat-cell *matCellDef="let song">
         <a

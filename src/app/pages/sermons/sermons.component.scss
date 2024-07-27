@@ -47,8 +47,8 @@ tr.detail-row {
 }
 
 table.mobile .mat-column-title {
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .element-row td {
@@ -57,4 +57,14 @@ table.mobile .mat-column-title {
 
 .mat-column-date {
   width: 6rem;
+}
+
+
+@media (max-width: 1022px) {
+  .section {
+    padding-top: 10px;
+  }
+  ::ng-deep .mat-mdc-form-field-infix mat-label {
+    font-size: 13px;
+  }
 }

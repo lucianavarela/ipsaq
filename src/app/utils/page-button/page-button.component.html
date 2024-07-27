@@ -1,0 +1,24 @@
+<div class="fixed-button" [title]="hoverText">
+    <div *ngIf="url; then urlButton else clickButton"></div>
+    
+</div>
+
+<ng-template #urlButton>
+    <p class="control" *ngIf="!needsAuth || isLoggedIn()">
+        <button title="Editar" class="button is-large is-{{color}}" [routerLink]="url ? [url] : []">
+            <span class="icon">
+                <i class="{{icon}}"></i>
+            </span>
+        </button>
+    </p>
+</ng-template>
+
+<ng-template #clickButton>
+    <p class="control" *ngIf="!needsAuth || isLoggedIn()">
+        <button title="Editar" class="button is-large is-{{color}}" (click)="clicked()">
+            <span class="icon">
+                <i class="{{icon}}"></i>
+            </span>
+        </button>
+    </p>
+</ng-template>

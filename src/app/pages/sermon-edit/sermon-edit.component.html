@@ -1,24 +1,4 @@
-<section class="hero is-warning">
-  <div class="hero-body">
-    <div class="columns">
-      <div class="column is-1">
-        <app-back-button></app-back-button>
-      </div>
-      <div class="column has-text-centered">
-        <h1 class="title">
-          {{
-            sermon.id
-              ? sermon.title
-                ? "Editar: " + sermon.title
-                : "Editar Culto"
-              : "Agregar Culto"
-          }}
-        </h1>
-      </div>
-      <div class="column is-1"></div>
-    </div>
-  </div>
-</section>
+<app-header [color]="'is-warning'" [title]="sermon.id ? sermon.title ? 'Editar: ' + sermon.title : 'Editar Culto' : 'Agregar Culto'"></app-header>
 
 <div class="container">
   <section class="section">
@@ -27,15 +7,15 @@
         <label class="label">Título</label>
       </div>
       <div class="field-body">
-        <div class="field has-addons">
-          <p class="control is-expanded">
+        <div class="field is-grouped is-grouped-multiline">
+          <p class="control is-expanded is-fullwidth">
             <input
               class="input"
               [(ngModel)]="sermon.title"
               placeholder="Titulo"
             />
           </p>
-          <p class="control">
+          <p class="control is-expanded is-fullwidth">
             <input class="input" type="datetime-local" [(ngModel)]="datetime"/>
           </p>
         </div>
@@ -213,20 +193,8 @@
         </div>
       </div>
     </ng-container>
-    <div class="field is-grouped">
-      <div class="field-label"></div>
-      <div class="field-body">
-        <div class="field">
-          <div class="control">
-            <button
-              class="button is-primary"
-              (click)="sermon.id ? updateSermon() : addSermon()"
-            >
-              {{ sermon.id ? "Guardar Cambios" : "Crear Culto" }}
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
   </section>
 </div>
+
+<app-page-button [color]="'success'" [icon]="'fa-solid fa-save'" [hoverText]="'Guardar'"
+  (clickedEvent)="sermon.id ? updateSermon() : addSermon()"></app-page-button>

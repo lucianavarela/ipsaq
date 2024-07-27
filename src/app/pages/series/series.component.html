@@ -1,8 +1,4 @@
-<section class="hero is-link">
-  <div class="hero-body has-text-centered">
-    <h1 class="title">SERIES</h1>
-  </div>
-</section>
+<app-header [color]="'is-link'" [title]="'Series'"></app-header>
 
 <section *ngIf="series && series.length" class="section">
   <div class="container">
@@ -14,8 +10,8 @@
             </div>
             <div class="media-content">
               <div class="content">
-                <p>{{serie.name}}</p>
-                <p><span class="icon has-text-dark" style="margin-right: 5px;">
+                <strong>{{serie.name}}</strong>
+                <p style="margin-top: 15px;"><span class="icon has-text-dark" style="margin-right: 5px;">
                   <i class="fa-solid fa-bars-staggered"></i>
                 </span>
                 {{ serie.sermons_amount || '' }} Capítulos</p>

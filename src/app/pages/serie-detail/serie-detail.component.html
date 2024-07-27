@@ -1,16 +1,4 @@
-<section class="hero is-link">
-    <div class="hero-body">
-        <div class="columns">
-            <div class="column is-1">
-                <app-back-button></app-back-button>
-            </div>
-            <div class="column has-text-centered">
-                <h2 class="subtitle">Serie</h2>
-                <h1 class="title">{{ serie.name }}</h1>
-            </div>
-        </div>
-    </div>
-</section>
+<app-header [color]="'is-link'" [overtitle]="'Serie'" [title]="serie.name"></app-header>
 
 <div class="container">
     <section *ngIf="serie.sermons && serie.sermons.length" class="section">

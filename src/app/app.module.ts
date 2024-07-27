@@ -50,13 +50,14 @@ import { LiveSermonComponent } from './pages/live-sermon/live-sermon.component';
 import { NoAccentsPipe } from './decorators/no-accents.pipe';
 import { SeriesComponent } from './pages/series/series.component';
 import { SerieDetailComponent } from './pages/serie-detail/serie-detail.component';
-import { BackButtonComponent } from './utils/back-button/back-button.component';
+import { HeaderComponent } from './utils/header/header.component';
 import { ScheduleComponent } from './pages/schedule/schedule.component';
 import { AniversaryComponent } from './pages/aniversary/aniversary.component';
 import { CommentBoxComponent } from './pages/comment-box/comment-box.component';
 import { LyricsDialogComponent } from './pages/lyrics-dialog/lyrics-dialog.component';
 import { AniversaryFeedComponent } from './pages/aniversary-feed/aniversary-feed.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { PageButtonComponent } from './utils/page-button/page-button.component';
 
 registerLocaleData(localeEsAr, 'es-Ar');
 
@@ -90,12 +91,13 @@ registerLocaleData(localeEsAr, 'es-Ar');
     NoAccentsPipe,
     SeriesComponent,
     SerieDetailComponent,
-    BackButtonComponent,
+    HeaderComponent,
     ScheduleComponent,
     AniversaryComponent,
     CommentBoxComponent,
     LyricsDialogComponent,
-    AniversaryFeedComponent
+    AniversaryFeedComponent,
+    PageButtonComponent
   ],
   imports: [
     BrowserAnimationsModule,
