@@ -65,6 +65,15 @@ $fa-font-path: "./webfonts";
 
 @import "~@ng-select/ng-select/themes/default.theme.css";
 
+ /* Rules for sizing the icon. */
+ .material-icons.md-8 { font-size: 8px; }
+ .material-icons.md-10 { font-size: 10px; }
+ .material-icons.md-12 { font-size: 12px; }
+ .material-icons.md-18 { font-size: 18px; }
+ .material-icons.md-24 { font-size: 24px; }
+ .material-icons.md-36 { font-size: 36px; }
+ .material-icons.md-48 { font-size: 48px; }
+
 a {
   text-decoration: none !important;
 }

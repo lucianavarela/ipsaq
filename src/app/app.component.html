@@ -35,24 +35,31 @@
             gobierno</a>
         </div>
       </div>
-      <a class="navbar-item" [routerLink]="['ubicacion']">¿Dónde estámos?</a>
+      <a class="navbar-item" [routerLink]="['descargas']">Descargas</a>
+      <a class="navbar-item" [routerLink]="['ubicacion']">Donde estamos</a>
       <a [class.is-hidden]="menuDisplayed" class="navbar-item logo" href="/"><img src="assets/new-logo.svg" /></a>
       <div class="navbar-item has-dropdown" [class.is-active]="dropdownDisplayed=='songs'">
         <a #songsDropdown class="navbar-link" (click)="toggleMenu('songs')">Cancionero</a>
         <div class="navbar-dropdown">
-          <a class="navbar-item" [routerLink]="['cancionero']">Listado de Canciones</a>
-          <a class="navbar-item" [routerLink]="['ultimas_canciones']">Canciones Nuevas</a>
+          <a class="navbar-item" [routerLink]="['cancionero']">
+            <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-list-ul"></i></span>Listado de Canciones</a>
+          <a class="navbar-item" [routerLink]="['ultimas_canciones']">
+            <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-list-check"></i></span>Canciones Nuevas</a>
           <a *ngIf="isLoggedIn()" class="navbar-item" [routerLink]="['nueva_cancion']">
             <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-plus"></i></span>Nueva Canción</a>
-          <a class="navbar-item" [routerLink]="['canciones_sugeridas']">Canciones Sugeridas</a>
+          <a class="navbar-item" [routerLink]="['canciones_sugeridas']">
+            <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-heart"></i></span>Canciones Sugeridas</a>
           <a class="navbar-item" [routerLink]="['sugerir_cancion']">
-            <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-music"></i></span>Sugerir Canción</a>
+            <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-hand-holding-heart"></i></span>Sugerir Canción</a>
         </div>
       </div>
       <div class="navbar-item has-dropdown" [class.is-active]="dropdownDisplayed=='sermons'">
         <a #sermonsDropdown class="navbar-link" (click)="toggleMenu('sermons')">Cultos</a>
         <div class="navbar-dropdown">
-          <a class="navbar-item" [routerLink]="['cultos']">Listado de Cultos</a>
+          <a class="navbar-item" [routerLink]="['cultos']">
+            <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-list-ul"></i></span>Listado de Cultos</a>
+          <a class="navbar-item" [routerLink]="['explorar']">
+            <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-magnifying-glass"></i></span>Explorar Cultos</a>
           <a *ngIf="isLoggedIn()" class="navbar-item" [routerLink]="['nuevo_culto']">
             <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-plus"></i></span>Nuevo Culto</a>
           <a *ngIf="isLoggedIn()" class="navbar-item" [routerLink]="['cronograma']">
@@ -110,6 +117,11 @@
       <div class="level-item has-text-centered">
         <div>
           <a [routerLink]="['series']" class="heading has-text-dark">Series</a>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <a [routerLink]="['descargas']" class="heading has-text-dark">Descargas</a>
         </div>
       </div>
       <div class="level-item has-text-centered">

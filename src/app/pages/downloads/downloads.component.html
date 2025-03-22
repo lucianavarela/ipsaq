@@ -1,0 +1,21 @@
+<app-header [color]="'is-light'" [title]="'EXPLORADOR'"></app-header>
+
+
+
+<section class="section" style="padding-top: 2rem;">
+    <div class="container">
+
+        <div class="has-text-centered" style="margin-bottom: 2rem">
+            <mat-chip-listbox aria-label="Filtro" multiple (change)="onFiltersChange($event)">
+                <mat-chip-option value="directors" selected>Dir de alabanza</mat-chip-option>
+                <mat-chip-option value="players" selected>Músicos</mat-chip-option>
+                <mat-chip-option value="choir" selected>Coro</mat-chip-option>
+            </mat-chip-listbox>
+        </div>
+
+
+
+
+
+    </div>
+</section>

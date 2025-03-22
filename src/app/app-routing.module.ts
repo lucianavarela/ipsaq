@@ -25,6 +25,7 @@ import { SuggestedSongsResolverService } from "./services/suggested-songs-resolv
 import { ScheduleComponent } from "./pages/schedule/schedule.component";
 import { AniversaryComponent } from "./pages/aniversary/aniversary.component";
 import { AniversaryFeedComponent } from "./pages/aniversary-feed/aniversary-feed.component";
+import { DownloadsComponent } from "./pages/downloads/downloads.component";
 
 const AppRoutes: Routes = [
   { path: "", component: HomeComponent },
@@ -99,13 +100,17 @@ const AppRoutes: Routes = [
     component: SongEditComponent,
     canActivate: [AuthGuard],
     resolve: {
-      song: SuggestedSongsResolverService,
-    },
+      song: SuggestedSongsResolverService
+    }
   },
   {
     path: "cronograma",
     canActivate: [AuthGuard],
-    component: ScheduleComponent,
+    component: ScheduleComponent
+  },
+  {
+    path: "descargas",
+    component: DownloadsComponent
   },
   {
     path: "quienes-somos",

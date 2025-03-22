@@ -58,6 +58,7 @@ import { LyricsDialogComponent } from './pages/lyrics-dialog/lyrics-dialog.compo
 import { AniversaryFeedComponent } from './pages/aniversary-feed/aniversary-feed.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { PageButtonComponent } from './utils/page-button/page-button.component';
+import { DownloadsComponent } from './pages/downloads/downloads.component';
 
 registerLocaleData(localeEsAr, 'es-Ar');
 
@@ -97,7 +98,8 @@ registerLocaleData(localeEsAr, 'es-Ar');
     CommentBoxComponent,
     LyricsDialogComponent,
     AniversaryFeedComponent,
-    PageButtonComponent
+    PageButtonComponent,
+    DownloadsComponent
   ],
   imports: [
     BrowserAnimationsModule,
