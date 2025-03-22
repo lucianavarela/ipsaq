@@ -45,7 +45,7 @@ export class SermonsService {
   }
 
   getSongsOfSermon(id: number) {
-    return this.sSupabase.get(this.tableSermonSong, 'id, songs!inner(*)').eq('id_sermon', id);
+    return this.sSupabase.get(this.tableSermonSong, 'id, songs!inner(*)').eq('id_sermon', id).order('id');
   }
 
   getBandOfSermon(id: number) {

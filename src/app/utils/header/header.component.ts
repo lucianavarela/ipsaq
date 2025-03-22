@@ -10,6 +10,7 @@ import { SupabaseService } from 'src/app/services/supabase.service';
 export class HeaderComponent implements OnInit {
   @Input('color') color: string = 'is-primary';
   @Input('overtitle') overtitle!: string | null | undefined;
+  @Input('overtitleLink') overtitleLink!: string | null | undefined;
   @Input('title') title!: string | null | undefined;
   @Input('undertitle') undertitle!: string | null | undefined;
   @Input('index') index!: number | null | undefined;

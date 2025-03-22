@@ -7,16 +7,9 @@ import { Component } from '@angular/core';
 })
 
 export class DownloadsComponent {
-  filtersClasses: string = 'filter-choir filter-players filter-directors';
-
   constructor() {
 
   }
 
 
-
-  onFiltersChange(event: any) {
-    this.filtersClasses = '';
-    event.value.forEach((f: string) => this.filtersClasses = this.filtersClasses.concat(` filter-${f}`));
-  }
 }

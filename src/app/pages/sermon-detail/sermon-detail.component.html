@@ -1,4 +1,4 @@
-<app-header [color]="'is-light'" [overtitle]="sermon.series ? sermon.series.name +' #'+sermon.chapter_number:''"
+<app-header [color]="'is-light'" [overtitleLink]="sermon.series && sermon.series.id ? '/series/'+sermon.series.id : ''" [overtitle]="sermon.series ? sermon.series.name +' #'+sermon.chapter_number:''"
   [title]="sermon.title" [undertitle]="sermon.date | date: 'd \'de\' MMMM, y' ">
 </app-header>
 

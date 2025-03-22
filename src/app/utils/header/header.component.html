@@ -1,9 +1,17 @@
 <section class="hero" [ngClass]="color">
   <div class="hero-body has-text-centered">
-    <h2 *ngIf="overtitle" class="overtitle subtitle">{{overtitle}}</h2>
+    <div *ngIf="overtitleLink; then overtitleWithLink else overtitleWithoutLink"></div>
     <h1 class="title">
       <span *ngIf="index" class="index">{{ index }}</span>{{ title }}</h1>
     <p *ngIf="undertitle" class="undertitle subtitle is-6" [class.has-text-grey]="color=='is-light'">{{ undertitle }}</p>
   </div>
 </section>
 
+
+<ng-template #overtitleWithLink>
+    <a [routerLink]="overtitleLink"><h2 *ngIf="overtitle" class="overtitle subtitle" style="color: #a98671;">{{overtitle}}</h2></a>
+</ng-template>
+
+<ng-template #overtitleWithoutLink>
+  <h2 *ngIf="overtitle" class="overtitle subtitle">{{overtitle}}</h2>
+</ng-template>
