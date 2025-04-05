@@ -26,6 +26,7 @@ import { ScheduleComponent } from "./pages/schedule/schedule.component";
 import { AniversaryComponent } from "./pages/aniversary/aniversary.component";
 import { AniversaryFeedComponent } from "./pages/aniversary-feed/aniversary-feed.component";
 import { DownloadsComponent } from "./pages/downloads/downloads.component";
+import { PlanningComponent } from "./pages/planning/planning.component";
 
 const AppRoutes: Routes = [
   { path: "", component: HomeComponent },
@@ -107,6 +108,11 @@ const AppRoutes: Routes = [
     path: "cronograma",
     canActivate: [AuthGuard],
     component: ScheduleComponent
+  },
+  {
+    path: "planificacion",
+    canActivate: [AuthGuard],
+    component: PlanningComponent
   },
   {
     path: "descargas",

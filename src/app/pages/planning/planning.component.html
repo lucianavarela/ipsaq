@@ -1,0 +1,38 @@
+<app-header [color]="'is-info'" [title]="'PLANIFICACIÓN'"></app-header>
+
+
+<section class="section" style="padding-top: 2rem;">
+    <div class="container" style="max-width: 40rem;">
+
+        <mat-accordion class="example-headers-align">
+            <ng-template ngFor let-month [ngForOf]="months">
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>{{month.name}}</mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <table mat-table [dataSource]="month.sundays" class="mat-elevation-z8">
+
+                        <ng-container matColumnDef="date">
+                            <td mat-cell *matCellDef="let sunday" style="text-transform: capitalize;"> {{ sunday | date : !isMobile ? "EEEE dd":"dd\'/\'MM\'" }} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="available">
+                            <td mat-cell *matCellDef="let sunday"> <button>Disponible</button> </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="unavailable">
+                            <td mat-cell *matCellDef="let sunday"> <button>Ausente</button> </td>
+                        </ng-container>
+
+                        <tr mat-row *matRowDef="let row; columns: ['date', 'available', 'unavailable'];"></tr>
+                    </table>
+
+                </mat-expansion-panel>
+            </ng-template>
+
+        </mat-accordion>
+
+
+    </div>
+</section>

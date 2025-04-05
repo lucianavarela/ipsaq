@@ -64,6 +64,8 @@
             <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-plus"></i></span>Nuevo Culto</a>
           <a *ngIf="isLoggedIn()" class="navbar-item" [routerLink]="['cronograma']">
             <span class="icon has-text-primary"><i class="fa-regular fa-sm fa-calendar"></i></span>Cronograma</a>
+            <a *ngIf="isLoggedIn()" class="navbar-item" [routerLink]="['planificacion']">
+              <span class="icon has-text-primary"><i class="fa-regular fa-sm fa-calendar-plus"></i></span>Planificacion</a>
         </div>
       </div>
       <a class="navbar-item" [routerLink]="['series']">Series</a>

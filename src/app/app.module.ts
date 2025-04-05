@@ -18,6 +18,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
 
 // Components
 import { HomeComponent } from './pages/home/home.component';
@@ -59,6 +60,7 @@ import { AniversaryFeedComponent } from './pages/aniversary-feed/aniversary-feed
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { PageButtonComponent } from './utils/page-button/page-button.component';
 import { DownloadsComponent } from './pages/downloads/downloads.component';
+import { PlanningComponent } from './pages/planning/planning.component';
 
 registerLocaleData(localeEsAr, 'es-Ar');
 
@@ -99,7 +101,8 @@ registerLocaleData(localeEsAr, 'es-Ar');
     LyricsDialogComponent,
     AniversaryFeedComponent,
     PageButtonComponent,
-    DownloadsComponent
+    DownloadsComponent,
+    PlanningComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -119,7 +122,9 @@ registerLocaleData(localeEsAr, 'es-Ar');
     MatButtonModule,
     MatSlideToggleModule,
     MatChipsModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatAccordion,
+    MatExpansionModule
   ],
   providers: [NoAccentsPipe,
     { provide: LOCALE_ID, useValue: 'es-Ar' }],
