@@ -18,6 +18,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatRadioModule } from '@angular/material/radio'
 import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
 
 // Components
@@ -124,7 +125,8 @@ registerLocaleData(localeEsAr, 'es-Ar');
     MatChipsModule,
     MatPaginatorModule,
     MatAccordion,
-    MatExpansionModule
+    MatExpansionModule,
+    MatRadioModule
   ],
   providers: [NoAccentsPipe,
     { provide: LOCALE_ID, useValue: 'es-Ar' }],
