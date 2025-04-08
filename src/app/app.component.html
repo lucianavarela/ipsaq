@@ -46,28 +46,32 @@
           <a class="navbar-item" [routerLink]="['ultimas_canciones']">
             <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-list-check"></i></span>Canciones Nuevas</a>
           <a *ngIf="isLoggedIn()" class="navbar-item" [routerLink]="['nueva_cancion']">
-            <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-plus"></i></span>Nueva Canción</a>
-          <a class="navbar-item" [routerLink]="['canciones_sugeridas']">
-            <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-heart"></i></span>Canciones Sugeridas</a>
+            <span class="icon has-text-success"><i class="fa-solid fa-sm fa-plus"></i></span>Nueva Canción</a>
+          <a *ngIf="isLoggedIn()" class="navbar-item" [routerLink]="['canciones_sugeridas']">
+            <span class="icon has-text-danger"><i class="fa-solid fa-sm fa-heart"></i></span>Canciones Sugeridas</a>
           <a class="navbar-item" [routerLink]="['sugerir_cancion']">
             <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-hand-holding-heart"></i></span>Sugerir Canción</a>
         </div>
       </div>
-      <div class="navbar-item has-dropdown" [class.is-active]="dropdownDisplayed=='sermons'">
-        <a #sermonsDropdown class="navbar-link" (click)="toggleMenu('sermons')">Cultos</a>
-        <div class="navbar-dropdown">
-          <a class="navbar-item" [routerLink]="['cultos']">
-            <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-list-ul"></i></span>Listado de Cultos</a>
-          <a class="navbar-item" [routerLink]="['explorar']">
-            <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-magnifying-glass"></i></span>Explorar Cultos</a>
-          <a *ngIf="isLoggedIn()" class="navbar-item" [routerLink]="['nuevo_culto']">
-            <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-plus"></i></span>Nuevo Culto</a>
-          <a *ngIf="isLoggedIn()" class="navbar-item" [routerLink]="['cronograma']">
-            <span class="icon has-text-primary"><i class="fa-regular fa-sm fa-calendar"></i></span>Cronograma</a>
-            <a *ngIf="isLoggedIn()" class="navbar-item" [routerLink]="['planificacion']">
-              <span class="icon has-text-primary"><i class="fa-regular fa-sm fa-calendar-plus"></i></span>Planificacion</a>
+      <a *ngIf="isLoggedIn(); then loggedInSermons else loggedOutSermons"></a>
+      <ng-template #loggedInSermons>
+        <div *ngIf="isLoggedIn()" class="navbar-item has-dropdown" [class.is-active]="dropdownDisplayed=='sermons'">
+          <a #sermonsDropdown class="navbar-link" (click)="toggleMenu('sermons')">Cultos</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" [routerLink]="['cultos']">
+              <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-list-ul"></i></span>Listado de Cultos</a>
+            <a class="navbar-item" [routerLink]="['nuevo_culto']">
+              <span class="icon has-text-success"><i class="fa-solid fa-sm fa-plus"></i></span>Nuevo Culto</a>
+            <a class="navbar-item" [routerLink]="['cronograma']">
+              <span class="icon has-text-warning"><i class="fa-regular fa-sm fa-calendar"></i></span>Cronograma</a>
+              <a class="navbar-item" [routerLink]="['planificacion']">
+                <span class="icon has-text-info"><i class="fa-regular fa-sm fa-calendar-plus"></i></span>Planificacion</a>
+          </div>
         </div>
-      </div>
+      </ng-template>
+      <ng-template #loggedOutSermons>
+        <a class="navbar-item" [routerLink]="['cultos']">Cultos</a>
+      </ng-template>
       <a class="navbar-item" [routerLink]="['series']">Series</a>
       <a class="navbar-item has-text-warning has-text-weight-bold" [routerLink]="['aniversario']">100 Aniversario</a>
     </div>

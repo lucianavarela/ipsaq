@@ -10,8 +10,12 @@ export class AvailabilityService {
 
   constructor(public sSupabase: SupabaseService) { }
 
-  getAvailabilityLogs() {
-    return this.sSupabase.get(this.table).order('sermon_date', {ascending: true});
+  getAvailabilityLogs(id_user: string|null) {
+    if (id_user) {
+      return this.sSupabase.get(this.table, '*, id_user!inner(*)').filter('id_user.id_user', 'eq', id_user).order('sermon_date', {ascending: true});
+    } else {
+      return this.sSupabase.get(this.table, '*, id_user!inner(*)').order('sermon_date', {ascending: true});
+    }
   }
 
   getAvailability(id: number) {
@@ -20,5 +24,9 @@ export class AvailabilityService {
 
   async logAvailability(obj: Availability) {
     return await this.sSupabase.add(obj, this.table);
+  }
+
+  async deleteAvailabilityLog(id: number) {
+    return await this.sSupabase.deleteById(id, this.table);
   }
 }

@@ -2,25 +2,25 @@
 
 
 <section class="section" style="padding-top: 2rem;">
-    <div class="container" style="max-width: 40rem;">
+    <div class="container" style="max-width: 45rem;">
 
-        <mat-accordion class="example-headers-align">
-            <ng-template ngFor let-month [ngForOf]="months">
-                <mat-expansion-panel>
+        <mat-accordion>
+            <ng-template ngFor let-month [ngForOf]="months" let-i="index">
+                <mat-expansion-panel [expanded]="i === 0">
                     <mat-expansion-panel-header>
                         <mat-panel-title>{{month.name}}</mat-panel-title>
                     </mat-expansion-panel-header>
 
                     <ng-template ngFor let-sunday [ngForOf]="month.sundays">
-                        <hr>
-                        <div class="columns" style="margin: 0;">
-                            <div class="column">
+                        <div *ngIf="sunday" class="columns sunday-row" style="margin: 0;">
+                            <div class="column is-3">
                                 <p style="text-transform: capitalize;">{{ sunday | date : !isMobile ? "EEEE dd":"dd\'/\'MM\'" }}</p>
                             </div>
-                            <div class="column" style="padding: 0;">
-                                <mat-radio-group>
-                                    <mat-radio-button [value]="false">Ausente</mat-radio-button>
-                                    <mat-radio-button [value]="true">Disponible</mat-radio-button>
+                            <div class="column has-text-centered" style="padding: 0;">
+                                <mat-radio-group [value]="getAvailabilityForDate(sunday)">
+                                    <mat-radio-button value="tbd" class="tbd" [disableRipple]="true">Sin definir</mat-radio-button>
+                                    <mat-radio-button value="true" class="available" [disableRipple]="true">Disponible</mat-radio-button>
+                                    <mat-radio-button value="false" class="unavailable" [disableRipple]="true">Ausente</mat-radio-button>
                                 </mat-radio-group>
                             </div>
                         </div>

@@ -1,5 +1,7 @@
-hr {
-    background-color: gray;
-    height: 1px;
-    margin: 15px 0;
+.sunday-row:not(:last-child) {
+    border-bottom: 1px solid #ededed;
+}
+
+mat-radio-button {
+    margin-left: 2rem;
 }

@@ -267,3 +267,15 @@ table.schedule:not(.filter-players) i.player {
 table.schedule:not(.filter-directors) i.director {
   visibility: hidden;
 }
+
+mat-radio-button.mat-mdc-radio-checked.tbd .mdc-radio__outer-circle, mat-radio-button.mat-mdc-radio-checked.tbd .mdc-radio__inner-circle {
+  border-color: #9c9c9c !important;
+}
+
+mat-radio-button.mat-mdc-radio-checked.unavailable .mdc-radio__outer-circle, mat-radio-button.mat-mdc-radio-checked.unavailable .mdc-radio__inner-circle {
+  border-color: $danger !important;
+}
+
+mat-radio-button.mat-mdc-radio-checked.available .mdc-radio__outer-circle, mat-radio-button.mat-mdc-radio-checked.available .mdc-radio__inner-circle {
+  border-color: $success !important;
+}
