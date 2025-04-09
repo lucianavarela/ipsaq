@@ -53,7 +53,7 @@ export class SermonsService {
   }
 
   async updateSermon(sermon: Sermon) {
-    return await this.sSupabase.update(sermon, this.table).eq('id', sermon.id);;
+    return await this.sSupabase.update(sermon, this.table).eq('id', sermon.id);
   }
 
   async createSermon(sermon: Sermon) {

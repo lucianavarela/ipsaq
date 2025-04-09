@@ -21,8 +21,12 @@ export class AvailabilityService {
   getAvailability(id: number) {
     return this.sSupabase.getById(id, this.table);
   }
+  
+  async updateAvailability(obj: any) {
+    return await this.sSupabase.update(obj, this.table).eq('id', obj.id);
+  }
 
-  async logAvailability(obj: Availability) {
+  async logAvailability(obj: any) {
     return await this.sSupabase.add(obj, this.table);
   }
 

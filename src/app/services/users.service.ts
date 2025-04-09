@@ -17,6 +17,10 @@ export class UsersService {
     return this.sSupabase.getById(id, this.table);
   }
 
+  getUserByAuthId(id: string) {
+    return this.sSupabase.get(this.table).filter('id_user', 'eq', id).single();
+  }
+
   async createUser(name: string) {
     return await this.sSupabase.add({'name': name}, this.table);
   }

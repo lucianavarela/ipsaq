@@ -17,7 +17,7 @@
                                 <p style="text-transform: capitalize;">{{ sunday | date : !isMobile ? "EEEE dd":"dd\'/\'MM\'" }}</p>
                             </div>
                             <div class="column has-text-centered" style="padding: 0;">
-                                <mat-radio-group [value]="getAvailabilityForDate(sunday)">
+                                <mat-radio-group (change)="selectionChanged($event, sunday)" [value]="getAvailabilityForDate(sunday)">
                                     <mat-radio-button value="tbd" class="tbd" [disableRipple]="true">Sin definir</mat-radio-button>
                                     <mat-radio-button value="true" class="available" [disableRipple]="true">Disponible</mat-radio-button>
                                     <mat-radio-button value="false" class="unavailable" [disableRipple]="true">Ausente</mat-radio-button>
