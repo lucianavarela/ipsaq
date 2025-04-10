@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
     this.isMobile = window.innerWidth <= 767;
 
     this.renderer.listen('window', 'click', (e: Event) => {
-      if (e.target !== this.infoDropdown.nativeElement && e.target !== this.sermonsDropdown.nativeElement &&
+      if (e.target !== this.infoDropdown.nativeElement && (!this.sermonsDropdown || e.target !== this.sermonsDropdown.nativeElement) &&
         e.target !== this.songsDropdown.nativeElement && e.target !== this.hamburguer.nativeElement) {
         this.resetMenu();
       }

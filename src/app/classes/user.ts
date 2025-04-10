@@ -4,6 +4,7 @@ export class User {
     public id?: number;
     public user_id?: string;
     public email?: string;
+    public is_super_admin?: boolean = false;
     public nickname?: string;
     public first_name?: string;
     public last_name?: string;
@@ -14,7 +15,7 @@ export class User {
     public player_icon?: string = '';
 
     constructor(obj?: {
-        id: string, email?: string, nickname?: string, first_name?: string, last_name?: string,
+        id: string, email?: string, is_super_admin?: boolean, nickname?: string, first_name?: string, last_name?: string,
         sermon_role?: boolean, choir_role?: boolean, band_role?: boolean, direction_role?: boolean
     }) {
         if (typeof obj === 'number') {
@@ -26,6 +27,7 @@ export class User {
                 this.user_id = obj?.id;
             }
             this.email = obj?.email;
+            this.is_super_admin = obj?.is_super_admin;
             this.nickname = obj?.nickname;
             this.first_name = obj?.first_name;
             this.last_name = obj?.last_name;

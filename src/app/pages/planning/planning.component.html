@@ -14,7 +14,7 @@
                     <ng-template ngFor let-sunday [ngForOf]="month.sundays">
                         <div *ngIf="sunday" class="columns sunday-row" style="margin: 0;">
                             <div class="column is-3">
-                                <p style="text-transform: capitalize;">{{ sunday | date : !isMobile ? "EEEE dd":"dd\'/\'MM\'" }}</p>
+                                <p style="text-transform: capitalize;">{{ sunday | date : "EEEE dd" }}</p>
                             </div>
                             <div class="column has-text-centered" style="padding: 0;">
                                 <mat-radio-group (change)="selectionChanged($event, sunday)" [value]="getAvailabilityForDate(sunday)">
