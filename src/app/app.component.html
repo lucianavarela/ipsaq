@@ -36,6 +36,7 @@
         </div>
       </div>
       <a class="navbar-item" [routerLink]="['ubicacion']">¿Dónde estámos?</a>
+      <a class="navbar-item" [routerLink]="['descargas']">Descargas</a>
       <a [class.is-hidden]="menuDisplayed" class="navbar-item logo" href="/"><img src="assets/new-logo.svg" /></a>
       <div class="navbar-item has-dropdown" [class.is-active]="dropdownDisplayed=='songs'">
         <a #songsDropdown class="navbar-link" (click)="toggleMenu('songs')">Cancionero</a>

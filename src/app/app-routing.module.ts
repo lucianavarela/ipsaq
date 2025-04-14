@@ -25,6 +25,7 @@ import { SuggestedSongsResolverService } from "./services/suggested-songs-resolv
 import { ScheduleComponent } from "./pages/schedule/schedule.component";
 import { AniversaryComponent } from "./pages/aniversary/aniversary.component";
 import { AniversaryFeedComponent } from "./pages/aniversary-feed/aniversary-feed.component";
+import { DownloadComponent } from "./pages/download/download.component";
 
 const AppRoutes: Routes = [
   { path: "", component: HomeComponent },
@@ -116,6 +117,7 @@ const AppRoutes: Routes = [
     ]
   },
   { path: "aniversario", component: AniversaryComponent },
+  { path: "descargas", component: DownloadComponent },
   //{ path: "aniversario/feed", component: AniversaryFeedComponent },
 
   // otherwise redirect to home
