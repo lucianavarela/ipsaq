@@ -3,11 +3,15 @@ import { Title } from "@angular/platform-browser";
 import { Router } from "@angular/router";
 import { SupabaseService } from "src/app/services/supabase.service";
 import { ToastService } from "src/app/services/toast.service";
+import { FormsModule } from "@angular/forms";
+import { CommonModule } from "@angular/common";
 
 @Component({
   selector: "login",
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.scss"],
+  standalone: true,
+  imports: [CommonModule, FormsModule]
 })
 export class LoginComponent implements OnInit {
   email: string = "";

@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { HeaderComponent } from 'src/app/utils/header/header.component';
 
 @Component({
   selector: 'app-location',
   templateUrl: './location.component.html',
-  styleUrls: ['./location.component.scss']
+  styleUrls: ['./location.component.scss'],
+  standalone: true,
+  imports: [CommonModule, GoogleMapsModule, HeaderComponent]
 })
 export class LocationComponent implements OnInit {
   marker: any;

@@ -4,11 +4,20 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Song } from 'src/app/classes/song';
 import { SongsService } from 'src/app/services/songs.service';
 import { ToastService } from 'src/app/services/toast.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { HeaderComponent } from 'src/app/utils/header/header.component';
 
 @Component({
   selector: 'app-song-suggestion',
   templateUrl: './song-suggestion.component.html',
-  styleUrls: ['./song-suggestion.component.scss']
+  styleUrls: ['./song-suggestion.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    HeaderComponent
+  ]
 })
 export class SongSuggestionComponent implements OnInit {
   song!: Song;

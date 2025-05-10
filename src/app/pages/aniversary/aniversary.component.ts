@@ -9,14 +9,28 @@ import { SupabaseService } from 'src/app/services/supabase.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { LyricsDialogComponent } from '../lyrics-dialog/lyrics-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
+import { MatPaginatorIntl, PageEvent, MatPaginatorModule } from '@angular/material/paginator';
 import { PaginatorIntl } from 'src/app/services/paginatorIntl.service';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { SafeUrlPipe } from 'src/app/decorators/safe-url.pipe';
+import { TransformYoutubePipe } from 'src/app/decorators/transform-youtube.pipe';
+import { CommentBoxComponent } from '../comment-box/comment-box.component';
 
 @Component({
   selector: 'app-aniversary',
   templateUrl: './aniversary.component.html',
   styleUrls: ['./aniversary.component.scss'],
   providers: [{ provide: MatPaginatorIntl, useClass: PaginatorIntl }],
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterLink,
+    MatPaginatorModule,
+    SafeUrlPipe,
+    TransformYoutubePipe,
+    CommentBoxComponent
+  ]
 })
 export class AniversaryComponent implements OnInit {
   @ViewChild('comments_gallery') commentsGalleryRef!: ElementRef;

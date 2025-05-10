@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { Sermon } from "src/app/classes/sermon";
 import { SermonSong } from "src/app/classes/sermon-song";
 import { Song } from "src/app/classes/song";
@@ -14,11 +14,27 @@ import Utils from "src/app/utils/utils";
 import { User } from "src/app/classes/user";
 import { UsersService } from "src/app/services/users.service";
 import { SermonBand } from "src/app/classes/sermon-band";
+import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
+import { NgSelectModule } from "@ng-select/ng-select";
+import { HeaderComponent } from "src/app/utils/header/header.component";
+import { SongsBoxComponent } from "../songs-box/songs-box.component";
+import { PageButtonComponent } from "src/app/utils/page-button/page-button.component";
 
 @Component({
   selector: "app-sermon-edit",
   templateUrl: "./sermon-edit.component.html",
   styleUrls: ["./sermon-edit.component.scss"],
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterLink,
+    NgSelectModule,
+    HeaderComponent,
+    SongsBoxComponent,
+    PageButtonComponent
+  ]
 })
 export class SermonEditComponent implements OnInit {
   @ViewChild(NgSelectComponent) ngSelectComponent!: NgSelectComponent;
@@ -251,15 +267,12 @@ export class SermonEditComponent implements OnInit {
   }
 
   customSearchSongs(term: string, item: Song) {
-    term = Utils.removeAccents(term).toLowerCase();
-    let splitTerm = term.split(' ').filter(t => t);
-    let isWordThere: any = [];
-    splitTerm.forEach(arr_term => {
-      let search = Utils.removeAccents(`${item.index} ${item.beginning} ${item.title}`).toLowerCase();
-      isWordThere.push(search.indexOf(arr_term) != -1);
-    });
+    term = term.toLowerCase();
+    const normalizedTitle = Utils.removeAccents(item.title?.toLowerCase() ?? '');
+    const normalizedBeginning = Utils.removeAccents(item.beginning?.toLowerCase() ?? '');
+    const normalizedTerm = Utils.removeAccents(term);
     const all_words = (this_word: any) => this_word;
-    return isWordThere.every(all_words);
+    return normalizedTitle.includes(normalizedTerm) || normalizedBeginning.includes(normalizedTerm) || item.index?.toString() == term;
   }
 
   groupBand = (item: any) => item.player.band_role ? 'Músicos' : 'Coro';

@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'textFound'
+  name: 'textFound',
+  standalone: true
 })
 export class TextFoundPipe implements PipeTransform {
 

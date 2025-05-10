@@ -2,6 +2,7 @@ import { Directive, ElementRef, Input, OnChanges } from "@angular/core";
 
 @Directive({
   selector: "[highlight]",
+  standalone: true
 })
 export class HighlightDirective implements OnChanges {
   @Input() highlight!: string;

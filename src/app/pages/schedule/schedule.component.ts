@@ -1,15 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Title } from '@angular/platform-browser';
 import { Sermon } from 'src/app/classes/sermon';
 import { User } from 'src/app/classes/user';
 import { SermonsService } from 'src/app/services/sermons.service';
 import { UsersService } from 'src/app/services/users.service';
+import { CommonModule, DatePipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { HeaderComponent } from 'src/app/utils/header/header.component';
+import { MatChipsModule } from '@angular/material/chips';
 
 @Component({
   selector: 'app-schedule',
   templateUrl: './schedule.component.html',
   styleUrls: ['./schedule.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    DatePipe,
+    RouterLink,
+    MatTableModule,
+    MatChipsModule,
+    HeaderComponent
+  ]
 })
 
 export class ScheduleComponent implements OnInit {

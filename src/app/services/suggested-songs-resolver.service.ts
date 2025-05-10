@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, ResolveFn, Router } from '@angular/router';
 import { SongsService } from './songs.service';
+import { inject } from '@angular/core';
  
 @Injectable({
   providedIn: 'root'
 })
-export class SuggestedSongsResolverService implements Resolve<any> {
+export class SuggestedSongsResolverService {
   constructor(private sSongs: SongsService, private router: Router) {}
   
   resolve(route: ActivatedRouteSnapshot) {
@@ -24,3 +25,7 @@ export class SuggestedSongsResolverService implements Resolve<any> {
     }
   }
 }
+
+export const suggestedSongResolver: ResolveFn<any> = (route: ActivatedRouteSnapshot) => {
+  return inject(SuggestedSongsResolverService).resolve(route);
+};

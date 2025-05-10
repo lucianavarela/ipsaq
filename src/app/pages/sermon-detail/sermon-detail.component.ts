@@ -6,11 +6,27 @@ import { DomSanitizer, Title } from '@angular/platform-browser';
 import { SermonSong } from 'src/app/classes/sermon-song';
 import { SupabaseService } from 'src/app/services/supabase.service';
 import { SermonBand } from 'src/app/classes/sermon-band';
+import { CommonModule, DatePipe } from '@angular/common';
+import { HeaderComponent } from 'src/app/utils/header/header.component';
+import { SafeUrlPipe } from 'src/app/decorators/safe-url.pipe';
+import { TransformYoutubePipe } from 'src/app/decorators/transform-youtube.pipe';
+import { SongsBoxComponent } from '../songs-box/songs-box.component';
+import { PageButtonComponent } from 'src/app/utils/page-button/page-button.component';
 
 @Component({
   selector: 'app-sermon-detail',
   templateUrl: './sermon-detail.component.html',
-  styleUrls: ['./sermon-detail.component.scss']
+  styleUrls: ['./sermon-detail.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    DatePipe,
+    HeaderComponent,
+    SafeUrlPipe,
+    TransformYoutubePipe,
+    SongsBoxComponent,
+    PageButtonComponent
+  ]
 })
 export class SermonDetailComponent implements OnInit {
   sermon!: Sermon;

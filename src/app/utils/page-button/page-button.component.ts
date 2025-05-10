@@ -1,10 +1,14 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { SupabaseService } from 'src/app/services/supabase.service';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-page-button',
   templateUrl: './page-button.component.html',
-  styleUrl: './page-button.component.scss'
+  styleUrl: './page-button.component.scss',
+  standalone: true,
+  imports: [CommonModule, RouterLink]
 })
 export class PageButtonComponent {
   @Input('needsAuth') needsAuth: boolean = false;

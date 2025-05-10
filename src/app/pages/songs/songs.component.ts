@@ -1,16 +1,42 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Song } from 'src/app/classes/song';
 import { SongsService } from 'src/app/services/songs.service';
 import { SupabaseService } from 'src/app/services/supabase.service';
 import { Title } from '@angular/platform-browser';
+import { CommonModule, DatePipe, NgClass } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { HighlightDirective } from 'src/app/decorators/highlight.directive';
+import { TextFoundPipe } from 'src/app/decorators/text-found.pipe';
+import { HeaderComponent } from 'src/app/utils/header/header.component';
 
 @Component({
   selector: 'app-songs',
   templateUrl: './songs.component.html',
-  styleUrls: ['./songs.component.scss']
+  styleUrls: ['./songs.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterLink,
+    MatFormFieldModule,
+    MatInputModule,
+    MatTableModule,
+    MatSortModule,
+    MatTooltipModule,
+    NgClass,
+    DatePipe,
+    HighlightDirective,
+    TextFoundPipe,
+    HeaderComponent
+  ]
 })
 
 export class SongsComponent implements OnInit {

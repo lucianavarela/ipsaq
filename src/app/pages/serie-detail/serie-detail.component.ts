@@ -4,11 +4,20 @@ import { Series } from 'src/app/classes/series';
 import { Title } from '@angular/platform-browser';
 import { SupabaseService } from 'src/app/services/supabase.service';
 import { Sermon } from 'src/app/classes/sermon';
+import { CommonModule } from '@angular/common';
+import { HeaderComponent } from 'src/app/utils/header/header.component';
+import { SermonBoxComponent } from '../sermon-box/sermon-box.component';
 
 @Component({
   selector: 'app-serie-detail',
   templateUrl: './serie-detail.component.html',
-  styleUrls: ['./serie-detail.component.scss']
+  styleUrls: ['./serie-detail.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    HeaderComponent,
+    SermonBoxComponent
+  ]
 })
 export class SerieDetailComponent implements OnInit {
   serie!: Series;

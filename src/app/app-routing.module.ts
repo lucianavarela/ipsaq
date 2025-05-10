@@ -1,5 +1,4 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes, UrlSegment } from "@angular/router";
+import { Routes } from "@angular/router";
 import { AuthGuard } from "./guards/auth.guard";
 import { BeliefsComponent } from "./pages/beliefs/beliefs.component";
 import { ContactComponent } from "./pages/contact/contact.component";
@@ -18,17 +17,17 @@ import { SongDetailComponent } from "./pages/song-detail/song-detail.component";
 import { SongEditComponent } from "./pages/song-edit/song-edit.component";
 import { SongSuggestionComponent } from "./pages/song-suggestion/song-suggestion.component";
 import { SongsComponent } from "./pages/songs/songs.component";
-import { SeriesResolverService } from "./services/series-resolver.service";
-import { SermonsResolverService } from "./services/sermons-resolver.service";
-import { SongsResolverService } from "./services/songs-resolver.service";
-import { SuggestedSongsResolverService } from "./services/suggested-songs-resolver.service";
+import { serieResolver } from "./services/series-resolver.service";
+import { sermonResolver } from "./services/sermons-resolver.service";
+import { songResolver } from "./services/songs-resolver.service";
+import { suggestedSongResolver } from "./services/suggested-songs-resolver.service";
 import { ScheduleComponent } from "./pages/schedule/schedule.component";
 import { AniversaryComponent } from "./pages/aniversary/aniversary.component";
 import { AniversaryFeedComponent } from "./pages/aniversary-feed/aniversary-feed.component";
 import { DownloadsComponent } from "./pages/downloads/downloads.component";
 import { PlanningComponent } from "./pages/planning/planning.component";
 
-const AppRoutes: Routes = [
+export const appRoutes: Routes = [
   { path: "", component: HomeComponent },
   { path: "entrar", component: LoginComponent },
   { path: "reset", component: ResetPwComponent },
@@ -38,7 +37,7 @@ const AppRoutes: Routes = [
     path: "cultos/:id",
     component: SermonDetailComponent,
     resolve: {
-      sermon: SermonsResolverService,
+      sermon: sermonResolver,
     },
   },
   {
@@ -46,7 +45,7 @@ const AppRoutes: Routes = [
     component: SermonEditComponent,
     canActivate: [AuthGuard],
     resolve: {
-      sermon: SermonsResolverService,
+      sermon: sermonResolver,
     },
   },
   {
@@ -59,7 +58,7 @@ const AppRoutes: Routes = [
     path: "series/:id",
     component: SerieDetailComponent,
     resolve: {
-      serie: SeriesResolverService,
+      serie: serieResolver,
     },
   },
   { path: "cancionero", component: SongsComponent },
@@ -74,7 +73,7 @@ const AppRoutes: Routes = [
     path: "cancionero/:index",
     component: SongDetailComponent,
     resolve: {
-      song: SongsResolverService,
+      song: songResolver,
     },
   },
   {
@@ -82,7 +81,7 @@ const AppRoutes: Routes = [
     component: SongEditComponent,
     canActivate: [AuthGuard],
     resolve: {
-      song: SongsResolverService,
+      song: songResolver,
     },
   },
   {
@@ -93,7 +92,7 @@ const AppRoutes: Routes = [
     path: "canciones_sugeridas/:id",
     component: SongDetailComponent,
     resolve: {
-      song: SuggestedSongsResolverService,
+      song: suggestedSongResolver,
     },
   },
   {
@@ -101,7 +100,7 @@ const AppRoutes: Routes = [
     component: SongEditComponent,
     canActivate: [AuthGuard],
     resolve: {
-      song: SuggestedSongsResolverService
+      song: suggestedSongResolver
     }
   },
   {
@@ -132,9 +131,3 @@ const AppRoutes: Routes = [
   // otherwise redirect to home
   { path: "**", redirectTo: "" },
 ];
-
-@NgModule({
-  imports: [RouterModule.forRoot(AppRoutes, {scrollPositionRestoration: 'enabled'})],
-  exports: [RouterModule],
-})
-export class AppRoutingModule {}

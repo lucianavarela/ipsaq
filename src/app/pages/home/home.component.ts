@@ -1,15 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { Sermon } from 'src/app/classes/sermon';
 import { SermonsService } from 'src/app/services/sermons.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { DatePipe } from '@angular/common';
+import { CommonModule, DatePipe, NgFor, NgIf } from '@angular/common';
 import Utils from 'src/app/utils/utils';
+import { SafeUrlPipe } from 'src/app/decorators/safe-url.pipe';
+import { TransformYoutubePipe } from 'src/app/decorators/transform-youtube.pipe';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule, 
+    DatePipe, 
+    RouterLink, 
+    NgFor, 
+    NgIf,
+    SafeUrlPipe,
+    TransformYoutubePipe
+  ]
 })
 export class HomeComponent implements OnInit {
   lastsSermons!: Sermon[];

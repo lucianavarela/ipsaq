@@ -26,13 +26,13 @@ export default class Utils {
     static removeAccents(value: string): string {
         if (value) {
             let accent = [
-                /[\300-\306]/g, /[\340-\346]/g, // A, a
-                /[\310-\313]/g, /[\350-\353]/g, // E, e
-                /[\314-\317]/g, /[\354-\357]/g, // I, i
-                /[\322-\330]/g, /[\362-\370]/g, // O, o
-                /[\331-\334]/g, /[\371-\374]/g, // U, u
-                /[\321]/g, /[\361]/g, // N, n
-                /[\307]/g, /[\347]/g, // C, c
+                /[\u00C0-\u00C6]/g, /[\u00E0-\u00E6]/g, // A, a
+                /[\u00C8-\u00CB]/g, /[\u00E8-\u00EB]/g, // E, e
+                /[\u00CC-\u00CF]/g, /[\u00EC-\u00EF]/g, // I, i
+                /[\u00D2-\u00D8]/g, /[\u00F2-\u00F8]/g, // O, o
+                /[\u00D9-\u00DC]/g, /[\u00F9-\u00FC]/g, // U, u
+                /[\u00D1]/g, /[\u00F1]/g, // N, n
+                /[\u00C7]/g, /[\u00E7]/g, // C, c
             ],
                 noaccent = ['A', 'a', 'E', 'e', 'I', 'i', 'O', 'o', 'U', 'u', 'N', 'n', 'C', 'c'];
         

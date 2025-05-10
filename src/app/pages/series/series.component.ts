@@ -1,16 +1,27 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatSort, Sort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatSort, Sort, MatSortModule } from '@angular/material/sort';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Title } from '@angular/platform-browser';
 import { Series } from 'src/app/classes/series';
 import { Sermon } from 'src/app/classes/sermon';
 import { SeriesService } from 'src/app/services/series.service';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { HeaderComponent } from 'src/app/utils/header/header.component';
 
 @Component({
   selector: 'app-series',
   templateUrl: './series.component.html',
-  styleUrls: ['./series.component.scss']
+  styleUrls: ['./series.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterLink,
+    MatSortModule,
+    MatTableModule,
+    HeaderComponent
+  ]
 })
 
 export class SeriesComponent implements OnInit {

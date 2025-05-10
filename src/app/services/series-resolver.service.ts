@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, ResolveFn, Router, RouterStateSnapshot } from '@angular/router';
 import { SeriesService } from './series.service';
+import { inject } from '@angular/core';
  
 @Injectable({
   providedIn: 'root'
 })
-export class SeriesResolverService implements Resolve<any> {
+export class SeriesResolverService {
   constructor(private sSeries: SeriesService, private router: Router) {}
   
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
@@ -24,3 +25,7 @@ export class SeriesResolverService implements Resolve<any> {
     }
   }
 }
+
+export const serieResolver: ResolveFn<any> = (route: ActivatedRouteSnapshot) => {
+  return inject(SeriesResolverService).resolve(route, {} as RouterStateSnapshot);
+};

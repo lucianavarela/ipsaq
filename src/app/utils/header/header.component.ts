@@ -1,11 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
+import { Location, NgClass } from '@angular/common';
 import { SupabaseService } from 'src/app/services/supabase.service';
+import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  standalone: true,
+  imports: [CommonModule, RouterLink, NgClass]
 })
 export class HeaderComponent implements OnInit {
   @Input('color') color: string = 'is-primary';

@@ -2,11 +2,14 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Comment } from 'src/app/classes/comment';
 import { CommentsService } from 'src/app/services/comments.service';
 import { ToastService } from 'src/app/services/toast.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-comment-box',
   templateUrl: './comment-box.component.html',
-  styleUrl: './comment-box.component.scss'
+  styleUrl: './comment-box.component.scss',
+  standalone: true,
+  imports: [CommonModule]
 })
 export class CommentBoxComponent {
   @Input('comment') comment!: Comment;

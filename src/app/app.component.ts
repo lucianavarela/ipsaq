@@ -5,9 +5,12 @@ import { SupabaseService } from './services/supabase.service';
 import { MatDialog } from '@angular/material/dialog';
 import Utils from "src/app/utils/utils";
 import { LiveSermonComponent } from './pages/live-sermon/live-sermon.component';
-import { Router } from '@angular/router';
+import { Router, RouterOutlet, RouterLink } from '@angular/router';
 import { ToastService } from './services/toast.service';
-import { AuthUser, Session } from '@supabase/supabase-js';
+import { AuthUser } from '@supabase/supabase-js';
+import { CommonModule, NgIf, NgClass } from '@angular/common';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { ToasterComponent } from './utils/toaster/toaster.component';
 /// <reference path="<relevant path>/node_modules/@types/googlemaps/index.d.ts" />
 
 
@@ -15,7 +18,17 @@ import { AuthUser, Session } from '@supabase/supabase-js';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  host: { 'window:beforeunload': 'toggleNavbar' }
+  host: { 'window:beforeunload': 'toggleNavbar' },
+  standalone: true,
+  imports: [
+    CommonModule, 
+    RouterOutlet, 
+    RouterLink,
+    NgIf, 
+    NgClass, 
+    MatTooltipModule,
+    ToasterComponent
+  ]
 })
 export class AppComponent implements OnInit {
   isMobile = false;

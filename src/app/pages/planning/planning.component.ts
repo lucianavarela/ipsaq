@@ -1,15 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { MatRadioChange } from '@angular/material/radio';
+import { MatRadioChange, MatRadioModule } from '@angular/material/radio';
 import { addMonths, startOfMonth, endOfMonth, isAfter, isToday } from 'date-fns';
 import { Availability } from 'src/app/classes/availability';
 import { AvailabilityService } from 'src/app/services/availability.service';
 import { SupabaseService } from 'src/app/services/supabase.service';
 import { UsersService } from 'src/app/services/users.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { HeaderComponent } from 'src/app/utils/header/header.component';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @Component({
   selector: 'app-planning',
   templateUrl: './planning.component.html',
-  styleUrl: './planning.component.scss'
+  styleUrl: './planning.component.scss',
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatRadioModule,
+    HeaderComponent,
+    MatExpansionModule
+  ]
 })
 export class PlanningComponent implements OnInit {
   isMobile = false;

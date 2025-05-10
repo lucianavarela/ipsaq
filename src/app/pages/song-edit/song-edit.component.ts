@@ -4,11 +4,24 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Song } from 'src/app/classes/song';
 import { SongsService } from 'src/app/services/songs.service';
 import { ToastService } from 'src/app/services/toast.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { HeaderComponent } from 'src/app/utils/header/header.component';
+import { PageButtonComponent } from 'src/app/utils/page-button/page-button.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-song-edit',
   templateUrl: './song-edit.component.html',
-  styleUrls: ['./song-edit.component.scss']
+  styleUrls: ['./song-edit.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    HeaderComponent,
+    PageButtonComponent,
+    MatSlideToggleModule
+  ]
 })
 export class SongEditComponent implements OnInit {
   song!: Song;

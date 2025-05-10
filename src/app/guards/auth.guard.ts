@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
-import { Router, UrlTree } from '@angular/router';
+import { Injectable, inject } from '@angular/core';
+import { Router, UrlTree, CanActivateFn } from '@angular/router';
 import { Observable } from 'rxjs';
 import { SupabaseService } from '../services/supabase.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard {
+export class AuthGuardService {
 
   constructor(private sSupabase: SupabaseService, private router: Router) { }
 
@@ -18,3 +18,7 @@ export class AuthGuard {
     return true;
   }
 }
+
+export const AuthGuard: CanActivateFn = () => {
+  return inject(AuthGuardService).canActivate();
+};

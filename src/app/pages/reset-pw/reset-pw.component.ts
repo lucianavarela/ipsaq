@@ -3,13 +3,17 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SupabaseService } from 'src/app/services/supabase.service';
 import { ToastService } from 'src/app/services/toast.service';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-reset-pw',
   templateUrl: './reset-pw.component.html',
-  styleUrls: ['./reset-pw.component.scss']
+  styleUrls: ['./reset-pw.component.scss'],
+  standalone: true,
+  imports: [CommonModule, FormsModule]
 })
-export class ResetPwComponent {
+export class ResetPwComponent implements OnInit {
   pw1: string = '';
   pw2: string = '';
 

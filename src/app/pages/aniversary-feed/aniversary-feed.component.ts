@@ -2,11 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Comment } from 'src/app/classes/comment';
 import { CommentsService } from 'src/app/services/comments.service';
+import { CommonModule } from '@angular/common';
+import { CommentBoxComponent } from '../comment-box/comment-box.component';
 
 @Component({
   selector: 'app-aniversary-feed',
   templateUrl: './aniversary-feed.component.html',
-  styleUrl: './aniversary-feed.component.scss'
+  styleUrl: './aniversary-feed.component.scss',
+  standalone: true,
+  imports: [
+    CommonModule,
+    CommentBoxComponent
+  ]
 })
 export class AniversaryFeedComponent implements OnInit {
   comments: Comment[] = [];

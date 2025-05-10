@@ -2,11 +2,15 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { SermonSong } from 'src/app/classes/sermon-song';
 import { Song } from 'src/app/classes/song';
 import { SupabaseService } from 'src/app/services/supabase.service';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-songs-box',
   templateUrl: './songs-box.component.html',
-  styleUrls: ['./songs-box.component.scss']
+  styleUrls: ['./songs-box.component.scss'],
+  standalone: true,
+  imports: [CommonModule, RouterLink]
 })
 export class SongsBoxComponent implements OnInit {
   @Input('sermonSongInput') sermonSong!: SermonSong | undefined;
