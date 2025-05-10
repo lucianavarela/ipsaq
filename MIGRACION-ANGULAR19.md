@@ -32,18 +32,28 @@ Para ejecutar este proyecto migrado a Angular 19 en una nueva computadora, neces
 
 ### Configuración del proyecto
 
-1. **Instalar dependencias del proyecto**:
+1. **Actualizar @ng-select/ng-select** (necesario para compatibilidad con Angular 19):
    ```bash
    cd ipsaq
+   npm uninstall @ng-select/ng-select && npm install @ng-select/ng-select@latest --save
+   ```
+
+2. **Instalar tipos de Node.js** (necesario para TypeScript en Angular 19):
+   ```bash
+   npm install @types/node@20.12.5 --save-dev
+   ```
+
+3. **Instalar dependencias del proyecto**:
+   ```bash
    npm install
    ```
 
-2. **Ejecutar el servidor de desarrollo**:
+4. **Ejecutar el servidor de desarrollo**:
    ```bash
    ng serve
    ```
 
-3. **Acceder a la aplicación**:
+5. **Acceder a la aplicación**:
    Abre tu navegador en `http://localhost:4200/`
 
 ## Cambios realizados en la migración
@@ -55,6 +65,8 @@ Para ejecutar este proyecto migrado a Angular 19 en una nueva computadora, neces
 - Actualizado zone.js de ~0.14.4 a ~0.15.0
 - Actualizado @ng-select/ng-select a la versión compatible con Angular 19
 
+[Guía oficial de actualización a Angular 19](https://angular.dev/guide/update-to-latest-version)
+
 ### 2. Arquitectura de componentes standalone
 
 El cambio más importante es que todos los componentes ahora son standalone. Esto significa:
@@ -62,6 +74,8 @@ El cambio más importante es que todos los componentes ahora son standalone. Est
 - Ya no se usa `app.module.ts` para declarar componentes
 - Cada componente importa directamente sus dependencias
 - Los componentes se declaran con `standalone: true` y un array `imports`
+
+[Documentación oficial sobre componentes standalone](https://angular.dev/guide/standalone-components)
 
 **Antes (Angular 17):**
 ```typescript
@@ -95,6 +109,8 @@ export class ExampleComponent { }
 
 ### 3. Bootstrapping de la aplicación
 
+[Documentación oficial sobre bootstrapApplication](https://angular.dev/api/platform-browser/bootstrapApplication)
+
 **Antes (Angular 17):**
 ```typescript
 // main.ts
@@ -115,6 +131,8 @@ bootstrapApplication(AppComponent, {
 ```
 
 ### 4. Routing
+
+[Documentación oficial sobre provideRouter](https://angular.dev/api/router/provideRouter)
 
 **Antes (Angular 17):**
 ```typescript
@@ -143,6 +161,9 @@ bootstrapApplication(AppComponent, {
 
 ### 5. Resolvers y Guards
 
+[Documentación oficial sobre guards funcionales](https://angular.dev/api/router/CanActivateFn)
+[Documentación oficial sobre resolvers funcionales](https://angular.dev/api/router/ResolveFn)
+
 **Antes (Angular 17):**
 ```typescript
 @Injectable()
@@ -165,6 +186,8 @@ export const AuthGuard: CanActivateFn = () => {
 
 ### 6. Importación de módulos en componentes
 
+[Documentación oficial sobre importación en componentes standalone](https://angular.dev/guide/standalone-components#importing-standalone-components)
+
 Ahora cada componente debe importar explícitamente todos los módulos que utiliza:
 
 - `CommonModule` para directivas como `*ngIf` y `*ngFor`
@@ -175,9 +198,13 @@ Ahora cada componente debe importar explícitamente todos los módulos que utili
 
 ### 7. Pipes y Directivas
 
+[Documentación oficial sobre pipes y directivas standalone](https://angular.dev/guide/standalone-components#standalone-directives-and-pipes)
+
 Todos los pipes y directivas también son standalone y deben ser importados en cada componente que los utiliza.
 
 ### 8. Configuración de TypeScript y tipos de Node.js
+
+[Documentación oficial sobre configuración de TypeScript para Angular](https://angular.dev/guide/typescript-configuration)
 
 Se actualizó el archivo `tsconfig.json` para incluir explícitamente los tipos de Node.js, necesarios para Angular 19:
 
@@ -212,22 +239,19 @@ The file is in the program because:
 Entry point for implicit type library 'node'
 ```
 
-También fue necesario actualizar la versión de `@types/node` para que sea compatible con Angular 19:
-```bash
-npm install @types/node@20.12.5 --save-dev
-```
+También fue necesario actualizar la versión de `@types/node` para que sea compatible con Angular 19, como se indica en la sección de configuración del proyecto.
 
 ### 9. Resolución de conflictos de dependencias
 
-Durante la migración se encontró un conflicto entre Angular 19 y la versión de `@ng-select/ng-select`. Este componente requería Angular 17 pero estábamos usando Angular 19. La solución fue actualizar `@ng-select/ng-select` a la última versión:
+[Documentación oficial sobre resolución de dependencias](https://angular.dev/guide/npm-packages)
 
-```bash
-npm uninstall @ng-select/ng-select && npm install @ng-select/ng-select@latest --save
-```
+Durante la migración se encontró un conflicto entre Angular 19 y la versión de `@ng-select/ng-select`. Este componente requería Angular 17 pero estábamos usando Angular 19. La solución fue actualizar `@ng-select/ng-select` a la última versión como se indica en la sección de requisitos de instalación.
 
 ## Consideraciones para mantenimiento
 
 ### Al crear nuevos componentes
+
+[Documentación oficial sobre creación de componentes standalone](https://angular.dev/guide/standalone-components#creating-a-standalone-component)
 
 1. Marcarlos como `standalone: true`
 2. Importar todos los componentes/directivas/pipes que uses
@@ -251,6 +275,8 @@ export class NuevoComponent { }
 
 ### Al usar componentes en plantillas
 
+[Documentación oficial sobre uso de componentes en plantillas](https://angular.dev/guide/standalone-components#using-standalone-components)
+
 Asegúrate de importarlos en el array `imports` del componente:
 
 ```typescript
@@ -264,6 +290,8 @@ Asegúrate de importarlos en el array `imports` del componente:
 ```
 
 ### Para nuevas rutas
+
+[Documentación oficial sobre rutas con componentes standalone](https://angular.dev/guide/router#configuring-routes-with-standalone-components)
 
 Agrégalas directamente a `appRoutes` en app-routing.module.ts:
 
@@ -281,6 +309,8 @@ export const appRoutes: Routes = [
 ```
 
 ### Para nuevos servicios
+
+[Documentación oficial sobre servicios en Angular](https://angular.dev/guide/dependency-injection)
 
 Sigue usando `@Injectable({ providedIn: 'root' })` como antes:
 
