@@ -14,6 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { HighlightDirective } from 'src/app/decorators/highlight.directive';
 import { HeaderComponent } from 'src/app/utils/header/header.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-sermons',
@@ -37,7 +38,8 @@ import { HeaderComponent } from 'src/app/utils/header/header.component';
     MatIconModule,
     RouterLink,
     HighlightDirective,
-    HeaderComponent
+    HeaderComponent,
+    MatButtonModule
   ]
 })
 

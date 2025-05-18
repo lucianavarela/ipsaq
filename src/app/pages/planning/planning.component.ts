@@ -4,11 +4,11 @@ import { addMonths, startOfMonth, endOfMonth, isAfter, isToday } from 'date-fns'
 import { Availability } from 'src/app/classes/availability';
 import { AvailabilityService } from 'src/app/services/availability.service';
 import { SupabaseService } from 'src/app/services/supabase.service';
-import { UsersService } from 'src/app/services/users.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from 'src/app/utils/header/header.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { ProfilesService } from 'src/app/services/profiles.service';
 
 @Component({
   selector: 'app-planning',
@@ -25,31 +25,32 @@ import { MatExpansionModule } from '@angular/material/expansion';
 })
 export class PlanningComponent implements OnInit {
   isMobile = false;
-  loggedUser!: any | null;
+  loggedProfile!: any | null;
   availabilityLogs: Availability[] = [];
   months: { name: string; sundays: Date[] }[] = [];
   availabilityDict: { [date: string]: {id: number, is_available: string} } = {};
 
-  constructor(private sAvailability: AvailabilityService, private supabase: SupabaseService, private sUser: UsersService) {
+  constructor(private sAvailability: AvailabilityService, private supabase: SupabaseService, private sProfile: ProfilesService) {
     this.isMobile = window.innerWidth <= 767;
     this.generateSchedule();
   }
 
   ngOnInit() {
     this.supabase.setUser();
-    this.loggedUser = this.supabase.getUser;
-    this.loadUserId();
+    this.loggedProfile = this.supabase.getUser;
+    this.loadProfileId();
     this.loadAvailabilityLogs();
   }
   
-  private loadUserId() {
-    this.sUser.getUserByAuthId(this.loggedUser.user_id).then((res: any) => {
-      this.loggedUser.user_id = res.data.id; 
+  private loadProfileId() {
+    this.sProfile.getProfileByAuthId(this.loggedProfile.profile_id).then((res: any) => {
+      this.loggedProfile.profile_id = res.data.id; 
     });
   }
 
   private generateSchedule() {
     const today = new Date();
+    today.setDate(today.getDate() + 1);
     for (let i = 0; i < 6; i++) {
       const monthDate = addMonths(today, i);
       const start = startOfMonth(monthDate);
@@ -77,7 +78,7 @@ export class PlanningComponent implements OnInit {
   }
 
   private loadAvailabilityLogs() {
-    this.sAvailability.getAvailabilityLogs(this.loggedUser?.user_id ?? null).then(res => {
+    this.sAvailability.getAvailabilityLogs(this.loggedProfile?.profile_id ?? null).then(res => {
       if (res.data) {
         this.availabilityLogs = res.data.map((s: any) => new Availability(s));
         this.availabilityDict = this.buildDictAvailability();
@@ -116,7 +117,7 @@ export class PlanningComponent implements OnInit {
             this.availabilityDict[dateKey].is_available = event.value;
           });
         } else {
-          this.sAvailability.logAvailability({sermon_date: dateKey, id_user: this.loggedUser.user_id, is_available: event.value==="true"}).then((res:any) => {
+          this.sAvailability.logAvailability({sermon_date: dateKey, id_user: this.loggedProfile.profile_id, is_available: event.value==="true"}).then((res:any) => {
             this.availabilityDict[dateKey] = {id: res.data.id, is_available: event.value};
           });
         }

@@ -25,7 +25,6 @@ import { ToasterComponent } from './utils/toaster/toaster.component';
     RouterOutlet, 
     RouterLink,
     NgIf, 
-    NgClass, 
     MatTooltipModule,
     ToasterComponent
   ]
@@ -64,6 +63,10 @@ export class AppComponent implements OnInit {
 
   isLoggedIn() {
     return this.supabase.isLoggedIn();
+  }
+
+  isAdmin() {
+    return true;
   }
 
   toggleNavbar() {

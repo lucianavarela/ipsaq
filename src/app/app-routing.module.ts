@@ -26,6 +26,7 @@ import { AniversaryComponent } from "./pages/aniversary/aniversary.component";
 import { AniversaryFeedComponent } from "./pages/aniversary-feed/aniversary-feed.component";
 import { DownloadsComponent } from "./pages/downloads/downloads.component";
 import { PlanningComponent } from "./pages/planning/planning.component";
+import { PlanningGeneralComponent } from './pages/planning-general/planning-general.component';
 
 export const appRoutes: Routes = [
   { path: "", component: HomeComponent },
@@ -127,6 +128,10 @@ export const appRoutes: Routes = [
   },
   { path: "aniversario", component: AniversaryComponent },
   //{ path: "aniversario/feed", component: AniversaryFeedComponent },
+  {
+    path: 'planificacion-general',
+    component: PlanningGeneralComponent
+  },
 
   // otherwise redirect to home
   { path: "**", redirectTo: "" },

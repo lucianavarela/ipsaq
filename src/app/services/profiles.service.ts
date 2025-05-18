@@ -4,24 +4,24 @@ import { SupabaseService } from './supabase.service';
 @Injectable({
   providedIn: 'root'
 })
-export class UsersService {
+export class ProfilesService {
   table='users';
 
   constructor(public sSupabase: SupabaseService) { }
 
-  getUsers() {
+  getProfiles() {
     return this.sSupabase.get(this.table).order('nickname', {ascending: true});
   }
 
-  getUser(id: number) {
+  getProfile(id: number) {
     return this.sSupabase.getById(id, this.table);
   }
 
-  getUserByAuthId(id: string) {
+  getProfileByAuthId(id: string) {
     return this.sSupabase.get(this.table).filter('id_user', 'eq', id).single();
   }
 
-  async createUser(name: string) {
+  async createProfile(name: string) {
     return await this.sSupabase.add({'name': name}, this.table);
   }
 }

@@ -7,7 +7,7 @@ import {
   SupabaseClient,
 } from '@supabase/supabase-js'
 import { environment } from 'src/environments/environment';
-import { User } from '../classes/user';
+import { Profile } from '../classes/profile';
 
 @Injectable({
   providedIn: 'root',
@@ -65,10 +65,10 @@ export class SupabaseService {
 
   setUser(user?: AuthUser) {
     if (user) {
-      this.user = new User(user);
+      this.user = new Profile(user);
     } else {
       if (localStorage.getItem("supabase.auth.token")) {
-        this.user = new User(JSON.parse(localStorage.getItem("supabase.auth.token") || '{}')['currentSession']['user']);
+        this.user = new Profile(JSON.parse(localStorage.getItem("supabase.auth.token") || '{}')['currentSession']['user']);
       }
       this.supabase.auth.getSession().then(s => {
         this.user = s?.data?.session?.user || null;

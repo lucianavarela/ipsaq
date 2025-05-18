@@ -11,8 +11,7 @@ import { Series } from "src/app/classes/series";
 import { SeriesService } from "src/app/services/series.service";
 import { Title } from "@angular/platform-browser";
 import Utils from "src/app/utils/utils";
-import { User } from "src/app/classes/user";
-import { UsersService } from "src/app/services/users.service";
+import { Profile } from "src/app/classes/profile";
 import { SermonBand } from "src/app/classes/sermon-band";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
@@ -20,6 +19,7 @@ import { NgSelectModule } from "@ng-select/ng-select";
 import { HeaderComponent } from "src/app/utils/header/header.component";
 import { SongsBoxComponent } from "../songs-box/songs-box.component";
 import { PageButtonComponent } from "src/app/utils/page-button/page-button.component";
+import { ProfilesService } from "src/app/services/profiles.service";
 
 @Component({
   selector: "app-sermon-edit",
@@ -42,8 +42,8 @@ export class SermonEditComponent implements OnInit {
   datetime: string = '';
   series: Series[] = [];
   songs: SermonSong[] = [];
-  allPreachers: User[] = [];
-  allDirectors: User[] = [];
+  allPreachers: Profile[] = [];
+  allDirectors: Profile[] = [];
   allSongs: Song[] = [];
   selectedSong!: Song | null;
   allPlayers: SermonBand[] = [];
@@ -58,7 +58,7 @@ export class SermonEditComponent implements OnInit {
     private toastService: ToastService,
     private sSeries: SeriesService,
     private sSong: SongsService,
-    private sUser: UsersService,
+    private sProfile: ProfilesService,
     private sTitle: Title
   ) { }
 
@@ -74,7 +74,7 @@ export class SermonEditComponent implements OnInit {
 
         this.sTitle.setTitle(`Editar Culto ${this.sermon.title ? '"' + this.sermon.title + '"' : this.sermon.date ? 'del ' + 
         new Date(this.sermon.date).toLocaleDateString() : ''}`);
-        this.getUsers(sermon.data.sermon_band);
+        this.getProfiles(sermon.data.sermon_band);
         this.sSong.getSongs().then((res: any) => {
           this.allSongs = res.data
             ?.map((s: any) => new Song(s))
@@ -85,7 +85,7 @@ export class SermonEditComponent implements OnInit {
       } else {
         this.sTitle.setTitle(`Crear culto`);
         this.sermon = new Sermon();
-        this.getUsers();
+        this.getProfiles();
       }
       this.sSeries.getSeries().then((res: any) => {
         this.series = res.data
@@ -94,13 +94,13 @@ export class SermonEditComponent implements OnInit {
     });
   }
 
-  getUsers(sermonBands?: any[]) {
-    this.sUser.getUsers().then((res: any) => {
-      const users = res.data.map((u: any) => new User(u));
-      this.allDirectors = users.filter((u: any) => u.direction_role);
-      this.allPreachers = users.filter((u: any) => u.sermon_role);
+  getProfiles(sermonBands?: any[]) {
+    this.sProfile.getProfiles().then((res: any) => {
+      const profiles = res.data.map((u: any) => new Profile(u));
+      this.allDirectors = profiles.filter((u: any) => u.direction_role);
+      this.allPreachers = profiles.filter((u: any) => u.sermon_role);
 
-      users.filter((u: any) => u.choir_role || u.band_role).forEach((u: any) => {
+      profiles.filter((u: any) => u.choir_role || u.band_role).forEach((u: any) => {
         if (sermonBands) {
           let sbId = sermonBands.find((d: any) => d.id_player == u.id)?.id ?? null;
           let sermonPlayer = new SermonBand({ id: sbId, player: u, id_sermon: this.sermon.id });

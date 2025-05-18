@@ -1,10 +1,10 @@
 import { Series } from "./series";
-import { User } from "./user";
+import { Profile } from "./profile";
 
 export class Sermon {
     public id?: number;
-    public director?: User | null;
-    public preacher?: User | null;
+    public director?: Profile | null;
+    public preacher?: Profile | null;
     public title?: string;
     public date?: string;
     public time?: string;
@@ -30,8 +30,8 @@ export class Sermon {
         this.bible_verse = obj?.bible_verse;
         this.series = obj?.related_series ? new Series({id: Number(obj?.related_series.id), name:obj?.related_series.name}) : undefined;
         this.chapter_number = obj?.chapter_number;
-        this.director = obj?.id_director ? new User (obj?.id_director) : null;
-        this.preacher = obj?.id_preacher ? new User (obj?.id_preacher) : null;
+        this.director = obj?.id_director ? new Profile (obj?.id_director) : null;
+        this.preacher = obj?.id_preacher ? new Profile (obj?.id_preacher) : null;
         if (obj && 'sermon_band' in obj && obj.sermon_band.length) {
             this.ids_band = obj.sermon_band.map(sb => sb.id_player);
         }

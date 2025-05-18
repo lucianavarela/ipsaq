@@ -1,14 +1,14 @@
-import { User } from "./user";
+import { Profile } from "./profile";
 
 export class Availability {
     public id?: number | null;
-    public user?: User;
+    public profile?: Profile;
     public sermon_date?: string;
     public is_available?: boolean;
 
-    constructor(obj?: {id?: number, user?: User, sermon_date?: string, is_available?: boolean}) {
+    constructor(obj?: {id?: number, profile?: Profile, sermon_date?: string, is_available?: boolean}) {
         this.id = obj?.id;
-        this.user = obj?.user;
+        this.profile = obj?.profile;
         this.sermon_date = obj?.sermon_date;
         this.is_available = obj?.is_available;
     }
@@ -19,7 +19,7 @@ export class Availability {
                 id: obj['id'],
                 sermon_date: obj['sermon_date'],
                 is_available: obj['is_available'],
-                user: new User({'id': obj['user']}),
+                profile: obj['id_user'] ? new Profile(obj['id_user']) : undefined,
             });
         });
     }

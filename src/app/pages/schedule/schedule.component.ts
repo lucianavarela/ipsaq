@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Title } from '@angular/platform-browser';
 import { Sermon } from 'src/app/classes/sermon';
-import { User } from 'src/app/classes/user';
+import { Profile } from 'src/app/classes/profile';
 import { SermonsService } from 'src/app/services/sermons.service';
-import { UsersService } from 'src/app/services/users.service';
 import { CommonModule, DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { HeaderComponent } from 'src/app/utils/header/header.component';
 import { MatChipsModule } from '@angular/material/chips';
+import { ProfilesService } from 'src/app/services/profiles.service';
 
 @Component({
   selector: 'app-schedule',
@@ -30,12 +30,12 @@ export class ScheduleComponent implements OnInit {
   displayedColumns: string[] = ['sermon_date'];
   namesHeaders: string[] = [];
   sermons: Sermon[] = [];
-  users: User[] = [];
+  profiles: Profile[] = [];
   dataSource = new MatTableDataSource<Sermon>();
   expandedElement!: Sermon | null;
   filtersClasses: string = 'filter-choir filter-players filter-directors';
   
-  constructor(private sSermon: SermonsService, private sUser: UsersService, private sTitle: Title) {
+  constructor(private sSermon: SermonsService, private sProfile: ProfilesService, private sTitle: Title) {
     this.isMobile = window.innerWidth <= 767;
   }
   
@@ -45,10 +45,10 @@ export class ScheduleComponent implements OnInit {
       if (res.data) this.sermons = res.data.map((o:any) => new Sermon(o))
       this.dataSource = new MatTableDataSource(this.sermons);
     });
-    this.sUser.getUsers().then((res: any) => {
-      res.data?.filter((u:User) => u.band_role||u.choir_role||u.direction_role).map((s: any) => {
+    this.sProfile.getProfiles().then((res: any) => {
+      res.data?.filter((u:Profile) => u.band_role||u.choir_role||u.direction_role).map((s: any) => {
         this.namesHeaders.push(s.nickname)
-        this.users.push(new User(s));
+        this.profiles.push(new Profile(s));
       });
       this.displayedColumns = this.displayedColumns.concat(this.namesHeaders);
     });

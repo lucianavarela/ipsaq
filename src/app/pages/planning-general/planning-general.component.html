@@ -1,0 +1,79 @@
+<!-- Archivo renombrado/eliminado: usar planning-general.component.html -->
+<div class="planning-table">
+  <table>
+    <thead>
+      <tr>
+        <th rowspan="2">Mes</th>
+        <th rowspan="2">Fecha</th>
+        <th colspan="2">Instrumentos</th>
+        <th colspan="2">Coro</th>
+      </tr>
+      <tr>
+        <th>Disponibles</th>
+        <th>Ausentes</th>
+        <th>Disponibles</th>
+        <th>Ausentes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let month of months">
+        <tr *ngFor="let date of month.dates; let i = index">
+          <td *ngIf="i === 0" [attr.rowspan]="month.dates.length" class="month-cell">{{ month.name | titlecase }}</td>
+          <td style="text-transform: capitalize;">{{ date | date : "EEEE dd" }}</td>
+          <td>
+            <span *ngIf="grouped[date]?.instruments?.available?.length; else empty1">
+              <ng-container *ngFor="let u of grouped[date].instruments.available">
+                <span class="profile-tag" 
+                      [attr.data-color]="getProfileColor(u.id)"
+                      [style.--tag-color]="getProfileColor(u.id)"
+                      [style.--tag-bg]="getProfileColor(u.id, 0.2)">
+                  {{ u.nickname || u.first_name || u.email }}
+                </span>
+              </ng-container>
+            </span>
+            <ng-template #empty1>-</ng-template>
+          </td>
+          <td>
+            <span *ngIf="grouped[date]?.instruments?.absent?.length; else empty2">
+              <ng-container *ngFor="let u of grouped[date].instruments.absent">
+                <span class="profile-tag absent"
+                      [attr.data-color]="getProfileColor(u.id)"
+                      [style.--tag-color]="getProfileColor(u.id)"
+                      [style.--tag-bg]="getProfileColor(u.id, 0.2)">
+                  {{ u.nickname || u.first_name || u.email }}
+                </span>
+              </ng-container>
+            </span>
+            <ng-template #empty2>-</ng-template>
+          </td>
+          <td>
+            <span *ngIf="grouped[date]?.choir?.available?.length; else empty3">
+              <ng-container *ngFor="let u of grouped[date].choir.available">
+                <span class="profile-tag" 
+                      [attr.data-color]="getProfileColor(u.id)"
+                      [style.--tag-color]="getProfileColor(u.id)"
+                      [style.--tag-bg]="getProfileColor(u.id, 0.2)">
+                  {{ u.nickname || u.first_name || u.email }}
+                </span>
+              </ng-container>
+            </span>
+            <ng-template #empty3>-</ng-template>
+          </td>
+          <td>
+            <span *ngIf="grouped[date]?.choir?.absent?.length; else empty4">
+              <ng-container *ngFor="let u of grouped[date].choir.absent">
+                <span class="profile-tag absent"
+                      [attr.data-color]="getProfileColor(u.id)"
+                      [style.--tag-color]="getProfileColor(u.id)"
+                      [style.--tag-bg]="getProfileColor(u.id, 0.2)">
+                  {{ u.nickname || u.first_name || u.email }}
+                </span>
+              </ng-container>
+            </span>
+            <ng-template #empty4>-</ng-template>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>

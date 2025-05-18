@@ -65,7 +65,10 @@
             <a class="navbar-item" [routerLink]="['cronograma']">
               <span class="icon has-text-warning"><i class="fa-regular fa-sm fa-calendar"></i></span>Cronograma</a>
               <a class="navbar-item" [routerLink]="['planificacion']">
-                <span class="icon has-text-info"><i class="fa-regular fa-sm fa-calendar-plus"></i></span>Planificacion</a>
+                <span class="icon has-text-info"><i class="fa-regular fa-sm fa-calendar-plus"></i></span>Planificación</a>
+            <a *ngIf="isAdmin()" class="navbar-item" [routerLink]="['planificacion-general']">
+              <span class="icon has-text-danger"><i class="fa-regular fa-sm fa-calendar-plus"></i></span>Planificación
+              General</a>
           </div>
         </div>
       </ng-template>

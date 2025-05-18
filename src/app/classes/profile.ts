@@ -1,6 +1,6 @@
 import { AuthUser } from "@supabase/supabase-js";
 
-export class User {
+export class Profile {
     public id?: number;
     public user_id?: string;
     public email?: string;
