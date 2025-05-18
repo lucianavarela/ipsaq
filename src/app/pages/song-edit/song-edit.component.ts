@@ -26,6 +26,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 export class SongEditComponent implements OnInit {
   song!: Song;
   songSuggestionFlag = false;
+  keyTonic: string | null = null;
+  keyMode: boolean = true; // true = mayor, false = menor
 
   constructor(private sSongs: SongsService, private router: Router, private activatedRoute: ActivatedRoute,
     private toastService: ToastService, private sTitle: Title) { }
@@ -35,9 +37,25 @@ export class SongEditComponent implements OnInit {
       if (song) {
         this.song = new Song(song.data);
         this.sTitle.setTitle(`Editar ${this.song.index ? this.song.index + ' | ' : ''}${(this.song.beginning || this.song.title)}`);
+        // Separar key en tónica y modo
+        if (this.song.key) {
+          const match = this.song.key.match(/^([A-G]#?(?:\/Db|\/Eb|\/Gb|\/Ab|\/Bb)?)(m)?$/);
+          if (match) {
+            this.keyTonic = match[1];
+            this.keyMode = match[2] === 'm' ? false : true;
+          } else {
+            this.keyTonic = null;
+            this.keyMode = true;
+          }
+        } else {
+          this.keyTonic = null;
+          this.keyMode = true;
+        }
       } else {
         this.sTitle.setTitle('Agregar canción');
         this.song = new Song();
+        this.keyTonic = null;
+        this.keyMode = true;
       }
     })
   }
@@ -45,6 +63,8 @@ export class SongEditComponent implements OnInit {
   async updateSong() {
     if (this.song.beginning) {
       try {
+        // Combinar tónica y modo antes de guardar
+        this.song.key = this.keyTonic ? `${this.keyTonic}${this.keyMode ? '' : 'm'}` : undefined;
         this.sSongs.getLastIndex().then((res: any) => {
           const nextIndex = (res.data[0].index) + 1;
           if (this.song.suggestion && this.songSuggestionFlag) {
@@ -75,6 +95,8 @@ export class SongEditComponent implements OnInit {
   async addSong() {
     if (this.song.beginning) {
       try {
+        // Combinar tónica y modo antes de guardar
+        this.song.key = this.keyTonic ? `${this.keyTonic}${this.keyMode ? '' : 'm'}` : undefined;
         delete this.song.id;
         this.sSongs.getLastIndex().then((res: any) => {
           this.song.index = (res.data[0].index) + 1;

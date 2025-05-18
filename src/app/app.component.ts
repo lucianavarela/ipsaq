@@ -7,10 +7,10 @@ import Utils from "src/app/utils/utils";
 import { LiveSermonComponent } from './pages/live-sermon/live-sermon.component';
 import { Router, RouterOutlet, RouterLink } from '@angular/router';
 import { ToastService } from './services/toast.service';
-import { AuthUser } from '@supabase/supabase-js';
 import { CommonModule, NgIf, NgClass } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ToasterComponent } from './utils/toaster/toaster.component';
+import { Profile } from './classes/profile';
 /// <reference path="<relevant path>/node_modules/@types/googlemaps/index.d.ts" />
 
 
@@ -37,7 +37,7 @@ export class AppComponent implements OnInit {
   upcomingSermonSearched: boolean = false;
   hideHeaderFooter = false;
   upcomingSermon!: Sermon;
-  loggedUser!: AuthUser | null;
+  loggedUser!: Profile | null;
   @ViewChild('hamburguer') hamburguer!: ElementRef;
   @ViewChild('infoDropdown') infoDropdown!: ElementRef;
   @ViewChild('sermonsDropdown') sermonsDropdown!: ElementRef;
@@ -63,10 +63,6 @@ export class AppComponent implements OnInit {
 
   isLoggedIn() {
     return this.supabase.isLoggedIn();
-  }
-
-  isAdmin() {
-    return true;
   }
 
   toggleNavbar() {

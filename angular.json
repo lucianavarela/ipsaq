@@ -33,7 +33,11 @@
               "./node_modules/bootstrap/scss/bootstrap.scss",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "@supabase/realtime-js",
+              "ws"
+            ]
           },
           "configurations": {
             "production": {

@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from 'src/app/utils/header/header.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { ProfilesService } from 'src/app/services/profiles.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-planning',
@@ -30,7 +31,8 @@ export class PlanningComponent implements OnInit {
   months: { name: string; sundays: Date[] }[] = [];
   availabilityDict: { [date: string]: {id: number, is_available: string} } = {};
 
-  constructor(private sAvailability: AvailabilityService, private supabase: SupabaseService, private sProfile: ProfilesService) {
+  constructor(private sAvailability: AvailabilityService, private supabase: SupabaseService,
+    private sProfile: ProfilesService, private sTitle: Title) {
     this.isMobile = window.innerWidth <= 767;
     this.generateSchedule();
   }
@@ -38,12 +40,13 @@ export class PlanningComponent implements OnInit {
   ngOnInit() {
     this.supabase.setUser();
     this.loggedProfile = this.supabase.getUser;
+    this.sTitle.setTitle(`Planificación`);
     this.loadProfileId();
     this.loadAvailabilityLogs();
   }
   
   private loadProfileId() {
-    this.sProfile.getProfileByAuthId(this.loggedProfile.profile_id).then((res: any) => {
+    this.sProfile.getProfileByAuthId(this.loggedProfile.user_id).then((res: any) => {
       this.loggedProfile.profile_id = res.data.id; 
     });
   }

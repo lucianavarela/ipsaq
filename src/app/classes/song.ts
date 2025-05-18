@@ -3,6 +3,7 @@ export class Song {
     public title?: string;
     public beginning?: string;
     public index?: number;
+    public key?: string;
     public artist?: string;
     public link_original?: string;
     public link_ipsaq?: string;
@@ -15,13 +16,14 @@ export class Song {
     public verified?: boolean;
 
     constructor(obj?: {id: number, title: string, beginning: string, index: number,
-        artist: string, link_original: string, link_ipsaq: string, lyrics: string,
+        key: string, artist: string, link_original: string, link_ipsaq: string, lyrics: string,
         link_chords: string, created_at: Date, last_used: Date, amount_used: number,
         suggestion: boolean, verified: boolean}) {
         this.id = obj?.id;
         this.title = obj?.title;
         this.beginning = obj?.beginning;
         this.index = obj?.index;
+        this.key = obj?.key;
         this.artist = obj?.artist;
         this.link_original = obj?.link_original;
         this.link_ipsaq = obj?.link_ipsaq;

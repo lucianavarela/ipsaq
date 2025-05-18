@@ -92,6 +92,33 @@
           <p class="control is-expanded">
             <input class="input" type="text" [(ngModel)]="song.link_chords" placeholder="Link al archivo con acordes" />
           </p>
+          <div class="control">
+            <div class="select is-fullwidth">
+              <select [(ngModel)]="keyTonic">
+                <option [ngValue]="null">Tono</option>
+                <option value="C">C</option>
+                <option value="C#">C#/Db</option>
+                <option value="D">D</option>
+                <option value="D#">D#/Eb</option>
+                <option value="E">E</option>
+                <option value="F">F</option>
+                <option value="F#">F#/Gb</option>
+                <option value="G">G</option>
+                <option value="G#">G#/Ab</option>
+                <option value="A">A</option>
+                <option value="A#">A#/Bb</option>
+                <option value="B">B</option>
+              </select>
+            </div>
+          </div>
+          <div class="control">
+            <div class="select is-fullwidth">
+              <select [(ngModel)]="keyMode">
+                <option [ngValue]="true">Mayor</option>
+                <option [ngValue]="false">Menor</option>
+              </select>
+            </div>
+          </div>
           <p class="control" *ngIf="song.link_chords">
             <mat-slide-toggle style="margin: 8px 0 8px 15px;font-family: inherit;" [(ngModel)]="song.verified"
               [color]="'primary'">Acordes Verificados
