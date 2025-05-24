@@ -1,0 +1,34 @@
+<div class="cell-container">
+  <span *ngIf="profiles.length">
+    <ng-container *ngFor="let profile of profiles">
+      <span class="profile-tag" [class.absent]="type === 'absent'"
+            [attr.data-color]="planningData.getProfileColor(profile.id)"
+            [style.--tag-color]="planningData.getProfileColor(profile.id)"
+            [style.--tag-bg]="planningData.getProfileColor(profile.id, 0.2)">
+        {{ planningData.getProfileName(profile) }}
+      </span>
+    </ng-container>
+  </span>
+  <button class="button is-small is-ghost add-btn-align" (click)="onAddClick()">
+    <span class="icon is-small has-text-success"><i class="fa fa-plus"></i></span>
+  </button>
+  <div *ngIf="showAddForm" class="add-profile-form">
+    <div class="field has-addons is-pulled-right">
+      <div class="control">
+        <div class="select is-small">
+          <select [(ngModel)]="selectedProfileId" (ngModelChange)="onProfileSelect($event)">
+            <option *ngFor="let p of planningData.filterProfilesByRole(profiles, section)"
+                    [value]="p.id">
+              {{planningData.getProfileName(p)}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="control">
+        <button class="button is-small is-success" (click)="onAddConfirm()">
+          Agregar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

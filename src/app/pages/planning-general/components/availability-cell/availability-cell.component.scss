@@ -1,0 +1,37 @@
+.cell-container {
+  position: relative;
+  
+  .profile-tag {
+    display: inline-block;
+    padding: 0.1em 0.6em;
+    margin: 0.1em 0.1em;
+    border-radius: 1em;
+    font-size: 0.90em;
+    font-weight: 500;
+    white-space: nowrap;
+    
+    &[data-color] {
+      border-color: var(--tag-color);
+      color: var(--tag-color);
+      background-color: var(--tag-bg);
+    }
+    
+    &.absent {
+      border-color: #bbb !important;
+      color: #888 !important;
+      background-color: rgba(180,180,180,0.18) !important;
+      font-style: italic;
+    }
+  }
+  
+  .add-btn-align {
+    position: absolute;
+    top: 0.2em;
+    right: 0.2em;
+    z-index: 2;
+  }
+  
+  .add-profile-form {
+    margin-top: 0.5em;
+  }
+}

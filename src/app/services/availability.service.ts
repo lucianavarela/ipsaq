@@ -12,10 +12,20 @@ export class AvailabilityService {
 
   getAvailabilityLogs(id_user: string|null) {
     if (id_user) {
-      return this.sSupabase.get(this.table, '*, id_user!inner(*)').filter('id_user.id_user', 'eq', id_user).order('sermon_date', {ascending: true});
+      return this.sSupabase.get(this.table, '*, id_user!inner(*)').filter('id_user', 'eq', id_user).order('sermon_date', {ascending: true});
     } else {
       return this.sSupabase.get(this.table, '*, id_user!inner(*)').order('sermon_date', {ascending: true});
     }
+  }
+
+  getUpcomingAvailabilityLogs() {
+    const from = new Date();
+    const to = new Date(new Date().setDate(new Date().getDate() + 30));
+    return this.sSupabase.get(this.table, '*, id_user!inner(*)')
+    .filter('sermon_date', 'gte', from.toISOString().split("T")[0])
+    .filter('sermon_date', 'lte', to.toISOString().split("T")[0])
+    .or('is_designated.eq.true,is_directing.eq.true')
+    .order('sermon_date', {ascending: true});
   }
 
   getAvailability(id: number) {

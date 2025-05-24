@@ -1,0 +1,20 @@
+<div class="designated-cell">
+  <div class="profile-list">
+    <ng-container *ngFor="let profile of profiles">
+      <ng-container *ngIf="
+          profile.id != null &&
+          table[profile.id] &&
+          table[profile.id][date] !== undefined &&
+          table[profile.id][date]
+        ">
+        <label class="designated-checkbox-label">
+          <input type="checkbox"
+                 [checked]="table[profile.id][date]"
+                 (change)="onCheckboxChange($event, profile.id)"
+                 [attr.aria-label]="'Designar a ' + planningData.getProfileName(profile)" />
+          <span>{{planningData.getProfileName(profile)}}</span>
+        </label>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>

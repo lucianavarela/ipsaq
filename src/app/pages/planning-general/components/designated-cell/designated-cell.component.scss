@@ -1,0 +1,17 @@
+.designated-cell {
+  padding: 0.5em;
+
+  .profile-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8em;
+    align-items: center;
+  }
+
+  .designated-checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.1em;
+    margin-bottom: 0;
+  }
+}

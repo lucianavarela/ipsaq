@@ -31,9 +31,9 @@
       >
         <i class="fa-solid fa-guitar"></i>
       </span>
-      <span class="icon has-text-success" *ngIf="!editMode && sermonSong?.song?.verified && isLoggedIn()">
-        <i class="fa-solid fa-check"></i>
-      </span>
+      <strong style="margin: 0 0.3em" class="has-text-danger" *ngIf="sermonSong?.song?.key">
+        {{ sermonSong?.song?.key }}
+      </strong>
       <span
         *ngIf="editMode"
         class="icon"

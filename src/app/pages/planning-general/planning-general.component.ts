@@ -1,24 +1,37 @@
 import { Component, OnInit, AfterViewInit, OnDestroy } from "@angular/core";
-import { AvailabilityService } from "src/app/services/availability.service";
-import { Availability } from "src/app/classes/availability";
-import { Profile } from "src/app/classes/profile";
 import { CommonModule } from "@angular/common";
-import { ProfilesService } from "src/app/services/profiles.service";
+import { FormsModule } from '@angular/forms';
 import { OrderByNamePipe } from "src/app/decorators/order-by-name.pipe";
 import { Title } from "@angular/platform-browser";
-import { FormsModule } from '@angular/forms';
+import { Profile } from "src/app/classes/profile";
+import { Availability } from "src/app/classes/availability";
+import { PlanningService } from "src/app/services/planning.service";
+import { PlanningDataService } from "src/app/services/planning-data.service";
+
+type Section = 'instruments' | 'choir' | 'directing';
+type Status = 'available' | 'absent' | 'unique';
+
+interface AvailabilityChanges {
+  is_available?: boolean;
+  is_designated?: boolean;
+  is_directing?: boolean;
+}
 
 @Component({
   selector: "app-planning-general",
   templateUrl: "./planning-general.component.html",
   styleUrls: ["./planning-general.component.scss"],
   standalone: true,
-  imports: [CommonModule, OrderByNamePipe, FormsModule],
+  imports: [
+    CommonModule, 
+    OrderByNamePipe, 
+    FormsModule
+  ],
 })
 export class PlanningGeneralComponent implements OnInit, AfterViewInit, OnDestroy {
   availabilities: Availability[] = [];
   profiles: Profile[] = [];
-  sundays: string[] = [];
+  sermonDates: string[] = [];
   months: { name: string; dates: string[] }[] = [];
   table: { [profileId: number]: { [date: string]: boolean } } = {};
   grouped: {
@@ -29,266 +42,113 @@ export class PlanningGeneralComponent implements OnInit, AfterViewInit, OnDestro
     };
   } = {};
 
-  private profileColorMap: { [profileId: number]: string } = {};
-  private colorPalette: string[] = [
-    "#fdfd03", "#499ae9", "#fe8b05", "#4eb72a", "#7bfbf6", "#05a149", "#ffc165", "#fe0312",
-    "#0197fd", "#d1ae07", "#d355b4", "#8974dd", "#e55151",  ];
-
   showAddProfile: { [key: string]: boolean } = {};
   selectedProfileId: { [key: string]: number|null } = {};
-  showDesignadosResumen = false;
+  showSummary = false;
+  showAddSpecialDate = false;
+  newSpecialDate: string = '';
+
+  private colorPalette: string[] = [
+    "#fdfd03", "#499ae9", "#fe8b05", "#4eb72a", "#7bfbf6", "#05a149", "#ffc165", "#fe0312",
+    "#0197fd", "#d1ae07", "#d355b4", "#8974dd", "#e55151"
+  ];
+  private profileColorMap: { [key: number]: string } = {};
 
   constructor(
-    private sAvailability: AvailabilityService,
-    private sProfile: ProfilesService,
-    private sTitle: Title
+    private sTitle: Title,
+    private planningService: PlanningService,
+    public planningData: PlanningDataService
   ) {}
 
   async ngOnInit() {
-    this.sTitle.setTitle(`Planificación General`);
+    this.sTitle.setTitle('Planificación General');
     await this.loadData();
   }
 
   async loadData() {
-    // Get all availabilities (only defined, not tbd)
-    const res = await this.sAvailability.getAvailabilityLogs(null);
-    const availabilitiesRaw = (res.data || []).filter(
-      (a: any) => a.is_available !== null && a.is_available !== undefined
-    );
-    this.availabilities = Availability.mapObjects(availabilitiesRaw);
-    // Get all profiles with at least one availability
-    const profileIds = Array.from(
-      new Set(this.availabilities.map((a) => a.profile?.id))
-    );
-    const profilesRes = await this.sProfile.getProfiles();
-    const profilesRaw = profilesRes.data || [];
-    this.profiles = profilesRaw
-      .map((u: any) => new Profile(u));
-    // Generar todos los domingos de los próximos 3 meses (a partir de mañana)
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const start = new Date(today);
-    start.setDate(today.getDate() + 1);
-    const end = new Date(today);
-    end.setMonth(today.getMonth() + 3);
-    const allSundays: string[] = [];
-    let d = new Date(start);
-    // Buscar el próximo domingo
-    d.setDate(d.getDate() + ((7 - d.getDay()) % 7));
-    while (d <= end) {
-      allSundays.push(d.toISOString().split("T")[0]);
-      d.setDate(d.getDate() + 7);
-    }
-    this.sundays = allSundays;
-    // Agrupar fechas por mes (en español)
-    const monthsMap: { [month: string]: { name: string, dates: string[] } } = {};
-    const locale = 'es-ES';
-    this.sundays.forEach(dateStr => {
-      const dateObj = new Date(dateStr + 'T12:00:00'); // Forzar horario para evitar problemas de zona
-      // Usar mes y año para evitar colisiones de nombre y agrupar correctamente
-      const monthKey = dateObj.getFullYear() + '-' + (dateObj.getMonth() + 1).toString().padStart(2, '0');
-      const monthName = dateObj.toLocaleString(locale, { month: 'long' });
-      if (!monthsMap[monthKey]) monthsMap[monthKey] = { name: monthName, dates: [] };
-      monthsMap[monthKey].dates.push(dateStr);
-    });
-    this.months = Object.keys(monthsMap)
-      .sort()
-      .map(key => ({ name: monthsMap[key].name, dates: monthsMap[key].dates }));
-    // Build table
-    this.table = {};
-    this.profiles.forEach((profile) => {
-      this.table[profile.id!] = {};
-      this.sundays.forEach((date) => {
-        const found = this.availabilities.find(
-          (a) => a.profile?.id === profile.id && a.sermon_date === date
-        );
-        if (found) {
-          this.table[profile.id!][date] = found.is_available === true;
-        }
-      });
-    });
-    // Agrupar por fecha y rol
-    this.grouped = {};
-    this.sundays.forEach((date) => {
-      const forDate = this.availabilities.filter((a) => a.sermon_date === date);
-      const instrumentsAvailable: Profile[] = [];
-      const instrumentsAbsent: Profile[] = [];
-      const choirAvailable: Profile[] = [];
-      const choirAbsent: Profile[] = [];
-      let directing: Profile | null = null;
-      forDate.forEach((a) => {
-        if (a.is_directing) {
-          directing = a.profile || null;
-        } else {
-          if (a.profile?.band_role) {
-            if (a.is_available) instrumentsAvailable.push(a.profile);
-            else instrumentsAbsent.push(a.profile);
-          }
-          if (a.profile?.choir_role) {
-            if (a.is_available) choirAvailable.push(a.profile);
-            else choirAbsent.push(a.profile);
-          }
-        }
-      });
-      this.grouped[date] = {
-        instruments: {
-          available: instrumentsAvailable,
-          absent: instrumentsAbsent,
-        },
-        choir: { available: choirAvailable, absent: choirAbsent },
-        directing,
-      };
-    });
+    // Cargar datos básicos
+    const { availabilities, profiles } = await this.planningService.getAvailabilities();
+    this.availabilities = availabilities;
+    this.profiles = profiles;
+
+    // Cargar fechas especiales y domingos
+    const specialSermons = await this.planningService.getSpecialSermons();
+    const specialDates = specialSermons.map(e => e.sermon_date);
+    const sundays = this.planningService.getSundays();
+    this.sermonDates = Array.from(new Set([...sundays, ...specialDates])).sort();
+
+    // Agrupar datos
+    this.months = this.planningData.groupByMonth(this.sermonDates);
+    this.table = this.planningData.buildAvailabilityTable(this.profiles, this.sermonDates, this.availabilities);
+    this.grouped = this.planningData.groupAvailabilitiesByDate(this.sermonDates, this.availabilities);
+  }
+  async onDesignatedChange(event: { profileId: number; date: string; checked: boolean }): Promise<void> {
+    const availability = this.getAvailability(event.profileId, event.date);
+    if (!availability?.id) return;
+    await this.planningService.updateAvailability(availability.id, { is_designated: event.checked });
+    await this.loadData();
   }
 
-  getProfileColor(profileId: number | undefined | null, alpha = 1): string {
-    if (!profileId && profileId !== 0) return alpha === 1 ? '#bbb' : 'rgba(187,187,187,0.2)';
-    if (!this.profileColorMap[profileId]) {
-      const colorIdx = profileId % this.colorPalette.length;
-      this.profileColorMap[profileId] = this.colorPalette[colorIdx];
-    }
-    const hex = this.profileColorMap[profileId];
-    if (alpha === 1) return hex;
-    // Convertir hex a rgba
-    const rgb = hex.replace('#','').match(/.{1,2}/g)?.map(x => parseInt(x, 16)) || [187,187,187];
-    return `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${alpha})`;
+  async onDesignatedCheckboxChange(event: Event, profileId: number, date: string): Promise<void> {
+    const checked = (event.target as HTMLInputElement).checked;
+    await this.onDesignatedChange({ profileId, date, checked });
   }
 
-  openAddProfile(section: 'instruments'|'choir'|'directing', status: 'available'|'absent'|'unique', date: string) {
-    this.showAddProfile[`${section}-${status}-${date}`] = true;
-    this.selectedProfileId[`${section}-${status}-${date}`] = null;
-  }
-
-  closeAddProfile(section: 'instruments'|'choir'|'directing', status: 'available'|'absent'|'unique', date: string) {
-    this.showAddProfile[`${section}-${status}-${date}`] = false;
-    this.selectedProfileId[`${section}-${status}-${date}`] = null;
-  }
-
-  async addProfileToCell(section: 'instruments'|'choir', status: 'available'|'absent', date: string) {
+  async addProfileToCell(section: Section, status: Status, date: string): Promise<void> {
     const key = `${section}-${status}-${date}`;
     const profileId = this.selectedProfileId[key];
     if (!profileId) return;
-    // Buscar el profile
-    const profile = this.profiles.find(p => p.id === +profileId);
-    if (!profile) return;
-    // Determinar is_available
-    let is_available = status === 'available';
-    // Buscar si ya existe una disponibilidad para ese usuario y fecha
-    const existing = this.availabilities.find(a => a.profile?.id === +profileId && a.sermon_date === date);
-    if (existing) {
-      // Si ya existe y el estado es distinto, actualizar
+
+    const is_available = status === 'available';
+    const existing = this.getAvailability(profileId, date);
+
+    if (existing?.id) {
       if (existing.is_available !== is_available) {
-        // Si pasa de disponible a ausente y estaba designado, quitar designación
-        let updateObj: any = { id: existing.id, is_available };
+        const changes: AvailabilityChanges = { is_available };
         if (!is_available && existing.is_designated) {
-          updateObj.is_designated = false;
+          changes.is_designated = false;
         }
-        await this.sAvailability.updateAvailability(updateObj);
+        await this.planningService.updateAvailability(existing.id, changes);
       }
-      // Si ya existe y el estado es igual, no hacer nada
     } else {
-      // Si no existe, crear
-      await this.sAvailability.logAvailability({
+      await this.planningService.createAvailability({
         sermon_date: date,
         id_user: profileId,
         is_available
       });
     }
+
     this.showAddProfile[key] = false;
     this.selectedProfileId[key] = null;
     await this.loadData();
   }
 
-  // Devuelve la Availability para un profileId y date
-  getAvailability(profileId: number, date: string): Availability | undefined {
-    return this.availabilities.find(a => a.profile?.id === profileId && a.sermon_date === date);
+  addProfileToDirecting(date: string): Promise<void> {
+    return this.onDirectorAdd(date);
   }
 
-  // Cambia el valor de is_designated y actualiza en Supabase
-  async toggleDesignated(profileId: number, date: string, checked: boolean) {
-    const availability = this.getAvailability(profileId, date);
-    if (!availability) return;
-    await this.sAvailability.updateAvailability({
-      id: availability.id,
-      is_designated: checked
-    });
-    // Refrescar datos para reflejar el cambio
-    await this.loadData();
-  }
-
-  // Handler para el checkbox de designado en la UI
-  onDesignatedCheckboxChange(event: Event, profileId: number, date: string) {
-    const checked = (event.target as HTMLInputElement).checked;
-    this.toggleDesignated(profileId, date, checked);
-  }
-
-  // Cierra el dropdown al hacer click fuera usando un event listener global
-  ngAfterViewInit() {
-    document.addEventListener('mousedown', this.handleGlobalClick, true);
-  }
-  ngOnDestroy() {
-    document.removeEventListener('mousedown', this.handleGlobalClick, true);
-  }
-
-  handleGlobalClick = (event: MouseEvent) => {
-    const openKeys = Object.keys(this.showAddProfile).filter(k => this.showAddProfile[k]);
-    if (openKeys.length === 0) return;
-    for (const key of openKeys) {
-      const el = document.querySelector(`[data-add-profile-key='${key}']`);
-      if (el && el.contains(event.target as Node)) {
-        // Click adentro, no cerrar
-        return;
-      }
-    }
-    // Click afuera, cerrar todos
-    for (const key of openKeys) {
-      this.showAddProfile[key] = false;
-      this.selectedProfileId[key] = null;
-    }
-  }
-
-  onDropdownFocusOut(event: FocusEvent, section: 'instruments'|'choir'|'directing', status: 'available'|'absent'|'unique', date: string) {
-    // Si el focus se va fuera del formulario, ocultar el dropdown
-    const relatedTarget = event.relatedTarget as HTMLElement | null;
-    const key = `${section}-${status}-${date}`;
-    // Si el focusout es hacia un elemento dentro del mismo formulario, no cerrar
-    if (relatedTarget && event.currentTarget && (event.currentTarget as HTMLElement).contains(relatedTarget)) {
-      return;
-    }
-    this.showAddProfile[key] = false;
-    this.selectedProfileId[key] = null;
-  }
-
-  // Helpers para filtrar perfiles según el rol
-  getProfilesForSection(section: 'instruments'|'choir'|'directing') {
-    if (section === 'instruments') {
-      return this.profiles.filter(p => p.band_role);
-    } else if (section === 'choir') {
-      return this.profiles.filter(p => p.choir_role);
-    } else if (section === 'directing') {
-      return this.profiles.filter(p => p.direction_role);
-    }
-    return [];
-  }
-
-  async addProfileToDirecting(date: string) {
+  async onDirectorAdd(date: string): Promise<void> {
     const key = `directing-unique-${date}`;
     const profileId = this.selectedProfileId[key];
     if (!profileId) return;
-    // Desmarcar a todos los que sean director en esa fecha
-    for (const a of this.availabilities.filter(a => a.sermon_date === date)) {
-      if (a.is_directing) {
-        await this.sAvailability.updateAvailability({ id: a.id, is_directing: false });
+
+    // Desmarcar director actual si existe
+    for (const a of this.availabilities.filter(a => a.sermon_date === date && a.is_directing)) {
+      if (a.id) {
+        await this.planningService.updateAvailability(a.id, { is_directing: false });
       }
     }
-    // Buscar cualquier availability para ese usuario y fecha (aunque esté como ausente, disponible o designado)
-    let availability = this.availabilities.find(a => a.profile?.id == profileId && a.sermon_date == date);
-    if (availability) {
-      // Actualizar el registro existente a director y limpiar los otros flags
-      await this.sAvailability.updateAvailability({ id: availability.id, is_directing: true, is_available: false, is_designated: false });
+
+    // Asignar nuevo director
+    const existing = this.getAvailability(profileId, date);
+    if (existing?.id) {
+      await this.planningService.updateAvailability(existing.id, {
+        is_directing: true,
+        is_available: false,
+        is_designated: false
+      });
     } else {
-      // Si no existe, crear uno nuevo
-      await this.sAvailability.logAvailability({
+      await this.planningService.createAvailability({
         sermon_date: date,
         id_user: profileId,
         is_directing: true,
@@ -296,42 +156,133 @@ export class PlanningGeneralComponent implements OnInit, AfterViewInit, OnDestro
         is_designated: false
       });
     }
+
     this.showAddProfile[key] = false;
     this.selectedProfileId[key] = null;
     await this.loadData();
   }
 
-  // Devuelve los designados por sección para una fecha
-  getDesignatedBySection(date: string) {
-    const result = { instruments: [] as string[], choir: [] as string[] };
-    this.availabilities.forEach(a => {
-      if (a.sermon_date === date && a.is_designated) {
-        const name = a.profile?.nickname || a.profile?.first_name || a.profile?.email || '';
-        if (a.profile?.band_role) result.instruments.push(name);
-        if (a.profile?.choir_role) result.choir.push(name);
+  async onAvailabilityAdd(section: Section, status: Status, date: string): Promise<void> {
+    const key = `${section}-${status}-${date}`;
+    const profileId = this.selectedProfileId[key];
+    if (!profileId) return;
+
+    const is_available = status === 'available';
+    const existing = this.getAvailability(profileId, date);
+
+    if (existing?.id) {
+      if (existing.is_available !== is_available) {
+        const changes: AvailabilityChanges = { is_available };
+        if (!is_available && existing.is_designated) {
+          changes.is_designated = false;
+        }
+        await this.planningService.updateAvailability(existing.id, changes);
       }
-    });
-    return result;
+    } else {
+      await this.planningService.createAvailability({
+        sermon_date: date,
+        id_user: profileId,
+        is_available
+      });
+    }
+
+    this.showAddProfile[key] = false;
+    this.selectedProfileId[key] = null;
+    await this.loadData();
   }
 
-  // Handler para el radio de director en la UI
-  async onDirectingRadioChange(event: Event, profileId: number, date: string) {
-    if (!(event.target as HTMLInputElement).checked) return;
-    // Desmarcar a todos los demás como director, músicos, coro y designado para esa fecha
-    for (const a of this.availabilities.filter(a => a.sermon_date === date)) {
-      if (a.profile?.id === profileId) {
-        await this.sAvailability.updateAvailability({ id: a.id, is_directing: true, is_available: false, is_designated: false });
-      } else {
-        // Si estaba como director, músicos, coro o designado, desmarcar
-        await this.sAvailability.updateAvailability({ id: a.id, is_directing: false, is_available: false, is_designated: false });
-      }
-    }
-    await this.loadData();
+  getAvailability(profileId: number, date: string): Availability | undefined {
+    return this.availabilities.find(a => 
+      a.profile?.id === profileId && a.sermon_date === date
+    );
   }
 
   getDirectorName(date: string): string {
     const director = this.grouped[date]?.directing;
-    return director ? (director.nickname || director.first_name || director.email || '') : '';
+    return director ? this.planningData.getProfileName(director) : '';
+  }
+
+  getDesignatedBySection(date: string) {
+    return {
+      instruments: this.availabilities
+        .filter(a => a.sermon_date === date && a.is_designated && a.profile?.band_role)
+        .map(a => this.planningData.getProfileName(a.profile)),
+      choir: this.availabilities
+        .filter(a => a.sermon_date === date && a.is_designated && a.profile?.choir_role)
+        .map(a => this.planningData.getProfileName(a.profile))
+    };
+  }
+
+  handleGlobalClick = (event: MouseEvent) => {
+    const openKeys = Object.keys(this.showAddProfile).filter(k => this.showAddProfile[k]);
+    if (openKeys.length === 0) return;
+
+    for (const key of openKeys) {
+      const el = document.querySelector(`[data-add-profile-key='${key}']`);
+      if (el && el.contains(event.target as Node)) return;
+    }
+
+    for (const key of openKeys) {
+      this.showAddProfile[key] = false;
+      this.selectedProfileId[key] = null;
+    }
+  }
+
+  getProfileColor(profileId: number | undefined | null, alpha = 1): string {
+    if (!profileId && profileId !== 0) return alpha === 1 ? '#bbb' : 'rgba(187,187,187,0.2)';
+    if (!this.profileColorMap[profileId]) {
+      this.profileColorMap[profileId] = this.colorPalette[profileId % this.colorPalette.length];
+    }
+    const hex = this.profileColorMap[profileId];
+    if (alpha === 1) return hex;
+    const rgb = hex.replace('#', '').match(/.{1,2}/g)?.map(x => parseInt(x, 16)) || [187, 187, 187];
+    return `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${alpha})`;
+  }
+
+  getProfilesForSection(section: Section): Profile[] {
+    switch (section) {
+      case 'instruments':
+        return this.profiles.filter(p => p.band_role);
+      case 'choir':
+        return this.profiles.filter(p => p.choir_role);
+      case 'directing':
+        return this.profiles.filter(p => p.direction_role);
+      default:
+        return [];
+    }
+  }
+
+  openAddProfile(section: Section, status: Status, date: string): void {
+    const key = `${section}-${status}-${date}`;
+    this.showAddProfile[key] = true;
+    this.selectedProfileId[key] = null;
+  }
+
+  ngAfterViewInit() {
+    document.addEventListener('mousedown', this.handleGlobalClick, true);
+  }
+
+  ngOnDestroy() {
+    document.removeEventListener('mousedown', this.handleGlobalClick, true);
+  }
+
+  openAddSpecialDate() {
+    this.showAddSpecialDate = true;
+    this.newSpecialDate = '';
+  }
+
+  async addSpecialDate() {
+    if (!this.newSpecialDate) return;
+    await this.planningService.addSpecialSermon(this.newSpecialDate);
+    this.showAddSpecialDate = false;
+    this.newSpecialDate = '';
+    await this.loadData();
+  }
+
+  getAvailabilitySummary() {
+    const designatedAvailabilities = this.availabilities.filter(a => 
+      a.is_designated || a.is_directing
+    );
+    return this.planningData.getAvailabilitySummary(designatedAvailabilities);
   }
 }
-

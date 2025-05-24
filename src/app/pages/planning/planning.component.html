@@ -1,8 +1,42 @@
-<app-header [color]="'is-info'" [title]="'PLANIFICACIÓN'"></app-header>
+<section class="hero is-info">
+    <div class="hero-body has-text-centered">
+        <h1 class="title">PLANIFICACIÓN</h1>
+        <button class="button is-small is-info is-light hero-mb-1em" (click)="showSummary = !showSummary">
+            <span class="icon"><i class="fa" [ngClass]="showSummary ? 'fa-chevron-up' : 'fa-chevron-down'"></i></span>
+            <span>{{ showSummary ? "Ocultar" : "Ver" }} próximos designados</span>
+        </button>
+        <div *ngIf="showSummary" class="overflow-x-auto">
+            <div class="flex-gap-2em-wrap-center">
+                <div *ngFor="let sermon of summaryDates" class="minw-150px">
+                    <div class="bold-mb-03em-capitalize">
+                        {{ sermon.date | date : "EEEE dd/MM" }}
+                    </div>
+                    <div class="fs-097-mb-02em">
+                        <span class="has-text-weight-bold">Director: </span>
+                        <span>{{ sermon.director }}</span>
+                    </div>
+                    <div class="fs-097-mb-02em">
+                        <span class="has-text-weight-bold">Músicos:</span>
+                        <span *ngIf="sermon.band.length; else empty">
+                            {{ sermon.band.join(", ") }}
+                        </span>
+                    </div>
+                    <div class="fs-097">
+                        <span class="has-text-weight-bold">Coro:</span>
+                        <span *ngIf="sermon.choir.length; else empty">
+                            {{ sermon.choir.join(", ") }}
+                        </span>
+                    </div>
+                    <ng-template #empty><span class="has-text-color-white"> -</span></ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 
-<section class="section" style="padding-top: 2rem;">
-    <div class="container" style="max-width: 45rem;">
+<section class="section section-pt-2rem">
+    <div class="container container-max-45rem">
 
         <mat-accordion>
             <ng-template ngFor let-month [ngForOf]="months" let-i="index">
@@ -11,16 +45,22 @@
                         <mat-panel-title>{{month.name}}</mat-panel-title>
                     </mat-expansion-panel-header>
 
-                    <ng-template ngFor let-sunday [ngForOf]="month.sundays">
-                        <div *ngIf="sunday" class="columns sunday-row" style="margin: 0;">
-                            <div class="column is-3">
-                                <p style="text-transform: capitalize;">{{ sunday | date : "EEEE dd" }}</p>
+                    <ng-template ngFor let-date [ngForOf]="month.dates">
+                        <div class="columns sunday-row sunday-row-margin0">
+                            <div class="column is-2">
+                                <p class="p-capitalize">
+                                    {{ date | date : "EEEE dd" }}
+                                </p>
                             </div>
-                            <div class="column has-text-centered" style="padding: 0;">
-                                <mat-radio-group (change)="selectionChanged($event, sunday)" [value]="getAvailabilityForDate(sunday)">
-                                    <mat-radio-button value="tbd" class="tbd" [disableRipple]="true">Sin definir</mat-radio-button>
-                                    <mat-radio-button value="true" class="available" [disableRipple]="true">Disponible</mat-radio-button>
-                                    <mat-radio-button value="false" class="unavailable" [disableRipple]="true">Ausente</mat-radio-button>
+                            <div class="column has-text-centered column-padding0">
+                                <mat-radio-group (change)="selectionChanged($event, date)"
+                                    [value]="getAvailabilityForDate(date)">
+                                    <mat-radio-button value="tbd" class="tbd" [disableRipple]="true">Sin
+                                        definir</mat-radio-button>
+                                    <mat-radio-button value="true" class="available"
+                                        [disableRipple]="true">Disponible</mat-radio-button>
+                                    <mat-radio-button value="false" class="unavailable"
+                                        [disableRipple]="true">Ausente</mat-radio-button>
                                 </mat-radio-group>
                             </div>
                         </div>

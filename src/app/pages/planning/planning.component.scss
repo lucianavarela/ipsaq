@@ -5,3 +5,55 @@
 mat-radio-button {
     margin-left: 2rem;
 }
+
+.section-pt-2rem {
+  padding-top: 2rem;
+}
+.container-max-45rem {
+  max-width: 45rem;
+}
+.sunday-row-margin0 {
+  margin: 0;
+}
+.column-padding0 {
+  padding: 0;
+}
+.p-capitalize {
+  text-transform: capitalize;
+}
+.special-service {
+    background-color: rgba(255, 221, 87, 0.1); // Light yellow background
+    border-left: 3px solid #ffdd57; // Warning color border
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    border-radius: 4px;
+}
+
+.ml-2 {
+    margin-left: 0.5rem;
+}
+
+
+.minw-150px {
+  min-width: 150px;
+}
+.bold-mb-03em-capitalize {
+  font-weight: bold;
+  margin-bottom: 0.3em;
+  text-transform: capitalize;
+}
+.fs-097-mb-02em {
+  font-size: 0.97em;
+  margin-bottom: 0.2em;
+}
+
+.overflow-x-auto {
+  margin-top: 2em;
+  overflow-x: auto;
+}
+.flex-gap-2em-wrap-center {
+  display: flex;
+  gap: 2em;
+  flex-wrap: wrap;
+  justify-content: center;
+}

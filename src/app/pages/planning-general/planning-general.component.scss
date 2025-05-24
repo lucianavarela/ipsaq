@@ -57,3 +57,85 @@ th {
 .add-profile-form {
   margin-top: 0.5em;
 }
+.hero-mb-1em {
+  margin-bottom: 1em;
+}
+.overflow-x-auto {
+  overflow-x: auto;
+}
+.flex-gap-2em-wrap-center {
+  display: flex;
+  gap: 2em;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.minw-180px {
+  min-width: 180px;
+}
+.bold-mb-03em-capitalize {
+  font-weight: bold;
+  margin-bottom: 0.3em;
+  text-transform: capitalize;
+}
+.fs-097-mb-02em {
+  font-size: 0.97em;
+  margin-bottom: 0.2em;
+}
+
+// Table cell styles
+.month-cell {
+  width: 6em;
+}
+
+.date-cell {
+  text-transform: capitalize;
+  width: 7em;
+}
+
+// Cell containers
+.cell-container {
+  position: relative;
+}
+
+// Profile lists and tags
+.profile-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8em;
+  align-items: center;
+}
+
+// Form controls
+.add-special-date-form {
+  margin-bottom: 1em;
+}
+
+.special-date-input {
+  width: 160px;
+  display: inline-block;
+}
+
+// Labels and text styles
+.weight-500 {
+  font-weight: 500;
+}
+
+.text-muted {
+  color: #aaa;
+}
+
+.fs-097 {
+  font-size: 0.97em;
+}
+
+// Checkbox label styles
+.designated-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.1em;
+  margin-bottom: 0;
+}
+
+.ml-1rem {
+  margin-left: 1rem;
+}
