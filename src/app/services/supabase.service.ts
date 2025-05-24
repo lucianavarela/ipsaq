@@ -63,15 +63,12 @@ export class SupabaseService {
     return this.user;
   }
 
-  setUser(user?: AuthUser) {
+  async setUser(user?: AuthUser): Promise<Profile | void> {
     if (user) {
-      this.user = new Profile(user);
+      return Promise.resolve(this.user = new Profile(user));
     } else {
-      if (localStorage.getItem("supabase.auth.token")) {
-        this.user = new Profile(JSON.parse(localStorage.getItem("supabase.auth.token") || '{}')['currentSession']['user']);
-      }
-      this.supabase.auth.getSession().then(s => {
-        this.user = s?.data?.session?.user || null;
+      return this.supabase.auth.getSession().then(s => {
+        this.user = new Profile(s?.data?.session?.user) || null;
       });
     }
   }

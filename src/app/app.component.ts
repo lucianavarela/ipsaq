@@ -56,9 +56,13 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.supabase.setUser();
-    this.loggedUser = this.supabase.getUser;
+    this.loadUser();
     if (!this.upcomingSermonSearched) this.setUpNewSermon();
+  }
+  
+  async loadUser() {
+    await this.supabase.setUser();
+    this.loggedUser = this.supabase.getUser;
   }
 
   isLoggedIn() {
