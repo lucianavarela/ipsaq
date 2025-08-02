@@ -11,7 +11,10 @@ export class SpecialSermonsService {
   constructor(public sSupabase: SupabaseService) { }
 
   getSpecialSermons() {
-    return this.sSupabase.get(this.table, '*').order('sermon_date', { ascending: true });
+    let date = new Date().toISOString().split('T')[0];
+    return this.sSupabase.get(this.table, '*')
+    .gte('sermon_date', date)
+    .order('sermon_date', { ascending: true });
   }
 
   addSpecialSermon(event: SpecialSermon) {

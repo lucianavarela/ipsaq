@@ -78,210 +78,82 @@
           </td>
           <td class="date-cell">{{ date | date : "EEEE dd" }}</td>
           <td class="directing-cell cell-container">
-            <ng-container *ngIf="grouped[date] && grouped[date].directing as director">
-              <span *ngIf="director && director.id" class="profile-tag directing"
-                [attr.data-color]="getProfileColor(director.id)" [style.--tag-color]="getProfileColor(director.id)"
-                [style.--tag-bg]="getProfileColor(director.id, 0.2)">
-                {{ director.nickname || director.first_name || director.email }}
-              </span>
-            </ng-container>
-            <button class="button is-small is-ghost add-btn-align"
-              (click)="openAddProfile('directing', 'unique', date)">
-              <span class="icon is-small has-text-success"><i class="fa fa-plus"></i></span>
-            </button>
-            <div *ngIf="showAddProfile['directing-unique-' + date]" class="add-profile-form"
-              [attr.data-add-profile-key]="'directing-unique-' + date">
-              <div class="field has-addons is-pulled-right">
-                <div class="control">
-                  <div class="select is-small">
-                    <select [(ngModel)]="
-                        selectedProfileId['directing-unique-' + date]
-                      ">
-                      <option *ngFor="
-                          let p of getProfilesForSection('directing')
-                            | orderByName
-                        " [value]="p.id">
-                        {{ p.nickname || p.first_name || p.email }}
-                      </option>
-                    </select>
-                  </div>
-                </div>
-                <div class="control">
-                  <button class="button is-small is-success" (click)="onDirectorAdd(date)">
-                    Agregar
-                  </button>
-                </div>
-              </div>
-            </div>
+            <app-availability-cell
+              [profiles]="([grouped[date].directing] | filterProfile)"
+              [profileOptions]="getProfilesForSection('directing')"
+              [date]="date"
+              type="directing"
+              section="directing"
+              [showAddForm]="showAddProfile['directing-unique-' + date]"
+              [selectedProfileId]="selectedProfileId['directing-unique-' + date]"
+              (showFormChange)="openAddProfile('directing', 'unique', date)"
+              (selectedProfileChange)="selectedProfileId['directing-unique-' + date] = $event"
+              (addProfile)="addProfileToDirecting(date)"
+            ></app-availability-cell>
           </td>
           <td class="cell-container">
-            <span *ngIf="grouped[date]?.instruments?.available?.length">
-              <ng-container *ngFor="
-                  let u of grouped[date].instruments.available | orderByName
-                ">
-                <span class="profile-tag" [attr.data-color]="getProfileColor(u.id)"
-                  [style.--tag-color]="getProfileColor(u.id)" [style.--tag-bg]="getProfileColor(u.id, 0.2)">
-                  {{ u.nickname || u.first_name || u.email }}
-                </span>
-              </ng-container>
-            </span>
-            <button class="button is-small is-ghost add-btn-align"
-              (click)="openAddProfile('instruments', 'available', date)">
-              <span class="icon is-small has-text-success"><i class="fa fa-plus"></i></span>
-            </button>
-            <div *ngIf="showAddProfile['instruments-available-' + date]" class="add-profile-form"
-              [attr.data-add-profile-key]="'instruments-available-' + date">
-              <div class="field has-addons is-pulled-right">
-                <div class="control">
-                  <div class="select is-small">
-                    <select [(ngModel)]="
-                        selectedProfileId['instruments-available-' + date]
-                      ">
-                      <option *ngFor="
-                          let p of getProfilesForSection('instruments')
-                            | orderByName
-                        " [value]="p.id">
-                        {{ p.nickname || p.first_name || p.email }}
-                      </option>
-                    </select>
-                  </div>
-                </div>
-                <div class="control">
-                  <button class="button is-small is-success"
-                    (click)="addProfileToCell('instruments', 'available', date)">
-                    Agregar
-                  </button>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td style="position: relative">
-            <span *ngIf="grouped[date]?.instruments?.absent?.length">
-              <ng-container *ngFor="let u of grouped[date].instruments.absent | orderByName">
-                <span class="profile-tag absent" [attr.data-color]="getProfileColor(u.id)"
-                  [style.--tag-color]="getProfileColor(u.id)" [style.--tag-bg]="getProfileColor(u.id, 0.2)">
-                  {{ u.nickname || u.first_name || u.email }}
-                </span>
-              </ng-container>
-            </span>
-            <button class="button is-small is-ghost add-btn-align"
-              (click)="openAddProfile('instruments', 'absent', date)">
-              <span class="icon is-small has-text-success"><i class="fa fa-plus"></i></span>
-            </button>
-            <div *ngIf="showAddProfile['instruments-absent-' + date]" class="add-profile-form"
-              [attr.data-add-profile-key]="'instruments-absent-' + date">
-              <div class="field has-addons is-pulled-right">
-                <div class="control">
-                  <div class="select is-small">
-                    <select [(ngModel)]="
-                        selectedProfileId['instruments-absent-' + date]
-                      ">
-                      <option *ngFor="
-                          let p of getProfilesForSection('instruments')
-                            | orderByName
-                        " [value]="p.id">
-                        {{ p.nickname || p.first_name || p.email }}
-                      </option>
-                    </select>
-                  </div>
-                </div>
-                <div class="control">
-                  <button class="button is-small is-success" (click)="addProfileToCell('instruments', 'absent', date)">
-                    Agregar
-                  </button>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td style="position: relative">
-            <span *ngIf="grouped[date]?.choir?.available?.length">
-              <ng-container *ngFor="let u of grouped[date].choir.available | orderByName">
-                <span class="profile-tag" [attr.data-color]="getProfileColor(u.id)"
-                  [style.--tag-color]="getProfileColor(u.id)" [style.--tag-bg]="getProfileColor(u.id, 0.2)">
-                  {{ u.nickname || u.first_name || u.email }}
-                </span>
-              </ng-container>
-            </span>
-            <button class="button is-small is-ghost add-btn-align" (click)="openAddProfile('choir', 'available', date)">
-              <span class="icon is-small has-text-success"><i class="fa fa-plus"></i></span>
-            </button>
-            <div *ngIf="showAddProfile['choir-available-' + date]" class="add-profile-form"
-              [attr.data-add-profile-key]="'choir-available-' + date">
-              <div class="field has-addons is-pulled-right">
-                <div class="control">
-                  <div class="select is-small">
-                    <select [(ngModel)]="selectedProfileId['choir-available-' + date]">
-                      <option *ngFor="
-                          let p of getProfilesForSection('choir') | orderByName
-                        " [value]="p.id">
-                        {{ p.nickname || p.first_name || p.email }}
-                      </option>
-                    </select>
-                  </div>
-                </div>
-                <div class="control">
-                  <button class="button is-small is-success" (click)="addProfileToCell('choir', 'available', date)">
-                    Agregar
-                  </button>
-                </div>
-              </div>
-            </div>
+            <app-availability-cell
+              [profiles]="grouped[date].instruments.available"
+              [profileOptions]="getProfilesForSection('instruments')"
+              [date]="date"
+              type="available"
+              section="instruments"
+              [showAddForm]="showAddProfile['instruments-available-' + date]"
+              [selectedProfileId]="selectedProfileId['instruments-available-' + date]"
+              (showFormChange)="openAddProfile('instruments', 'available', date)"
+              (selectedProfileChange)="selectedProfileId['instruments-available-' + date] = $event"
+              (addProfile)="addProfileToCell('instruments', 'available', date)"
+            ></app-availability-cell>
           </td>
           <td class="cell-container">
-            <span *ngIf="grouped[date]?.choir?.absent?.length">
-              <ng-container *ngFor="let u of grouped[date].choir.absent | orderByName">
-                <span class="profile-tag absent" [attr.data-color]="getProfileColor(u.id)"
-                  [style.--tag-color]="getProfileColor(u.id)" [style.--tag-bg]="getProfileColor(u.id, 0.2)">
-                  {{ u.nickname || u.first_name || u.email }}
-                </span>
-              </ng-container>
-            </span>
-            <button class="button is-small is-ghost add-btn-align" (click)="openAddProfile('choir', 'absent', date)">
-              <span class="icon is-small has-text-success"><i class="fa fa-plus"></i></span>
-            </button>
-            <div *ngIf="showAddProfile['choir-absent-' + date]" class="add-profile-form"
-              [attr.data-add-profile-key]="'choir-absent-' + date">
-              <div class="field has-addons is-pulled-right">
-                <div class="control">
-                  <div class="select is-small">
-                    <select [(ngModel)]="selectedProfileId['choir-absent-' + date]">
-                      <option *ngFor="
-                          let p of getProfilesForSection('choir') | orderByName
-                        " [value]="p.id">
-                        {{ p.nickname || p.first_name || p.email }}
-                      </option>
-                    </select>
-                  </div>
-                </div>
-                <div class="control">
-                  <button class="button is-small is-success" (click)="addProfileToCell('choir', 'absent', date)">
-                    Agregar
-                  </button>
-                </div>
-              </div>
-            </div>
+            <app-availability-cell
+              [profiles]="grouped[date].instruments.absent"
+              [profileOptions]="getProfilesForSection('instruments')"
+              [date]="date"
+              type="absent"
+              section="instruments"
+              [showAddForm]="showAddProfile['instruments-absent-' + date]"
+              [selectedProfileId]="selectedProfileId['instruments-absent-' + date]"
+              (showFormChange)="openAddProfile('instruments', 'absent', date)"
+              (selectedProfileChange)="selectedProfileId['instruments-absent-' + date] = $event"
+              (addProfile)="addProfileToCell('instruments', 'absent', date)"
+            ></app-availability-cell>
+          </td>
+          <td class="cell-container">
+            <app-availability-cell
+              [profiles]="grouped[date].choir.available"
+              [profileOptions]="getProfilesForSection('choir')"
+              [date]="date"
+              type="available"
+              section="choir"
+              [showAddForm]="showAddProfile['choir-available-' + date]"
+              [selectedProfileId]="selectedProfileId['choir-available-' + date]"
+              (showFormChange)="openAddProfile('choir', 'available', date)"
+              (selectedProfileChange)="selectedProfileId['choir-available-' + date] = $event"
+              (addProfile)="addProfileToCell('choir', 'available', date)"
+            ></app-availability-cell>
+          </td>
+          <td class="cell-container">
+            <app-availability-cell
+              [profiles]="grouped[date].choir.absent"
+              [profileOptions]="getProfilesForSection('choir')"
+              [date]="date"
+              type="absent"
+              section="choir"
+              [showAddForm]="showAddProfile['choir-absent-' + date]"
+              [selectedProfileId]="selectedProfileId['choir-absent-' + date]"
+              (showFormChange)="openAddProfile('choir', 'absent', date)"
+              (selectedProfileChange)="selectedProfileId['choir-absent-' + date] = $event"
+              (addProfile)="addProfileToCell('choir', 'absent', date)"
+            ></app-availability-cell>
           </td>
           <td class="designated-cell">
-            <div class="profile-list">
-              <ng-container *ngFor="let profile of profiles | orderByName">
-                <ng-container *ngIf="
-                    profile.id != null &&
-                    table[profile.id] &&
-                    table[profile.id][date] !== undefined &&
-                    table[profile.id][date]
-                  ">
-                  <label class="designated-checkbox-label">
-                    <input type="checkbox" [checked]="getAvailability(profile.id!, date)?.is_designated"
-                      (change)="onDesignatedCheckboxChange($event, profile.id!, date)" [attr.aria-label]="
-                        'Designar a ' +
-                        (profile.nickname ||
-                          profile.first_name ||
-                          profile.email)" />
-                    <span>{{profile.nickname || profile.first_name || profile.email}}</span>
-                  </label>
-                </ng-container>
-              </ng-container>
-            </div>
+            <app-designated-cell
+              [profiles]="profiles | orderByName"
+              [table]="table"
+              [date]="date"
+              (designatedChange)="onDesignatedCheckboxChange($event)"
+            ></app-designated-cell>
           </td>
         </tr>
       </ng-container>

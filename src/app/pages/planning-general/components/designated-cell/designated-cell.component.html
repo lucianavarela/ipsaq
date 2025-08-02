@@ -11,8 +11,8 @@
           <input type="checkbox"
                  [checked]="table[profile.id][date]"
                  (change)="onCheckboxChange($event, profile.id)"
-                 [attr.aria-label]="'Designar a ' + planningData.getProfileName(profile)" />
-          <span>{{planningData.getProfileName(profile)}}</span>
+                 [attr.aria-label]="'Designar a ' + profile.nickname" />
+          <span>{{profile.nickname}}</span>
         </label>
       </ng-container>
     </ng-container>

@@ -12,7 +12,6 @@ import { ProfilesService } from 'src/app/services/profiles.service';
 import { Title } from '@angular/platform-browser';
 import { SpecialSermon } from 'src/app/classes/special-sermon';
 import { PlanningService } from 'src/app/services/planning.service';
-import { PlanningDataService } from 'src/app/services/planning-data.service';
 
 @Component({
   selector: 'app-planning',
@@ -39,8 +38,7 @@ export class PlanningComponent implements OnInit {
     private sAvailability: AvailabilityService, 
     private supabase: SupabaseService,
     private sProfile: ProfilesService,
-    private planningService: PlanningService,
-    private planningDataService: PlanningDataService,
+    private planningDataService: PlanningService,
     private sTitle: Title
   ) {
     this.isMobile = window.innerWidth <= 767;
@@ -63,9 +61,9 @@ export class PlanningComponent implements OnInit {
       this.availabilityLogs = Availability.mapObjects(availabilityLogs.data);
       this.availabilityDict = this.buildDictAvailability();
     }
-    const specialSermons = await this.planningService.getSpecialSermons();
+    const specialSermons = await this.planningDataService.getSpecialSermons();
     const specialDates = specialSermons.map(e => e.sermon_date);
-    const sundays = this.planningService.getSundays(6);
+    const sundays = this.planningDataService.getSundays(6);
     const sermonDates = Array.from(new Set([...sundays, ...specialDates])).sort();
 
     // Agrupar datos

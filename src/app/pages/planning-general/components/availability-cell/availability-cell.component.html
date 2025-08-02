@@ -1,12 +1,10 @@
-<div class="cell-container">
+<div class="cell-container" [attr.data-add-profile-key]="section + '-' + type + '-' + date">
   <span *ngIf="profiles.length">
     <ng-container *ngFor="let profile of profiles">
       <span class="profile-tag" [class.absent]="type === 'absent'"
-            [attr.data-color]="planningData.getProfileColor(profile.id)"
-            [style.--tag-color]="planningData.getProfileColor(profile.id)"
-            [style.--tag-bg]="planningData.getProfileColor(profile.id, 0.2)">
-        {{ planningData.getProfileName(profile) }}
-      </span>
+                [attr.data-color]="profile.id | profileColor"
+                [style.--tag-color]="profile.id | profileColor"
+                [style.--tag-bg]="profile.id | profileColor:0.2">{{profile.nickname}}</span>
     </ng-container>
   </span>
   <button class="button is-small is-ghost add-btn-align" (click)="onAddClick()">
@@ -16,17 +14,15 @@
     <div class="field has-addons is-pulled-right">
       <div class="control">
         <div class="select is-small">
-          <select [(ngModel)]="selectedProfileId" (ngModelChange)="onProfileSelect($event)">
-            <option *ngFor="let p of planningData.filterProfilesByRole(profiles, section)"
-                    [value]="p.id">
-              {{planningData.getProfileName(p)}}
-            </option>
+          <select [ngModel]="selectedProfileId" (ngModelChange)="onProfileSelect($event)">
+            <option [value]="null">Seleccionar</option>
+            <option *ngFor="let p of profileOptions" [value]="p.id">{{p.nickname}}</option>
           </select>
         </div>
       </div>
       <div class="control">
-        <button class="button is-small is-success" (click)="onAddConfirm()">
-          Agregar
+        <button class="button is-small is-success" [disabled]="!selectedProfileId || disabled" (click)="onAddConfirm()">
+          <span class="icon is-small has-text-white"><i class="fa fa-check"></i></span>
         </button>
       </div>
     </div>

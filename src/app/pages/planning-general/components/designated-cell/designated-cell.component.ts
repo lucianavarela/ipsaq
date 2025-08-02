@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Profile } from 'src/app/classes/profile';
-import { PlanningDataService } from 'src/app/services/planning-data.service';
+import { PlanningService } from 'src/app/services/planning.service';
 
 @Component({
   selector: 'app-designated-cell',
@@ -22,7 +22,7 @@ export class DesignatedCellComponent {
     checked: boolean;
   }>();
 
-  constructor(public planningData: PlanningDataService) {}
+  constructor(public planningData: PlanningService) {}
 
   onCheckboxChange(event: Event, profileId: number): void {
     this.designatedChange.emit({

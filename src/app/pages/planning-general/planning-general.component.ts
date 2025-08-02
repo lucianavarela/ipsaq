@@ -6,7 +6,9 @@ import { Title } from "@angular/platform-browser";
 import { Profile } from "src/app/classes/profile";
 import { Availability } from "src/app/classes/availability";
 import { PlanningService } from "src/app/services/planning.service";
-import { PlanningDataService } from "src/app/services/planning-data.service";
+import { AvailabilityCellComponent } from './components/availability-cell/availability-cell.component';
+import { DesignatedCellComponent } from './components/designated-cell/designated-cell.component';
+import { FilterProfilePipe } from "src/app/decorators/filter-profile.pipe";
 
 type Section = 'instruments' | 'choir' | 'directing';
 type Status = 'available' | 'absent' | 'unique';
@@ -25,7 +27,10 @@ interface AvailabilityChanges {
   imports: [
     CommonModule, 
     OrderByNamePipe, 
-    FormsModule
+    FormsModule,
+    AvailabilityCellComponent,
+    DesignatedCellComponent,
+    FilterProfilePipe
   ],
 })
 export class PlanningGeneralComponent implements OnInit, AfterViewInit, OnDestroy {
@@ -48,16 +53,9 @@ export class PlanningGeneralComponent implements OnInit, AfterViewInit, OnDestro
   showAddSpecialDate = false;
   newSpecialDate: string = '';
 
-  private colorPalette: string[] = [
-    "#fdfd03", "#499ae9", "#fe8b05", "#4eb72a", "#7bfbf6", "#05a149", "#ffc165", "#fe0312",
-    "#0197fd", "#d1ae07", "#d355b4", "#8974dd", "#e55151"
-  ];
-  private profileColorMap: { [key: number]: string } = {};
-
   constructor(
     private sTitle: Title,
-    private planningService: PlanningService,
-    public planningData: PlanningDataService
+    public planningData: PlanningService
   ) {}
 
   async ngOnInit() {
@@ -67,14 +65,14 @@ export class PlanningGeneralComponent implements OnInit, AfterViewInit, OnDestro
 
   async loadData() {
     // Cargar datos básicos
-    const { availabilities, profiles } = await this.planningService.getAvailabilities();
+    const { availabilities, profiles } = await this.planningData.getAvailabilities();
     this.availabilities = availabilities;
     this.profiles = profiles;
 
     // Cargar fechas especiales y domingos
-    const specialSermons = await this.planningService.getSpecialSermons();
+    const specialSermons = await this.planningData.getSpecialSermons();
     const specialDates = specialSermons.map(e => e.sermon_date);
-    const sundays = this.planningService.getSundays();
+    const sundays = this.planningData.getSundays();
     this.sermonDates = Array.from(new Set([...sundays, ...specialDates])).sort();
 
     // Agrupar datos
@@ -85,13 +83,12 @@ export class PlanningGeneralComponent implements OnInit, AfterViewInit, OnDestro
   async onDesignatedChange(event: { profileId: number; date: string; checked: boolean }): Promise<void> {
     const availability = this.getAvailability(event.profileId, event.date);
     if (!availability?.id) return;
-    await this.planningService.updateAvailability(availability.id, { is_designated: event.checked });
+    await this.planningData.updateAvailability(availability.id, { is_designated: event.checked });
     await this.loadData();
   }
 
-  async onDesignatedCheckboxChange(event: Event, profileId: number, date: string): Promise<void> {
-    const checked = (event.target as HTMLInputElement).checked;
-    await this.onDesignatedChange({ profileId, date, checked });
+  async onDesignatedCheckboxChange(event: { profileId: number; date: string; checked: boolean }): Promise<void> {
+    await this.onDesignatedChange(event);
   }
 
   async addProfileToCell(section: Section, status: Status, date: string): Promise<void> {
@@ -108,10 +105,10 @@ export class PlanningGeneralComponent implements OnInit, AfterViewInit, OnDestro
         if (!is_available && existing.is_designated) {
           changes.is_designated = false;
         }
-        await this.planningService.updateAvailability(existing.id, changes);
+        await this.planningData.updateAvailability(existing.id, changes);
       }
     } else {
-      await this.planningService.createAvailability({
+      await this.planningData.createAvailability({
         sermon_date: date,
         id_user: profileId,
         is_available
@@ -135,20 +132,20 @@ export class PlanningGeneralComponent implements OnInit, AfterViewInit, OnDestro
     // Desmarcar director actual si existe
     for (const a of this.availabilities.filter(a => a.sermon_date === date && a.is_directing)) {
       if (a.id) {
-        await this.planningService.updateAvailability(a.id, { is_directing: false });
+        await this.planningData.updateAvailability(a.id, { is_directing: false });
       }
     }
 
     // Asignar nuevo director
     const existing = this.getAvailability(profileId, date);
     if (existing?.id) {
-      await this.planningService.updateAvailability(existing.id, {
+      await this.planningData.updateAvailability(existing.id, {
         is_directing: true,
         is_available: false,
         is_designated: false
       });
     } else {
-      await this.planningService.createAvailability({
+      await this.planningData.createAvailability({
         sermon_date: date,
         id_user: profileId,
         is_directing: true,
@@ -176,10 +173,10 @@ export class PlanningGeneralComponent implements OnInit, AfterViewInit, OnDestro
         if (!is_available && existing.is_designated) {
           changes.is_designated = false;
         }
-        await this.planningService.updateAvailability(existing.id, changes);
+        await this.planningData.updateAvailability(existing.id, changes);
       }
     } else {
-      await this.planningService.createAvailability({
+      await this.planningData.createAvailability({
         sermon_date: date,
         id_user: profileId,
         is_available
@@ -199,17 +196,17 @@ export class PlanningGeneralComponent implements OnInit, AfterViewInit, OnDestro
 
   getDirectorName(date: string): string {
     const director = this.grouped[date]?.directing;
-    return director ? this.planningData.getProfileName(director) : '';
+    return director?.nickname ?? '';
   }
 
   getDesignatedBySection(date: string) {
     return {
       instruments: this.availabilities
         .filter(a => a.sermon_date === date && a.is_designated && a.profile?.band_role)
-        .map(a => this.planningData.getProfileName(a.profile)),
+        .map(a => a.profile?.nickname || ''),
       choir: this.availabilities
         .filter(a => a.sermon_date === date && a.is_designated && a.profile?.choir_role)
-        .map(a => this.planningData.getProfileName(a.profile))
+        .map(a => a.profile?.nickname || '')
     };
   }
 
@@ -226,17 +223,6 @@ export class PlanningGeneralComponent implements OnInit, AfterViewInit, OnDestro
       this.showAddProfile[key] = false;
       this.selectedProfileId[key] = null;
     }
-  }
-
-  getProfileColor(profileId: number | undefined | null, alpha = 1): string {
-    if (!profileId && profileId !== 0) return alpha === 1 ? '#bbb' : 'rgba(187,187,187,0.2)';
-    if (!this.profileColorMap[profileId]) {
-      this.profileColorMap[profileId] = this.colorPalette[profileId % this.colorPalette.length];
-    }
-    const hex = this.profileColorMap[profileId];
-    if (alpha === 1) return hex;
-    const rgb = hex.replace('#', '').match(/.{1,2}/g)?.map(x => parseInt(x, 16)) || [187, 187, 187];
-    return `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${alpha})`;
   }
 
   getProfilesForSection(section: Section): Profile[] {
@@ -273,7 +259,7 @@ export class PlanningGeneralComponent implements OnInit, AfterViewInit, OnDestro
 
   async addSpecialDate() {
     if (!this.newSpecialDate) return;
-    await this.planningService.addSpecialSermon(this.newSpecialDate);
+    await this.planningData.addSpecialSermon(this.newSpecialDate);
     this.showAddSpecialDate = false;
     this.newSpecialDate = '';
     await this.loadData();

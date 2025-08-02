@@ -1,5 +1,4 @@
 .designated-cell {
-  padding: 0.5em;
 
   .profile-list {
     display: flex;
@@ -13,5 +12,6 @@
     align-items: center;
     gap: 0.1em;
     margin-bottom: 0;
+    font-size: 13px;
   }
 }
