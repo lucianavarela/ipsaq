@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class ProfileColorPipe implements PipeTransform {
   private colorPalette: string[] = [
-    "#fdfd03", "#499ae9", "#fe8b05", "#4eb72a", "#7bfbf6", "#05a149", "#ffc165", "#fe0312",
+    "#fdfd03", "#499ae9", "#fe8b05", "#4eb72a", "#7bfbf6", "#05a149", "#9d6719", "#921ea9",
     "#0197fd", "#d1ae07", "#d355b4", "#8974dd", "#e55151"
   ];
   private profileColorMap: { [key: number]: string } = {};

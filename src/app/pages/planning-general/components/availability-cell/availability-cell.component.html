@@ -1,22 +1,32 @@
 <div class="cell-container" [attr.data-add-profile-key]="section + '-' + type + '-' + date">
   <span *ngIf="profiles.length">
     <ng-container *ngFor="let profile of profiles">
-      <span class="profile-tag" [class.absent]="type === 'absent'"
-                [attr.data-color]="profile.id | profileColor"
-                [style.--tag-color]="profile.id | profileColor"
-                [style.--tag-bg]="profile.id | profileColor:0.2">{{profile.nickname}}</span>
+      <span
+        class="profile-tag"
+        *ngIf="type === 'available'"
+        [class.designated]="isDesignated(profile.id)"
+        [class.designated-border]="!isDesignated(profile.id)"
+        [attr.data-color]="profile.id | profileColor"
+        [style.--tag-color]="profile.id | profileColor"
+        [style.--tag-bg]="isDesignated(profile.id) ? (profile.id | profileColor:0.2) : 'transparent'"
+        (click)="onToggleDesignated(profile.id)"
+      >{{profile.nickname}}</span>
+      <span
+        class="profile-tag absent"
+        *ngIf="type === 'absent'"
+        [attr.data-color]="profile.id | profileColor"
+        [style.--tag-color]="profile.id | profileColor"
+        [style.--tag-bg]="'rgba(180,180,180,0.18)'"
+      >{{profile.nickname}}</span>
     </ng-container>
   </span>
-  <button class="button is-small is-ghost add-btn-align" (click)="onAddClick()">
-    <span class="icon is-small has-text-success"><i class="fa fa-plus"></i></span>
-  </button>
-  <div *ngIf="showAddForm" class="add-profile-form">
+  <div class="add-profile-form" *ngIf="showAddForm; else plusButton">
     <div class="field has-addons is-pulled-right">
       <div class="control">
         <div class="select is-small">
           <select [ngModel]="selectedProfileId" (ngModelChange)="onProfileSelect($event)">
-            <option [value]="null">Seleccionar</option>
-            <option *ngFor="let p of profileOptions" [value]="p.id">{{p.nickname}}</option>
+            <option [value]="null">Elegir</option>
+            <option *ngFor="let p of filteredProfileOptions" [value]="p.id">{{p.nickname}}</option>
           </select>
         </div>
       </div>
@@ -27,4 +37,9 @@
       </div>
     </div>
   </div>
+  <ng-template #plusButton>
+    <button class="button is-small is-ghost" (click)="onAddClick()">
+      <span class="icon is-small has-text-success"><i class="fa fa-plus"></i></span>
+    </button>
+  </ng-template>
 </div>

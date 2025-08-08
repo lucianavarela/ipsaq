@@ -48,12 +48,7 @@ th {
   background-color: rgba(180,180,180,0.18) !important;
   font-style: italic;
 }
-.add-btn-align {
-  position: absolute;
-  top: 0.2em;
-  right: 0.2em;
-  z-index: 2;
-}
+
 .add-profile-form {
   margin-top: 0.5em;
 }
@@ -92,6 +87,12 @@ th {
   width: 7em;
 }
 
+.directing-cell {
+  width: 10em;
+  cursor: default;
+  position: relative;
+}
+
 // Cell containers
 .cell-container {
   position: relative;
@@ -103,6 +104,10 @@ th {
   flex-wrap: wrap;
   gap: 0.8em;
   align-items: center;
+}
+
+.directing {
+  cursor: default;
 }
 
 // Form controls

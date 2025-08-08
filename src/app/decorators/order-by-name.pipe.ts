@@ -9,8 +9,8 @@ export class OrderByNamePipe implements PipeTransform {
   transform(profiles: Profile[]): Profile[] {
     if (!profiles) return [];
     return [...profiles].sort((a, b) => {
-      const nameA = (a.nickname || a.first_name || a.email || '').toLowerCase();
-      const nameB = (b.nickname || b.first_name || b.email || '').toLowerCase();
+      const nameA = (a.nickname || '').toLowerCase();
+      const nameB = (b.nickname || '').toLowerCase();
       return nameA.localeCompare(nameB, 'es');
     });
   }

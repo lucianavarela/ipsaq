@@ -61,7 +61,6 @@
         <th rowspan="2">Director</th>
         <th colspan="2">Instrumentos</th>
         <th colspan="2">Coro</th>
-        <th rowspan="2">Designado</th>
       </tr>
       <tr>
         <th>Disponibles</th>
@@ -78,23 +77,45 @@
           </td>
           <td class="date-cell">{{ date | date : "EEEE dd" }}</td>
           <td class="directing-cell cell-container">
-            <app-availability-cell
-              [profiles]="([grouped[date].directing] | filterProfile)"
-              [profileOptions]="getProfilesForSection('directing')"
-              [date]="date"
-              type="directing"
-              section="directing"
-              [showAddForm]="showAddProfile['directing-unique-' + date]"
-              [selectedProfileId]="selectedProfileId['directing-unique-' + date]"
-              (showFormChange)="openAddProfile('directing', 'unique', date)"
-              (selectedProfileChange)="selectedProfileId['directing-unique-' + date] = $event"
-              (addProfile)="addProfileToDirecting(date)"
-            ></app-availability-cell>
+            <span *ngIf="grouped[date]?.directing && grouped[date].directing?.id" class="profile-tag"
+              [attr.data-color]="grouped[date].directing?.id | profileColor"
+              [style.--tag-color]="grouped[date].directing?.id | profileColor"
+              [style.--tag-bg]="grouped[date].directing?.id | profileColor:0.2">
+              {{ grouped[date].directing?.nickname }}
+            </span>
+            <button class="button is-small is-ghost"
+              (click)="openAddProfile('directing', 'unique', date)">
+              <span class="icon is-small has-text-success"><i class="fa fa-plus"></i></span>
+            </button>
+            <div
+              *ngIf="showAddProfile['directing-unique-' + date]"
+              class="add-profile-form"
+              [attr.data-add-profile-key]="'directing-unique-' + date"
+            >
+              <div class="field has-addons is-pulled-right">
+                <div class="control">
+                  <div class="select is-small directing">
+                    <select [ngModel]="selectedProfileId['directing-unique-' + date]" (ngModelChange)="selectedProfileId['directing-unique-' + date] = $event">
+                      <option [value]="null">Elegir</option>
+                      <option *ngFor="let p of getProfilesForSection('directing')" [value]="p.id">
+                        {{ p.nickname }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="control">
+                  <button class="button is-small is-success" [disabled]="!selectedProfileId['directing-unique-' + date]" (click)="addProfileToDirecting(date)">
+                    <span class="icon is-small has-text-white"><i class="fa fa-check"></i></span>
+                  </button>
+                </div>
+              </div>
+            </div>
           </td>
           <td class="cell-container">
             <app-availability-cell
-              [profiles]="grouped[date].instruments.available"
+              [profiles]="grouped[date].instruments.available | orderByName"
               [profileOptions]="getProfilesForSection('instruments')"
+              [availabilities]="availabilities"
               [date]="date"
               type="available"
               section="instruments"
@@ -103,11 +124,12 @@
               (showFormChange)="openAddProfile('instruments', 'available', date)"
               (selectedProfileChange)="selectedProfileId['instruments-available-' + date] = $event"
               (addProfile)="addProfileToCell('instruments', 'available', date)"
+              (toggleDesignated)="onToggleDesignated($event)"
             ></app-availability-cell>
           </td>
           <td class="cell-container">
             <app-availability-cell
-              [profiles]="grouped[date].instruments.absent"
+              [profiles]="grouped[date].instruments.absent | orderByName"
               [profileOptions]="getProfilesForSection('instruments')"
               [date]="date"
               type="absent"
@@ -121,8 +143,9 @@
           </td>
           <td class="cell-container">
             <app-availability-cell
-              [profiles]="grouped[date].choir.available"
+              [profiles]="grouped[date].choir.available | orderByName"
               [profileOptions]="getProfilesForSection('choir')"
+              [availabilities]="availabilities"
               [date]="date"
               type="available"
               section="choir"
@@ -131,11 +154,12 @@
               (showFormChange)="openAddProfile('choir', 'available', date)"
               (selectedProfileChange)="selectedProfileId['choir-available-' + date] = $event"
               (addProfile)="addProfileToCell('choir', 'available', date)"
+              (toggleDesignated)="onToggleDesignated($event)"
             ></app-availability-cell>
           </td>
           <td class="cell-container">
             <app-availability-cell
-              [profiles]="grouped[date].choir.absent"
+              [profiles]="grouped[date].choir.absent | orderByName"
               [profileOptions]="getProfilesForSection('choir')"
               [date]="date"
               type="absent"
@@ -146,14 +170,6 @@
               (selectedProfileChange)="selectedProfileId['choir-absent-' + date] = $event"
               (addProfile)="addProfileToCell('choir', 'absent', date)"
             ></app-availability-cell>
-          </td>
-          <td class="designated-cell">
-            <app-designated-cell
-              [profiles]="profiles | orderByName"
-              [table]="table"
-              [date]="date"
-              (designatedChange)="onDesignatedCheckboxChange($event)"
-            ></app-designated-cell>
           </td>
         </tr>
       </ng-container>

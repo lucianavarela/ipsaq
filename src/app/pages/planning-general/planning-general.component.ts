@@ -1,14 +1,13 @@
 import { Component, OnInit, AfterViewInit, OnDestroy } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from '@angular/forms';
-import { OrderByNamePipe } from "src/app/decorators/order-by-name.pipe";
 import { Title } from "@angular/platform-browser";
 import { Profile } from "src/app/classes/profile";
 import { Availability } from "src/app/classes/availability";
 import { PlanningService } from "src/app/services/planning.service";
 import { AvailabilityCellComponent } from './components/availability-cell/availability-cell.component';
-import { DesignatedCellComponent } from './components/designated-cell/designated-cell.component';
-import { FilterProfilePipe } from "src/app/decorators/filter-profile.pipe";
+import { ProfileColorPipe } from "src/app/decorators/profile-color.pipe";
+import { OrderByNamePipe } from "src/app/decorators/order-by-name.pipe";
 
 type Section = 'instruments' | 'choir' | 'directing';
 type Status = 'available' | 'absent' | 'unique';
@@ -26,11 +25,10 @@ interface AvailabilityChanges {
   standalone: true,
   imports: [
     CommonModule, 
-    OrderByNamePipe, 
     FormsModule,
     AvailabilityCellComponent,
-    DesignatedCellComponent,
-    FilterProfilePipe
+    ProfileColorPipe,
+    OrderByNamePipe
   ],
 })
 export class PlanningGeneralComponent implements OnInit, AfterViewInit, OnDestroy {
@@ -138,6 +136,7 @@ export class PlanningGeneralComponent implements OnInit, AfterViewInit, OnDestro
 
     // Asignar nuevo director
     const existing = this.getAvailability(profileId, date);
+
     if (existing?.id) {
       await this.planningData.updateAvailability(existing.id, {
         is_directing: true,
@@ -188,9 +187,16 @@ export class PlanningGeneralComponent implements OnInit, AfterViewInit, OnDestro
     await this.loadData();
   }
 
-  getAvailability(profileId: number, date: string): Availability | undefined {
+  async onToggleDesignated({ profileId, date }: { profileId: number|undefined, date: string }) {
+    const availability = this.getAvailability(profileId, date);
+    if (!availability?.id) return;
+    await this.planningData.updateAvailability(availability.id, { is_designated: !availability.is_designated });
+    await this.loadData();
+  }
+
+  getAvailability(profileId: number|undefined, date: string): Availability | undefined {
     return this.availabilities.find(a => 
-      a.profile?.id === profileId && a.sermon_date === date
+      a.profile?.id == profileId && a.sermon_date == date
     );
   }
 
