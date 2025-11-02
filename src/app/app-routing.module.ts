@@ -130,6 +130,7 @@ export const appRoutes: Routes = [
   //{ path: "aniversario/feed", component: AniversaryFeedComponent },
   {
     path: 'planificacion-general',
+    canActivate: [AuthGuard],
     component: PlanningGeneralComponent
   },
 

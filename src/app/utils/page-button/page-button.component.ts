@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { SupabaseService } from 'src/app/services/supabase.service';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-page-button',
@@ -17,11 +18,19 @@ export class PageButtonComponent {
   @Input('hoverText') hoverText!: string | null;
   @Input('color') color: string = 'primary';
   @Output() clickedEvent = new EventEmitter<void>();
+  isLoggedIn = false;
+  private authSub?: Subscription;
 
   constructor(private supabase: SupabaseService) { }
 
-  isLoggedIn() {
-    return this.supabase.isLoggedIn();
+  ngOnInit() {
+    this.authSub = this.supabase.authState$.subscribe(val => {
+      this.isLoggedIn = val === true;
+    });
+  }
+
+  ngOnDestroy() {
+    this.authSub?.unsubscribe();
   }
 
   clicked(): void {

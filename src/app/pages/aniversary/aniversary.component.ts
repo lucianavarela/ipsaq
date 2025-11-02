@@ -16,6 +16,7 @@ import { RouterLink } from '@angular/router';
 import { SafeUrlPipe } from 'src/app/decorators/safe-url.pipe';
 import { TransformYoutubePipe } from 'src/app/decorators/transform-youtube.pipe';
 import { CommentBoxComponent } from '../comment-box/comment-box.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-aniversary',
@@ -35,6 +36,8 @@ import { CommentBoxComponent } from '../comment-box/comment-box.component';
 export class AniversaryComponent implements OnInit {
   @ViewChild('comments_gallery') commentsGalleryRef!: ElementRef;
   aniversaryVideo = "https://www.youtube.com/watch?v=1mgVp20uEFI";
+  isLoggedIn = false;
+  private authSub?: Subscription;
   isMobile = false;
   comments: Comment[] = [];
   currentCommentsToShow: Comment[] = [];
@@ -50,6 +53,9 @@ export class AniversaryComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.authSub = this.supabase.authState$.subscribe(val => {
+      this.isLoggedIn = val === true;
+    });
     this.sTitle.setTitle(`100 Aniversario`);
     this.sComments.getComments().then(res => {
       if (res.data) {
@@ -62,10 +68,10 @@ export class AniversaryComponent implements OnInit {
     });
   }
 
-  isLoggedIn() {
-    return this.supabase.isLoggedIn();
+  ngOnDestroy() {
+    this.authSub?.unsubscribe();
   }
-
+  
   saveComment() {
     if (this.newComment.message) {
       let commentToAdd: any = structuredClone(this.newComment);

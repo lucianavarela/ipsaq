@@ -2,7 +2,7 @@
   position: relative;
   
   .profile-tag {
-    border: 1px solid var(--tag-color);
+    border: 1px dashed var(--tag-color);
     background: transparent;
     color: var(--tag-color);
     cursor: pointer;
@@ -21,7 +21,7 @@
     }
     
     &.absent {
-      border-color: #bbb !important;
+      border-color: transparent;
       cursor: default;
       color: #888 !important;
       background-color: rgba(180,180,180,0.18) !important;
@@ -33,6 +33,7 @@
     background-color: var(--tag-bg);
     color: var(--tag-color);
     border-color: var(--tag-color);
+    border-style: solid;
   }
   
   .profile-tag.designated-border {

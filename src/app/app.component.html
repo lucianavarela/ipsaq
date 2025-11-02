@@ -15,7 +15,7 @@
     </div>
   </div>
   <div class="navbar-menu" [class.is-active]="menuDisplayed">
-    <a *ngIf="isLoggedIn(); then logout else login"></a>
+    <a *ngIf="loggedUser; then logout else login"></a>
     <div class="navbar-item" *ngIf="sermonIsLive">
       <a class="tag is-danger has-text-white live-tag" (click)="openSermon()">
         <span class="icon"><i class="fa-solid fa-2xs fa-circle"></i></span>EN VIVO
@@ -45,17 +45,17 @@
             <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-list-ul"></i></span>Listado de Canciones</a>
           <a class="navbar-item" [routerLink]="['ultimas_canciones']">
             <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-list-check"></i></span>Canciones Nuevas</a>
-          <a *ngIf="isLoggedIn()" class="navbar-item" [routerLink]="['nueva_cancion']">
+          <a *ngIf="loggedUser" class="navbar-item" [routerLink]="['nueva_cancion']">
             <span class="icon has-text-success"><i class="fa-solid fa-sm fa-plus"></i></span>Nueva Canción</a>
-          <a *ngIf="isLoggedIn()" class="navbar-item" [routerLink]="['canciones_sugeridas']">
+          <a *ngIf="loggedUser" class="navbar-item" [routerLink]="['canciones_sugeridas']">
             <span class="icon has-text-danger"><i class="fa-solid fa-sm fa-heart"></i></span>Canciones Sugeridas</a>
           <a class="navbar-item" [routerLink]="['sugerir_cancion']">
             <span class="icon has-text-primary"><i class="fa-solid fa-sm fa-hand-holding-heart"></i></span>Sugerir Canción</a>
         </div>
       </div>
-      <a *ngIf="isLoggedIn(); then loggedInSermons else loggedOutSermons"></a>
+      <a *ngIf="loggedUser; then loggedInSermons else loggedOutSermons"></a>
       <ng-template #loggedInSermons>
-        <div *ngIf="isLoggedIn()" class="navbar-item has-dropdown" [class.is-active]="dropdownDisplayed=='sermons'">
+        <div *ngIf="loggedUser" class="navbar-item has-dropdown" [class.is-active]="dropdownDisplayed=='sermons'">
           <a #sermonsDropdown class="navbar-link" (click)="toggleMenu('sermons')">Cultos</a>
           <div class="navbar-dropdown">
             <a class="navbar-item" [routerLink]="['cultos']">

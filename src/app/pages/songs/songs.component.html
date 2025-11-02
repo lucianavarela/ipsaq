@@ -129,7 +129,7 @@
                 <i class="fa-solid fa-guitar"></i>
               </span>
               <span>Acordes</span>
-              <span *ngIf="isLoggedIn()" style="margin-left: 5px;">
+              <span *ngIf="isLoggedIn" style="margin-left: 5px;">
                 <span class="has-text-weight-bold">{{ song.key }}</span>
                 <span class="icon is-small" *ngIf="song.verified">
                   <i class="fa-solid fa-check"></i>
@@ -227,12 +227,12 @@
               <i class="fa-solid" [ngClass]="[lyricsMatch(song.lyrics) ? 'fa-magnifying-glass-arrow-right' : 'fa-align-left']"></i>
             </span>
           </p>
-          <p *ngIf="song.link_chords" class="tag" [ngClass]="[isLoggedIn() && song.verified ? 'is-success' : 'is-warning']">
+          <p *ngIf="song.link_chords" class="tag" [ngClass]="[isLoggedIn && song.verified ? 'is-success' : 'is-warning']">
             <span class="icon is-small">
               <i class="fa-solid fa-guitar"></i>
             </span>
-            <span *ngIf="isLoggedIn() && song.key" class="has-text-weight-bold">{{ song.key }}</span>
-            <span class="icon is-small" *ngIf="isLoggedIn() && song.verified">
+            <span *ngIf="isLoggedIn && song.key" class="has-text-weight-bold">{{ song.key }}</span>
+            <span class="icon is-small" *ngIf="isLoggedIn && song.verified">
               <i class="fa-solid fa-check"></i>
             </span>
           </p>

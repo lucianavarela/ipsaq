@@ -8,6 +8,7 @@ import {
 } from '@supabase/supabase-js'
 import { environment } from 'src/environments/environment';
 import { Profile } from '../classes/profile';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -16,9 +17,26 @@ import { Profile } from '../classes/profile';
 export class SupabaseService {
   private supabase: SupabaseClient;
   private user!: any;
+  private authStateSubject = new BehaviorSubject<boolean|null>(null);
+  public authState$ = this.authStateSubject.asObservable();
 
   constructor() {
-    this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey)
+    this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
+
+    // Check initial session
+    this.supabase.auth.getSession().then(s => {
+      const session = s?.data?.session;
+      const loggedIn = !!session?.user;
+      this.user = loggedIn ? new Profile(session.user) : null;
+      this.authStateSubject.next(loggedIn);
+    });
+
+    // Listen for auth changes
+    this.supabase.auth.onAuthStateChange((event, session) => {
+      const loggedIn = !!session?.user;
+      this.user = loggedIn ? new Profile(session.user) : null;
+      this.authStateSubject.next(loggedIn);
+    });
   }
 
   get(table: string, queryFields?: string) {
@@ -71,10 +89,6 @@ export class SupabaseService {
         this.user = new Profile(s?.data?.session?.user) || null;
       });
     }
-  }
-
-  isLoggedIn() {
-    return this.user && this.user != null;
   }
 
   authChanges(

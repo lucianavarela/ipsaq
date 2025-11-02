@@ -16,6 +16,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { HighlightDirective } from 'src/app/decorators/highlight.directive';
 import { TextFoundPipe } from 'src/app/decorators/text-found.pipe';
 import { HeaderComponent } from 'src/app/utils/header/header.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-songs',
@@ -46,6 +47,8 @@ export class SongsComponent implements OnInit {
   dataSource!: MatTableDataSource<Song>;
   @ViewChild(MatSort) sort!: MatSort;
   isMobile = false;
+  isLoggedIn = false;
+  private authSub?: Subscription;
 
   constructor(private sSong: SongsService, private router: Router, private readonly supabase: SupabaseService,
     private sTitle: Title) {
@@ -53,6 +56,9 @@ export class SongsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.authSub = this.supabase.authState$.subscribe(val => {
+      this.isLoggedIn = val === true;
+    });
     if (this.router.url.indexOf('ultimas_canciones') > -1) {
       this.sTitle.setTitle('Ultimas Canciones');
       this.sSong.getLatestSongs().then(res => {
@@ -68,7 +74,7 @@ export class SongsComponent implements OnInit {
       });
     } else {
       this.sTitle.setTitle('Cancionero');
-      if (this.isLoggedIn() && !this.isMobile) {
+      if (this.isLoggedIn && !this.isMobile) {
         this.displayedColumns = ['index', 'beginning', 'last_used', 'amount_used', 'link_ipsaq', 'lyrics_and_chords'];
       }
       this.sSong.getSongs(true).then(res => {
@@ -77,9 +83,9 @@ export class SongsComponent implements OnInit {
       });
     }
   }
-
-  isLoggedIn() {
-    return this.supabase.isLoggedIn();
+  
+  ngOnDestroy() {
+    this.authSub?.unsubscribe();
   }
 
   initializeTable() {

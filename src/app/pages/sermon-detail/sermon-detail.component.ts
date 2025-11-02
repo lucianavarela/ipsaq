@@ -12,6 +12,7 @@ import { SafeUrlPipe } from 'src/app/decorators/safe-url.pipe';
 import { TransformYoutubePipe } from 'src/app/decorators/transform-youtube.pipe';
 import { SongsBoxComponent } from '../songs-box/songs-box.component';
 import { PageButtonComponent } from 'src/app/utils/page-button/page-button.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-sermon-detail',
@@ -29,6 +30,8 @@ import { PageButtonComponent } from 'src/app/utils/page-button/page-button.compo
   ]
 })
 export class SermonDetailComponent implements OnInit {
+  isLoggedIn = false;
+  private authSub?: Subscription;
   sermon!: Sermon;
   songs: SermonSong[] = []
   band: SermonBand[] = []
@@ -39,6 +42,10 @@ export class SermonDetailComponent implements OnInit {
   }
   
   ngOnInit() {
+    this.authSub = this.supabase.authState$.subscribe(val => {
+      this.isLoggedIn = val === true;
+    });
+
     this.activatedRoute.data.subscribe(({ sermon }) => {
       if (sermon) {
         this.sermon = new Sermon(sermon.data);
@@ -52,8 +59,8 @@ export class SermonDetailComponent implements OnInit {
       }
     })
   }
-  
-  isLoggedIn() {
-    return this.supabase.isLoggedIn();
+
+  ngOnDestroy() {
+    this.authSub?.unsubscribe();
   }
 }

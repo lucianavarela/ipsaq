@@ -4,7 +4,7 @@
 </div>
 
 <ng-template #urlButton>
-    <p class="control" *ngIf="!needsAuth || isLoggedIn()">
+    <p class="control" *ngIf="!needsAuth || isLoggedIn">
         <button title="Editar" class="button is-large is-{{color}}" [routerLink]="url ? [url] : []">
             <span class="icon">
                 <i class="{{icon}}"></i>
@@ -14,7 +14,7 @@
 </ng-template>
 
 <ng-template #clickButton>
-    <p class="control" *ngIf="!needsAuth || isLoggedIn()">
+    <p class="control" *ngIf="!needsAuth || isLoggedIn">
         <button title="Editar" class="button is-large is-{{color}}" (click)="clicked()">
             <span class="icon">
                 <i class="{{icon}}"></i>

@@ -7,6 +7,7 @@ import { Sermon } from 'src/app/classes/sermon';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from 'src/app/utils/header/header.component';
 import { SermonBoxComponent } from '../sermon-box/sermon-box.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-serie-detail',
@@ -20,12 +21,18 @@ import { SermonBoxComponent } from '../sermon-box/sermon-box.component';
   ]
 })
 export class SerieDetailComponent implements OnInit {
+  isLoggedIn = false;
+  private authSub?: Subscription;
   serie!: Series;
 
   constructor(private activatedRoute: ActivatedRoute, private supabase: SupabaseService, private sTitle: Title) {
   }
   
   ngOnInit() {
+    this.authSub = this.supabase.authState$.subscribe(val => {
+      this.isLoggedIn = val === true;
+    });
+
     this.activatedRoute.data.subscribe(({ serie }) => {
       if (serie) {
         this.serie = new Series(serie.data);
@@ -38,8 +45,8 @@ export class SerieDetailComponent implements OnInit {
       }
     })
   }
-
-  isLoggedIn() {
-    return this.supabase.isLoggedIn();
+  
+  ngOnDestroy() {
+    this.authSub?.unsubscribe();
   }
 }

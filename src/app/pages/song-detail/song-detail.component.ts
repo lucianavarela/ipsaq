@@ -9,6 +9,7 @@ import { HeaderComponent } from 'src/app/utils/header/header.component';
 import { SafeUrlPipe } from 'src/app/decorators/safe-url.pipe';
 import { TransformYoutubePipe } from 'src/app/decorators/transform-youtube.pipe';
 import { PageButtonComponent } from 'src/app/utils/page-button/page-button.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-song-detail',
@@ -24,19 +25,21 @@ import { PageButtonComponent } from 'src/app/utils/page-button/page-button.compo
   ]
 })
 export class SongDetailComponent implements OnInit {
+  private authSub?: Subscription;
+  isLoggedIn = false;
   song!: Song;
 
-  constructor(private sSongs: SongsService, private activatedRoute: ActivatedRoute, private _sanitizer: DomSanitizer,
-    private supabase: SupabaseService, private sTitle: Title) {
+  constructor(private activatedRoute: ActivatedRoute, private supabase: SupabaseService, private sTitle: Title) {
   }
+
   ngOnInit() {
+    this.authSub = this.supabase.authState$.subscribe(val => {
+      this.isLoggedIn = val === true;
+    });
+
     this.activatedRoute.data.subscribe(({ song }) => {
       this.song = new Song(song.data);
       this.sTitle.setTitle(`${this.song.index?this.song.index + ' | ':''}${(this.song.beginning || this.song.title||'Canción')}`);
     })
-  }
-  
-  isLoggedIn() {
-    return this.supabase.isLoggedIn();
   }
 }
