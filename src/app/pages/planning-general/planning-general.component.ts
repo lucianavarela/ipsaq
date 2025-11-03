@@ -5,9 +5,9 @@ import { Title } from "@angular/platform-browser";
 import { Profile } from "src/app/classes/profile";
 import { Availability } from "src/app/classes/availability";
 import { PlanningService } from "src/app/services/planning.service";
-import { AvailabilityCellComponent } from './components/availability-cell/availability-cell.component';
 import { ProfileColorPipe } from "src/app/decorators/profile-color.pipe";
 import { OrderByNamePipe } from "src/app/decorators/order-by-name.pipe";
+import { AvailabilityCellComponent } from "./availability-cell/availability-cell.component";
 
 type Section = 'instruments' | 'choir' | 'directing';
 type Status = 'available' | 'absent' | 'unique';
