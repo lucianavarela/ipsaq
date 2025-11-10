@@ -1,3 +1,19 @@
+@use "sass:meta";
+@use "bulma/bulma.sass" with (
+  $primary: #d2a28e,
+  $link: #d0b5a5,
+  $info: #7FA2E1,
+  $warning: #e8b359,
+  $success: #9fb45b,
+  $danger: #d64a57,
+  $danger-invert: #f7bcc1,
+  $info-invert: #D4E0F5,
+  $link-invert: #fbf4ef,
+  $warning-invert: #fff0d8,
+  $success-invert: #eef3e0,
+  $family-primary: "Nunito"
+) ;
+
 /* You can add global styles to this file, and also import other style files */
 
 @font-face {
@@ -52,18 +68,17 @@ h3 {
   }
 }
 
-$fa-font-path: "./webfonts";
+
 
 // importing core styling file
 
-@import "./assets/font-awesome/fontawesome.scss";
-@import "./assets/font-awesome/solid.scss";
-@import "./assets/font-awesome/regular.scss";
-@import "./assets/font-awesome/brands.scss";
-@import 'material-symbols';
-@import "./bulma.scss";
+@include meta.load-css("assets/font-awesome/fontawesome.scss", $with: ("fa-font-path": "./webfonts"));
+@include meta.load-css("assets/font-awesome/solid.scss");
+@include meta.load-css("assets/font-awesome/regular.scss");
+@include meta.load-css("assets/font-awesome/brands.scss");
+@include meta.load-css("bulma.scss");
 
-@import "~@ng-select/ng-select/themes/default.theme.css";
+@import "@ng-select/ng-select/themes/default.theme.css";
 
  /* Rules for sizing the icon. */
  .material-icons.md-8 { font-size: 8px; }
@@ -114,7 +129,7 @@ tr {
 
 .mat-mdc-checkbox-indeterminate.mat-mdc-accent .mat-mdc-checkbox-background,
 .mat-mdc-checkbox-checked.mat-mdc-accent .mat-mdc-checkbox-background {
-  background-color: $warning;
+  background-color: bulma.$warning;
 }
 
 .mat-mdc-tooltip-panel,
@@ -219,7 +234,7 @@ body.has-navbar-fixed-top:has(.hidden-frame) {
 
 .mat-mdc-slide-toggle.mat-mdc-checked {
   .mat-mdc-slide-toggle-thumb {
-    background: $success !important;
+    background: bulma.$success !important;
   }
 
   .mat-mdc-slide-toggle-bar {
@@ -244,7 +259,7 @@ table.schedule {
   }
 
   .fa-guitar {
-    color: $warning;
+    color: bulma.$warning;
   }
 
   .choir-icon {
@@ -273,9 +288,9 @@ mat-radio-button.mat-mdc-radio-checked.tbd .mdc-radio__outer-circle, mat-radio-b
 }
 
 mat-radio-button.mat-mdc-radio-checked.unavailable .mdc-radio__outer-circle, mat-radio-button.mat-mdc-radio-checked.unavailable .mdc-radio__inner-circle {
-  border-color: $danger !important;
+  border-color: bulma.$danger !important;
 }
 
 mat-radio-button.mat-mdc-radio-checked.available .mdc-radio__outer-circle, mat-radio-button.mat-mdc-radio-checked.available .mdc-radio__inner-circle {
-  border-color: $success !important;
+  border-color: bulma.$success !important;
 }
